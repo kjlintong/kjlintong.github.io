@@ -10,22 +10,22 @@
 <style>
 /* ===== Tokens — Warm Editorial v2 ===== */
 :root {
-  --bg: #f7f4ec;
+  --bg: #f6f3eb;
   --bg-warm: #efeadd;
   --surface: #fdfcf9;
   --fg: #2c2822;
-  --muted: #7a7367;
-  --accent: #c96442;
-  --accent-hover: #b85433;
-  --accent-light: rgba(201,100,66,0.1);
-  --border: #e0d9cc;
-  --border-light: #ede8dc;
-  --shadow: 0 1px 3px rgba(44,40,34,0.05), 0 6px 20px rgba(44,40,34,0.06);
-  --shadow-lg: 0 4px 8px rgba(44,40,34,0.06), 0 16px 48px rgba(44,40,34,0.08);
-  --green-deep: #2c3528;
-  --green-mid: #3d4f3a;
-  --green-accent: #5a7a54;
-  --brown-deep: #3d2e1f;
+  --muted: #8a8074;
+  --accent: #a07850;
+  --accent-hover: #8c6844;
+  --accent-light: rgba(160,120,80,0.08);
+  --gold-line: rgba(160,120,80,0.2);
+  --border: transparent;
+  --shadow: 0 1px 2px rgba(44,40,34,0.03), 0 4px 12px rgba(44,40,34,0.04);
+  --shadow-md: 0 2px 4px rgba(44,40,34,0.03), 0 8px 24px rgba(44,40,34,0.05);
+  --shadow-lg: 0 4px 8px rgba(44,40,34,0.03), 0 16px 48px rgba(44,40,34,0.06);
+  --charcoal: #1e1b18;
+  --charcoal-text: #d8d4cc;
+  --charcoal-muted: #8a8579;
 
   --font-display: "Merriweather", "Noto Serif SC", "Songti SC", serif;
   --font-body: "Inter", "Noto Sans SC", system-ui, sans-serif;
@@ -48,100 +48,90 @@ a { color: var(--accent); text-decoration: none; transition: color 0.15s; }
 a:hover { color: var(--accent-hover); }
 img { max-width: 100%; display: block; }
 
-.container { max-width: 800px; margin: 0 auto; padding: 0 28px; }
-.wide-container { max-width: 1020px; margin: 0 auto; padding: 0 28px; }
+.container { max-width: 900px; margin: 0 auto; padding: 0 36px; }
+.wide-container { max-width: 1020px; margin: 0 auto; padding: 0 36px; }
 
-section { padding: 80px 0; }
+section { padding: 100px 0; }
 
-/* --- Decorative Leaf Divider --- */
-.leaf-divider {
-  text-align: center;
-  padding: 24px 0;
-  opacity: 0.5;
-}
-.leaf-divider svg {
-  width: 200px;
-  height: 28px;
-}
+/* --- Decorative Leaf Divider — removed; whitespace is enough --- */
+.leaf-divider { display: none; }
 
 /* --- Nav --- */
 .nav {
   position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  background: rgba(247,244,236,0.9);
-  backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border-light);
+  background: rgba(242,239,230,0.92);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border-bottom: 0.5px solid var(--gold-line);
 }
 .nav-inner {
-  max-width: 800px; margin: 0 auto; padding: 0 28px;
-  height: 52px; display: flex; align-items: center; justify-content: space-between;
+  max-width: 900px; margin: 0 auto; padding: 0 36px;
+  height: 56px; display: flex; align-items: center; justify-content: space-between;
 }
 .nav-brand {
-  font-family: var(--font-display); font-size: 17px; font-weight: 700;
-  color: var(--fg); letter-spacing: -0.01em;
+  font-family: var(--font-display); font-size: 15px; font-weight: 700;
+  color: var(--fg); letter-spacing: -0.015em;
 }
-.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links { display: flex; gap: 32px; list-style: none; }
 .nav-links a {
-  font-size: 12px; font-weight: 500; color: var(--muted);
-  letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.15s;
+  font-size: 11px; font-weight: 500; color: var(--muted);
+  letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.35s ease-out;
 }
 .nav-links a:hover { color: var(--fg); }
 
-/* Language switcher */
+/* Language switcher — minimal underline style */
 .lang-switch {
   display: inline-flex;
-  border: 1px solid var(--border);
-  border-radius: 4px;
-  overflow: hidden;
 }
 .lang-btn {
-  padding: 3px 10px;
-  font-size: 12px;
+  padding: 4px 8px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--muted);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.15s;
-  letter-spacing: 0.02em;
+  transition: color 0.35s ease-out;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 .lang-btn:hover { color: var(--fg); }
 .lang-btn.active {
-  background: var(--accent);
-  color: #fff;
+  color: var(--fg);
+  border-bottom: 1px solid var(--accent);
 }
 
 /* --- Hero --- */
 .hero {
-  padding-top: 140px; padding-bottom: 64px;
+  padding-top: 160px; padding-bottom: 80px;
   position: relative;
   overflow: hidden;
 }
 .hero-botanical {
-  position: absolute; top: 60px; right: -20px;
-  width: 360px; height: 360px;
-  opacity: 0.06;
+  position: absolute; top: 40px; right: -40px;
+  width: 500px; height: 500px;
+  opacity: 0.03;
   pointer-events: none;
 }
 .hero-greeting {
-  font-size: 12px; font-weight: 600; color: var(--accent);
-  letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 18px;
+  font-size: 10px; font-weight: 500; color: var(--accent);
+  letter-spacing: 0.2em; text-transform: uppercase; margin-bottom: 24px;
   font-family: var(--font-body);
 }
 .hero-name {
-  font-family: var(--font-display); font-size: clamp(42px, 7vw, 64px);
-  font-weight: 900; line-height: 1.3; color: var(--fg);
-  letter-spacing: -0.02em; margin-bottom: 12px;
+  font-family: var(--font-display); font-size: clamp(44px, 7vw, 64px);
+  font-weight: 900; line-height: 1.25; color: var(--fg);
+  letter-spacing: -0.025em; margin-bottom: 16px;
 }
 .hero-subtitle {
-  font-family: var(--font-display); font-size: 20px; font-weight: 400;
-  font-style: italic; color: var(--muted); margin-bottom: 24px; line-height: 1.6;
+  font-family: var(--font-display); font-size: 18px; font-weight: 400;
+  font-style: italic; color: var(--muted); margin-bottom: 28px; line-height: 1.6;
 }
 .hero-description {
-  font-size: 17px; color: var(--muted); line-height: 1.8; max-width: 60ch;
+  font-size: 16px; color: var(--muted); line-height: 1.8; max-width: 58ch;
   margin-bottom: 36px;
 }
 .hero-location {
-  font-size: 14px; color: var(--muted); margin-bottom: 28px;
+  font-size: 13px; color: var(--muted); margin-bottom: 32px;
   display: flex; align-items: center; gap: 6px;
 }
 
@@ -166,36 +156,40 @@ section { padding: 80px 0; }
 
 /* --- Section Headings --- */
 .section-label {
-  font-size: 11px; font-weight: 600; color: var(--accent);
-  letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 12px;
+  font-size: 10px; font-weight: 500; color: var(--accent);
+  letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 16px;
 }
 .section-heading {
-  font-family: var(--font-display); font-size: 28px; font-weight: 700;
-  line-height: 1.35; color: var(--fg); margin-bottom: 36px;
+  font-family: var(--font-display); font-size: 30px; font-weight: 700;
+  line-height: 1.35; color: var(--fg); margin-bottom: 48px;
+  letter-spacing: -0.015em;
 }
 
 /* --- About --- */
 .about-section {
   background: linear-gradient(180deg, var(--surface) 0%, var(--bg-warm) 100%);
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
+  border-top: 0.5px solid var(--gold-line);
+  border-bottom: 0.5px solid var(--gold-line);
 }
 .about-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 48px;
+  gap: 64px;
   align-items: start;
 }
 .about-text {
   font-size: 16px; line-height: 1.9; color: var(--fg); max-width: 62ch;
 }
 .about-text p + p { margin-top: 16px; }
-.about-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 28px; }
+.about-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
 .tag {
-  display: inline-block; padding: 5px 14px; font-size: 13px;
-  color: var(--muted); background: var(--bg);
-  border: 1px solid var(--border); border-radius: 100px;
-  letter-spacing: 0.01em;
+  display: inline-block; padding: 4px 12px; font-size: 12px;
+  color: var(--muted); background: transparent;
+  border: 0.5px solid var(--gold-line); border-radius: 2px;
+  letter-spacing: 0.02em; transition: all 0.35s ease-out;
+}
+.tag:hover {
+  border-color: var(--accent); color: var(--accent);
 }
 
 .about-illustration {
@@ -223,128 +217,127 @@ section { padding: 80px 0; }
 
 /* --- Affiliation --- */
 .affiliation-card {
-  padding: 36px 40px; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 8px;
-  box-shadow: var(--shadow);
+  padding: 40px 44px; background: var(--surface);
+  box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
+  border-radius: 2px;
 }
-.affiliation-card::before {
+.affiliation-card::after {
   content: "";
-  position: absolute; top: 0; left: 0;
-  width: 4px; height: 100%;
-  background: var(--accent);
-  border-radius: 0 2px 2px 0;
+  position: absolute; bottom: 0; left: 0;
+  width: 100%; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
 }
 .affiliation-org {
   font-family: var(--font-display); font-size: 20px; font-weight: 700;
-  color: var(--fg); margin-bottom: 6px;
-  padding-left: 16px;
+  color: var(--fg); margin-bottom: 8px;
 }
 .affiliation-badge {
-  display: inline-block; font-size: 11px; font-weight: 600;
-  color: #fff; background: var(--accent); padding: 2px 10px; border-radius: 100px;
-  letter-spacing: 0.04em; margin-left: 10px; vertical-align: middle;
+  display: inline-block; font-size: 10px; font-weight: 500;
+  color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase;
+  margin-left: 12px; vertical-align: middle;
 }
-.affiliation-role { font-size: 14px; color: var(--accent); font-weight: 500; margin-bottom: 10px; padding-left: 16px; }
-.affiliation-desc { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 60ch; padding-left: 16px; }
+.affiliation-role { font-size: 14px; color: var(--muted); font-weight: 400; margin-bottom: 12px; }
+.affiliation-desc { font-size: 15px; color: var(--muted); line-height: 1.75; max-width: 60ch; }
 
 /* --- Skills --- */
 .skills-grid {
   display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;
 }
 .skill-card {
-  padding: 24px 20px; background: var(--surface);
-  border: 1px solid var(--border-light); border-radius: 8px;
-  transition: box-shadow 0.2s, transform 0.2s, border-color 0.2s;
+  padding: 28px 24px; background: var(--surface);
+  box-shadow: var(--shadow);
+  border-radius: 2px;
+  transition: all 0.35s ease-out;
 }
 .skill-card:hover {
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-md);
   transform: translateY(-2px);
-  border-color: var(--accent);
 }
-.skill-icon { width: 24px; height: 24px; color: var(--accent); margin-bottom: 12px; }
-.skill-name { font-size: 15px; font-weight: 600; color: var(--fg); margin-bottom: 4px; }
+.skill-icon { width: 20px; height: 20px; color: var(--accent); margin-bottom: 16px; }
+.skill-name { font-size: 15px; font-weight: 600; color: var(--fg); margin-bottom: 4px; letter-spacing: -0.005em; }
 .skill-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
 
 /* --- Projects --- */
 .dark-zone {
-  background: var(--green-deep);
-  color: #ddd8ce;
+  background: var(--charcoal);
+  color: var(--charcoal-text);
   position: relative;
   overflow: hidden;
 }
 .dark-zone-decor {
-  position: absolute; bottom: -40px; right: -20px;
-  width: 280px; height: 280px;
-  opacity: 0.04;
+  position: absolute; bottom: -60px; right: -30px;
+  width: 400px; height: 400px;
+  opacity: 0.025;
   pointer-events: none;
 }
-.dark-zone .section-label { color: var(--green-accent); }
-.dark-zone .section-heading { color: #ece8df; }
-.project-list { display: flex; flex-direction: column; gap: 14px; }
+.dark-zone .section-label { color: var(--accent); }
+.dark-zone .section-heading { color: var(--charcoal-text); }
+.project-list { display: flex; flex-direction: column; gap: 12px; }
 .project-card {
-  padding: 28px; background: rgba(255,255,255,0.05);
-  border: 1px solid rgba(255,255,255,0.08); border-radius: 8px;
-  transition: box-shadow 0.2s, background 0.2s;
+  padding: 32px 36px; background: rgba(255,255,255,0.03);
+  border: 0.5px solid rgba(255,255,255,0.06); border-radius: 2px;
+  transition: all 0.35s ease-out;
 }
 .project-card:hover {
-  background: rgba(255,255,255,0.08);
-  box-shadow: 0 0 0 1px var(--green-accent);
+  background: rgba(255,255,255,0.05);
+  border-color: rgba(160,120,80,0.3);
 }
-.project-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.project-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 10px; }
 .project-name {
   font-family: var(--font-display); font-size: 17px; font-weight: 700;
-  color: #ece8df; letter-spacing: -0.01em;
+  color: var(--charcoal-text); letter-spacing: -0.01em;
 }
 .project-name a { color: inherit; }
 .project-name a:hover { color: var(--accent); }
 .project-meta { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
-.project-stat { display: flex; align-items: center; gap: 4px; font-size: 13px; color: #9a9589; }
+.project-stat { display: flex; align-items: center; gap: 4px; font-size: 13px; color: var(--charcoal-muted); }
 .project-stat .icon { width: 14px; height: 14px; }
-.project-desc { font-size: 14px; color: #a8a196; line-height: 1.7; margin-bottom: 10px; }
+.project-desc { font-size: 14px; color: #9a9589; line-height: 1.75; margin-bottom: 12px; }
 .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .project-tag {
-  font-size: 11px; padding: 2px 8px; color: #8a8579;
-  background: rgba(255,255,255,0.06); border-radius: 3px; letter-spacing: 0.01em;
+  font-size: 11px; padding: 2px 8px; color: var(--charcoal-muted);
+  background: rgba(255,255,255,0.04); border-radius: 1px; letter-spacing: 0.02em;
 }
-.project-link { font-size: 13px; color: var(--green-accent); display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; }
-.project-link:hover { color: var(--accent); }
+.project-link { font-size: 13px; color: var(--accent); display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; }
+.project-link:hover { color: #b89060; }
 
 /* Blog */
 .blog-section {
-  padding: 56px 0;
+  padding: 80px 0;
   background: var(--bg-warm);
-  border-top: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
+  border-top: 0.5px solid var(--gold-line);
+  border-bottom: 0.5px solid var(--gold-line);
 }
 .blog-card {
   display: flex; align-items: center; justify-content: space-between;
-  gap: 24px; padding: 28px 32px; background: var(--surface);
-  border: 1px solid var(--border); border-radius: 8px;
-  transition: box-shadow 0.2s;
+  gap: 24px; padding: 32px 36px; background: var(--surface);
+  box-shadow: var(--shadow); border-radius: 2px;
+  transition: all 0.35s ease-out;
 }
-.blog-card:hover { box-shadow: var(--shadow); }
+.blog-card:hover { box-shadow: var(--shadow-md); }
 .blog-info h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
 .blog-info p { font-size: 14px; color: var(--muted); }
-.blog-arrow { width: 20px; height: 20px; color: var(--muted); transition: transform 0.2s, color 0.15s; }
+.blog-arrow { width: 20px; height: 20px; color: var(--muted); transition: transform 0.35s ease-out, color 0.35s ease-out; }
 .blog-card:hover .blog-arrow { transform: translateX(4px); color: var(--accent); }
 
 /* Contact */
 .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
 .contact-item {
   display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 16px; font-size: 14px; font-weight: 500;
+  padding: 10px 20px; font-size: 13px; font-weight: 500;
   color: var(--fg); background: var(--surface);
-  border: 1px solid var(--border); border-radius: 8px;
-  transition: all 0.15s;
+  box-shadow: var(--shadow); border-radius: 2px;
+  transition: all 0.35s ease-out;
+  letter-spacing: 0.01em;
 }
-.contact-item:hover { border-color: var(--accent); color: var(--accent); }
+.contact-item:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); color: var(--accent); }
 .contact-item .icon { width: 16px; height: 16px; }
 
 /* Footer */
 .footer {
-  padding: 40px 0; border-top: 1px solid var(--border-light);
+  padding: 48px 0; border-top: 0.5px solid var(--gold-line);
   text-align: center;
 }
 .footer-text { font-size: 13px; color: var(--muted); }
@@ -399,7 +392,7 @@ section { padding: 80px 0; }
 
 <!-- Hero -->
 <section class="hero" data-od-id="hero">
-  <!-- Botanical watermark -->
+  <!-- Botanical watermark — top right -->
   <svg class="hero-botanical" viewBox="0 0 400 400" fill="none">
     <g stroke="#5a7a54" stroke-width="1.2">
       <path d="M200 380 C200 200, 140 100, 200 20 C160 60, 120 100, 100 140 C130 120, 170 120, 200 100"/>
@@ -410,6 +403,19 @@ section { padding: 80px 0; }
       <path d="M230 260 C250 240, 270 230, 290 235 C270 235, 250 240, 230 250"/>
     </g>
   </svg>
+
+  <!-- Subtle paw print decoration — bottom left of hero text area -->
+  <div style="position:absolute;bottom:60px;left:80px;pointer-events:none;opacity:0.02;">
+    <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+      <!-- Main pad -->
+      <ellipse cx="20" cy="26" rx="10" ry="8" fill="#5a7a54"/>
+      <!-- Four toe pads -->
+      <ellipse cx="9" cy="14" rx="4" ry="5" fill="#5a7a54"/>
+      <ellipse cx="16" cy="8" rx="3.5" ry="5" fill="#5a7a54"/>
+      <ellipse cx="24" cy="8" rx="3.5" ry="5" fill="#5a7a54"/>
+      <ellipse cx="31" cy="14" rx="4" ry="5" fill="#5a7a54"/>
+    </svg>
+  </div>
 
   <div class="container">
     <p class="hero-greeting" data-i18n="hero-greeting">Hello World</p>
@@ -450,6 +456,19 @@ section { padding: 80px 0; }
 
 <!-- About -->
 <section id="about" class="about-section" data-od-id="about">
+  <!-- Trailing vine — top-left corner, subtle -->
+  <div style="position:absolute;top:0;left:0;pointer-events:none;opacity:0.08;">
+    <svg width="200" height="120" viewBox="0 0 200 120" fill="none">
+      <path d="M5 5 Q30 10, 50 30 Q70 50, 40 70 Q10 90, 5 115" stroke="#5a7a54" stroke-width="1.5" fill="none"/>
+      <!-- Leaves along vine -->
+      <path d="M30 15 Q20 8, 15 12 Q22 14, 28 18" fill="#5a7a54" opacity="0.7"/>
+      <path d="M50 30 Q62 22, 68 26 Q60 30, 52 34" fill="#6b8f64" opacity="0.6"/>
+      <path d="M70 50 Q60 42, 55 46 Q62 50, 72 54" fill="#4a6a44" opacity="0.65"/>
+      <path d="M40 70 Q30 62, 25 66 Q32 70, 42 74" fill="#5a7a54" opacity="0.7"/>
+      <path d="M15 90 Q5 82, 0 86 Q8 90, 18 94" fill="#6b8f64" opacity="0.6"/>
+    </svg>
+  </div>
+
   <div class="container">
     <p class="section-label" data-i18n="about-label">关于我</p>
     <div class="about-content">
@@ -472,7 +491,7 @@ section { padding: 80px 0; }
 
       <!-- Illustrations -->
       <div class="about-illustration">
-        <!-- Potted Plant -->
+        <!-- Potted Plant (Monstera) -->
         <svg class="pot-plant" width="140" height="160" viewBox="0 0 140 160" fill="none">
           <!-- Pot -->
           <path d="M35 120 L40 155 L100 155 L105 120 Z" fill="#d4c4a8" stroke="#b8a88e" stroke-width="1.5"/>
@@ -491,7 +510,65 @@ section { padding: 80px 0; }
           <path d="M55 70 Q62 65, 68 62" stroke="#4a6a44" stroke-width="0.8" fill="none"/>
         </svg>
 
-        <!-- Cat & Dog -->
+        <!-- Second pot — small succulent arrangement -->
+        <svg width="100" height="80" viewBox="0 0 100 80" fill="none" style="opacity:0.5;margin-top:-10px;">
+          <!-- Pot — low round -->
+          <path d="M25 65 L28 75 L72 75 L75 65 Z" fill="#d4c4a8" stroke="#b8a88e" stroke-width="1"/>
+          <ellipse cx="50" cy="65" rx="26" ry="5" fill="#c9b89c" stroke="#b8a88e" stroke-width="1"/>
+          <!-- Succulent 1 — left rosette -->
+          <ellipse cx="35" cy="55" rx="10" ry="7" fill="#6b8f64" opacity="0.7"/>
+          <path d="M35 55 Q30 48, 28 50 Q32 52, 35 53" fill="#5a7a54" opacity="0.6"/>
+          <path d="M35 55 Q40 48, 42 50 Q38 52, 35 53" fill="#4a6a44" opacity="0.5"/>
+          <!-- Succulent 2 — center tall -->
+          <ellipse cx="50" cy="48" rx="8" ry="10" fill="#7aa872" opacity="0.7"/>
+          <path d="M50 48 Q45 40, 44 42 Q47 44, 50 46" fill="#6b8f64" opacity="0.6"/>
+          <path d="M50 48 Q55 40, 56 42 Q53 44, 50 46" fill="#5a7a54" opacity="0.5"/>
+          <!-- Succulent 3 — right round -->
+          <ellipse cx="65" cy="54" rx="9" ry="6" fill="#6b8f64" opacity="0.65"/>
+          <path d="M65 54 Q60 48, 59 50 Q62 52, 65 52" fill="#4a6a44" opacity="0.5"/>
+          <!-- Tiny pebbles -->
+          <circle cx="42" cy="63" r="1.5" fill="#b8a88e" opacity="0.4"/>
+          <circle cx="55" cy="62" r="1" fill="#b8a88e" opacity="0.4"/>
+        </svg>
+
+        <!-- Sleeping Cat — curled up, peaceful -->
+        <svg width="90" height="60" viewBox="0 0 90 60" fill="none" style="opacity:0.6;">
+          <!-- Body — curled ball shape -->
+          <ellipse cx="45" cy="42" rx="30" ry="16" fill="#dab07a"/>
+          <!-- Lighter belly/face area -->
+          <ellipse cx="38" cy="38" rx="18" ry="14" fill="#f0dcc8"/>
+          <!-- Tail wrapping around body -->
+          <path d="M72 42 C80 38, 82 28, 78 22 C74 18, 68 22, 70 28" stroke="#d4a06a" stroke-width="4" stroke-linecap="round" fill="none"/>
+          <!-- Head — resting on paws -->
+          <ellipse cx="32" cy="34" rx="14" ry="12" fill="#dab07a"/>
+          <!-- Left ear -->
+          <path d="M22 26 L18 18 L28 24 Z" fill="#dab07a" stroke="#c49860" stroke-width="0.8"/>
+          <!-- Right ear -->
+          <path d="M42 26 L46 18 L36 24 Z" fill="#dab07a" stroke="#c49860" stroke-width="0.8"/>
+          <!-- Inner ear -->
+          <path d="M23 26 L20 20 L27 24 Z" fill="#e8b8a0" opacity="0.4"/>
+          <path d="M41 26 L44 20 L37 24 Z" fill="#e8b8a0" opacity="0.4"/>
+          <!-- Closed eyes — sleep lines -->
+          <path d="M24 32 Q26 34, 28 32" stroke="#b89060" stroke-width="1" fill="none" stroke-linecap="round"/>
+          <path d="M36 32 Q38 34, 40 32" stroke="#b89060" stroke-width="1" fill="none" stroke-linecap="round"/>
+          <!-- Nose -->
+          <path d="M31 34 L32 35.5 L33 34" fill="#e8a0a0"/>
+          <!-- Whiskers -->
+          <line x1="18" y1="33" x2="25" y2="34" stroke="#c49860" stroke-width="0.6"/>
+          <line x1="17" y1="35" x2="25" y2="35" stroke="#c49860" stroke-width="0.6"/>
+          <line x1="39" y1="34" x2="46" y2="33" stroke="#c49860" stroke-width="0.6"/>
+          <line x1="39" y1="35" x2="47" y2="35" stroke="#c49860" stroke-width="0.6"/>
+          <!-- Tabby stripe on forehead -->
+          <path d="M32 24 L32 20 M30 25 L29 21 M34 25 L35 21" stroke="#c49860" stroke-width="0.7" stroke-linecap="round"/>
+          <!-- Front paws tucked under chin -->
+          <ellipse cx="30" cy="44" rx="6" ry="4" fill="#ddb07a"/>
+          <ellipse cx="40" cy="44" rx="6" ry="4" fill="#ddb07a"/>
+          <!-- Paw pads -->
+          <ellipse cx="28" cy="46" rx="2" ry="1.2" fill="#e8b8a0" opacity="0.5"/>
+          <ellipse cx="42" cy="46" rx="2" ry="1.2" fill="#e8b8a0" opacity="0.5"/>
+        </svg>
+
+        <!-- Cat & Dog (alert pets still here) -->
         <div class="pet-row">
           <!-- Cat — sitting orange tabby, warm and observant -->
           <svg class="pet-cat" width="64" height="72" viewBox="0 0 64 72" fill="none">
@@ -588,6 +665,21 @@ section { padding: 80px 0; }
             <path d="M22 34 Q28 38, 34 36 Q40 38, 46 34" fill="#f0dca8" opacity="0.4"/>
           </svg>
         </div>
+
+        <!-- Mini sleeping tabby kitten — bottom right corner -->
+        <svg width="50" height="35" viewBox="0 0 50 35" fill="none" style="opacity:0.4;margin-top:4px;">
+          <!-- Body — tiny curled -->
+          <ellipse cx="25" cy="22" rx="18" ry="9" fill="#dab07a"/>
+          <!-- Head -->
+          <ellipse cx="10" cy="20" rx="7" ry="6" fill="#dab07a"/>
+          <!-- Ears -->
+          <path d="M5 15 L3 10 L9 14 Z" fill="#dab07a" stroke="#c49860" stroke-width="0.5"/>
+          <path d="M15 15 L17 10 L11 14 Z" fill="#dab07a" stroke="#c49860" stroke-width="0.5"/>
+          <!-- Zzz -->
+          <text x="28" y="8" font-size="5" fill="#8a8074" font-family="serif">z</text>
+          <text x="34" y="5" font-size="4" fill="#8a8074" font-family="serif">z</text>
+          <text x="38" y="3" font-size="3" fill="#8a8074" font-family="serif">z</text>
+        </svg>
       </div>
     </div>
   </div>
@@ -595,6 +687,15 @@ section { padding: 80px 0; }
 
 <!-- Affiliation -->
 <section data-od-id="affiliation">
+  <!-- Small leaf accent — right side, behind text -->
+  <div style="position:absolute;top:30px;right:40px;pointer-events:none;opacity:0.04;">
+    <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+      <path d="M50 90 Q50 60, 55 40 Q60 20, 50 5" stroke="#5a7a54" stroke-width="1.5" fill="none"/>
+      <path d="M53 70 Q70 60, 78 55 Q68 65, 54 62" fill="#5a7a54"/>
+      <path d="M54 50 Q35 40, 28 35 Q38 45, 53 48" fill="#6b8f64"/>
+      <path d="M53 30 Q68 20, 75 15 Q65 25, 52 28" fill="#4a6a44"/>
+    </svg>
+  </div>
   <div class="container">
     <p class="section-label" data-i18n="affil-label">开源贡献</p>
     <div class="affiliation-card">
@@ -624,6 +725,52 @@ section { padding: 80px 0; }
 
 <!-- Skills -->
 <section data-od-id="skills">
+  <!-- Background plant decoration — left side too -->
+  <div style="position:absolute;bottom:40px;left:60px;opacity:0.05;pointer-events:none;">
+    <svg width="150" height="200" viewBox="0 0 150 200" fill="none">
+      <!-- Tall thin vase -->
+      <path d="M60 170 L63 195 L87 195 L90 170 Z" fill="#d4c4a8" stroke="#b8a88e" stroke-width="0.8"/>
+      <ellipse cx="75" cy="170" rx="16" ry="3" fill="#c9b89c" stroke="#b8a88e" stroke-width="0.8"/>
+      <!-- Main stem -->
+      <path d="M75 165 Q73 130, 70 90 Q67 50, 75 10" stroke="#5a7a54" stroke-width="1.2" fill="none"/>
+      <!-- Leaves left side -->
+      <path d="M73 130 Q45 110, 25 115 Q40 120, 72 125" fill="#5a7a54" opacity="0.7"/>
+      <path d="M71 100 Q40 85, 20 90 Q35 95, 70 95" fill="#6b8f64" opacity="0.6"/>
+      <path d="M72 70 Q45 50, 30 55 Q42 60, 71 65" fill="#4a6a44" opacity="0.65"/>
+      <path d="M74 40 Q55 25, 40 30 Q52 35, 73 38" fill="#5a7a54" opacity="0.7"/>
+      <!-- Leaves right side -->
+      <path d="M77 125 Q105 105, 125 110 Q110 115, 78 123" fill="#5a7a54" opacity="0.7"/>
+      <path d="M79 95 Q110 80, 130 85 Q115 90, 78 90" fill="#6b8f64" opacity="0.6"/>
+      <path d="M78 65 Q105 45, 120 50 Q108 55, 77 60" fill="#4a6a44" opacity="0.65"/>
+      <path d="M76 35 Q95 20, 110 25 Q98 30, 75 33" fill="#5a7a54" opacity="0.7"/>
+      <!-- Top leaves -->
+      <path d="M75 10 Q60 0, 55 -5 Q65 -2, 75 5" fill="#6b8f64" opacity="0.8"/>
+      <path d="M75 10 Q90 0, 95 -5 Q85 -2, 75 5" fill="#5a7a54" opacity="0.75"/>
+    </svg>
+  </div>
+  <!-- Background plant decoration — right side (original) -->
+  <div style="position:absolute;top:60px;right:60px;opacity:0.06;pointer-events:none;">
+    <svg width="180" height="220" viewBox="0 0 180 220" fill="none">
+      <!-- Vase -->
+      <path d="M70 180 L75 210 L105 210 L110 180 Z" fill="#d4c4a8" stroke="#b8a88e" stroke-width="1"/>
+      <ellipse cx="90" cy="180" rx="22" ry="4" fill="#c9b89c" stroke="#b8a88e" stroke-width="1"/>
+      <!-- Main stem -->
+      <path d="M90 175 Q88 140, 85 100 Q82 60, 90 20" stroke="#5a7a54" stroke-width="1.5" fill="none"/>
+      <!-- Leaves left side -->
+      <path d="M88 140 Q60 120, 40 125 Q55 130, 87 130" fill="#5a7a54" opacity="0.7"/>
+      <path d="M86 110 Q55 95, 35 100 Q50 105, 85 105" fill="#6b8f64" opacity="0.6"/>
+      <path d="M87 80 Q60 60, 45 65 Q58 70, 86 75" fill="#4a6a44" opacity="0.65"/>
+      <path d="M89 50 Q65 35, 50 40 Q62 45, 88 48" fill="#5a7a54" opacity="0.7"/>
+      <!-- Leaves right side -->
+      <path d="M92 135 Q120 115, 140 120 Q125 125, 93 128" fill="#5a7a54" opacity="0.7"/>
+      <path d="M94 105 Q125 90, 145 95 Q130 100, 93 100" fill="#6b8f64" opacity="0.6"/>
+      <path d="M93 75 Q120 55, 135 60 Q122 65, 92 70" fill="#4a6a44" opacity="0.65"/>
+      <path d="M91 45 Q115 30, 130 35 Q118 40, 90 43" fill="#5a7a54" opacity="0.7"/>
+      <!-- Top leaves -->
+      <path d="M90 20 Q75 10, 70 5 Q80 8, 90 15" fill="#6b8f64" opacity="0.8"/>
+      <path d="M90 20 Q105 10, 110 5 Q100 8, 90 15" fill="#5a7a54" opacity="0.75"/>
+    </svg>
+  </div>
   <div class="wide-container">
     <p class="section-label" data-i18n="skills-label">技术能力</p>
     <h2 class="section-heading" data-i18n="skills-heading">擅长的事</h2>
@@ -755,6 +902,15 @@ section { padding: 80px 0; }
 
 <!-- Blog -->
 <section class="blog-section" data-od-id="blog">
+  <!-- Small leaf corner accent — top-left -->
+  <div style="position:absolute;top:10px;left:20px;pointer-events:none;opacity:0.06;">
+    <svg width="80" height="80" viewBox="0 0 80 80" fill="none">
+      <path d="M5 75 Q10 50, 25 30 Q40 10, 55 5" stroke="#5a7a54" stroke-width="1.2" fill="none"/>
+      <path d="M20 55 Q10 48, 5 50 Q12 53, 22 57" fill="#5a7a54" opacity="0.7"/>
+      <path d="M35 35 Q25 28, 20 30 Q28 34, 37 37" fill="#6b8f64" opacity="0.6"/>
+      <path d="M48 18 Q38 10, 33 12 Q40 16, 50 20" fill="#4a6a44" opacity="0.65"/>
+    </svg>
+  </div>
   <div class="container">
     <div class="blog-card">
       <div class="blog-info">
