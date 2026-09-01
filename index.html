@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tong Lin — 个人主页</title>
+<title data-i18n="page-title">Tong Lin — 个人主页</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;0,900;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -85,6 +85,30 @@ section { padding: 80px 0; }
   letter-spacing: 0.06em; text-transform: uppercase; transition: color 0.15s;
 }
 .nav-links a:hover { color: var(--fg); }
+
+/* Language switcher */
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.lang-btn {
+  padding: 3px 10px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.02em;
+}
+.lang-btn:hover { color: var(--fg); }
+.lang-btn.active {
+  background: var(--accent);
+  color: #fff;
+}
 
 /* --- Hero --- */
 .hero {
@@ -350,6 +374,8 @@ section { padding: 80px 0; }
 }
 @media (max-width: 480px) {
   .nav-links { display: none; }
+  .lang-switch { position: absolute; right: 28px; top: 12px; }
+  .nav-inner { padding-right: 60px; }
 }
 </style>
 </head>
@@ -360,10 +386,14 @@ section { padding: 80px 0; }
   <div class="nav-inner">
     <span class="nav-brand">Tong Lin</span>
     <ul class="nav-links">
-      <li><a href="#about">关于</a></li>
-      <li><a href="#projects">项目</a></li>
-      <li><a href="#contact">联系</a></li>
+      <li><a href="#about" data-i18n="nav-about">关于</a></li>
+      <li><a href="#projects" data-i18n="nav-projects">项目</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">联系</a></li>
     </ul>
+    <div class="lang-switch">
+      <button class="lang-btn active" data-lang="zh" aria-label="中文">中</button>
+      <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+    </div>
   </div>
 </nav>
 
@@ -382,15 +412,15 @@ section { padding: 80px 0; }
   </svg>
 
   <div class="container">
-    <p class="hero-greeting">Hello World</p>
+    <p class="hero-greeting" data-i18n="hero-greeting">Hello World</p>
     <h1 class="hero-name">Tong Lin</h1>
-    <p class="hero-subtitle">开发者 · 终身学习者 · 业余音乐和围棋玩家</p>
-    <p class="hero-description">
+    <p class="hero-subtitle" data-i18n="hero-subtitle">开发者 · 终身学习者 · 业余音乐和围棋玩家</p>
+    <p class="hero-description" data-i18n="hero-description">
       国防科技大学计算机硕士毕业，现居深圳。<br>
       Datawhale 正式成员，开源社区 Contributor。<br>
       专注本地大模型部署、RAG 应用与全栈开发。
     </p>
-    <p class="hero-location">
+    <p class="hero-location" data-i18n="hero-location">
       <svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
       深圳，中国
     </p>
@@ -401,7 +431,7 @@ section { padding: 80px 0; }
       </a>
       <a href="mailto:ltong9463@gmail.com" class="btn btn-outline" data-od-id="btn-email">
         <svg class="icon" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        给我写信
+        <span data-i18n="btn-email">给我写信</span>
       </a>
     </div>
   </div>
@@ -421,22 +451,22 @@ section { padding: 80px 0; }
 <!-- About -->
 <section id="about" class="about-section" data-od-id="about">
   <div class="container">
-    <p class="section-label">关于我</p>
+    <p class="section-label" data-i18n="about-label">关于我</p>
     <div class="about-content">
       <div class="about-text">
-        <p>
+        <p data-i18n="about-p1">
           我是 Tong Lin（林通），<strong>国防科技大学</strong>计算机硕士毕业。毕业后到深圳工作。
         </p>
-        <p>
+        <p data-i18n="about-p2">
           工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。
         </p>
         <div class="about-tags">
-          <span class="tag">游泳</span>
-          <span class="tag">钢琴</span>
-          <span class="tag">长笛</span>
-          <span class="tag">围棋</span>
-          <span class="tag">绿植</span>
-          <span class="tag">猫狗双全</span>
+          <span class="tag" data-i18n="tag-swim">游泳</span>
+          <span class="tag" data-i18n="tag-piano">钢琴</span>
+          <span class="tag" data-i18n="tag-flute">长笛</span>
+          <span class="tag" data-i18n="tag-go">围棋</span>
+          <span class="tag" data-i18n="tag-plants">绿植</span>
+          <span class="tag" data-i18n="tag-pets">猫狗双全</span>
         </div>
       </div>
 
@@ -566,14 +596,14 @@ section { padding: 80px 0; }
 <!-- Affiliation -->
 <section data-od-id="affiliation">
   <div class="container">
-    <p class="section-label">开源贡献</p>
+    <p class="section-label" data-i18n="affil-label">开源贡献</p>
     <div class="affiliation-card">
       <p class="affiliation-org">
         Datawhale
-        <span class="affiliation-badge">正式成员</span>
+        <span class="affiliation-badge" data-i18n="affil-badge">正式成员</span>
       </p>
       <p class="affiliation-role">handy-ollama · Contributor</p>
-      <p class="affiliation-desc">
+      <p class="affiliation-desc" data-i18n="affil-desc">
         Datawhale 是中国最大的开源学习组织之一。作为 Contributor，我参与了
         <strong>handy-ollama</strong> 项目的编写——这是一套面向中文用户的 Ollama 本地部署教程，帮助上千名开发者搭建自己的 AI 能力。
       </p>
@@ -595,8 +625,8 @@ section { padding: 80px 0; }
 <!-- Skills -->
 <section data-od-id="skills">
   <div class="wide-container">
-    <p class="section-label">技术能力</p>
-    <h2 class="section-heading">擅长的事</h2>
+    <p class="section-label" data-i18n="skills-label">技术能力</p>
+    <h2 class="section-heading" data-i18n="skills-heading">擅长的事</h2>
     <div class="skills-grid">
       <div class="skill-card">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -604,7 +634,7 @@ section { padding: 80px 0; }
           <circle cx="12" cy="15" r="1"/>
         </svg>
         <p class="skill-name">LLM / RAG</p>
-        <p class="skill-desc">Ollama 部署 · LangChain · GraphRAG · 本地知识库</p>
+        <p class="skill-desc" data-i18n="skill-rag">Ollama 部署 · LangChain · GraphRAG · 本地知识库</p>
       </div>
       <div class="skill-card">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -612,7 +642,7 @@ section { padding: 80px 0; }
           <polyline points="8 6 2 12 8 18"/>
         </svg>
         <p class="skill-name">Python</p>
-        <p class="skill-desc">数据分析 · Web 后端 · 自动化脚本 · Jupyter</p>
+        <p class="skill-desc" data-i18n="skill-python">数据分析 · Web 后端 · 自动化脚本 · Jupyter</p>
       </div>
       <div class="skill-card">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -620,15 +650,15 @@ section { padding: 80px 0; }
           <path d="M8 21h8"/>
           <path d="M12 17v4"/>
         </svg>
-        <p class="skill-name">全栈开发</p>
-        <p class="skill-desc">React · Node.js · Ruby on Rails · 数据库</p>
+        <p class="skill-name" data-i18n="skill-frontend">全栈开发</p>
+        <p class="skill-desc" data-i18n="skill-stack">React · Node.js · Ruby on Rails · 数据库</p>
       </div>
       <div class="skill-card">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
           <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
         </svg>
         <p class="skill-name">DevOps</p>
-        <p class="skill-desc">Docker · CI/CD · Linux · 云服务部署</p>
+        <p class="skill-desc" data-i18n="skill-devops">Docker · CI/CD · Linux · 云服务部署</p>
       </div>
     </div>
   </div>
@@ -647,8 +677,8 @@ section { padding: 80px 0; }
   </svg>
 
   <div class="container">
-    <p class="section-label">精选项目</p>
-    <h2 class="section-heading">做过的东西</h2>
+    <p class="section-label" data-i18n="proj-label">精选项目</p>
+    <h2 class="section-heading" data-i18n="proj-heading">做过的东西</h2>
     <div class="project-list">
 
       <div class="project-card" data-od-id="project-graphrag">
@@ -661,7 +691,7 @@ section { padding: 80px 0; }
             </span>
           </div>
         </div>
-        <p class="project-desc">将 Microsoft GraphRAG 与本地 Ollama 大模型结合，实现完全离线的情报分析系统。支持知识图谱可视化问答。</p>
+        <p class="project-desc" data-i18n="proj-graphrag">将 Microsoft GraphRAG 与本地 Ollama 大模型结合，实现完全离线的情报分析系统。支持知识图谱可视化问答。</p>
         <div class="project-tags">
           <span class="project-tag">Python</span>
           <span class="project-tag">GraphRAG</span>
@@ -680,23 +710,23 @@ section { padding: 80px 0; }
             </span>
           </div>
         </div>
-        <p class="project-desc">面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Contributor 参与了部分章节的编写。</p>
+        <p class="project-desc" data-i18n="proj-handy">面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Contributor 参与了部分章节的编写。</p>
         <div class="project-tags">
           <span class="project-tag">Markdown</span>
           <span class="project-tag">Ollama</span>
           <span class="project-tag">Datawhale</span>
         </div>
-        <a class="project-link" href="https://github.com/DatawhaleChina/handy-ollama">查看仓库 →</a>
+        <a class="project-link" href="https://github.com/DatawhaleChina/handy-ollama" data-i18n="proj-view-repo">查看仓库 →</a>
       </div>
 
       <div class="project-card" data-od-id="project-cashbook">
         <div class="project-header">
           <span class="project-name"><a href="https://github.com/kjlintong/Cashbook">Cashbook</a></span>
           <div class="project-meta">
-            <span class="project-stat">Web</span>
+            <span class="project-stat" data-i18n="proj-web-tag">Web</span>
           </div>
         </div>
-        <p class="project-desc">个人财务管理工具。简洁的记账界面，支出分类统计，月度报表一目了然。</p>
+        <p class="project-desc" data-i18n="proj-cashbook">个人财务管理工具。简洁的记账界面，支出分类统计，月度报表一目了然。</p>
         <div class="project-tags">
           <span class="project-tag">HTML</span>
           <span class="project-tag">CSS</span>
@@ -708,14 +738,14 @@ section { padding: 80px 0; }
         <div class="project-header">
           <span class="project-name"><a href="https://github.com/kjlintong/essense">essense</a></span>
           <div class="project-meta">
-            <span class="project-stat">竞赛</span>
+            <span class="project-stat" data-i18n="proj-comp-tag">竞赛</span>
           </div>
         </div>
-        <p class="project-desc">竞赛项目，基于 Python 的数据处理与分析工具。在团队中负责核心算法模块。</p>
+        <p class="project-desc" data-i18n="proj-essense">竞赛项目，基于 Python 的数据处理与分析工具。在团队中负责核心算法模块。</p>
         <div class="project-tags">
           <span class="project-tag">Python</span>
           <span class="project-tag">Pandas</span>
-          <span class="project-tag">竞赛</span>
+          <span class="project-tag" data-i18n="proj-comp-tag2">竞赛</span>
         </div>
       </div>
 
@@ -729,7 +759,7 @@ section { padding: 80px 0; }
     <div class="blog-card">
       <div class="blog-info">
         <h3>CSDN 博客</h3>
-        <p>技术笔记 · 学习记录 · 在路上</p>
+        <p data-i18n="blog-desc">技术笔记 · 学习记录 · 在路上</p>
       </div>
       <a href="https://blog.csdn.net/weixin_42107217" style="color:var(--muted)">
         <svg class="blog-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -744,9 +774,9 @@ section { padding: 80px 0; }
 <!-- Contact -->
 <section id="contact" data-od-id="contact">
   <div class="container">
-    <p class="section-label">联系我</p>
-    <h2 class="section-heading">一起聊聊</h2>
-    <p class="about-text" style="margin-bottom:28px;">
+    <p class="section-label" data-i18n="contact-label">联系我</p>
+    <h2 class="section-heading" data-i18n="contact-heading">一起聊聊</h2>
+    <p class="about-text" style="margin-bottom:28px;" data-i18n="contact-desc">
       无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。
     </p>
     <div class="contact-links">
@@ -761,7 +791,7 @@ section { padding: 80px 0; }
           <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
           <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
         </svg>
-        CSDN 博客
+        <span data-i18n="contact-csdn">CSDN 博客</span>
       </a>
       <a href="mailto:ltong9463@gmail.com" class="contact-item" data-od-id="contact-email">
         <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
@@ -794,8 +824,158 @@ section { padding: 80px 0; }
       <path d="M12 22 Q12 14, 16 8 Q14 10, 12 8"/>
     </svg>
   </div>
-  <p class="footer-text">© 2025 Tong Lin. Built with care, grown with love.</p>
+  <p class="footer-text" data-i18n="footer">© 2025 Tong Lin. Built with care, grown with love.</p>
 </footer>
+
+<script>
+// i18n dictionary
+const i18n = {
+  zh: {
+    'page-title': 'Tong Lin — 个人主页',
+    'nav-about': '关于',
+    'nav-projects': '项目',
+    'nav-contact': '联系',
+    'hero-greeting': 'Hello World',
+    'hero-subtitle': '开发者 · 终身学习者 · 业余音乐和围棋玩家',
+    'hero-description': '国防科技大学计算机硕士毕业，现居深圳。<br>Datawhale 正式成员，开源社区 Contributor。<br>专注本地大模型部署、RAG 应用与全栈开发。',
+    'hero-location': '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> 深圳，中国',
+    'btn-email': '给我写信',
+    'about-label': '关于我',
+    'about-p1': '我是 Tong Lin（林通），<strong>国防科技大学</strong>计算机硕士毕业。毕业后到深圳工作。',
+    'about-p2': '工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。',
+    'tag-swim': '游泳', 'tag-piano': '钢琴', 'tag-flute': '长笛',
+    'tag-go': '围棋', 'tag-plants': '绿植', 'tag-pets': '猫狗双全',
+    'affil-label': '开源贡献',
+    'affil-badge': '正式成员',
+    'affil-desc': 'Datawhale 是中国最大的开源学习组织之一。作为 Contributor，我参与了<strong>handy-ollama</strong> 项目的编写——这是一套面向中文用户的 Ollama 本地部署教程，帮助上千名开发者搭建自己的 AI 能力。',
+    'skills-label': '技术能力',
+    'skills-heading': '擅长的事',
+    'skill-rag': 'Ollama 部署 · LangChain · GraphRAG · 本地知识库',
+    'skill-python': '数据分析 · Web 后端 · 自动化脚本 · Jupyter',
+    'skill-frontend': '全栈开发',
+    'skill-stack': 'React · Node.js · Ruby on Rails · 数据库',
+    'skill-devops': 'Docker · CI/CD · Linux · 云服务部署',
+    'proj-label': '精选项目',
+    'proj-heading': '做过的东西',
+    'proj-graphrag': '将 Microsoft GraphRAG 与本地 Ollama 大模型结合，实现完全离线的情报分析系统。支持知识图谱可视化问答。',
+    'proj-handy': '面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Contributor 参与了部分章节的编写。',
+    'proj-view-repo': '查看仓库 →',
+    'proj-web-tag': 'Web',
+    'proj-cashbook': '个人财务管理工具。简洁的记账界面，支出分类统计，月度报表一目了然。',
+    'proj-comp-tag': '竞赛',
+    'proj-essense': '竞赛项目，基于 Python 的数据处理与分析工具。在团队中负责核心算法模块。',
+    'proj-comp-tag2': '竞赛',
+    'blog-desc': '技术笔记 · 学习记录 · 在路上',
+    'contact-label': '联系我',
+    'contact-heading': '一起聊聊',
+    'contact-desc': '无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。',
+    'contact-csdn': 'CSDN 博客',
+    'footer': '© 2025 Tong Lin. Built with care, grown with love.'
+  },
+  en: {
+    'page-title': 'Tong Lin — Personal Website',
+    'nav-about': 'About',
+    'nav-projects': 'Projects',
+    'nav-contact': 'Contact',
+    'hero-greeting': 'Hello World',
+    'hero-subtitle': 'Developer · Lifelong Learner · Amateur Musician & Go Player',
+    'hero-description': 'M.S. in Computer Science, National University of Defense Technology.<br>Based in Shenzhen.<br>Formal member of Datawhale, open-source community contributor.<br>Focused on local LLM deployment, RAG applications, and full-stack development.',
+    'hero-location': '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Shenzhen, China',
+    'btn-email': 'Send me a letter',
+    'about-label': 'About',
+    'about-p1': 'I\'m Tong Lin (林通), a computer science master\'s graduate from the <strong>National University of Defense Technology</strong>. Currently working in Shenzhen.',
+    'about-p2': 'Outside of work, I enjoy swimming, playing piano, flute, and Go (Weiqi). I have a cat and a dog who are better at enjoying life than I am.',
+    'tag-swim': 'Swimming', 'tag-piano': 'Piano', 'tag-flute': 'Flute',
+    'tag-go': 'Go (Weiqi)', 'tag-plants': 'Plants', 'tag-pets': 'Cat & Dog parent',
+    'affil-label': 'Open Source Contributions',
+    'affil-badge': 'Member',
+    'affil-desc': 'Datawhale is one of China\'s largest open-source learning organizations. As a Contributor, I helped write parts of<strong>handy-ollama</strong>, an Ollama local deployment tutorial series that has helped thousands of developers set up their own AI capabilities.',
+    'skills-label': 'Skills',
+    'skills-heading': 'What I do well',
+    'skill-rag': 'Ollama deployment · LangChain · GraphRAG · Local knowledge bases',
+    'skill-python': 'Data analysis · Web backends · Automation · Jupyter',
+    'skill-frontend': 'Full-stack Development',
+    'skill-stack': 'React · Node.js · Ruby on Rails · Databases',
+    'skill-devops': 'Docker · CI/CD · Linux · Cloud deployment',
+    'proj-label': 'Selected Projects',
+    'proj-heading': 'Things I\'ve built',
+    'proj-graphrag': 'Combining Microsoft GraphRAG with local Ollama models to build a fully offline intelligence analysis system. Supports knowledge graph visual QA.',
+    'proj-handy': 'An Ollama local deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. Contributed to several chapters.',
+    'proj-view-repo': 'View repo →',
+    'proj-web-tag': 'Web',
+    'proj-cashbook': 'Personal finance management tool. Clean expense tracking interface, spending breakdown by category, monthly reports at a glance.',
+    'proj-comp-tag': 'Competition',
+    'proj-essense': 'Competition project: Python-based data processing and analysis toolkit. Led the core algorithm module.',
+    'proj-comp-tag2': 'Competition',
+    'blog-desc': 'Tech notes · Learning journal · On the way',
+    'contact-label': 'Contact',
+    'contact-heading': 'Let\'s talk',
+    'contact-desc': 'Whether it\'s technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.',
+    'contact-csdn': 'CSDN Blog',
+    'footer': '© 2025 Tong Lin. Built with care, grown with love.'
+  }
+};
+
+(function() {
+  var lang = 'zh';
+
+  // Determine initial language
+  function getLang() {
+    try {
+      var saved = localStorage.getItem('pg-lang');
+      if (saved && (saved === 'zh' || saved === 'en')) return saved;
+    } catch(e) {}
+    var hl = navigator.language || (navigator.languages && navigator.languages[0]);
+    if (hl) {
+      var prefix = hl.substring(0, 2).toLowerCase();
+      if (prefix !== 'zh' && prefix !== 'zh-cn' && prefix !== 'zh-tw') return 'en';
+    }
+    return 'zh';
+  }
+
+  function apply(langKey) {
+    lang = langKey;
+    var dict = i18n[langKey];
+    if (!dict) return;
+
+    // Update page title
+    var el = document.querySelector('[data-i18n="page-title"]');
+    if (el) el.textContent = dict['page-title'];
+
+    // Set html lang
+    document.documentElement.lang = langKey === 'zh' ? 'zh-CN' : 'en';
+
+    // Update all [data-i18n] elements
+    var els = document.querySelectorAll('[data-i18n]');
+    for (var i = 0; i < els.length; i++) {
+      var key = els[i].getAttribute('data-i18n');
+      var val = dict[key];
+      if (val) {
+        els[i].innerHTML = val;
+      }
+    }
+
+    // Update buttons
+    var btns = document.querySelectorAll('.lang-btn');
+    for (var j = 0; j < btns.length; j++) {
+      btns[j].classList.toggle('active', btns[j].getAttribute('data-lang') === langKey);
+    }
+
+    try { localStorage.setItem('pg-lang', langKey); } catch(e) {}
+  }
+
+  // Switch handlers
+  var btns = document.querySelectorAll('.lang-btn');
+  for (var k = 0; k < btns.length; k++) {
+    btns[k].addEventListener('click', function() {
+      apply(this.getAttribute('data-lang'));
+    });
+  }
+
+  // Init
+  apply(getLang());
+})();
+</script>
 
 </body>
 </html>
