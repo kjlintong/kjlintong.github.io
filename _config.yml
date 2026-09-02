@@ -81,13 +81,14 @@ kramdown:
 giscus:
   enable: true    #是否开启 Giscus 评论
   repo: "kjlintong/kjlintong.github.io"    # 仓库名称（owner/repo）
-  repo_id: "REPLACE_WITH_YOUR_REPO_ID"     # TODO: 用户替换 — 从 giscus.app 获取
+  repo_id: "R_kgDOJivArA"                  # 从 giscus.app 获取
   category: "Announcements"                # 用于讨论的分类名
-  category_id: "REPLACE_WITH_YOUR_CATEGORY_ID"  # TODO: 用户替换 — 从 giscus.app 获取
+  category_id: "DIC_kwDOJivArM4DEsa7"      # 从 giscus.app 获取
   mapping: "pathname"                      # 按页面路径映射讨论
   lang: "zh-CN"                            # 语言
   reactions_enabled: "1"                   # 开启表情回应
   emit_metadata: "0"
+  input_position: "bottom"                 # 评论输入框位置
 
 # 统计
 # Google Analytics 4（GA4）
