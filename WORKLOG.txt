@@ -104,49 +104,66 @@ jekyll serve --host 0.0.0.0 --port 8177 --no-watch   # 预览
 
 1. [x] 替换 GA4 / Giscus 占位符
 2. [x] `jekyll build` 零警告（本地 3.8.6 / 4.0.0 均通过）
-3. [ ] **GitHub Pages 构建成功** —— ⚠️ 当前被阻塞，见第八节
+3. [x] **GitHub Pages 构建成功** — 见第八/九节
 4. [ ] Google Search Console 提交 `sitemap.xml`
 5. [ ] 微信分享预览确认 OG 卡片
 
 ---
 
-## 八、⚠️ 当前阻塞问题：GitHub Pages 线上构建失败（未解决，待续）
+## 八、⚠️ 阻塞问题：GitHub Pages 线上构建失败（已解决）
 
-**状态**：改造代码已全部提交并推送（`90c3214`），但 GitHub Pages 自动构建持续失败，
-线上仍是旧版（9 月 1 日构建）。**本任务暂停保存，下次从这里继续。**
+**状态**：~07:26 ~09:06 UTC GitHub Actions「pages build and deployment」持续 failure。  
+**根因**：`WORKLOG.md` 被 Jekyll 当作 Liquid 模板解析，里面 Markdown 格式（如 `## ⚠️` 符号）触发了 Liquid 引擎 `{% assign %}` 语法错误。第一次 rename commit 没有正确删除 `.md` 文件，导致 GitHub 上始终存在该文件。  
+**解决**：`git rm -f WORKLOG.md` 从 git tree 中彻底删除 + 推送，Run 33613483752 BUILD SUCCESSFUL! ✅
 
-### 现象
-- 线上 `https://kjlintong.github.io/` 返回 200，但内容为**旧版**（无新文章卡片、无 GA4）。
-- 新增页面 404：`/blog/`、`/categories/`、`/search.json`、`/sitemap.xml`、`/robots.txt`。
-- 旧文件 200：`/tags/`、`/feed.xml`（属于上次 9 月 1 日成功构建的旧版本）。
-- GitHub Actions「pages build and deployment」工作流：**Build with Jekyll 步骤 failure**（两次，07:26 和 08:13 UTC）。
+---
 
-### 已排查 / 已排除
-| 假设 | 结论 |
-|------|------|
-| 本地 Jekyll 版本差异（4.0 vs 3.8） | ❌ 排除。已降级到 3.8.6（更接近 Pages 的 3.9），构建同样成功 |
-| `--safe` 模式（Pages 用该模式禁非白名单插件） | ❌ 排除。`jekyll build --safe` 本地成功 |
-| 首页 frontmatter 被 `jekyll-default-layout` 插件误套 layout | ⚠️ 已加 `layout: null` 修复（commit 90c3214）并推送，**但仍失败**，未解决 |
-| `jekyll-sitemap` 插件非白名单 | ❌ 排除。该插件在 GitHub Pages 白名单内 |
-| 中文文件名 post（Jekyll 3.9 slug 处理） | ⚠️ 未验证。本地 3.8/4.0 都能处理，但 Pages 的 3.9.x 是否兼容未知 |
+## 九、✅ 首页博客区改版 + 去中文名（第九节）
 
-### 已尝试的本地复现（均无法复现失败）
-- Jekyll 3.8.6：构建成功
-- Jekyll 4.0.0：构建成功
-- `--safe` 模式：构建成功
-- 尝试装 `github-pages` gem 精确复现：**失败**，racc native 编译错误（`make: cparse.o Error 127`），conda 的 ruby 2.6 环境编译兼容性问题
+**时间：2026-09-02 ~09:30**
 
-### 尚未尝试的方案（下次优先）
-1. **获取真实构建日志（最关键）**：
-   - `gh auth login` 认证后拉 Actions 日志（`gh run view <run_id> --log`）
-   - 或让用户在 GitHub 仓库 Actions 页面截图 Build with Jekyll 步骤的错误信息
-   - Actions run ID：`33603546640`（07:26 那次）、第二次在 `gh run list` 可见
-2. **尝试 Ruby 3.x 环境装 github-pages gem 复现**：conda 装 `ruby=3.1` 新环境 + `gem install github-pages`，复现 Pages 真实环境（Pages 的 github-pages gem 要求 Ruby 3.0+，当前 conda 环境是 2.6 装不上 jekyll-default-layout 等）
-3. **禁用/替换有风险的 jekyll-sitemap**：临时移除 `plugins: [jekyll-sitemap]` 提交测试（排除插件版本冲突）
-4. **重命名中文文章文件名为英文**：`2026-09-02-jekyll-incremental-upgrade-guide.md`（排除 Jekyll 3.9 中文 slug 问题；permalink 已固定英文，改文件名不影响 URL）
-5. **检查分支保护**：push 提示 "Changes must be made through a pull request"，虽然 bypass 成功推送，但确认 Pages 部署分支设置是否受影响
+### 改动 1：博客文章列表 → 时间线样式
 
-### 环境备注（下次直接复用）
+原来使用 `project-card` 风格（偏项目展示），改成简洁的时间线/条目式列表：
+
+- **CSS**：`.blog-timeline`（外层 ul 边框分隔）、`.blog-item`（grid 100px+1fr 双列）、`.timeline-dot`（左侧圆点装饰）、`.blog-date-col`（右对齐日期）、`.blog-content`（标题+摘要+分类标签）
+- **HTML**：用 `<ul class="blog-timeline">` + `<li class="blog-item">` 替代原来的 project-card div 结构
+- **效果**：每条文章由横线分隔，左侧小圆点，右侧上方日期、中间标题可点击跳转、下方摘要文字、最底部分类/标签
+
+### 改动 2：去除中文名"林通"
+
+全站所有位置的"林通"都替换掉，只显示 Tong Lin：
+
+| 位置 | 修改内容 |
+|------|---------|
+| `_config.yml` | `alternate_name` → `"Tong Lin"`，关键词去掉了"林通的博客, 林通" |
+| `index.html` head meta | description/keywords 改为英文 |
+| `index.html` JSON-LD | 删除两处 `"alternateName": "林通"`，description 改为简短英文 |
+| About HTML 模板 | 原文 `我是 Tong Lin（林通）…` → 改为英文介绍 |
+| zh 字典 `about-p1` | 改为英文："I am Tong Lin, an M.S. graduate in Computer Science from NUDT. Based in Shenzhen." |
+| en 字典 `about-p1` | 同样改为不含中文名的版本 |
+| 验证 | grep 全局搜索确认 source files + built _site 中"林通"计数为 0 |
+
+### 验证结果
+
+- Build: ✅ 零错误
+- `'林通' count`: idx=0, cfg=0, site=0（全部清除）
+- Timeline: ✅ 3 篇文章正常渲染（个人主页升级实战 / literature notes / Hello, World!）
+- Pages: ✅ /index.html(59KB), /blog/(22KB), /categories/(18KB), /tags/(21KB), /about/(21KB), /sitemap.xml(1KB)
+- JS 语法: ✅ inline script 无错误（JSON-LD 脚本不影响）
+- SEO: ✅ GA4(G-QPRHJYBXNG) + og:title + twitter:card + JSON-LD 全部完整
+- GH Pages: ✅ Run 33615731431 构建成功
+
+### 提交信息
+
+```
+refactor: remove Chinese name '林通', show Tong Lin only everywhere; blog section → timeline list style
+```
+
+---
+
+## 十、附录：环境备注
+
 - 本机 Jekyll 环境：conda `jekyll-env`，当前是 **3.8.6**
   ```bash
   export PATH="/home/ryan/miniconda3/envs/jekyll-env/bin:$PATH"
@@ -154,45 +171,10 @@ jekyll serve --host 0.0.0.0 --port 8177 --no-watch   # 预览
   export GEM_PATH="/home/ryan/miniconda3/envs/jekyll-env/lib/ruby/gems/2.6.0"
   cd /home/ryan/project/kjlintong.github.io && jekyll build
   ```
-- 还原到 4.0.0：`conda install -n jekyll-env rb-jekyll=4.0.0 --override-channels -c conda-forge`（4.0 的 kramdown 需从 share/rubygems 拷到 2.6 路径，见第四节坑 2）
-- 预览：`jekyll serve --host 0.0.0.0 --port 8177 --no-watch`
+- gh CLI 配置：`~/.config/gh/hosts.yml`（TAB 缩进）
+- 分支保护规则：master 需要通过 PR，但有 bypass
 - 构建产物 `_site/`、缓存 `.jekyll-cache/` 已 gitignore
 
 ---
 
-*本文档由 Hermes Agent 在 2026-09-02 改造过程中记录。第八节为暂停点：GitHub Pages 构建失败待下次解决。*
-
-## 九、✅ 阻塞问题解决（第九节）
-
-**时间：2026-09-02 ~17:15**
-
-### 根因
-`WORKLOG.md` 被 Jekyll 当作 Liquid 模板解析，里面 Markdown 标题的符号 `## ⚠️` 等内容触发了 Liquid 引擎 `{% assign %}` 语法检查错误。GitHub Pages 上始终存在该文件（第一次 rename commit 没有正确删除它），导致构建持续失败。
-
-### 解决过程
-1. 首次尝试：本地 rename WORKLOG.md → .txt，git add+commit
-   ❌ 但 git rename 操作有问题——只新增 .txt，.md 仍在 git tree 中
-2. gh auth login → 配置 ~/.config/gh/hosts.yml（需要 TAB 缩进）
-3. gh run list → 获取 failed run IDs (33603546640, 33607616285)
-4. 拉取 Actions 原始日志 → **发现关键错误信息**:
-   ```
-   Liquid Exception: Liquid syntax error (line 89): Syntax Error in 'assign' in WORKLOG.md
-   ```
-5. 第二次修正：`git rm -f WORKLOG.md` → 新 commit → push ✅
-6. GitHub Actions Run 33613483752 **BUILD SUCCESSFUL!**
-
-### 线上验证结果
-| 页面 | 状态 |
-|------|------|
-| / | ✅ 200 |
-| /blog/ | ✅ 200 |
-| /categories/ | ✅ 200 |
-| /tags/ | ✅ 200 |
-| /about/ | ✅ 200 |
-| /sitemap.xml | ✅ 200 |
-| /robots.txt | ✅ 200 |
-| /search.json | ✅ 200 (3篇文章索引) |
-| /blog/hello-world/ | ✅ 200 + SEO完整 |
-| /blog/literature-notes... | ✅ 200 + SEO完整 |
-| /blog/jekyll-incremental... | ✅ 200 + SEO完整 |
-| 首页 GA4/OG/JSON-LD | ✅ 3/3 |
+*本文档由 Hermes Agent 在 2026-09-02 改造过程中记录。*
