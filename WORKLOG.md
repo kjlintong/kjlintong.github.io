@@ -95,20 +95,69 @@ jekyll serve --host 0.0.0.0 --port 8177 --no-watch   # 预览
 | 配置项 | 位置 | 获取方式 |
 |--------|------|---------|
 | ~~GA4 Measurement ID~~ | ~~`_config.yml` ga4_track_id + 首页 head~~ | ✅ 已完成（G-QPRHJYBXNG） |
-| Giscus repo-id | `_config.yml` giscus.repo_id | giscus.app |
-| Giscus category-id | `_config.yml` giscus.category_id | giscus.app |
+| ~~Giscus repo-id / category-id~~ | ~~`_config.yml` giscus~~ | ✅ 已完成（R_kgDOJivArA / DIC_kwDOJivArM4DEsa7，2026-09-02） |
 | GitHub Sponsors 开通 | 无需改代码 | github.com/sponsors/account |
 
 （GitHub Sponsors 链接已写死生效，只需用户账号开通功能。）
 
 ## 七、上线检查清单
 
-1. [ ] 替换 GA4 / Giscus 占位符
-2. [ ] `jekyll build` 零警告
-3. [ ] `git push origin master`（GitHub Pages 自动构建，约 1 分钟）
+1. [x] 替换 GA4 / Giscus 占位符
+2. [x] `jekyll build` 零警告（本地 3.8.6 / 4.0.0 均通过）
+3. [ ] **GitHub Pages 构建成功** —— ⚠️ 当前被阻塞，见第八节
 4. [ ] Google Search Console 提交 `sitemap.xml`
 5. [ ] 微信分享预览确认 OG 卡片
 
 ---
 
-*本文档由 Hermes Agent 在 2026-09-02 改造过程中记录。*
+## 八、⚠️ 当前阻塞问题：GitHub Pages 线上构建失败（未解决，待续）
+
+**状态**：改造代码已全部提交并推送（`90c3214`），但 GitHub Pages 自动构建持续失败，
+线上仍是旧版（9 月 1 日构建）。**本任务暂停保存，下次从这里继续。**
+
+### 现象
+- 线上 `https://kjlintong.github.io/` 返回 200，但内容为**旧版**（无新文章卡片、无 GA4）。
+- 新增页面 404：`/blog/`、`/categories/`、`/search.json`、`/sitemap.xml`、`/robots.txt`。
+- 旧文件 200：`/tags/`、`/feed.xml`（属于上次 9 月 1 日成功构建的旧版本）。
+- GitHub Actions「pages build and deployment」工作流：**Build with Jekyll 步骤 failure**（两次，07:26 和 08:13 UTC）。
+
+### 已排查 / 已排除
+| 假设 | 结论 |
+|------|------|
+| 本地 Jekyll 版本差异（4.0 vs 3.8） | ❌ 排除。已降级到 3.8.6（更接近 Pages 的 3.9），构建同样成功 |
+| `--safe` 模式（Pages 用该模式禁非白名单插件） | ❌ 排除。`jekyll build --safe` 本地成功 |
+| 首页 frontmatter 被 `jekyll-default-layout` 插件误套 layout | ⚠️ 已加 `layout: null` 修复（commit 90c3214）并推送，**但仍失败**，未解决 |
+| `jekyll-sitemap` 插件非白名单 | ❌ 排除。该插件在 GitHub Pages 白名单内 |
+| 中文文件名 post（Jekyll 3.9 slug 处理） | ⚠️ 未验证。本地 3.8/4.0 都能处理，但 Pages 的 3.9.x 是否兼容未知 |
+
+### 已尝试的本地复现（均无法复现失败）
+- Jekyll 3.8.6：构建成功
+- Jekyll 4.0.0：构建成功
+- `--safe` 模式：构建成功
+- 尝试装 `github-pages` gem 精确复现：**失败**，racc native 编译错误（`make: cparse.o Error 127`），conda 的 ruby 2.6 环境编译兼容性问题
+
+### 尚未尝试的方案（下次优先）
+1. **获取真实构建日志（最关键）**：
+   - `gh auth login` 认证后拉 Actions 日志（`gh run view <run_id> --log`）
+   - 或让用户在 GitHub 仓库 Actions 页面截图 Build with Jekyll 步骤的错误信息
+   - Actions run ID：`33603546640`（07:26 那次）、第二次在 `gh run list` 可见
+2. **尝试 Ruby 3.x 环境装 github-pages gem 复现**：conda 装 `ruby=3.1` 新环境 + `gem install github-pages`，复现 Pages 真实环境（Pages 的 github-pages gem 要求 Ruby 3.0+，当前 conda 环境是 2.6 装不上 jekyll-default-layout 等）
+3. **禁用/替换有风险的 jekyll-sitemap**：临时移除 `plugins: [jekyll-sitemap]` 提交测试（排除插件版本冲突）
+4. **重命名中文文章文件名为英文**：`2026-09-02-jekyll-incremental-upgrade-guide.md`（排除 Jekyll 3.9 中文 slug 问题；permalink 已固定英文，改文件名不影响 URL）
+5. **检查分支保护**：push 提示 "Changes must be made through a pull request"，虽然 bypass 成功推送，但确认 Pages 部署分支设置是否受影响
+
+### 环境备注（下次直接复用）
+- 本机 Jekyll 环境：conda `jekyll-env`，当前是 **3.8.6**
+  ```bash
+  export PATH="/home/ryan/miniconda3/envs/jekyll-env/bin:$PATH"
+  export GEM_HOME="/home/ryan/miniconda3/envs/jekyll-env/lib/ruby/gems/2.6.0"
+  export GEM_PATH="/home/ryan/miniconda3/envs/jekyll-env/lib/ruby/gems/2.6.0"
+  cd /home/ryan/project/kjlintong.github.io && jekyll build
+  ```
+- 还原到 4.0.0：`conda install -n jekyll-env rb-jekyll=4.0.0 --override-channels -c conda-forge`（4.0 的 kramdown 需从 share/rubygems 拷到 2.6 路径，见第四节坑 2）
+- 预览：`jekyll serve --host 0.0.0.0 --port 8177 --no-watch`
+- 构建产物 `_site/`、缓存 `.jekyll-cache/` 已 gitignore
+
+---
+
+*本文档由 Hermes Agent 在 2026-09-02 改造过程中记录。第八节为暂停点：GitHub Pages 构建失败待下次解决。*
