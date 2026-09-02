@@ -81,6 +81,7 @@ layout: null
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
+html[id] { scroll-margin-top: 56px; }
 
 body {
   font-family: var(--font-body);
@@ -362,8 +363,8 @@ section { padding: 100px 0; }
   border-top: 1px solid var(--gold-line);
 }
 .blog-item {
-  display: grid;
-  grid-template-columns: 80px 1fr;
+  display: flex;
+  align-items: baseline;
   gap: 16px;
   padding: 14px 0;
   border-bottom: 1px solid var(--gold-line);
