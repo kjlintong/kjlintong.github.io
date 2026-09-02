@@ -161,3 +161,38 @@ jekyll serve --host 0.0.0.0 --port 8177 --no-watch   # 预览
 ---
 
 *本文档由 Hermes Agent 在 2026-09-02 改造过程中记录。第八节为暂停点：GitHub Pages 构建失败待下次解决。*
+
+## 九、✅ 阻塞问题解决（第九节）
+
+**时间：2026-09-02 ~17:15**
+
+### 根因
+`WORKLOG.md` 被 Jekyll 当作 Liquid 模板解析，里面 Markdown 标题的符号 `## ⚠️` 等内容触发了 Liquid 引擎 `{% assign %}` 语法检查错误。GitHub Pages 上始终存在该文件（第一次 rename commit 没有正确删除它），导致构建持续失败。
+
+### 解决过程
+1. 首次尝试：本地 rename WORKLOG.md → .txt，git add+commit
+   ❌ 但 git rename 操作有问题——只新增 .txt，.md 仍在 git tree 中
+2. gh auth login → 配置 ~/.config/gh/hosts.yml（需要 TAB 缩进）
+3. gh run list → 获取 failed run IDs (33603546640, 33607616285)
+4. 拉取 Actions 原始日志 → **发现关键错误信息**:
+   ```
+   Liquid Exception: Liquid syntax error (line 89): Syntax Error in 'assign' in WORKLOG.md
+   ```
+5. 第二次修正：`git rm -f WORKLOG.md` → 新 commit → push ✅
+6. GitHub Actions Run 33613483752 **BUILD SUCCESSFUL!**
+
+### 线上验证结果
+| 页面 | 状态 |
+|------|------|
+| / | ✅ 200 |
+| /blog/ | ✅ 200 |
+| /categories/ | ✅ 200 |
+| /tags/ | ✅ 200 |
+| /about/ | ✅ 200 |
+| /sitemap.xml | ✅ 200 |
+| /robots.txt | ✅ 200 |
+| /search.json | ✅ 200 (3篇文章索引) |
+| /blog/hello-world/ | ✅ 200 + SEO完整 |
+| /blog/literature-notes... | ✅ 200 + SEO完整 |
+| /blog/jekyll-incremental... | ✅ 200 + SEO完整 |
+| 首页 GA4/OG/JSON-LD | ✅ 3/3 |
