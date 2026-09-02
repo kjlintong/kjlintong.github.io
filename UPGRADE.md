@@ -10,11 +10,11 @@ Giscus 留言板、SEO 全套优化、GA4 统计、GitHub Sponsors 打赏。
 
 所有待替换项都在 **`_config.yml`** 中用 `TODO: 用户替换` 标注，共 3 处：
 
-### 1. Google Analytics 4（GA4）测量 ID
-- 文件：`_config.yml` 第 94 行 `ga4_track_id: "G-XXXXXXXXXX"`
-- 获取方式：打开 [analytics.google.com](https://analytics.google.com) → 左下角「管理」→「创建媒体资源」→「创建数据流」→ Web，生成 `G-XXXXXXXXXX` 格式的 ID。
-- 替换后 `_includes/head.html` 会自动在所有 Jekyll 页面注入 GA4 代码。
-- ⚠️ 首页 `index.html` 是**静态文件**（不走 Jekyll 模板），其 head 里也有一段 GA4 代码，同样需要把 `G-XXXXXXXXXX` 手动替换掉（全文共 2 处）。
+### 1. Google Analytics 4（GA4）测量 ID —— ✅ 已完成（G-QPRHJYBXNG）
+
+- 已替换：`_config.yml` 的 `ga4_track_id` + 首页 `index.html` head（2 处）。
+- 验证：首页/博客页/文章页均正确注入 gtag 代码。
+- 生效确认：部署后访问站点，浏览器 Network 面板应看到 `gtag/js` 请求；或等 24h 在 GA「实时」报告看到访问。
 
 ### 2. Giscus 评论系统（repo-id 和 category-id）
 - 文件：`_config.yml` 第 83、85 行

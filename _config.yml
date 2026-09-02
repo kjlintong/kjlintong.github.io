@@ -91,8 +91,7 @@ giscus:
 
 # 统计
 # Google Analytics 4（GA4）
-# TODO: 用户替换 — 在 https://analytics.google.com 创建数据流后获取 Measurement ID
-ga4_track_id: "G-XXXXXXXXXX"
+ga4_track_id: "G-QPRHJYBXNG"
 
 # Baidu Analytics
 ba_track_id: e6b49a6508a9d4bfe8b0a19c8b1141e4
