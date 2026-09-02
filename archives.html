@@ -1,0 +1,278 @@
+---
+layout: page
+title: Archives
+permalink: /archives/
+description: "CSDN 博客历史文章索引"
+---
+
+<div class="archive-hero">
+  <h1>CSDN 博客存档</h1>
+  <p>以下是我的 CSDN 博客中较早的文章，部分已迁移至本站，其余保留原站。</p>
+</div>
+
+<div class="archive-list">
+  <section class="archive-section">
+    <h2>2024</h2>
+    <ul class="archive-item-list">
+      {% assign migrated = site.posts | where_exp:"post","post.url contains '/blog/graphrag-ollama'" %}
+      <li class="archive-item">
+        <span class="archive-date">2024-08-28</span>
+        <a href="{{ post.migrated[0].url | prepend: site.baseurl }}">傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="archive-section">
+    <h2>2023</h2>
+    <ul class="archive-item-list">
+      <li class="archive-item">
+        <span class="archive-date">2023-10-18</span>
+        <a href="/blog/optimization-course-notes/">学习最优化课程中的一些疑惑</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2023-06-24</span>
+        <a href="/blog/lit-note-cloud-computing-overview/">文献笔记 A View of Cloud Computing</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2023-05-22</span>
+        <a href="/blog/lit-note-distributed-systems-overview/">文献笔记 A Brief Introduction to Distributed Systems</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2023-05-16</span>
+        <a href="/blog/im-back/">I'm Back — 重新开始写博客</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2023-05-21</span>
+        <a href="{{ site.baseurl }}/blog/literature-notes-a-brief-introduction-to-distributed-systems/">literature notes (原本站版)</a>
+        <span class="archive-badge original">原站</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="archive-section">
+    <h2>2020</h2>
+    <ul class="archive-item-list">
+      <li class="archive-item">
+        <span class="archive-date">2020-01-24</span>
+        <a href="/blog/computer-architecture-cpu-structure/">计算机组成原理：CPU 结构和功能</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2020-01-22</span>
+        <a href="/blog/computer-architecture-instruction-set/">计算机组成原理：指令系统</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2020-01-19</span>
+        <a href="/blog/computer-architecture-io-systems/">计算机组成原理：输入输出系统</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2020-01-01</span>
+        <a href="/blog/computer-architecture-memory/">计算机组成原理：存储器</a>
+        <span class="archive-badge migrated">已迁移</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="archive-section">
+    <h2>2019 — CSDN 原站</h2>
+    <ul class="archive-item-list">
+      <li class="archive-item">
+        <span class="archive-date">2019-12-29</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/103751874" target="_blank" rel="noopener">计算机组成原理：系统总线</a>
+        <span class="read-count">阅读 1992</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-12-29</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/103750926" target="_blank" rel="noopener">计算机组成原理：概述</a>
+        <span class="read-count">阅读 2536</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-10-22</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/102657238" target="_blank" rel="noopener">麻省线代课程笔记</a>
+        <span class="read-count">阅读 715</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-08-09</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/98990912" target="_blank" rel="noopener">MySQL 学习 3：表的创建、删除、修改</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-08-08</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/98884525" target="_blank" rel="noopener">MySQL 学习 2：导入数据库，数据类型</a>
+        <span class="read-count">阅读 1036</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-08-07</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/98777414" target="_blank" rel="noopener">MySQL 学习 1：检索数据，注释</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2019-04-10</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/89192579" target="_blank" rel="noopener">解决pyqt5中由qtdesigner的ui文件生成的python文件难以修改问题（转载）</a>
+        <span class="read-count">阅读 4211</span>
+      </li>
+    </ul>
+  </section>
+
+  <section class="archive-section">
+    <h2>2018 — CSDN 原站</h2>
+    <ul class="archive-item-list">
+      <li class="archive-item">
+        <span class="archive-date">2018-12-27</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/81136245" target="_blank" rel="noopener">1013. 数素数</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-12-16</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/85028747" target="_blank" rel="noopener">go入门：常量</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-12-15</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/85009682" target="_blank" rel="noopener">go语言入门5：数据类型</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-12-14</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/85009473" target="_blank" rel="noopener">go语言入门4：赋值</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-12-05</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/84331541" target="_blank" rel="noopener">go语言入门3：变量</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-11-21</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/84331592" target="_blank" rel="noopener">Fabric环境搭建</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-11-21</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/84330240" target="_blank" rel="noopener">go语言入门2：hello world实现</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-11-21</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/84330085" target="_blank" rel="noopener">go语言入门1</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-09-06</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/81742930" target="_blank" rel="noopener">sklearn.model_selection 中 train_test_split 概述</a>
+        <span class="read-count">阅读 2315</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-09-06</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/82419791" target="_blank" rel="noopener">01-复杂度2 Maximum Subsequence Sum</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-09-05</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/82419267" target="_blank" rel="noopener">01-复杂度1 最大子列和问题</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-09-05</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/82418215" target="_blank" rel="noopener">python实现二分查找</a>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-08-16</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/81742904" target="_blank" rel="noopener">Unused import statement</a>
+        <span class="read-count">阅读 2988</span>
+      </li>
+      <li class="archive-item">
+        <span class="archive-date">2018-07-20</span>
+        <a href="https://blog.csdn.net/weixin_42107217/article/details/81134249" target="_blank" rel="noopener">1012.数字分类</a>
+      </li>
+    </ul>
+  </section>
+</div>
+
+<style>
+.archive-hero {
+  text-align: center;
+  padding: 48px 0 32px;
+  border-bottom: 1px solid var(--gold-line);
+}
+.archive-hero h1 {
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--fg);
+  margin-bottom: 8px;
+}
+.archive-hero p {
+  font-size: 15px;
+  color: var(--muted);
+}
+.archive-section {
+  margin-top: 48px;
+}
+.archive-section h2 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--fg);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--gold-line);
+}
+.archive-item-list {
+  list-style: none;
+  padding: 0;
+}
+.archive-item {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 16px;
+  align-items: baseline;
+  padding: 10px 0;
+  border-bottom: 1px dashed rgba(160,120,80,0.15);
+  transition: background 0.15s;
+}
+.archive-item:hover {
+  background: rgba(0,0,0,0.01);
+}
+.archive-item a {
+  color: var(--accent);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.archive-item a:hover {
+  color: var(--accent-hover);
+}
+.archive-date {
+  font-size: 13px;
+  color: var(--charcoal-muted);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.read-count {
+  font-size: 12px;
+  color: #b8b3a5;
+  white-space: nowrap;
+}
+.archive-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.archive-badge.migrated {
+  background: rgba(160,120,80,0.1);
+  color: var(--accent);
+  border: 0.5px solid rgba(160,120,80,0.25);
+}
+.archive-badge.original {
+  background: rgba(160,120,80,0.06);
+  color: var(--muted);
+  border: 0.5px solid rgba(160,120,80,0.15);
+}
+@media (max-width: 768px) {
+  .archive-item {
+    grid-template-columns: 75px 1fr;
+  }
+  .archive-badge {
+    display: none;
+  }
+}
+</style>

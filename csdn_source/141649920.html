@@ -1,0 +1,2174 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://blog.csdn.net/weixin_42107217/article/details/141649920"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <meta name="report" content='{"pid": "blog", "spm":"1001.2101"}'>
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <meta name="applicable-device" content="pc">
+    <link  href="https://g.csdnimg.cn/static/logo/favicon32.ico"  rel="shortcut icon" type="image/x-icon" />
+    <title>傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录_graphrag下载-CSDN博客</title>
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录_graphrag下载-CSDN博客">
+    <meta property="og:description" content="文章浏览阅读1.2w次，点赞52次，收藏185次。这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。_graph">
+    <meta property="og:url" content="https://blog.csdn.net/weixin_42107217/article/details/141649920">
+    <meta property="og:site_name" content="CSDN博客">
+    <meta property="og:image" content="https://i-blog.csdnimg.cn/direct/fc18e7c01d784991b31b2f123c7cce10.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录">
+    <meta property="article:published_time" content="2024-08-29T09:01:41+08:00">
+    <meta property="article:modified_time" content="2024-08-29T09:08:33+08:00">
+    <meta property="bytedance:published_time" content="2024-08-28T21:04:48+08:00">
+    <meta property="bytedance:lrDate_time" content="2024-08-29T09:01:41+08:00">
+    <meta property="bytedance:updated_time" content="2024-08-29T09:01:41+08:00">
+    <meta property="article:author" content="RyanLintong">
+    <meta property="article:section" content="RAG">
+    <meta property="article:tag" content="RAG,文献笔记">
+    <meta name="geo:keywords" content="RAG,文献笔记">
+    <meta name="geo:summary" content="这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。">
+    <meta name="geo:entity_type" content="Article">
+    <meta name="geo:subject" content="傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录">
+    <meta name="geo:key_points" content="RAG|文献笔记">
+    <meta name="geo:citation_ready" content="true">
+    <meta name="description:direct_answer" content="这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistra">
+    <meta name="author:credentials" content="RyanLintong">
+    <meta name="author:affiliation" content="csdn">
+    <meta name="geo:source_type" content="original">
+    <meta name="geo:fact_checked" content="true">
+    <meta name="geo:editorial_policy" content="https://passport.csdn.net/service">
+    <meta name="geo:update_frequency" content="daily">
+    <meta name="geo:maintenance_status" content="active">
+        <script type="application/ld+json">
+          {"image":"https://i-blog.csdnimg.cn/direct/fc18e7c01d784991b31b2f123c7cce10.png","keywords":"RAG,文献笔记","@type":"Article","author":[{"@type":"Person","name":"RyanLintong","url":"https://blog.csdn.net/weixin_42107217"}],"inLanguage":"zh-CN","description":"文章浏览阅读1.2w次，点赞52次，收藏185次。这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。_graph","dateModified":"2024-08-29T09:08:33+08:00","@context":"https://schema.org","url":"https://blog.csdn.net/weixin_42107217/article/details/141649920","datePublished":"2024-08-29T09:01:41+08:00","publisher":{"@type":"Organization","name":"CSDN","logo":{"@type":"ImageObject","url":"https://g.csdnimg.cn/static/logo/favicon32.ico"}},"geoSummary":{"heading":"内容摘要","items":{"主题":"傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录","类型":"article","适用场景":"这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。","核心功能":"RAG,文献笔记","更新日期":"2024-08-29T09:08:33+08:00"},"keyPoints":["RAG","文献笔记"],"citationContext":{"authoritySource":"RyanLintong","factChecked":true,"lastVerified":"2024-08-29T09:08:33+08:00"}},"headline":"傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录","articleSection":"RAG"}
+        </script>
+    <script>
+    (function(){
+    var el = document.createElement("script");
+    el.src = "https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?1abfa13dfe74d72d41d83c86d240de42fa345e1877a4861fa55a00b4f9f2644d3d72cd14f8a76432df3935ab77ec54f830517b3cb210f7fd334f50ccb772134a";
+    el.id = "ttzz";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(el, s);
+    })(window)
+    </script>
+        <meta name="keywords" content="RAG,文献笔记">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"graphrag下载"}'>
+    <meta name="description" content="文章浏览阅读1.2w次，点赞52次，收藏185次。这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。_graphrag下载">
+              <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-811f8e378f.min.css">
+    <style>
+        #content_views pre{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        #content_views pre code{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+    </style>
+    <script type="application/ld+json">{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"https://blog.csdn.net/weixin_42107217/article/details/141649920","appid":"1638831770136827","pubDate":"2024-08-28T21:04:48","title":"傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录_graphrag下载-CSDN博客","upDate":"2024-08-29T09:01:41"}</script>
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin3-template/skin3-template-762f7595fd.min.css">
+    <script src="https://g.csdnimg.cn/lib/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/lib/jquery-migrate/1.4.1/jquery-migrate.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var isCorporate = false;
+        var username =  "weixin_42107217";
+        var skinImg = "white";
+
+        var blog_address = "https://blog.csdn.net/weixin_42107217";
+        var currentUserName = "";
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_42107217/article/details/141649920";
+        var blogUrl = "https://blog.csdn.net/";
+        var starMapUrl = "https://ai.csdn.net";
+        var paymentBalanceUrl = "https://csdnimg.cn/release/vip-business-components/vipPaymentBalance.js?v=2025122501";
+        var avatar = "https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1";
+        var isCJBlog = false;
+        var isStarMap = false;
+        var articleTitle = "傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录";
+        var articleDesc = "文章浏览阅读1.2w次，点赞52次，收藏185次。这里按惯例介绍一下 GraphRAG  (其实就是水字数，大部分是 GPT 写的)这是我踩的最大的坑，折腾了两个小时。原因是一些模型无法生成有效的 json 输出，将 settings.yaml 中的 model_supports_json 选项设为 false 仍然无法解决。后来改用 mistral 模型就很顺利。所以请注意你的模型。_graphrag下载";
+        var articleTitles = "傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录_graphrag下载-CSDN博客";
+        var nickName = "RyanLintong";
+        var articleDetailUrl = "https://blog.csdn.net/weixin_42107217/article/details/141649920";
+        var vipUrlV = "https://mall.csdn.net/vip?vipSource=learningVip";
+        if(window.location.host.split('.').length == 3) {
+            blog_address = blogUrl + username;
+        }
+        var skinStatus = "White";
+        var isVipSkin = false;
+        var blogStaticHost = "https://csdnimg.cn/release/blogv2/"
+          var payColumn = false
+    </script>
+        <meta name="toolbar" content='{"type":"0","fixModel":"1"}'>
+      <script ript src="https://g.csdnimg.cn/??fixed-sidebar/1.1.7/fixed-sidebar.js" type="text/javascript"></script>
+    <script src='//g.csdnimg.cn/common/csdn-report/report.js' type='text/javascript'></script>
+    <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax_Message, .MathJax_Preview{
+            display: none !important;
+        }
+    </style>
+    <script src="https://dup.baidustatic.com/js/ds.js"></script>
+      <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "lgtpix6r85");
+      </script>
+    <script src="/cdn_cgi_bs_bot/static/crypto.min.js"></script>
+    <script src="/cdn_cgi_bs_bot/static/bot-score-v1.js"></script>
+    <script src="/cdn_cgi_bs_captcha/static/js/waf_captcha_embedded_bs.js"></script>
+</head>
+  <body class="nodata  " style="">
+    <div id="toolbarBox" style="min-height: 48px;"></div>
+        <script>
+            var toolbarSearchExt = '{\"id\":141649920,\"landingWord\":[\"graphrag下载\"],\"queryWord\":\"\",\"tag\":[\"RAG\",\"文献笔记\"],\"title\":\"傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录\"}';
+        </script>
+    <script src="https://g.csdnimg.cn/common/csdn-toolbar/csdn-toolbar.js" type="text/javascript"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" />
+    <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css" />
+    <script src="https://g.csdnimg.cn/lib/swiper/6.0.4/js/swiper.js" async></script>
+    <script>
+      var articleId = 141649920;
+      var annotationModuleBootstrapData = {
+        hasAnnotation: false,
+        totalCount: 0,
+        list: [],
+        categories: []
+      };
+      var annotationFeatureEnabled = false;
+
+
+        var privateEduData = [];
+        var privateData = [];
+      var crytojs = "https://csdnimg.cn/release/blogv2/dist/components/js/crytojs-ca5b8bf6ae.min.js";
+      var commentscount = 60;
+      var commentAuth = 2;
+      var curentUrl = "https://blog.csdn.net/weixin_42107217/article/details/141649920";
+      var myUrl = "https://my.csdn.net/";
+      var isGitCodeBlog = false;
+var vipActivityIcon = "https://i-operation.csdnimg.cn/images/99a45e75b3604261bbe47a0982437719.png";
+var vipActivityIconV2 = {
+  icon: "https://i-operation.csdnimg.cn/images/99a45e75b3604261bbe47a0982437719.png",
+  url: "https://i.csdn.net/#/geek-star-fun-pack?utm_source=260901_vip_blogleftbanner"
+};
+      var isOpenSourceBlog = false;
+      var isVipArticle = true;
+        var highlight = ["graphrag","ollama","rag","操作","本地","傻瓜","文献","笔记","记录","下载","部署","踩","坑",":"];//高亮数组
+        var isRecommendModule = true;
+          var isBaiduPre = true;
+          var baiduCount = 2;
+          var setBaiduJsCount = 10;
+        var viewCountFormat = 12554;
+      var share_card_url = "https://app-blog.csdn.net/share?article_id=141649920&username=weixin_42107217"
+      var mallVipUrl = "https://mall.csdn.net/vip?vipSource=article"
+      var vipArticleAbStyle = "t_1"
+      var vipArticleCpStyle = "t_1"
+      var detailheaderAbCommunity = "control"
+      var codeAiAbStyle = "control"
+      var runProjectDeepBlogAB = "t_1"
+      var gitcodeHighlightWordAB = "exp1"
+
+      var asideCknowsEntryAB = "is_vip_article"
+      var deepblogUrl = ""
+        deepblogUrl = "https://deepblog.net?utm_source=blog_onekey_run";
+      var codeAiAbObjStyle = ""
+        codeAiAbObjStyle = "{\"control\":{\"title\":\"AI写代码\",\"destUrl\":\"https://trae.com.cn?utm_source=community&utm_medium=csdn&utm_campaign=daima\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/a5fff6f6c9f0464c9a46b130c972952b.png\"},\"exp1\":{\"title\":\"一键获取完整项目代码\",\"runClose\":true,\"destUrl\":\"https://inscode.net?utm_source=blog_code_block\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/4648c13ca82a446ea1bfb99876a27770.png\",\"blogUrl\":true},\"control_run_project\":{\"title\":\"运行项目并下载源码\",\"destUrl\":\"\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/46c457a2cf8b4b9b8f17a2ab71461d4a.png\"},\"control_deepblog\":{\"title\":\"AI生成项目\",\"destUrl\":\"https://inscode.net?utm_source=blog_code_block_fixed\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/9899ea0f099e4e4e8b1fcdb918a27fcd.png\",\"blogUrl\":false},\"exp2\":{\"title\":\"AI编程工具\",\"destUrl\":\"https://www.codebuddy.cn/work/?fromSource=gwzcw.13129862.13129862.13129862&utm_medium=cpc&utm_id=gwzcw.13129862.13129862.13129862\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/034b15f494eb444abc72cc544790ca5f.svg\"},\"exp4\":{\"title\":\"Lobster AI\",\"destUrl\":\"https://lobsterai.youdao.com/#/index?keyfrom=csdn3\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/2c9d3b91a8ad4956bca5af92918b9e75.png\"},\"exp5\":{\"title\":\"用码道免费领 1 个月 Token\",\"destUrl\":\"https://developer.huaweicloud.com/codeartsco.html?source=dmzntgwltcsdn1&sourcead=dmzntgwltcsdnzn11\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/7c0190c005ab41659100f583c0791aee.png\"}}";
+      var articleType = 1;
+      var baiduKey = "graphrag下载";
+      var copyPopSwitch = true;
+      var needInsertBaidu = true;
+      var recommendRegularDomainArr = ["blog.csdn.net/.+/article/details/","download.csdn.net/download/","edu.csdn.net/course/detail/","ask.csdn.net/questions/","bbs.csdn.net/topics/","www.csdn.net/gather_.+/"]
+      var codeStyle = "atom-one-dark";
+      var baiduSearchType = "baidulandingword";
+      var sharData = "{\"hot\":[{\"id\":1,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a5f4260710904e538002a6ab337939b3.png\"},{\"id\":2,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/188b37199a2c4b74b1d9ffc39e0d52de.png\"},{\"id\":3,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/14ded358b631444581edd98a256bc5af.png\"},{\"id\":4,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1470f23a770444d986ad551b9c33c5be.png\"},{\"id\":5,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c329f5181dc74f6c9bd28c982bb9f91d.png\"},{\"id\":6,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ccd8a3305e81460f9c505c95b432a65f.png\"},{\"id\":7,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bc89d8283389440d97fc4d30e30f45e1.png\"},{\"id\":8,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/452d485b4a654f5592390550d2445edf.png\"},{\"id\":9,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f8b9939db2ed474a8f43a643015fc8b7.png\"},{\"id\":10,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6de8864187ab4ed3b1db0856369c36ff.png\"},{\"id\":11,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/673cc3470ff74072acba958dc0c46e2d.png\"},{\"id\":12,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/930c119760ac4491804db80f9c6d4e3f.png\"},{\"id\":13,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/15e6befb05a24233bc2b65e96aa8d972.png\"},{\"id\":14,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2075fd6822184b95a41e214de4daec13.png\"},{\"id\":15,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/859b1552db244eb6891a809263a5c657.png\"},{\"id\":16,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/0be2f920f1f74290a98921974a9613fd.png\"},{\"id\":17,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2e97e00b43f14afab494ea55ef3f4a6e.png\"},{\"id\":18,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ff4ab252f46e444686f5135d6ebbfec0.png\"},{\"id\":19,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ae029bbe99564e79911657912d36524f.png\"},{\"id\":20,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b3ece39963de440388728e9e7b9bf427.png\"},{\"id\":21,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6f14651a99ba486e926d63b6fa692997.png\"},{\"id\":22,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/83ceddf050084875a341e32dcceca721.png\"},{\"id\":23,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b90368b8fd5d4c6c8c79a707d877cf7c.png\"},{\"id\":24,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/aeffae14ecf14e079b2616528c9a393b.png\"},{\"id\":25,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c5a06b5a13d44d16bed868fc3384897a.png\"},{\"id\":26,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/08b697658b844b318cea3b119e9541ef.png\"},{\"id\":27,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/68ccb0b8d09346ac961d2b5c1a8c77bf.png\"},{\"id\":28,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a2227a247e37418cbe0ea972ba6a859b.png\"},{\"id\":29,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/3a42825fede748f9993e5bb844ad350d.png\"},{\"id\":30,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/8882abc1dd484224b636966ea38555c3.png\"},{\"id\":31,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/4f6a5f636a3e444d83cf8cc06d87a159.png\"},{\"id\":32,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1953ef79c56b4407b78d7181bdff11c3.png\"},{\"id\":33,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c04a2a4f772948ed85b5b0380ed36287.png\"},{\"id\":34,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5b4fecd05091405ea04d8c0f53e9f2c7.png\"},{\"id\":35,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b89f576d700344e280d6ceb2a66c2420.png\"},{\"id\":36,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1c65780e11804bbd9971ebadb3d78bcf.png\"},{\"id\":37,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d590db2055f345db9706eb68a7ec151a.png\"},{\"id\":38,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fe602f80700b4f6fb3c4a9e4c135510e.png\"},{\"id\":39,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/39ff2fcd31e04feba301a071976a0ba7.png\"},{\"id\":40,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f9b61b3d113f436b828631837f89fb39.png\"},{\"id\":41,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/df1aca5f610c4ad48cd16da88c9c8499.png\"},{\"id\":42,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d7acf73a1e6b41399a77a85040e10961.png\"},{\"id\":43,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b7f1b63542524b97962ff649ab4e7e23.png\"}],\"vip\":[{\"id\":1,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101150.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101154.png\"},{\"id\":2,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101204.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101208.png\"},{\"id\":3,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101211.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101215.png\"},{\"id\":4,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101218.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101220.png\"},{\"id\":5,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101223.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101226.png\"},{\"id\":6,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100635.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100639.png\"},{\"id\":7,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100642.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100644.png\"},{\"id\":8,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100647.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100649.png\"},{\"id\":9,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100652.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100655.png\"},{\"id\":10,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/55de67481fde4b04b97ad78f11fe369a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bb2418fb537e4d78b10d8765ccd810c5.png\"},{\"id\":11,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/579c713394584d128104ef1044023954.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f420d9fbcf5548079d31b5e809b6d6cd.png\"},{\"id\":12,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/75b7f3155ba642f5a4cc16b7baf44122.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a9030f5877be401f8b340b80b0d91e64.png\"},{\"id\":13,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0903d33cafa54934be3780aa54ae958d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2cd8c8929f5a42fca5da2a0aeb456203.png\"},{\"id\":14,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/949fd7c22884439fbfc3c0e9c3b8dee7.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/dafbea9bd9eb4f3b962b48dc41657f89.png\"},{\"id\":15,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4119cfddd71d4e6a8a27a18dbb74d90e.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c56310c8b6384d9e85388e4e342ce508.png\"},{\"id\":16,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/121575274da142bcbbbbc2e8243dd411.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5013993de06542f881018bb9abe2edf7.png\"},{\"id\":17,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4d97aa6dd4fe4f09a6bef5bdf8a6abcd.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/76f23877b6ad4066ad45ce8e31b4b977.png\"},{\"id\":18,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdb619daf21b4c829de63b9ebc78859d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a1abe5d27a5441f599adfe662f510243.png\"},{\"id\":19,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/676b7707bb11410f8f56bc0ed2b2345c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/7ac5b467fbf24e1d8c2de3f3332c4f54.png\"},{\"id\":20,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0becb8cc227e4723b765bdd69a20fd4a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdec85b26091486b9a89d0b8d45c3749.png\"},{\"id\":21,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/1a6c06235ad44941b38c54cbc25a370c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/410a06cda2d44b0c84578f88275caf70.png\"}],\"map\":{\"hot\":\"热门\",\"vip\":\"VIP\"}}";
+        var commentListModule = ''
+      var canRead = false;
+      var blogMoveHomeArticle = false;
+      var showSearchText = "";
+      var articleSource = 1;
+      var articleReport = '{"pid": "blog", "spm":"1001.2101"}';
+        var baiduSearchChannel = 'pc_relevant'
+        var baiduSearchIdentification = '.235^v43^pc_blog_bottom_relevance_base4'
+        var distRequestId = '1788347697622_94901'
+        var initRewardObject = {
+          giver: currentUserName,
+          anchor: username,
+          articleId: articleId,
+          sign: ''
+        }
+        var isLikeStatus = false;
+        var isUnLikeStatus = false;
+        var studyLearnWord = "";
+        var unUseCount = 0;
+        var codeMaxSize = 0;
+        var overCost = true;
+        var isCurrentUserVip = false;
+        var contentViewsHeight = 0;
+        var contentViewsCount = 0;
+        var contentViewsCountLimit = 5;
+        var isShowConcision = false;
+        var lastTime = "2024-08-29 09:08:33"
+        var postTime = "2024-08-29 09:01:41"
+      var isCookieConcision = false
+      var isHasDirectoryModel = false
+      var isShowSideModel = false
+      var isShowDirectoryModel = true
+      function getCookieConcision(sName){
+        var allCookie = document.cookie.split("; ");
+        for (var i=0; i < allCookie.length; i++){
+          var aCrumb = allCookie[i].split("=");
+          if (sName == aCrumb[0])
+            return aCrumb[1];
+        }
+        return null;
+      }
+      if (getCookieConcision('blog_details_concision') && getCookieConcision('blog_details_concision') == 0){
+        isCookieConcision = true
+        isShowSideModel = true
+        isShowDirectoryModel = false
+      }
+    </script>
+        <div class="main_father clearfix d-flex justify-content-center " style="height:100%;">
+          <div class="container clearfix " id="mainBox">
+          <script>
+          if (!isCookieConcision) {
+            $('.main_father').removeClass('mainfather-concision')
+            $('.main_father .container').removeClass('container-concision')
+          } else {
+            $('#mainBox').css('margin-right', '0')
+          }
+          </script>
+          <main>
+<script type="text/javascript">
+    var resourceId =  "";
+    function getQueryString(name) {   
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+      var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+      if( r != null ) return decodeURIComponent( r[2] ); return '';   
+    }
+    function stripscript(s){ 
+      var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%]") 
+      var rs = ""; 
+      for (var i = 0; i < s.length; i++) { 
+        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+      } 
+      return rs;
+    }
+    var blogHotWords = stripscript(getQueryString('utm_term')).length > 1 ? stripscript(getQueryString('utm_term')) : ''
+</script>
+<div class="blog-content-box">
+  <div class="article-header-box" id="article-header-box">
+    <div class="article-header">
+      <div class="article-title-box">
+        <h1 class="title-article" id="articleContentId">傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</h1>
+      </div>
+      <div class="article-info-box">
+          <div class="article-bar-top">
+              <div class="bar-content active">
+              <span class="article-type-text original">原创</span>
+                <a href="https://mall.csdn.net/vip" data-report-query="spm=3001.10404"  data-report-click='{"spm":"3001.10404"}' data-report-view='{"spm":"3001.10404"}'  class="article-vip-box" target="_blank"><img class="article-vip-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/identityVipNew.png" alt=""></a>
+                 
+
+              
+              <span class="time">已于&nbsp;2024-08-29 09:08:33&nbsp;修改</span>
+                <span class="border-dian">·</span>
+                <span class="read-count">1.2w 阅读</span>
+                <div class="read-count-box is-like like-ab-new" data-type="top">
+                  <span class="border-dian">·</span>
+                  <img class="article-read-img article-heard-img active" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt="">
+                  <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt="">
+                  <span class="read-count" id="blog-digg-num" style="color:;">
+                      52
+                  </span>
+                </div>
+                <span class="border-dian">·</span>
+                <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                  <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt="">
+                  <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt="">
+                  <span class="get-collection">
+                      185
+                  </span>
+                </a>
+
+              </div>
+          </div>
+          <div class="blog-tags-box article-header-tags-v2">
+
+<div class="article-header-categories-wrap">
+  <div class="article-header-collect-row">
+    <div class="article-header-category-segment article-header-collect-segment" id="article-header-collect-group" data-column-count="0" style="display:none">
+      <span class="article-header-row-dot" style="display:none">·</span>
+      <div class="article-header-category-group article-header-collect-group">
+        <span class="article-header-label">收录于</span>
+        <div class="article-header-pill-list article-header-collect-list" id="article-header-collect-list">
+          <span class="article-header-community-slot community-name" id="community-name"></span>
+<div class="tag-more-btn collect-more-btn column-collect-more-btn" style="display:none" id="article-header-collect-more-btn" data-report-click='{"spm":"1001.2101.3001.4224"}'>
+  <svg class="more-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/>
+  </svg>
+  <div class="column-more-dropdown">
+    <p class="dropdown-title">当前文章被以下社区和专栏收录：</p>
+    <div class="column-more-list" id="article-header-collect-more-list">
+      <div class="dropdown-divider column-more-item-divider"></div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+          </div>
+          <div class="up-time"><span>于&nbsp;2024-08-29 09:01:41&nbsp;首次发布</span></div>
+      </div>
+    </div>
+  </div>
+    <div id="blogHuaweiyunAdvert"></div>
+
+
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-a50b13a894.css">
+                <div id="content_views" class="markdown_views prism-atom-one-dark">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <p></p> 
+<div class="toc"> 
+ <h4>目录</h4> 
+ <ul> 
+  <li><a href="#GraphRAG__4">一、GraphRAG 介绍</a></li> 
+  <li> 
+   <ul> 
+    <li><a href="#1_7">1.引言</a></li> 
+    <li><a href="#2_12">2.创新点</a></li> 
+    <li><a href="#3__19">3. 算法</a></li> 
+    <li><a href="#4__25">4. 数据和实验结果</a></li> 
+    <li><a href="#5_35">5.不足和展望</a></li> 
+   </ul> </li> 
+  <li><a href="#_39">二、本地部署</a></li> 
+  <li> 
+   <ul> 
+    <li><a href="#1_41">1.为什么要本地部署</a></li> 
+    <li><a href="#2_44">2.环境准备</a></li> 
+    <li><a href="#3_GraphRAG__50">3. GraphRAG 安装</a></li> 
+    <li> 
+     <ul> 
+      <li><a href="#31__GraphGAG_51">3.1 下载 GraphGAG</a></li> 
+      <li><a href="#32__57">3.2 安装依赖包</a></li> 
+      <li><a href="#33__67">3.3 创建数据目录</a></li> 
+      <li><a href="#34__69">3.4 项目初始化</a></li> 
+      <li> 
+       <ul> 
+        <li><a href="#35__74">3.5 修改配置文件</a></li> 
+       </ul> </li> 
+      <li><a href="#36_env_80">3.6 修改.env文件</a></li> 
+      <li><a href="#37__87">3.7 修改源码</a></li> 
+     </ul> </li> 
+    <li><a href="#4_Indexing_202">4. Indexing</a></li> 
+    <li><a href="#5_query_212">5. query</a></li> 
+    <li> 
+     <ul> 
+      <li><a href="#51__214">5.1 修改代码</a></li> 
+      <li><a href="#52__227">5.2 开始查询</a></li> 
+     </ul> </li> 
+    <li><a href="#6__277">6. 踩坑总结</a></li> 
+    <li> 
+     <ul> 
+      <li><a href="#61__278">6.1 模型选择</a></li> 
+      <li><a href="#62_Indexing__285">6.2 Indexing 过程其他报错</a></li> 
+      <li><a href="#63__288">6.3 查询过程报错</a></li> 
+     </ul> </li> 
+   </ul> </li> 
+  <li><a href="#_294">参考文档</a></li> 
+ </ul> 
+</div> 
+<p></p> 
+<p>折腾了一天终于把 GraphRAG 部署好了，记录一下心酸的踩坑过程。</p> 
+<h2><a id="GraphRAG__4"></a>一、GraphRAG 介绍</h2> 
+<blockquote> 
+ <p>这里按惯例介绍一下 GraphRAG (其实就是水字数，大部分是 GPT 写的)</p> 
+</blockquote> 
+<h3><a id="1_7"></a>1.引言</h3> 
+<p>微软开源了一个新的基于知识图谱构建的检索增强生成（RAG）系统：GraphRAG。该框架主要解决了如何将检索增强生成（RAG）应用于整个文本语料库的全局性问题，例如“数据集中的主题是什么？”<br> <a href="https://arxiv.org/pdf/2404.16130" rel="nofollow">论文地址</a><br> <a href="https://microsoft.github.io/graphrag/" rel="nofollow">项目地址</a></p> 
+<h3><a id="2_12"></a>2.创新点</h3> 
+<ol> 
+ <li><strong>图RAG方法</strong>：提出了一种新的Graph RAG方法，这种方法结合了知识图谱的构建、检索增强生成（RAG）和查询聚焦摘要（QFS），以支持对整个文本语料库的人类感知制作。这种方法特别针对于全局性问题，如“数据集中的主要主题是什么？”</li> 
+ <li><strong>两阶段图索引构建</strong>：Graph RAG方法使用大型语言模型（LLM）分两个阶段构建基于图的文本索引： 
+  <ul> 
+   <li><strong>第一阶段</strong>：从源文档中提取实体，构建实体知识图谱。</li> 
+   <li><strong>第二阶段</strong>：为所有密切相关的实体组预生成社区摘要。</li> 
+  </ul> </li> 
+ <li><strong>社区检测算法</strong>：利用社区检测算法（如Leiden算法）将图索引划分为模块化的社区，这些社区内的节点（实体）之间有更强的联系。</li> 
+ <li><strong>查询聚焦摘要</strong>：通过查询聚焦摘要方法，将社区摘要合并为最终的全局答案，这种方法特别适用于处理大规模文本数据集。</li> 
+</ol> 
+<h3><a id="3__19"></a>3. 算法</h3> 
+<p><img src="https://i-blog.csdnimg.cn/direct/fc18e7c01d784991b31b2f123c7cce10.png#pic_center" alt="Graph RAG pipline(论文fig 1)"></p> 
+<ul> 
+ <li><strong>图索引构建</strong>：首先，使用LLM对源文档进行处理，提取实体和关系，构建实体知识图谱。然后，使用社区检测算法将图谱划分为社区，并为每个社区生成摘要。</li> 
+ <li><strong>查询处理</strong>：当接收到用户查询时，系统会使用社区摘要来生成部分答案。这些部分答案随后被汇总和摘要，以形成对用户的最终回答。</li> 
+ <li><strong>并行处理</strong>：在索引和查询时，系统能够并行处理社区摘要，这提高了处理效率并允许处理大规模数据集。</li> 
+ <li><strong>模块化和可扩展性</strong>：Graph RAG方法的模块化设计允许它适应不同规模和类型的数据集，同时保持高效和可扩展。</li> 
+</ul> 
+<h3><a id="4__25"></a>4. 数据和实验结果</h3> 
+<ul> 
+ <li><strong>数据集选择</strong>：选择了两个大约一百万标记的数据集进行评估，包括播客文稿和新闻文章，这些数据集代表了用户在现实世界活动中可能遇到的文本语料库类型。</li> 
+ <li><strong>问题生成</strong>：使用活动中心的方法自动化生成需要理解整个语料库的问题，而不是特定文本的细节。</li> 
+ <li><strong>条件比较</strong>：比较了六种不同的条件，包括使用不同层次的图社区（C0, C1, C2, C3）的Graph RAG，直接对源文本应用map-reduce方法的文本摘要（TS），以及朴素的“语义搜索”RAG方法（SS）。</li> 
+ <li><strong>评估指标</strong>：采用LLM评估器进行头对头比较，选择了三个目标指标来捕捉对感知制作活动有益的质量：全面性、多样性和赋能性。同时，使用直接性作为有效性的指标。</li> 
+ <li><strong>结果分析</strong>： 
+  <ul> 
+   <li><strong>全局方法与朴素RAG</strong>：全局方法在全面性和多样性指标上一致优于朴素RAG方法。</li> 
+   <li><strong>社区摘要与源文本</strong>：社区摘要通常在答案的全面性和多样性上提供了小幅但一致的改进，尤其是在播客数据集的中级社区摘要和新闻数据集的低级社区摘要中。</li> 
+   <li><strong>赋能性</strong>：赋能性比较显示了混合结果，但LLM分析指出提供具体例子、引用和引证的能力是帮助用户达到知情理解的关键。</li> 
+   <li><strong>上下文窗口大小</strong>：测试了不同的上下文窗口大小，发现最小的上下文窗口大小（8k）在全面性上普遍表现更好，而在多样性和赋能性上与较大的上下文窗口大小相当。</li> 
+  </ul> </li> 
+</ul> 
+<h3><a id="5_35"></a>5.不足和展望</h3> 
+<ul> 
+ <li>目前的评估仅限于一类全局性问题和大约一百万标记的数据集，未来的工作需要在不同类型的问题、数据类型和数据集大小上验证性能。</li> 
+ <li>考虑构建图索引的权衡，包括计算预算、预期的查询数量以及从图索引中获得的其他价值。</li> 
+ <li>未来的工作可能包括更本地化的 RAG 方法，以及将基于嵌入的匹配与社区报告结合起来的混合 RAG 方案。</li> 
+</ul> 
+<h2><a id="_39"></a>二、本地部署</h2> 
+<blockquote> 
+ <p>目前已经有很多教程，但在我跑模型过程中，发现还是很多 bug，这里记录一下。部署过程中主要参考了几个教程，列在文末</p> 
+</blockquote> 
+<h3><a id="1_41"></a>1.为什么要本地部署</h3> 
+<p>微软开源的 GraphRAG 项目代码和 OpenAI 的 Chat GPT 高度耦合，对我这样又穷又不方便科学上网的人实在不友好，据说跑一个官方的demo 就要 10 刀。还是用开源的模型方便啊，开源万岁！！</p> 
+<blockquote> 
+ <p>土豪可以直接用官网的项目，如果使用其他在线的模型可以参考这个教程：http://t.csdnimg.cn/dDEbL</p> 
+</blockquote> 
+<h3><a id="2_44"></a>2.环境准备</h3> 
+<p>这部分基础环境配置就不废话了，我的环境如下：</p> 
+<ul> 
+ <li>操作系统 windows 11</li> 
+ <li>PyCharm 2024.2.0.1</li> 
+ <li>Python 3.12</li> 
+ <li>Ollama（Ollama 的安装和使用有一大堆教程，可以参考这个：<a href="https://github.com/AXYZdong/handy-ollama">handy-ollama</a>)</li> 
+</ul> 
+<h3><a id="3_GraphRAG__50"></a>3. GraphRAG 安装</h3> 
+<h4><a id="31__GraphGAG_51"></a>3.1 下载 GraphGAG</h4> 
+<p>命令行操作</p> 
+<pre><code class="prism language-bash"><span class="token function">git</span> clone https://github.com/microsoft/graphrag.git 
+</code></pre> 
+<p>这里注意一下，很多教程上代码地址是： https://github.com/TheAiSingularity/graphrag-local-ollama.git，而本文写的是官网地址。正如前面所说，微软的 GraphRAG 项目代码和 OpenAI 的 Chat GPT 高度耦合，改用 Ollama 需要进行很多修改。TheAiSingularity 和官网的区别正在于此。<strong>但是</strong>，<strong>但是</strong>，截止今天（2024.8.28）我部署情况看，这个修改不完全，还有很多地方要改（我已经提了 pr，希望他们能采纳），为了讲解的完整性，下文直接讲解修改官网的项目（其实改的也不多）</p> 
+<h4><a id="32__57"></a>3.2 安装依赖包</h4> 
+<p>进入 Graph RAG 安装目录</p> 
+<pre><code class="prism language-bash"><span class="token builtin class-name">cd</span> graphrag 
+</code></pre> 
+<p>傻瓜操作，安装依赖包</p> 
+<pre><code class="prism language-bash">pip <span class="token function">install</span> <span class="token parameter variable">-e</span> <span class="token builtin class-name">.</span>
+</code></pre> 
+<h4><a id="33__67"></a>3.3 创建数据目录</h4> 
+<p>在 Graph RAG 安装目录下创建文件夹 ragtest/input，这只是方便管理，也可以直接创建 input 文件夹。把要训练的数据放到 input 文件夹（仅支持 txt 文件，可以有多个）。</p> 
+<h4><a id="34__69"></a>3.4 项目初始化</h4> 
+<pre><code class="prism language-bash">python <span class="token parameter variable">-m</span> graphrag.index <span class="token parameter variable">--init</span> <span class="token parameter variable">--root</span> ./ragtest
+</code></pre> 
+<p>此时会在 ragtest 目录下生成 output，setting.yaml，prompts，.env (默认隐藏）等目录及文件。setting.yaml 是配置文件，后面需要修改，output 是每次跑模型的结果和运行日志。</p> 
+<h5><a id="35__74"></a>3.5 修改配置文件</h5> 
+<p>因为要改用本地模型，必须修改配置文件 setting.yaml。修改以下四处：<br> <img src="https://i-blog.csdnimg.cn/direct/8dc49b8bae2e4c1ba5fdbd9c80d67152.png" alt="配置文件1"></p> 
+<ul> 
+ <li>我的模型使用的是 mistral，这里根据自己的模型修改即可。api_base 是 Ollama 的默认地址，一般都是这个（确保你的端口没被占用）<br> <img src="https://i-blog.csdnimg.cn/direct/c9bd6f1c1f294dca8a82da70081f4bb4.png" alt="配置文件2"></li> 
+ <li>注意，embeddings 和前面 llm 是两个不同的模型，推荐使用 nomic-embed-text。另外 api_base 末尾是 api</li> 
+</ul> 
+<h4><a id="36_env_80"></a>3.6 修改.env文件</h4> 
+<p>把原文件内容删掉，换成下面这个</p> 
+<pre><code class="prism language-bash"><span class="token assign-left variable">GRAPHRAG_API_KEY</span><span class="token operator">=</span>ollama
+<span class="token assign-left variable">GRAPHRAG_CLAIM_EXTRACTION_ENABLED</span><span class="token operator">=</span>True
+</code></pre> 
+<blockquote> 
+ <p>必须加上参数GRAPHRAG_CLAIM_EXTRACTION_ENABLED=True，否则无法生成协变量 covariates， 在 Local Search 时会出错。</p> 
+</blockquote> 
+<h4><a id="37__87"></a>3.7 修改源码</h4> 
+<p>这里需要修改几处代码，放心，很简单，已经完成一大半了<br> 在你的 Graph RAG 安装目录下应该有一个 graphrag 的文件夹，长成这样：<br> <img src="https://i-blog.csdnimg.cn/direct/56bb711adc8848e08c13829d3ed54e53.png" alt="在这里插入图片描述"><br> 我们需要修改其中三个文件</p> 
+<ul> 
+ <li>llm\openai\openai_embeddings_llm.py<br> <img src="https://i-blog.csdnimg.cn/direct/972a22bbcab6447fa8be9172347ff9de.png" alt="在这里插入图片描述"><br> 只需要引入 Ollama 依赖 ，然后修改最后五行代码即可(见注释，注释掉的代码为源代码)，如下：</li> 
+</ul> 
+<pre><code class="prism language-python"></code></pre>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-e1cc28b339.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-d1e89cace4.css" rel="stylesheet">
+        </div>
+    </article>
+
+
+
+
+  <script>
+    $(function() {
+      setTimeout(function () {
+        var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+        if (mathcodeList.length > 0) {
+          for (let i = 0; i < mathcodeList.length; i++) {
+            if (mathcodeList[i].complete) {
+              if (mathcodeList[i].naturalWidth === 0 || mathcodeList[i].naturalHeight === 0) {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              }
+            } else {
+              mathcodeList[i].onerror = function() {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              };
+            }
+          }
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+      }, 500)
+    });
+  </script>
+<div class="article-footer-categories-wrap">
+  <div class="article-footer-category-segment">
+    <div class="article-footer-category-group">
+      <span class="article-footer-label">标签</span>
+      <div class="article-footer-pill-list">
+          <a rel="nofollow" data-report-query="spm=1001.2101.3001.4223" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"RAG","ab":"new","extra":"{\"searchword\":\"RAG\"}"}' data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"RAG","ab":"new","extra":"{\"searchword\":\"RAG\"}"}' class="tag-link-new" href="https://so.csdn.net/so/search/s.do?q=RAG&t=all&o=vip&s=&l=&f=&viparticle=&from_tracking_code=tag_word&from_code=app_blog_art" target="_blank" rel="noopener">#RAG</a>
+          <a rel="nofollow" data-report-query="spm=1001.2101.3001.4223" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"文献笔记","ab":"new","extra":"{\"searchword\":\"文献笔记\"}"}' data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"文献笔记","ab":"new","extra":"{\"searchword\":\"文献笔记\"}"}' class="tag-link-new" href="https://so.csdn.net/so/search/s.do?q=%E6%96%87%E7%8C%AE%E7%AC%94%E8%AE%B0&t=all&o=vip&s=&l=&f=&viparticle=&from_tracking_code=tag_word&from_code=app_blog_art" target="_blank" rel="noopener">#文献笔记</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+        <div class="hide-article-box hide-article-pos text-center  ">
+            <div class="vip-mask">
+                      <a id="getVipUrl" class="openvippay unlogin" data-report-view='{"mod":"popu_786","spm":"3001.4249","strategy":"pc_vip_readmore","ab":"new","extra":{"abTest":"t_1"}}' data-report-click='{"mod":"popu_786","spm":"3001.4249","strategy":"pc_vip_readmore","ab":"new","extra":{"abTest":"t_1"}}'>
+                        <img class="lock-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/lock.png" alt="">
+                        <span class="vip-btn-text">最低0.47元/天 解锁文章</span>
+                          <img class="btn-tag" src="https://i-operation.csdnimg.cn/images/9b8d0d477b4d448787612f4a30dc7431.png" alt="">
+                      </a>
+            </div>
+        </div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+  <div class="directory-boxshadow-dialog-box">
+  </div>
+   <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+      <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png">
+      <div class="vip-limited-time-top">
+        确定要放弃本次机会？
+      </div>
+      <span class="vip-limited-time-text">福利倒计时</span>
+      <div class="limited-time-box-new">
+        <span class="time-hour"></span>
+        <i>:</i>
+        <span class="time-minite"></span>
+        <i>:</i>
+        <span class="time-second"></span>
+      </div>
+      <div class="limited-time-vip-box">
+        <p>
+          <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png">
+          <span class="def">立减 ¥</span>
+          <span class="active limited-num"></span>
+        </p>
+        <span class="">普通VIP年卡可用</span>
+      </div>
+      <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query='spm=1001.2101.3001.9621'>立即使用</a>
+  </div>
+</div>
+    <div class="more-toolbox-new more-toolbar" id="toolBarBox">
+      <div class="left-toolbox">
+        <div class="toolbox-left">
+            <div class="profile-box">
+              <a class="profile-href" target="_blank" href="https://blog.csdn.net/weixin_42107217"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1">
+                <span class="profile-name">
+                  RyanLintong
+                </span>
+              </a>
+            </div>
+            <div class="profile-attend">
+                <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+              <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </div>
+        </div>
+        <div class="toolbox-middle">
+          <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom">
+              <a class="tool-item-href">
+                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like-active.png" alt="">
+                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" alt="">
+                <span id="spanCount" class="count ">
+                    52
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">点赞</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+              <a class="tool-item-href">
+                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike-active.png" alt="">
+                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" alt="">
+                <span id="unlikeCount" class="count "></span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">踩</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+              <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect-active.png" alt="">
+                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" alt="">
+                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
+                <span class="count get-collection " data-num="185" id="get-collection">
+                    185
+                </span>
+              </a>
+              <div class="tool-hover-tip collect">
+                <div class="collect-operate-box">
+                  <span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+                </div>
+              </div>
+              <div class="tool-active-list">
+                <div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+                 <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt="">
+                </div>
+              </div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-item-comment">
+                <a class="tool-item-href" href="#commentBox" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png" alt="">
+                <span class="count">
+                    60
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">评论</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+              <a class="tool-item-href" href="javascript:;" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png" alt="">
+                <span class="count">分享</span>
+              </a>
+                <div class="QRcode active" id="tool-QRcode">
+                <div class="share-bg-box">
+                  <div class="share-content">
+                    <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="qq">分享到 QQ</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="weibo">分享到新浪微博</a>
+                  </div>
+                  <div class="share-code">
+                    <div class="share-code-box" id='shareCode'></div>
+                    <div class="share-code-text">
+                      <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <li class="tool-item tool-item-size tool-active is-more" id="is-more">
+            <a class="tool-item-href">
+              <img class="isdefault" style="margin-right:0px;display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" alt="">
+              <span class="count"></span>
+            </a>
+            <div class="more-opt-box">
+              <div class="mini-box">
+                <a class="tool-item-href" id="toolReportBtnHide">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+              <div class="normal-box">
+                <a class="tool-item-href" id="toolReportBtnHideNormal">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbox-right">
+</div>
+</div>
+</div>
+<script type=text/javascript crossorigin src="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/collection-box/2.1.2/collection-box.js"></script>
+              <div id="dmp_ad_58" style="width:100%;overflow-x:hidden">
+                <div id="kp_box_58" data-pid="58"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview1/4353130?positionId=58&adBlockFlag=0&adId=1106226&queryWord=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5002&articleId=141649920" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=58&adBlockFlag=0&adId=1106226&a=1106226&c=4353130&k=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5002&articleId=141649920&d=1&t=3&u=412184aba3db4992a2fa3ef0d589ad65" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+              </div>
+            <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_commontools-0813aab227.min.js" type="text/javascript" async></script>
+              <div class="second-recommend-box recommend-box ">
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/kiingking/article/details/140363215"  data-report-view='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-140363215-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/kiingking/article/details/140363215"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/kiingking/article/details/140363215" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-140363215-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/kiingking/article/details/140363215"}'  data-report-query='spm=1001.2101.3001.11989&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-140363215-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-140363215-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">一文学懂【微软开源<em>GraphRag</em>】项目</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/kiingking" target="_blank"><span class="blog-title">kiingking的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-11</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2303
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/kiingking/article/details/140363215" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~Rate-1-140363215-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/kiingking/article/details/140363215"}'  data-report-query='spm=1001.2101.3001.11989&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-140363215-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-1-140363215-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>GraphRAG</em> 是微软开源的一个项目，它的名字里包含了它的主要功能&mdash;&mdash;利用图（Graph）来增强检索（Retrieval）和生成（Generation）的能力。</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<a id="commentBox" name="commentBox"></a>
+  <div id="pcCommentBox" class="comment-box comment-box-new2 unlogin-comment-box-new" style="display:none">
+      <div class="unlogin-comment-model">
+          <span class="unlogin-comment-tit">60&nbsp;条评论</span>
+        <span class="unlogin-comment-text">您还未登录，请先</span>
+        <span class="unlogin-comment-bt">登录</span>
+        <span class="unlogin-comment-text">后发表或查看评论</span>
+      </div>
+  </div>
+              <div class="recommend-box insert-baidu-box recommend-box-style ">
+                <div class="recommend-item-box no-index" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_29019241/article/details/159272040"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_29019241/article/details/159272040"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_29019241/article/details/159272040" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_29019241/article/details/159272040"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">内存预取黑科技：__builtin_prefetch在数据库和游戏开发中的高阶用法</div>
+					<div class="tag">最新发布</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_29019241" target="_blank"><span class="blog-title">weixin_29019241的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-20</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					391
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_29019241/article/details/159272040" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_29019241/article/details/159272040"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-159272040-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">本文深入探讨了GCC内置函数`__builtin_prefetch`在数据库和游戏开发中的高阶应用。通过LevelDB的SSTable文件读取优化和UE5引擎场景数据流式加载的实战案例，详细解析了预取参数调优的艺术，并借助perf工具量化分析了不同策略的性能提升效果。文章还介绍了与`__builtin_expect`等内置函数的协同优化技巧，帮助开发者最大化缓存命中率。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://zengxiaojian.blog.csdn.net/article/details/139096579"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-2-139096579-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://zengxiaojian.blog.csdn.net/article/details/139096579"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://zengxiaojian.blog.csdn.net/article/details/139096579" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-2-139096579-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://zengxiaojian.blog.csdn.net/article/details/139096579"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-139096579-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-139096579-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">从<em>RAG</em>到<em>GraphRAG</em>的应用落地揭秘</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/sinat_37574187" target="_blank"><span class="blog-title">强化学习曾小健</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-21</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2227
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://zengxiaojian.blog.csdn.net/article/details/139096579" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-2-139096579-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://zengxiaojian.blog.csdn.net/article/details/139096579"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-139096579-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-139096579-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>RAG</em>（检索增强生成）是什么？正如提到的那样，它是一种技术，可以&ldquo;良好&rdquo;地解释用户的查询，检索&ldquo;相关&rdquo;信息，将其处理为上下文，然后将此有用信息融入回复中。正如引用的网站所指出的，<em>RAG</em>以其成本效益、相对准确性、提供领域特定语境的充足性、反映最新信息的能力以及追踪信息来源文档的透明度和可解释性等特点而被认为是一种主要选择的方法。</div>
+			</a>
+		</div>
+	</div>
+</div>
+		<dl id="recommend-item-box-tow" class="recommend-item-box type_blog clearfix">
+			
+		</dl>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_39725309/article/details/158703374"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/qq_39725309/article/details/158703374"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_39725309/article/details/158703374" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/qq_39725309/article/details/158703374"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">【Linux 驱动开发】STM32MP1 LCD 显示系统完整实践指南</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_39725309" target="_blank"><span class="blog-title">猫猫的小茶馆</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-06</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					463
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_39725309/article/details/158703374" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/qq_39725309/article/details/158703374"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-158703374-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">STM32MP1 LCD显示系统实践指南 本文全面介绍STM32MP1平台实现MIPI DSI LCD显示的完整流程，涵盖硬件连接、设备树配置、显示原理和驱动实现。主要内容包括： 硬件连接：详细说明MIPI DSI差分对、背光PWM、复位/供电管脚的连接方式 设备树配置： PWM背光控制节点设置 LTDC与DSI端口映射关系 Panel节点参数定义 显示基础：讲解LCD/OLED显示原理、常见接口类型（RGB/LVDS/MIPI/HDMI）及信号时序 驱动实现。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_20623849/article/details/140374365"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-140374365-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_20623849/article/details/140374365"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_20623849/article/details/140374365" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-140374365-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_20623849/article/details/140374365"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-140374365-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-140374365-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">【深度学习】<em>本地</em>运行 <em>GraphRAG</em> + <em>Ollama</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_20623849" target="_blank"><span class="blog-title">qq_20623849的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-12</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					5896
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_20623849/article/details/140374365" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-140374365-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_20623849/article/details/140374365"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-140374365-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-140374365-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>本地</em>允许 <em>GraphRAG</em> <em>Ollama</em></div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/140677990"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-5-140677990-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140677990"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/140677990" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-5-140677990-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140677990"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-140677990-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-140677990-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em> + <em>Ollama</em> <em>本地</em><em>部署</em>全攻略：避<em>坑</em>实战指南</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/musicml" target="_blank"><span class="blog-title">musicml的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-24</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					8910
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/140677990" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-5-140677990-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140677990"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-140677990-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-5-140677990-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">▼最近直播超级多，预约保你有收获&mdash;1&mdash;为什么要对 <em>GraphRAG</em> <em>本地</em><em>部署</em>？微软开源 <em>GraphRAG</em> 后，热度越来越高，目前 <em>GraphRAG</em> 只支持 OpenAI 的闭源大模型，导致<em>部署</em>后使用范围大大受限，本文通过 <em>GraphRAG</em> 源码的修改，来支持更广泛的 Embedding 模型和开源大模型，从而使得 <em>GraphRAG</em> 的更容易上手使用。如果对 Grap<em>RAG</em> 还不太熟悉的同学，可以看...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/135495433"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-6-135495433-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/135495433"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/135495433" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-6-135495433-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/135495433"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-6-135495433-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-6-135495433-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">TensorFlow相关组件的安装</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/AAI666666" target="_blank"><span class="blog-title">AAI666666的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">01-11</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3767
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/135495433" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-6-135495433-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/135495433"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-6-135495433-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-6-135495433-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">TensorFlow相关组件的安装</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/142899082"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-7-142899082-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/142899082"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/142899082" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-7-142899082-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/142899082"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-7-142899082-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-7-142899082-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em>+<em>Ollama</em>实现<em>本地</em><em>部署</em>+neo4j可视化结果</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_42703164" target="_blank"><span class="blog-title">qq_42703164的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">10-14</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					6057
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/142899082" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-7-142899082-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/142899082"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-7-142899082-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-7-142899082-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">最近<em>部署</em>微软的<em>graphrag</em><em>踩</em>了很多<em>坑</em>，<em>记录</em>一下完整的流程，给后来者一些参考。目前使用<em>graphrag</em>还是有一点问题，如果后续解决了会在文章中进行补充。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/2303_78780633/article/details/141064932"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-141064932-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/2303_78780633/article/details/141064932"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/2303_78780633/article/details/141064932" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-141064932-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/2303_78780633/article/details/141064932"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-141064932-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-141064932-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em><em>本地</em><em>部署</em>（Xinference<em>本地</em>模型）+ neo4j可视化</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/2303_78780633" target="_blank"><span class="blog-title">2303_78780633的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-09</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					6821
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/2303_78780633/article/details/141064932" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-8-141064932-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/2303_78780633/article/details/141064932"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-141064932-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-8-141064932-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">模型供应商可以选择<em>ollama</em>，Xinference等供应商，也可以用我们<em>本地</em>api封装的大模型。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/140534257"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-9-140534257-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140534257"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/140534257" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-9-140534257-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140534257"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-9-140534257-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-9-140534257-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em>+<em>Ollama</em> <em>本地</em><em>部署</em>，保姆教程，<em>踩</em><em>坑</em>无数，闭<em>坑</em>大法</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/xx_nm98" target="_blank"><span class="blog-title">xx_nm98的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-18</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/140534257" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-9-140534257-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140534257"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-9-140534257-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-9-140534257-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">最近<em>RAG</em>热度不减，微软开源了<em>GraphRAG</em>，很是火爆呀，本着学习的态度，我也<em>部署</em>使用了一下，无奈没有梯子，不能用openAI，于是想着能不能使用本机的模型，替换openAI的 llm和embedding模型，说干就干，整个过程真是曲折，<em>踩</em><em>坑</em>不少，但最终 结果还是好的，终于完美<em>部署</em>到本机使用了，哈哈，下面来给大家分享一下，自己也<em>记录</em>一下，以免后边再使用时重复进<em>坑</em>。本人也搞了一个<em>RAG</em>项目，非常适合学习，自用，二次开发，欢迎star<em>graphRAG</em>的安装还是很简单的，直接pip。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://lizhiyang.blog.csdn.net/article/details/141279919"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-10-141279919-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://lizhiyang.blog.csdn.net/article/details/141279919"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://lizhiyang.blog.csdn.net/article/details/141279919" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-10-141279919-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://lizhiyang.blog.csdn.net/article/details/141279919"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-10-141279919-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-10-141279919-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>ollama</em>轻松<em>部署</em><em>本地</em><em>GraphRAG</em>（避雷篇）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_63866037" target="_blank"><span class="blog-title">weixin_63866037的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-18</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://lizhiyang.blog.csdn.net/article/details/141279919" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-10-141279919-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://lizhiyang.blog.csdn.net/article/details/141279919"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-10-141279919-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-10-141279919-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">本篇文章主要介绍如何使用<em>ollama</em><em>本地</em><em>部署</em>微软的Graph <em>RAG</em>，，Graph <em>RAG</em>成为<em>RAG</em>一种新范式，对于全局总结性问题表现突出，由<em>ollama</em>一站式解决。但是中间也出现非常多的问题，比如Columns must be same length as key。跟着本篇文章使用<em>ollama</em>+mistral-nemo+mxbai-embed-larg`实现<em>本地</em>的<em>GraphRAG</em>的<em>部署</em>！</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/144050054"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-11-144050054-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/144050054"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/144050054" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-11-144050054-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/144050054"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-11-144050054-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-11-144050054-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">【速成】LLM大模型学习路径指南</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_63171455" target="_blank"><span class="blog-title">m0_63171455的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-26</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1306
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/144050054" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-11-144050054-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/144050054"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-11-144050054-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-11-144050054-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">大家好！整理了一些我的大模型学习路线和参考资料，供初学者入门了解和实践LLM大模型算法学习路径LLM发展历程入门系列进阶系列计算资源云服务器：t讯云/a里云/火s引擎 GPU云服务器资源，按量每小时约10元<em>本地</em>服务器：单卡/多卡训练，最低6G显存，4090可媲美A100显卡项目应用实践SFT微调：QA数据集构建、Chat基座微调<em>RAG</em>知识库问答：知识库解析、向量检索、LLM生成Agent智能体：workflow定义、tools构建、function call模型训练。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://carlow.blog.csdn.net/article/details/148570335"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-148570335-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://carlow.blog.csdn.net/article/details/148570335"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://carlow.blog.csdn.net/article/details/148570335" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-148570335-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://carlow.blog.csdn.net/article/details/148570335"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-148570335-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-148570335-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em>开发指南：从环境配置到项目<em>部署</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/csdn122345" target="_blank"><span class="blog-title">加入&ldquo;Super Entity&rdquo;，与全能开发团队共探AI智能体与数字人项目，开启前沿技术之旅。</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1729
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://carlow.blog.csdn.net/article/details/148570335" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-148570335-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://carlow.blog.csdn.net/article/details/148570335"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-148570335-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-148570335-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">本文全面介绍了<em>GraphRAG</em>（Graph-based Retrieval Augmented Generation）项目的开发流程。我们将从环境配置、项目结构、开发工具等多个维度，深入解析如何高效地进行<em>GraphRAG</em>项目的开发工作。通过本文，您将掌握<em>GraphRAG</em>项目的开发最佳实践，以及如何解决开发过程中遇到的常见问题。完善的环境配置清晰的项目结构高效的开发工具完整的测试体系。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/m0_65555479/article/details/142264718"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-13-142264718-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_65555479/article/details/142264718"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/m0_65555479/article/details/142264718" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-13-142264718-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_65555479/article/details/142264718"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-142264718-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-142264718-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">5分钟手把手系列(二)：<em>本地</em><em>部署</em><em>Graphrag</em>（Pycharm+<em>Ollama</em>+LM Studio）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_65555479" target="_blank"><span class="blog-title">m0_65555479的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-14</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3316
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/m0_65555479/article/details/142264718" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-13-142264718-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_65555479/article/details/142264718"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-142264718-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-13-142264718-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">通过搭建<em>GraphRAG</em><em>本地</em>demo后，笔者通过少量的文本内容（三国演义第一章），初略对比了一下传统<em>RAG</em>方案与<em>GraphRAG</em>方案，基于少量文本内容而言，<em>GraphRAG</em>的效果还是符合其宣传内容的，后续更严谨的测试还是需要海量数据的进行验证。希望本文能帮助到对<em>GraphRAG</em>有兴趣的朋友，毕竟读万卷书不如行万里路，看再多的理论介绍，不如自己亲自去动手验证一把来的实在~</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/141496685"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-14-141496685-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/141496685"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/141496685" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-14-141496685-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/141496685"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-14-141496685-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-14-141496685-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">大模型 | <em>GraphRAG</em> + <em>Ollama</em> <em>本地</em><em>部署</em>全攻略：避<em>坑</em>实战指南</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_59614665" target="_blank"><span class="blog-title">老皮的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-24</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					6157
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/141496685" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-14-141496685-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/141496685"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-14-141496685-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-14-141496685-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">AI大模型作为人工智能领域的重要技术突破，正成为推动各行各业创新和转型的关键力量。抓住AI大模型的风口，掌握AI大模型的知识和技能将变得越来越重要。学习AI大模型是一个系统的过程，需要从基础开始，逐步深入到更高级的技术。这里给大家精心整理了一份全面的AI大模型学习资源，包括：AI大模型全套学习路线图（从入门到实战）、精品AI大模型学习书籍手册、视频教程、实战学习、面试题等，资料免费分享！</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/Python_cocola/article/details/140279385"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-140279385-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/Python_cocola/article/details/140279385"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/Python_cocola/article/details/140279385" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-140279385-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/Python_cocola/article/details/140279385"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-140279385-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-140279385-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">实战微软新一代<em>RAG</em>：<em>GraphRAG</em>强大的全局理解能力，碾压朴素<em>RAG</em>？</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/Python_cocola" target="_blank"><span class="blog-title">Python_cocola的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-08</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					5214
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/Python_cocola/article/details/140279385" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-140279385-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/Python_cocola/article/details/140279385"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-140279385-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-140279385-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">大语言模型（LLM）是在大量数据上训练，但他们并不是在我们私有数据上训练，因此要想让LLM能够回答我们私有数据集上的问题，我们就得使用一种叫做检索增强生成（<em>RAG</em>）的技术。它的基本原理是加载我们的文档，然后将每个文档按照一定的规则，比如Token数量、字符数量、语义和层次分割等，将每个文档拆分为一个一个小片段（chunk）。然后使用嵌入技术对这些chunk生成embeding，存储到高维向量数据库中，生成索引Index。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/make_progress/article/details/142904609"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-142904609-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/make_progress/article/details/142904609"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/make_progress/article/details/142904609" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-142904609-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/make_progress/article/details/142904609"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-142904609-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-142904609-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">安装<em>GraphRAG</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/make_progress" target="_blank"><span class="blog-title">make_progress的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">10-13</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1905
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/make_progress/article/details/142904609" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-142904609-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/make_progress/article/details/142904609"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-142904609-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-142904609-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>GraphRAG</em>是微软开源的一种基于图的检索增强生成 (<em>RAG</em>) 方法。# 参考地址# Github地址。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/140253451"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-140253451-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140253451"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/140253451" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-140253451-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140253451"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-140253451-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-140253451-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">微软开源<em>GraphRAG</em>的使用教程-使用自定义数据测试<em>GraphRAG</em></div>
+					<div class="tag">热门推荐</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/luxinfeng666" target="_blank"><span class="blog-title">luxinfeng的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-08</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/140253451" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-140253451-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140253451"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-140253451-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-140253451-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">这篇文章主要介绍了微软开源的<em>GraphRAG</em>的安装教程，并以《太白金星有点烦》为例，动手实操测试了下<em>GraphRAG</em>的实际效果。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/gaotianhao123/article/details/140640415"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-140640415-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/gaotianhao123/article/details/140640415"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/gaotianhao123/article/details/140640415" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-140640415-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/gaotianhao123/article/details/140640415"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-140640415-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-140640415-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em>+<em>Ollama</em>实现<em>本地</em><em>部署</em>（最全，非常详细，保姆教程）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/gaotianhao123" target="_blank"><span class="blog-title">科研探索ing！研究方向：人工智能及优化</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-23</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/gaotianhao123/article/details/140640415" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-140640415-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/gaotianhao123/article/details/140640415"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-140640415-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-140640415-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>GraphRAG</em>+<em>Ollama</em><em>本地</em><em>部署</em>， <em>GraphRAG</em> <em>Ollama</em>
+为了找到一种省钱的方式并且能够使用<em>GraphRAG</em>便可以调用<em>Ollama</em><em>本地</em><em>部署</em>的开源大模型，但需要修改部分源码，我已经实现过了，给大家避<em>坑</em>，快读<em>部署</em>。如果对你有用的，欢迎点赞、收藏！</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/140319467"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-19-140319467-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140319467"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/140319467" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-19-140319467-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140319467"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-19-140319467-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-19-140319467-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>GraphRAG</em><em>本地</em>运行（<em>Ollama</em>的LLM接口＋Xinference的embedding模型）无需gpt的api</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_56378800" target="_blank"><span class="blog-title">m0_56378800的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					9720
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/140319467" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-19-140319467-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/140319467"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-19-140319467-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-19-140319467-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">我们不使用openai就会导致，每次既能get到kwargs.get(&quot;is_response_valid&quot;)，又得到kwargs.get(&quot;is_response_valid&quot;)值是false的。这里通过我多次的寻找，发现是<em>graphrag</em>里面的一个包出现了问题，可能没有使用默认调用的openai，在一个is_response_valid总是不能显示。不知道是不是qwen2：0.5b的性能有限，很多global的问题回答成功率会比较低，之后可以自行启动其他的<em>ollama</em>内置的模型。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/china365love/89676272"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"20","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/china365love/89676272"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/china365love/89676272" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"20","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/china365love/89676272"}'  data-report-query='spm=1001.2101.3001.6650.20&utm_medium=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+					<div class="left ellipsis-online ellipsis-online-1">ZuAnBot一键自动发送信息工具一键喷人（随机输入骂人语录）.exe</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block"></span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/china365love/89676272" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235^v43^pc_blog_bottom_relevance_base4\",\"dist_request_id\":\"1788347697622_94901\"}","dist_request_id":"1788347697622_94901","ab_strategy":"default","index":"20","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/china365love/89676272"}'  data-report-query='spm=1001.2101.3001.6650.20&utm_medium=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4&depth_1-utm_source=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-20-89676272-blog-141649920.235%5Ev43%5Epc_blog_bottom_relevance_base4'>
+				<div class="desc ellipsis-online ellipsis-online-1">ZuAnBot 一键自动发送信息工具，是一款专为应对恶人而设计的独特软件。在面对恶意攻击和不良行为时，它为你提供了绝对反击的利器。这款软件具有强大的功能，能够一键自动发送信息，让你在与恶人的交锋中无需费力打字，即可迅速做出回应。其随机输入骂人语录的特性，更是为你的反击增添了不可预测性和趣味性。当遇到那些无端挑衅、恶意中伤的人时，ZuAnBot 能让你以有力的言辞进行回击，维护自己的尊严和权益。它就像是你的私人护卫，时刻准备为你抵挡恶意的侵袭。然而，需要注意的是，虽然这款软件可以作为对恶人的反击手段，但我们也应该在使用过程中保持理性和克制，避免过度使用而陷入无意义的争吵。让 ZuAnBot 成为你在必要时刻的有力武器，而不是让情绪主导的工具。</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+<script src="https://g.csdnimg.cn/common/csdn-footer/csdn-footer.js" data-isfootertrack="false" type="text/javascript"></script>
+<script type="text/javascript">
+    window.csdn.csdnFooter.options = {
+        el: '.blog-footer-bottom',
+        type: 2
+    }
+</script>          </main>
+<aside class="blog_container_aside">
+<div id="asideProfile" class="aside-box active">
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/weixin_42107217" target="_blank" data-report-click='{"mod":"popu_379","spm":"3001.4121","dest":"https://blog.csdn.net/weixin_42107217","ab":"new"}'>
+                <img src="https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex flex-column profile-intro-name-box">
+            <div class="profile-intro-name-boxTop">
+                <a href="https://blog.csdn.net/weixin_42107217" target="_blank" class="" id="uid" title="RyanLintong" data-report-click='{"mod":"popu_379","spm":"3001.4122","dest":"https://blog.csdn.net/weixin_42107217","ab":"new"}'>
+                    <span class="name" username="weixin_42107217">RyanLintong</span>
+                </a>
+            </div>
+            <div class="profile-intro-name-boxFooter-new">
+              <p class="profile-intro-name-leve">
+                <span>
+                  博客等级
+                </span>
+                  <img class="level" src="https://csdnimg.cn/identity/blog4.png">
+              </p>
+                <span class="profile-intro-name-years" title="已加入 CSDN 8年">码龄8年</span>
+               
+            </div>
+        </div>
+    </div>
+    <div class="profile-intro-rank-information">
+      <dl>
+        <a href="https://blog.csdn.net/weixin_42107217" data-report-click='{"mod":"1598321000_001","spm":"3001.4310"}' data-report-query="t=1">  
+            <dd><span >28</span></dd>
+            <dt>原创</dt>
+        </a>
+      </dl>
+       <dl title="111">
+        <dd>111</dd>
+        <dt>点赞</dt>
+      </dl>
+       <dl title="465">
+        <dd>465</dd>
+        <dt>收藏</dt>
+      </dl>
+      <dl id="fanBox" title="74">
+        <dd><span id="fan">74</span></dd>
+        <dt>粉丝</dt>
+      </dl>
+    </div>
+    <div class="profile-intro-name-boxOpration">
+        <div class="opt-letter-watch-box"> 
+            <a class="personal-watch bt-button" id="btnAttent" >关注</a>  
+        </div>
+        <div class="opt-letter-watch-box">
+        <a rel="nofollow" class="bt-button personal-letter" href="https://im.csdn.net/chat/weixin_42107217" target="_blank" rel="noopener">私信</a>
+        </div>
+    </div>
+</div>
+      <div class="swiper-slide-box-remuneration">
+        <a data-report-click='{"spm":"3001.9728","extra":{"index":"0"}}' data-report-view='{"spm":"3001.9728","extra":{"index":"0"}}' href="https://i.csdn.net/#/geek-star-fun-pack?utm_source=260901_vip_blogleftbanner" target="_blank">
+          <img src="https://i-operation.csdnimg.cn/images/dbf1a709c51a4563a0faeddc6fdf6dbc.png" alt="">
+        </a>
+      </div>
+<div class="box-shadow mb8" data-pid="blog" >
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <div id="kp_box_56" data-pid="56"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/4491989?positionId=56&adBlockFlag=0&adId=1110432&queryWord=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5000&articleId=141649920" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=56&adBlockFlag=0&adId=1110432&a=1110432&c=4491989&k=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5000&articleId=141649920&d=1&t=3&u=2281ed08ee6d4945857c984cd36b1d07" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+    </div>
+</div>
+
+
+
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/141649920" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920","ab":"new"}'>
+				傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">12554</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/103760320" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/103760320","ab":"new"}'>
+				计算机组成原理  存储器
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">8153</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/104077387" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/104077387","ab":"new"}'>
+				计算机组成原理  CPU 结构和功能
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">5460</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/89192579" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/89192579","ab":"new"}'>
+				解决pyqt5中由qtdesigner的ui文件生成的python文件难以修改问题（转载）
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">4211</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/81742904" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/81742904","ab":"new"}'>
+				Unused import statement
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">2988</span>
+                </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideCategory" class="aside-box aside-box-column flexible-box-new">
+    <h3 class="aside-title">分类专栏</h3>
+    <div class="aside-content" id="aside-content">
+        <ul>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12474426.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12474426.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        最优化
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327970.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327970.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        文献笔记
+                    </span>
+                </a>
+                <span class="special-column-num">2篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327971.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327971.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756930.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        分布式系统
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9628827.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9628827.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        基础知识
+                    </span>
+                </a>
+                <span class="special-column-num">6篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821040.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821040.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        python
+                    </span>
+                </a>
+                <span class="special-column-num">8篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821041.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821041.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        PAT
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8011693.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8011693.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        数据结构
+                    </span>
+                </a>
+                <span class="special-column-num">3篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7943217.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7943217.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        pycharm错误类型
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404453.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404453.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        go
+                    </span>
+                </a>
+                <span class="special-column-num">6篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404770.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404770.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        区块链
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9206519.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9206519.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        MySQl
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+        </ul>
+    </div>
+    <p class="text-center">
+      <a class="flexible-btn-new" data-report-click='{"spm":"3001.10779","strategy":"展开全部"}' data-maxheight="0" data-minheight="208px" data-fbox="#aside-content" data-flag="flag"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></a>
+      <a class="flexible-btn-new-close" data-report-click='{"spm":"3001.10779","strategy":"收起"}' data-minheight="208px" data-fbox="#aside-content" data-scroll="true" data-flag="flag"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></a>
+    </p>
+</div>
+  <div class="article-previous" id="article-previous">
+      <dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+          <dt>
+              上一篇：
+          </dt>
+          <dd>
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/133916758" data-report-query="spm=3001.10752">
+              学习最优化课程中的一些疑惑
+            </a>
+          </dd>
+      </dl>
+  </div>
+<div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287","ab":"new"}'>傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/2301_81875652" class="user-name" target="_blank">2301_81875652: </a>
+                    <span class="code-comments">抱歉我有点没看懂，报错TypeError: argument &#39;tokens&#39;: &#39;str&#39; object cannot be interpreted as an integer的话，最后一行要改啥，我现在就是运行local模式报错这个问题，其他都成功了</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">大家在看</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/u011697185/article/details/164118426" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/u011697185/article/details/164118426","strategy":"202_1052723-4500074_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/u011697185/article/details/164118426","strategy":"202_1052723-4500074_RCMD","ab":"new"}'>
+				《WiFi 嵌入式物联网开发全套实战》| 第04章 WiFi扫描、认证、关联全过程抓包详解
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/workflower/article/details/164204906" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/workflower/article/details/164204906","strategy":"202_1052723-4500071_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/workflower/article/details/164204906","strategy":"202_1052723-4500071_RCMD","ab":"new"}'>
+				StakeRare 是需求工程领域的一种数据驱动方法
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">206</span>
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/2302_82029124/article/details/164227455" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2302_82029124/article/details/164227455","strategy":"202_1052723-4500135_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2302_82029124/article/details/164227455","strategy":"202_1052723-4500135_RCMD","ab":"new"}'>
+				从零开始构建你的第一个C#/.NET应用程序：新手入门全指南
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">393</span>
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/anxiao_m/article/details/164266690" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/anxiao_m/article/details/164266690","strategy":"202_1052723-4500160_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/anxiao_m/article/details/164266690","strategy":"202_1052723-4500160_RCMD","ab":"new"}'>
+				企业大文件传输怎么选？多款主流工具深度实测对比
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">147</span>
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/FLJwu/article/details/164290933" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/FLJwu/article/details/164290933","strategy":"202_1052723-4500156_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/FLJwu/article/details/164290933","strategy":"202_1052723-4500156_RCMD","ab":"new"}'>
+				电源可靠性实战 02：运动相机 Type‑C 接口隐患｜充电短路、进水腐蚀、插拔耐久量产踩坑｜20 年源头工厂量产经验
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">99</span>
+        </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideArchive" class="aside-box" style="display:block!important; width:300px;">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix">
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/133916758" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/133916758","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/133916758","ab":"left"}'>学习最优化课程中的一些疑惑</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/131365713" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/131365713","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/131365713","ab":"left"}'>文献笔记——A View of Cloud Computing</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/130808489" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/130808489","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/130808489","ab":"left"}'>文献笔记——A brief introduction to distributed systems(分布式系统)</a>
+            </li>
+        </ul>
+        <div class="archive-bar"></div>
+        <div class="archive-box">
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2024&amp;month=08" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2024&amp;month=08"}'><span class="year">2024年</span><span class="num">1篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2023&amp;month=10" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2023&amp;month=10"}'><span class="year">2023年</span><span class="num">4篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2020&amp;month=01" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2020&amp;month=01"}'><span class="year">2020年</span><span class="num">4篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2019&amp;month=12" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2019&amp;month=12"}'><span class="year">2019年</span><span class="num">8篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2018&amp;month=12" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2018&amp;month=12"}'><span class="year">2018年</span><span class="num">14篇</span></a></div>
+        </div>
+    </div>
+</div>
+    <div id="footerRightAds" class="isShowFooterAds">
+      <div class="aside-box">
+        <div id="kp_box_57" data-pid="57"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/4492004?positionId=57&adBlockFlag=0&adId=1110433&queryWord=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5001&articleId=141649920" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=57&adBlockFlag=0&adId=1110433&a=1110433&c=4492004&k=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.5001&articleId=141649920&d=1&t=3&u=93fd06b69ef941f585942446df436255" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+      </div>
+    </div>
+    <!-- 详情页显示目录 -->
+<div class="aside-box cknows-side-card js-aside-cknows">
+  <div class="cknows-side-header">
+    <div class="cknows-side-header-row">
+      <div class="cknows-side-logo-wrap">
+        <img class="cknows-side-logo" src="https://csdnimg.cn/release/blogv2/dist/pc/img/c-blog-slidelogo-White.png" alt="C知道">
+      </div>
+      <p class="cknows-side-brand">· AI 阅读助手</p>
+    </div>
+  </div>
+  <div class="swiper cknows-side-swiper">
+    <div class="swiper-wrapper cknows-swiper-wrapper"></div>
+    <div class="cknows-side-pagination swiper-pagination"></div>
+  </div>
+</div>
+<!--文章目录-->
+<div id="asidedirectory" class="aside-box">
+    <div class='groupfile groupfile-active' id="directory">
+        <h3 class="aside-title">目录</h3>
+        <div class="align-items-stretch group_item" id="align-items-stretch">
+            <div class="pos-box">
+            <div class="scroll-box">
+                <div class="toc-box"></div>
+            </div>
+            </div>
+        </div>
+          <p class="flexible-btn-new" id="flexible-btn-groupfile" data-report-click='{"spm":"3001.10780","strategy":"展开全部"}' data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></p>
+          <p class="flexible-btn-new-close close" data-report-click='{"spm":"3001.10780","strategy":"收起"}'  data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></p>
+    </div>
+</div>
+<div class="gitcode-qc-left-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"left\"}"}'></div>
+</aside>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).parents("p.text-center").remove();
+	})
+</script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-tooltip/2.7/user-tooltip.js"></script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-medal/2.0.0/user-medal.js"></script>
+        </div>
+<div class="recommend-right align-items-stretch clearfix article-component-material-third-column" id="rightAside" data-type="recommend">
+    <aside class="recommend-right_aside">
+            <div class="rightside-fixed-hide">
+              <div class="programmer1Box">
+                  <div id="kp_box_530" data-pid="530"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/4475404?positionId=530&adBlockFlag=0&adId=1110216&queryWord=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.4647&articleId=141649920" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=530&adBlockFlag=0&adId=1110216&a=1110216&c=4475404&k=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.4647&articleId=141649920&d=1&t=3&u=6996909ca0d84d5f9b42471de50a0d37" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+              </div>
+      </div>
+        <div id="recommend-right" >
+<div class="aside-box cknows-side-card js-aside-cknows">
+  <div class="cknows-side-header">
+    <div class="cknows-side-header-row">
+      <div class="cknows-side-logo-wrap">
+        <img class="cknows-side-logo" src="https://csdnimg.cn/release/blogv2/dist/pc/img/c-blog-slidelogo-White.png" alt="C知道">
+      </div>
+      <p class="cknows-side-brand">· AI 阅读助手</p>
+    </div>
+  </div>
+  <div class="swiper cknows-side-swiper">
+    <div class="swiper-wrapper cknows-swiper-wrapper"></div>
+    <div class="cknows-side-pagination swiper-pagination"></div>
+  </div>
+</div>
+          <div class='flex-column aside-box groupfile groupfile-active ' id="groupfile">
+              <div class="groupfile-div">
+              <h3 class="aside-title">目录</h3>
+              <div class="align-items-stretch group_item" id="align-items-stretch-right">
+                  <div class="pos-box">
+                      <div class="scroll-box">
+                          <div class="toc-box"></div>
+                      </div>
+                  </div>
+              </div>
+                <p class="flexible-btn-new" id="flexible-btn-groupfile" data-report-click='{"spm":"3001.10782","strategy":"展开全部"}' data-traigger="true" data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch-right"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></p>
+                <p class="flexible-btn-new-close close" data-report-click='{"spm":"3001.10782","strategy":"收起"}' data-traigger="true"  data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch-right"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></p>
+              </div>
+          </div>
+          <div class="gitcode-qc-right-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"right\"}"}'></div>
+              <div id="recommendAdBox">
+                  <div id="kp_box_479" data-pid="479"><div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=479&adId=1100447&adBlockFlag=0&a=1100447&c=0&k=傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录&spm=1001.2101.3001.4834&articleId=141649920&d=1&t=3&u=3c404b711d8d4394b342d9f18c980980" style="display: block;width: 0px;height: 0px;"></div>
+              </div>
+  <div class="article-previous" id="article">
+      <dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+          <dt>
+              上一篇：
+          </dt>
+          <dd>
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/133916758" data-report-query="spm=3001.10752">
+              学习最优化课程中的一些疑惑
+            </a>
+          </dd>
+      </dl>
+  </div>
+          <div class='aside-box kind_person d-flex flex-column flexible-box-new' >
+                  <h3 class="aside-title">分类专栏</h3>
+                  <div class="align-items-stretch kindof_item" id="kind_person_column">
+                      <div class="aside-content" id="aside-content-column">
+                          <ul>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12474426.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12474426.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          最优化
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327970.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327970.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          文献笔记
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">2篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327971.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327971.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756930.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          分布式系统
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9628827.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9628827.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          基础知识
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">6篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821040.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821040.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          python
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">8篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821041.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821041.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          PAT
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8011693.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8011693.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          数据结构
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">3篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7943217.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7943217.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          pycharm错误类型
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404453.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404453.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          go
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">6篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404770.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404770.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          区块链
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9206519.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9206519.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          MySQl
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                          </ul>
+                      </div>
+                        <p class="text-center">
+                          <a class="flexible-btn-new" data-report-click='{"spm":"3001.10783","strategy":"展开全部"}' data-traigger="true" data-maxheight="0" data-minheight="208px" data-fbox="#aside-content-column" data-flag="flag"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></a>
+                          <a class="flexible-btn-new-close" data-report-click='{"spm":"3001.10783","strategy":"收起"}'data-traigger="true"  data-minheight="208px" data-fbox="#aside-content-column" data-scroll="true" data-flag="flag"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></a>
+                        </p>
+                  </div>
+          </div>
+        </div>
+    </aside>
+</div>
+<div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right-concision" >
+            <div class='flex-column aside-box groupfile' id="groupfileConcision">
+                <div class="groupfile-div1">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+      </div>
+      <div class="mask-dark"></div>
+        <script type="text/javascript">
+        var timert = setInterval(function() {
+          sideToolbar = $(".csdn-side-toolbar");
+          if (sideToolbar.length > 0) {
+            sideToolbar.css('cssText', 'bottom:64px !important;')
+            clearInterval(timert);
+          }
+        }, 200);
+        </script>
+      <div class="skin-boxshadow"></div>
+      <div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+	<div class="comment-side-tit">
+		<div class="comment-side-tit-count">评论&nbsp;<span class="count">60</span></div>
+	<img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"></div>
+  <div id="pcCommentSideBox" class="comment-box comment-box-new2 unlogin-comment-box-new" style="display:none">
+	
+	</div>
+	<div id="pcFlodCommentSideBox" class="pc-flodcomment-sidebox">
+		<div class="comment-fold-tit"><span id="lookUnFlodComment" class="back"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png" alt=""></span>被折叠的&nbsp;<span class="count"></span>&nbsp;条评论
+		 <a href="https://blogdev.blog.csdn.net/article/details/122245662" class="tip" target="_blank">为什么被折叠?</a>
+		 <a href="https://bbs.csdn.net/forums/FreeZone" class="park" target="_blank">
+		 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png">到【灌水乐园】发言</a>                                
+		</div>
+		<div class="comment-fold-content"></div>
+		<div id="lookBadComment" class="look-bad-comment side-look-comment">
+			<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+		</div>
+	</div>
+</div>
+<div class="comment-rewarddialog-box">
+  <div class="form-box">
+    <div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+    </div>
+    <form id="commentRewardForm">
+      <div class="ipt-box">
+        <label for="txtName">祝福语</label>
+        <div class="ipt-btn-box">
+          <input type="text" name="name" id="txtName" autocomplete="off" maxlength="50">
+          <a class="btn-ipt btn-random"></a>
+        </div>
+        <p class="notice">请填写红包祝福语或标题</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtSendAmount">红包数量</label>
+        <div class="ipt-txt-box">
+          <input type="text" name="sendAmount" maxlength="4" id="txtSendAmount" placeholder="请填写红包数量(最小10个)" autocomplete="off">
+          <span class="after-txt">个</span>
+        </div>
+        <p class="notice">红包个数最小为10个</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtMoney">红包总金额</label>
+        <div class="ipt-txt-box error">
+          <input type="text" name="money" maxlength="5" id="txtMoney" placeholder="请填写总金额(最低5元)" autocomplete="off">
+          <span class="after-txt">元</span>
+        </div>
+        <p class="notice">红包金额最低5元</p>
+      </div>
+      <div class="balance-info-box">
+        <label>余额支付</label>
+        <div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a href="https://i.csdn.net/#/wallet/balance/recharge" class="link-charge" target="_blank">前往充值 ></a>
+        </div>
+      </div>
+      <div class="opt-box">
+        <div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+        <button type="button" class="ml-auto btn-cancel">取消</button>
+        <button type="button" class="ml8 btn-submit" disabled="true">确定</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<div class="redEnvolope" id="redEnvolope">
+  <div class="env-box">
+    <div class="env-container">
+      <div class="pre-open" id="preOpen">
+        <div class="top">
+          <header>
+            <img class="clearTpaErr" :src="redpacketAuthor.avatar" alt="" />
+            <div class="author">成就一亿技术人!</div>
+          </header>
+          <div class="bot-icon"></div>
+        </div>
+        <footer>
+          <div class="red-openbtn open-start"></div>
+          <div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+          </div>
+        </footer>
+      </div>
+      <div class="opened" id="opened">
+        <div class="bot-icon">
+          <header>
+            <a class="creatorUrl" href="" target="_blank">
+              <img class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2" alt="" />
+            </a>
+            <div class="author">
+              <div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+          </header>
+        </div>
+        <div class="receive-box">
+          <header></header>
+          <div class="receive-list">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="close-btn"></div>
+  </div>
+</div>
+      
+      <div class="pay-code">
+      <div class="pay-money">实付<span class="pay-money-span" data-nowprice='' data-oldprice=''>元</span></div>
+      <div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+      <div class="content-code">
+        <div id="payCode" data-id="">
+          <div class="renovate">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png">
+            <span>点击重新获取</span>
+          </div>
+        </div>
+        <div class="pay-style"><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"></span><span class="text">扫码支付</span></div>
+      </div>
+      <div class="bt-close">
+        <svg t="1567152543821" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12">
+          <defs>
+            <style type="text/css"></style>
+          </defs>
+          <path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+        </svg>
+      </div>
+      <div class="pay-balance">
+        <input type="radio" class="pay-code-radio" data-type="details">
+        <span class="span">钱包余额</span>
+          <span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+          <div class="pay-code-tile">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png" alt="">
+            <div class="pay-code-content">
+              <div class="span">
+                <p class="title">抵扣说明：</p>
+                <p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a>
+    </div>
+    <div style="display:none;">
+      <img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+    </div>
+    <div class="keyword-dec-box" id="keywordDecBox"></div>
+  </body>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/axios-83fa28cedf.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-8defd55d6e.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-3c7b273c43.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/edit_copy_code-43c2d050a0.min.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css">
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+  <script src="https://g.csdnimg.cn/user-accusation/1.0.6/user-accusation.js" type="text/javascript"></script>
+  <script>
+    // 全局声明
+    if (window.csdn === undefined) {
+      window.csdn = {};
+    }
+    var sideToolbarOpt = {}
+    $(function() {
+      $(document).on('click', "#toolReportBtnHideNormal,#toolReportBtnHide", function() {
+        window.csdn.loginBox.key({
+          biz: 'blog',
+          subBiz: 'other_service',
+          cb: function() {
+            window.csdn.feedback({
+              "type": 'blog',
+              "rtype": 'article',
+              "rid": articleId,
+              "reportedName": username,
+              "submitOptions": {
+                "title": articleTitle,
+                "contentUrl": articleDetailUrl
+              },
+              "callback": function() {
+                showToast({
+                  text: "感谢您的举报，我们会尽快审核！",
+                  bottom: '10%',
+                  zindex: 9000,
+                  speed: 500,
+                  time: 1500
+                })
+              }
+            })
+          }
+        })
+      });
+    })
+      window.csdn.sideToolbar = {
+        options: {
+          ...sideToolbarOpt,
+          theme: 'white',
+        }
+      }
+  </script>
+    <script src="https://g.csdnimg.cn/baidu-search/1.0.12/baidu-search.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/download/old_static/js/qrcode.js"></script>
+  <script src="https://g.csdnimg.cn/lib/qrcode/1.0.0/qrcode.min.js"></script>
+  <script src="https://g.csdnimg.cn/user-ordercart/3.0.1/user-ordercart.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/user-ordertip/5.0.3/user-ordertip.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/4.0.5/order-payment.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/3.1.1-download-e-isolated/order-payment.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/common-48ed13f265.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/detail-f3e391f97f.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/column-efcae2ca36.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/side-toolbar/3.6/side-toolbar.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/copyright/1.0.4/copyright.js" type="text/javascript"></script>
+  <script>
+    $(".MathJax").remove();
+    if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+      $('div.markdown_views')[0].className = 'markdown_views';
+    }
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processClass: "mathjax",
+        ignoreClass: "title-article|no-mathjax",
+        preview: "none"
+      },
+      
+      // 优先使用 HTML-CSS 而非 NativeMML
+      "HTML-CSS": {
+        preferredFont: "STIX",        // 使用 STIX 字体
+        availableFonts: ["STIX", "TeX"],
+        webFont: "STIX-Web",
+        scale: 100,                   // 放大 20%
+        minScaleAdjust: 100,
+        linebreaks: { 
+          automatic: true, 
+          width: "90% container" 
+        },
+        matchFontHeight: true,
+        styles: {
+          ".MathJax": {
+            "font-weight": "500 !important"  // 加粗
+          }
+        }
+      },
+      
+      // 禁用 NativeMML（浏览器原生渲染质量不好）
+      NativeMML: {
+        scale: 100
+      },
+      
+      // 设置优先级：HTML-CSS > SVG > NativeMML
+      menuSettings: {
+        renderer: "HTML-CSS"
+      },
+      
+      messageStyle: "none"
+    });
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  </script>
+  <script src="https://g.csdnimg.cn/static/mathjax-2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script></html>

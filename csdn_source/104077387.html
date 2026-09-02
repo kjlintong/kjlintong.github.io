@@ -1,0 +1,2438 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://blog.csdn.net/weixin_42107217/article/details/104077387"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+      <meta name="report" content='{"pid": "blog", "spm":"1001.2101"}'>
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <meta name="applicable-device" content="pc">
+    <link  href="https://g.csdnimg.cn/static/logo/favicon32.ico"  rel="shortcut icon" type="image/x-icon" />
+    <title>计算机组成原理  CPU 结构和功能_cpu结构和功能-CSDN博客</title>
+    <meta property="og:locale" content="zh_CN">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="计算机组成原理  CPU 结构和功能_cpu结构和功能-CSDN博客">
+    <meta property="og:description" content="文章浏览阅读5.4k次，点赞8次，收藏30次。本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。">
+    <meta property="og:url" content="https://blog.csdn.net/weixin_42107217/article/details/104077387">
+    <meta property="og:site_name" content="CSDN博客">
+    <meta property="og:image" content="https://img-bss.csdnimg.cn/202112131616291007.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="计算机组成原理  CPU 结构和功能">
+    <meta property="article:published_time" content="2020-01-24T11:19:41+08:00">
+    <meta property="article:modified_time" content="2020-01-24T11:19:41+08:00">
+    <meta property="bytedance:published_time" content="2020-01-24T11:19:41+08:00">
+    <meta property="bytedance:lrDate_time" content="2020-01-24T11:19:41+08:00">
+    <meta property="bytedance:updated_time" content="2020-01-24T11:19:41+08:00">
+    <meta property="article:author" content="RyanLintong">
+    <meta property="article:section" content="计算机组成原理">
+    <meta property="article:tag" content="计算机组成原理">
+    <meta name="geo:keywords" content="计算机组成原理">
+    <meta name="geo:summary" content="本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。">
+    <meta name="geo:entity_type" content="Article">
+    <meta name="geo:subject" content="计算机组成原理  CPU 结构和功能">
+    <meta name="geo:key_points" content="计算机组成原理">
+    <meta name="geo:citation_ready" content="true">
+    <meta name="description:direct_answer" content="本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。">
+    <meta name="author:credentials" content="RyanLintong">
+    <meta name="author:affiliation" content="csdn">
+    <meta name="geo:source_type" content="original">
+    <meta name="geo:fact_checked" content="true">
+    <meta name="geo:editorial_policy" content="https://passport.csdn.net/service">
+    <meta name="geo:update_frequency" content="daily">
+    <meta name="geo:maintenance_status" content="active">
+    <script>
+    (function(){
+    var el = document.createElement("script");
+    el.src = "https://lf1-cdn-tos.bytegoofy.com/goofy/ttzz/push.js?1abfa13dfe74d72d41d83c86d240de42fa345e1877a4861fa55a00b4f9f2644d3d72cd14f8a76432df3935ab77ec54f830517b3cb210f7fd334f50ccb772134a";
+    el.id = "ttzz";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(el, s);
+    })(window)
+    </script>
+        <meta name="keywords" content="计算机组成原理">
+        <meta name="csdn-baidu-search"  content='{"autorun":true,"install":true,"keyword":"cpu结构和功能"}'>
+    <meta name="description" content="文章浏览阅读5.4k次，点赞8次，收藏30次。本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。">
+              <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-811f8e378f.min.css">
+    <style>
+        #content_views pre{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+        #content_views pre code{
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            -khtml-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none; 
+            user-select: none; 
+        }
+    </style>
+    <script type="application/ld+json">{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"https://blog.csdn.net/weixin_42107217/article/details/104077387","appid":"1638831770136827","pubDate":"2020-01-24T11:19:41","title":"计算机组成原理  CPU 结构和功能_cpu结构和功能-CSDN博客","upDate":"2020-01-24T11:19:41"}</script>
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin3-template/skin3-template-762f7595fd.min.css">
+    <script src="https://g.csdnimg.cn/lib/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/lib/jquery-migrate/1.4.1/jquery-migrate.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var isCorporate = false;
+        var username =  "weixin_42107217";
+        var skinImg = "white";
+
+        var blog_address = "https://blog.csdn.net/weixin_42107217";
+        var currentUserName = "";
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_42107217/article/details/104077387";
+        var blogUrl = "https://blog.csdn.net/";
+        var starMapUrl = "https://ai.csdn.net";
+        var paymentBalanceUrl = "https://csdnimg.cn/release/vip-business-components/vipPaymentBalance.js?v=2025122501";
+        var avatar = "https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1";
+        var isCJBlog = false;
+        var isStarMap = false;
+        var articleTitle = "计算机组成原理  CPU 结构和功能";
+        var articleDesc = "文章浏览阅读5.4k次，点赞8次，收藏30次。本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。";
+        var articleTitles = "计算机组成原理  CPU 结构和功能_cpu结构和功能-CSDN博客";
+        var nickName = "RyanLintong";
+        var articleDetailUrl = "https://blog.csdn.net/weixin_42107217/article/details/104077387";
+        var vipUrlV = "https://mall.csdn.net/vip?vipSource=learningVip";
+        if(window.location.host.split('.').length == 3) {
+            blog_address = blogUrl + username;
+        }
+        var skinStatus = "White";
+        var isVipSkin = false;
+        var blogStaticHost = "https://csdnimg.cn/release/blogv2/"
+          var payColumn = false
+    </script>
+        <meta name="toolbar" content='{"type":"0","fixModel":"1"}'>
+      <script ript src="https://g.csdnimg.cn/??fixed-sidebar/1.1.7/fixed-sidebar.js" type="text/javascript"></script>
+    <script src='//g.csdnimg.cn/common/csdn-report/report.js' type='text/javascript'></script>
+    <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax_Message, .MathJax_Preview{
+            display: none !important;
+        }
+    </style>
+    <script src="https://dup.baidustatic.com/js/ds.js"></script>
+      <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "lgtpix6r85");
+      </script>
+    <script src="/cdn_cgi_bs_bot/static/crypto.min.js"></script>
+    <script src="/cdn_cgi_bs_bot/static/bot-score-v1.js"></script>
+    <script src="/cdn_cgi_bs_captcha/static/js/waf_captcha_embedded_bs.js"></script>
+</head>
+  <body class="nodata  " style="">
+    <div id="toolbarBox" style="min-height: 48px;"></div>
+        <script>
+            var toolbarSearchExt = '{\"id\":104077387,\"landingWord\":[\"cpu结构和功能\"],\"queryWord\":\"\",\"tag\":[\"计算机组成原理\"],\"title\":\"计算机组成原理  CPU 结构和功能\"}';
+        </script>
+    <script src="https://g.csdnimg.cn/common/csdn-toolbar/csdn-toolbar.js" type="text/javascript"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" />
+    <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css" />
+    <script src="https://g.csdnimg.cn/lib/swiper/6.0.4/js/swiper.js" async></script>
+    <script>
+      var articleId = 104077387;
+      var annotationModuleBootstrapData = {
+        hasAnnotation: false,
+        totalCount: 0,
+        list: [],
+        categories: []
+      };
+      var annotationFeatureEnabled = false;
+
+
+        var privateEduData = [];
+        var privateData = [];
+      var crytojs = "https://csdnimg.cn/release/blogv2/dist/components/js/crytojs-ca5b8bf6ae.min.js";
+      var commentscount = 0;
+      var commentAuth = 2;
+      var curentUrl = "https://blog.csdn.net/weixin_42107217/article/details/104077387";
+      var myUrl = "https://my.csdn.net/";
+      var isGitCodeBlog = false;
+var vipActivityIcon = "https://i-operation.csdnimg.cn/images/99a45e75b3604261bbe47a0982437719.png";
+var vipActivityIconV2 = {
+  icon: "https://i-operation.csdnimg.cn/images/99a45e75b3604261bbe47a0982437719.png",
+  url: "https://i.csdn.net/#/geek-star-fun-pack?utm_source=260901_vip_blogleftbanner"
+};
+      var isOpenSourceBlog = false;
+      var isVipArticle = false;
+        var highlight = ["计算机组成","cpu","功能","原理","结构","和"];//高亮数组
+        var isRecommendModule = true;
+          var isBaiduPre = true;
+          var baiduCount = 2;
+          var setBaiduJsCount = 10;
+        var viewCountFormat = 5460;
+      var share_card_url = "https://app-blog.csdn.net/share?article_id=104077387&username=weixin_42107217"
+      var mallVipUrl = "https://mall.csdn.net/vip?vipSource=article"
+      var vipArticleAbStyle = "t_1"
+      var vipArticleCpStyle = "t_1"
+      var detailheaderAbCommunity = "control"
+      var codeAiAbStyle = "exp5"
+      var runProjectDeepBlogAB = "t_1"
+      var gitcodeHighlightWordAB = "exp1"
+
+      var asideCknowsEntryAB = "con1"
+      var deepblogUrl = ""
+        deepblogUrl = "https://deepblog.net?utm_source=blog_onekey_run";
+      var codeAiAbObjStyle = ""
+        codeAiAbObjStyle = "{\"control\":{\"title\":\"AI写代码\",\"destUrl\":\"https://trae.com.cn?utm_source=community&utm_medium=csdn&utm_campaign=daima\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/a5fff6f6c9f0464c9a46b130c972952b.png\"},\"exp1\":{\"title\":\"一键获取完整项目代码\",\"runClose\":true,\"destUrl\":\"https://inscode.net?utm_source=blog_code_block\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/4648c13ca82a446ea1bfb99876a27770.png\",\"blogUrl\":true},\"control_run_project\":{\"title\":\"运行项目并下载源码\",\"destUrl\":\"\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/46c457a2cf8b4b9b8f17a2ab71461d4a.png\"},\"control_deepblog\":{\"title\":\"AI生成项目\",\"destUrl\":\"https://inscode.net?utm_source=blog_code_block_fixed\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/9899ea0f099e4e4e8b1fcdb918a27fcd.png\",\"blogUrl\":false},\"exp2\":{\"title\":\"AI编程工具\",\"destUrl\":\"https://www.codebuddy.cn/work/?fromSource=gwzcw.13129862.13129862.13129862&utm_medium=cpc&utm_id=gwzcw.13129862.13129862.13129862\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/034b15f494eb444abc72cc544790ca5f.svg\"},\"exp4\":{\"title\":\"Lobster AI\",\"destUrl\":\"https://lobsterai.youdao.com/#/index?keyfrom=csdn3\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/2c9d3b91a8ad4956bca5af92918b9e75.png\"},\"exp5\":{\"title\":\"用码道免费领 1 个月 Token\",\"destUrl\":\"https://developer.huaweicloud.com/codeartsco.html?source=dmzntgwltcsdn1&sourcead=dmzntgwltcsdnzn11\",\"imgUrl\":\"https://i-operation.csdnimg.cn/images/7c0190c005ab41659100f583c0791aee.png\"}}";
+      var articleType = 1;
+      var baiduKey = "cpu结构和功能";
+      var copyPopSwitch = true;
+      var needInsertBaidu = true;
+      var recommendRegularDomainArr = ["blog.csdn.net/.+/article/details/","download.csdn.net/download/","edu.csdn.net/course/detail/","ask.csdn.net/questions/","bbs.csdn.net/topics/","www.csdn.net/gather_.+/"]
+      var codeStyle = "atom-one-dark";
+      var baiduSearchType = "baidulandingword";
+      var sharData = "{\"hot\":[{\"id\":1,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a5f4260710904e538002a6ab337939b3.png\"},{\"id\":2,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/188b37199a2c4b74b1d9ffc39e0d52de.png\"},{\"id\":3,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/14ded358b631444581edd98a256bc5af.png\"},{\"id\":4,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1470f23a770444d986ad551b9c33c5be.png\"},{\"id\":5,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c329f5181dc74f6c9bd28c982bb9f91d.png\"},{\"id\":6,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ccd8a3305e81460f9c505c95b432a65f.png\"},{\"id\":7,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bc89d8283389440d97fc4d30e30f45e1.png\"},{\"id\":8,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/452d485b4a654f5592390550d2445edf.png\"},{\"id\":9,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f8b9939db2ed474a8f43a643015fc8b7.png\"},{\"id\":10,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6de8864187ab4ed3b1db0856369c36ff.png\"},{\"id\":11,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/673cc3470ff74072acba958dc0c46e2d.png\"},{\"id\":12,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/930c119760ac4491804db80f9c6d4e3f.png\"},{\"id\":13,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/15e6befb05a24233bc2b65e96aa8d972.png\"},{\"id\":14,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2075fd6822184b95a41e214de4daec13.png\"},{\"id\":15,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/859b1552db244eb6891a809263a5c657.png\"},{\"id\":16,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/0be2f920f1f74290a98921974a9613fd.png\"},{\"id\":17,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2e97e00b43f14afab494ea55ef3f4a6e.png\"},{\"id\":18,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ff4ab252f46e444686f5135d6ebbfec0.png\"},{\"id\":19,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ae029bbe99564e79911657912d36524f.png\"},{\"id\":20,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b3ece39963de440388728e9e7b9bf427.png\"},{\"id\":21,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6f14651a99ba486e926d63b6fa692997.png\"},{\"id\":22,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/83ceddf050084875a341e32dcceca721.png\"},{\"id\":23,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b90368b8fd5d4c6c8c79a707d877cf7c.png\"},{\"id\":24,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/aeffae14ecf14e079b2616528c9a393b.png\"},{\"id\":25,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c5a06b5a13d44d16bed868fc3384897a.png\"},{\"id\":26,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/08b697658b844b318cea3b119e9541ef.png\"},{\"id\":27,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/68ccb0b8d09346ac961d2b5c1a8c77bf.png\"},{\"id\":28,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a2227a247e37418cbe0ea972ba6a859b.png\"},{\"id\":29,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/3a42825fede748f9993e5bb844ad350d.png\"},{\"id\":30,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/8882abc1dd484224b636966ea38555c3.png\"},{\"id\":31,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/4f6a5f636a3e444d83cf8cc06d87a159.png\"},{\"id\":32,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1953ef79c56b4407b78d7181bdff11c3.png\"},{\"id\":33,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c04a2a4f772948ed85b5b0380ed36287.png\"},{\"id\":34,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5b4fecd05091405ea04d8c0f53e9f2c7.png\"},{\"id\":35,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b89f576d700344e280d6ceb2a66c2420.png\"},{\"id\":36,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1c65780e11804bbd9971ebadb3d78bcf.png\"},{\"id\":37,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d590db2055f345db9706eb68a7ec151a.png\"},{\"id\":38,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fe602f80700b4f6fb3c4a9e4c135510e.png\"},{\"id\":39,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/39ff2fcd31e04feba301a071976a0ba7.png\"},{\"id\":40,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f9b61b3d113f436b828631837f89fb39.png\"},{\"id\":41,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/df1aca5f610c4ad48cd16da88c9c8499.png\"},{\"id\":42,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d7acf73a1e6b41399a77a85040e10961.png\"},{\"id\":43,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b7f1b63542524b97962ff649ab4e7e23.png\"}],\"vip\":[{\"id\":1,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101150.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101154.png\"},{\"id\":2,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101204.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101208.png\"},{\"id\":3,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101211.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101215.png\"},{\"id\":4,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101218.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101220.png\"},{\"id\":5,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101223.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101226.png\"},{\"id\":6,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100635.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100639.png\"},{\"id\":7,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100642.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100644.png\"},{\"id\":8,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100647.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100649.png\"},{\"id\":9,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100652.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100655.png\"},{\"id\":10,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/55de67481fde4b04b97ad78f11fe369a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bb2418fb537e4d78b10d8765ccd810c5.png\"},{\"id\":11,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/579c713394584d128104ef1044023954.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f420d9fbcf5548079d31b5e809b6d6cd.png\"},{\"id\":12,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/75b7f3155ba642f5a4cc16b7baf44122.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a9030f5877be401f8b340b80b0d91e64.png\"},{\"id\":13,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0903d33cafa54934be3780aa54ae958d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2cd8c8929f5a42fca5da2a0aeb456203.png\"},{\"id\":14,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/949fd7c22884439fbfc3c0e9c3b8dee7.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/dafbea9bd9eb4f3b962b48dc41657f89.png\"},{\"id\":15,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4119cfddd71d4e6a8a27a18dbb74d90e.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c56310c8b6384d9e85388e4e342ce508.png\"},{\"id\":16,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/121575274da142bcbbbbc2e8243dd411.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5013993de06542f881018bb9abe2edf7.png\"},{\"id\":17,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4d97aa6dd4fe4f09a6bef5bdf8a6abcd.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/76f23877b6ad4066ad45ce8e31b4b977.png\"},{\"id\":18,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdb619daf21b4c829de63b9ebc78859d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a1abe5d27a5441f599adfe662f510243.png\"},{\"id\":19,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/676b7707bb11410f8f56bc0ed2b2345c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/7ac5b467fbf24e1d8c2de3f3332c4f54.png\"},{\"id\":20,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0becb8cc227e4723b765bdd69a20fd4a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdec85b26091486b9a89d0b8d45c3749.png\"},{\"id\":21,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/1a6c06235ad44941b38c54cbc25a370c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/410a06cda2d44b0c84578f88275caf70.png\"}],\"map\":{\"hot\":\"热门\",\"vip\":\"VIP\"}}";
+        var commentListModule = ''
+      var canRead = true;
+      var blogMoveHomeArticle = false;
+      var showSearchText = "";
+      var articleSource = 1;
+      var articleReport = '{"pid": "blog", "spm":"1001.2101"}';
+        var baiduSearchChannel = 'pc_relevant'
+        var baiduSearchIdentification = '.235^v43^pc_blog_bottom_relevance_base6'
+        var distRequestId = '1788347700979_25084'
+        var initRewardObject = {
+          giver: currentUserName,
+          anchor: username,
+          articleId: articleId,
+          sign: ''
+        }
+        var isLikeStatus = false;
+        var isUnLikeStatus = false;
+        var studyLearnWord = "";
+        var unUseCount = 0;
+        var codeMaxSize = 0;
+        var overCost = true;
+        var isCurrentUserVip = false;
+        var contentViewsHeight = 0;
+        var contentViewsCount = 0;
+        var contentViewsCountLimit = 5;
+        var isShowConcision = false;
+        var lastTime = 0
+        var postTime = "2020-01-24 11:19:41"
+      var isCookieConcision = false
+      var isHasDirectoryModel = false
+      var isShowSideModel = false
+      var isShowDirectoryModel = true
+      function getCookieConcision(sName){
+        var allCookie = document.cookie.split("; ");
+        for (var i=0; i < allCookie.length; i++){
+          var aCrumb = allCookie[i].split("=");
+          if (sName == aCrumb[0])
+            return aCrumb[1];
+        }
+        return null;
+      }
+      if (getCookieConcision('blog_details_concision') && getCookieConcision('blog_details_concision') == 0){
+        isCookieConcision = true
+        isShowSideModel = true
+        isShowDirectoryModel = false
+      }
+    </script>
+        <div class="main_father clearfix d-flex justify-content-center " style="height:100%;">
+          <div class="container clearfix " id="mainBox">
+          <script>
+          if (!isCookieConcision) {
+            $('.main_father').removeClass('mainfather-concision')
+            $('.main_father .container').removeClass('container-concision')
+          } else {
+            $('#mainBox').css('margin-right', '0')
+          }
+          </script>
+          <main>
+<script type="text/javascript">
+    var resourceId =  "";
+    function getQueryString(name) {   
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+      var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+      if( r != null ) return decodeURIComponent( r[2] ); return '';   
+    }
+    function stripscript(s){ 
+      var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%]") 
+      var rs = ""; 
+      for (var i = 0; i < s.length; i++) { 
+        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+      } 
+      return rs;
+    }
+    var blogHotWords = stripscript(getQueryString('utm_term')).length > 1 ? stripscript(getQueryString('utm_term')) : ''
+</script>
+<div class="blog-content-box">
+  <div class="article-header-box" id="article-header-box">
+    <div class="article-header">
+      <div class="article-title-box">
+        <h1 class="title-article" id="articleContentId">计算机组成原理  CPU 结构和功能</h1>
+      </div>
+      <div class="article-info-box">
+              <div class="up-time">最新推荐文章于&nbsp;2025-09-28 08:42:27&nbsp;发布</div>
+          <div class="article-bar-top">
+              <div class="bar-content active">
+              <span class="article-type-text original">原创</span>
+
+              
+                    <span class="time blog-postTime" data-time="2020-01-24 11:19:41">最新推荐文章于&nbsp;2025-09-28 08:42:27&nbsp;发布</span>
+                <span class="border-dian">·</span>
+                <span class="read-count">5.4k 阅读</span>
+                <div class="read-count-box is-like like-ab-new" data-type="top">
+                  <span class="border-dian">·</span>
+                  <img class="article-read-img article-heard-img active" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt="">
+                  <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt="">
+                  <span class="read-count" id="blog-digg-num" style="color:;">
+                      8
+                  </span>
+                </div>
+                <span class="border-dian">·</span>
+                <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                  <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt="">
+                  <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt="">
+                  <span class="get-collection">
+                      30
+                  </span>
+                </a>
+
+                    <span class="border-dian">·</span>
+                    <div class="href-article-edit-new">
+                      <span class="href-article-edit-click">本内容遵循CC 4.0 BY-SA版权协议</span>
+                      <div class="slide-content-box-new">
+                                  版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                      </div>
+                    </div>
+              </div>
+          </div>
+          <div class="blog-tags-box article-header-tags-v2">
+
+<div class="article-header-categories-wrap">
+  <div class="article-header-collect-row">
+    <div class="article-header-category-segment article-header-collect-segment" id="article-header-collect-group" data-column-count="1">
+      <span class="article-header-row-dot" style="display:none">·</span>
+      <div class="article-header-category-group article-header-collect-group">
+        <span class="article-header-label">收录于</span>
+        <div class="article-header-pill-list article-header-collect-list" id="article-header-collect-list">
+    <div class="article-header-badge column-badge column-badge-free">
+      <div class="article-header-badge-trigger">
+        <img class="badge-icon" src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_224,w_224" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+        <span class="badge-name">基础知识</span>
+      </div>
+      <div class="article-header-badge-dropdown column-dropdown">
+        <p class="dropdown-title">当前文章被收录于：</p>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-column-body">
+          <div class="dropdown-column-main">
+            <a class="column-detail-link column-detail-cover-link"
+              href="https://blog.csdn.net/weixin_42107217/category_9628827.html"
+              target="_blank"
+              rel="noopener"
+              data-report-view='{"spm":"1001.2101.3001.6332"}'
+              data-report-click='{"spm":"1001.2101.3001.6332"}'>
+              <img class="dropdown-cover" src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_224,w_224" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+            </a>
+            <div class="dropdown-info">
+              <a class="column-detail-link column-detail-name-link"
+                href="https://blog.csdn.net/weixin_42107217/category_9628827.html"
+                target="_blank"
+                rel="noopener"
+                title="基础知识"
+                data-report-view='{"spm":"1001.2101.3001.6332"}'
+                data-report-click='{"spm":"1001.2101.3001.6332"}'>
+                <p class="dropdown-name">基础知识</p>
+              </a>
+              <div class="dropdown-stats">
+                <span class="stats-group">
+                  <em class="stats-num">6</em>
+                  <span class="stats-label">篇文章</span>
+                </span>
+                <span class="stats-divider"></span>
+                <span class="stats-group">
+                  <em class="stats-num">2</em>
+                  <span class="stats-label">人学习</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="dropdown-actions">
+            <a class="dropdown-btn dropdown-btn-column articleColumnFreeBt" data-id="9628827">订阅专栏</a>
+          <a class="dropdown-link" href="https://blog.csdn.net/weixin_42107217/category_9628827.html" target="_blank" rel="noopener" data-report-view='{"spm":"1001.2101.3001.6332"}' data-report-click='{"spm":"1001.2101.3001.6332"}'>查看详情</a>
+        </div>
+      </div>
+    </div>
+          <span class="article-header-community-slot community-name" id="community-name"></span>
+<div class="tag-more-btn collect-more-btn column-collect-more-btn" style="display:none" id="article-header-collect-more-btn" data-report-click='{"spm":"1001.2101.3001.4224"}'>
+  <svg class="more-icon" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+    <circle cx="6" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="18" cy="12" r="2"/>
+  </svg>
+  <div class="column-more-dropdown">
+    <p class="dropdown-title">当前文章被以下社区和专栏收录：</p>
+    <div class="column-more-list" id="article-header-collect-more-list">
+      <div class="dropdown-divider column-more-item-divider"></div>
+    </div>
+  </div>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+          </div>
+      </div>
+    </div>
+  </div>
+    <div id="blogHuaweiyunAdvert"></div>
+      <div class="ai-abstract-box">
+         <div class="ai-abstract">
+          <div class="abstract-content">
+            <img class="lock-img" src="https://i-operation.csdnimg.cn/images/a7311a21245d4888a669ca3155f1f4e5.png" alt="">本文深入解析了CPU的功能与结构，包括控制器与运算器的作用，指令周期的不同阶段，以及指令流水线的原理与性能影响因素。同时，还探讨了中断系统的运作机制。
+          </div>
+        </div>
+      </div>
+
+
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-a50b13a894.css">
+                <div id="content_views" class="htmledit_views atom-one-dark">
+                    <h2>一、 CPU 功能</h2>
+
+<ul><li>控制器部分的功能</li><li>运算器部分的功能</li></ul><h3>1.运算器功能</h3>
+
+<p>算术运算、逻辑运算</p>
+
+<h3>2.控制器功能</h3>
+
+<ul><li>指令控制&#xff1a;取指令、顺序执行</li><li>操作控制&#xff1a;分析指令、执行指令</li><li>时间控制&#xff1a;控制程序输入输出</li><li>中断处理&#xff1a;总线管理、处理异常</li><li>数据加工</li></ul><p> </p>
+
+<h2>二、结构</h2>
+
+<p><img alt="" class="has" height="194" src="https://i-blog.csdnimg.cn/blog_migrate/3a1992a15e5df4cce92f3b6223d3b223.png" width="351" /></p>
+
+<p>PC 完成指令控制</p>
+
+<p>CU 完成操作控制、时间控制</p>
+
+<p>ALU 完成数据加工</p>
+
+<p>中断系统完成中断处理</p>
+
+<h3>1. CPU的寄存器</h3>
+
+<h4>&#xff08;1&#xff09;用户可见寄存器</h4>
+
+<ul><li>通用寄存器&#xff1a;存放操作数&#xff0c;也可作为满足某种寻址方式所需的寄存器。</li><li>数据寄存器&#xff1a;存放操作数&#xff0c;允许用两个连续寄存器存放双倍字长的值。</li><li>地址寄存器&#xff1a;存放地址</li><li>条件代码寄存器&#xff1a;存放条件码&#xff08;对用户部分透明&#xff09;&#xff0c;做程序分支的依据。</li></ul><h4>&#xff08;2&#xff09;控制和状态寄存器</h4>
+
+<ul><li>控制寄存器&#xff1a;MAR、MDR、PC&#xff08;用户可见&#xff09;、IR</li><li>状态寄存器&#xff1a;PSW</li></ul><h3>2.控制单元 CU 和中断系统</h3>
+
+<h4>&#xff08;1&#xff09;CU</h4>
+
+<p><strong>功能</strong>&#xff1a;提供完成机器全部指令操作的s微操作命令序列&#xff08;产生并保证时间先后&#xff09;</p>
+
+<p><strong>实现方法</strong>&#xff1a;组合逻辑设计法&#xff08;硬件实现&#xff09;、微程序设计方法&#xff08;软件实现&#xff09;</p>
+
+<h4>&#xff08;2&#xff09;中断系统</h4>
+
+<p> </p>
+
+<h2>三、指令周期</h2>
+
+<p>CPU 每取出并执行一条指令所需全部时间叫指令周期。</p>
+
+<p>指令操作功能不同&#xff0c;指令周期也不相同。</p>
+
+<h3>1.指令周期</h3>
+
+<h4>基本形式&#xff1a;</h4>
+
+<p><img alt="" class="has" height="145" src="https://i-blog.csdnimg.cn/blog_migrate/273b79f325791bd4a55406a1e78c8955.png" width="342" /></p>
+
+<h4>无条件转移指令&#xff1a;</h4>
+
+<p><img alt="" class="has" height="64" src="https://i-blog.csdnimg.cn/blog_migrate/37151430a8ff07b8b9285360d13e53d6.png" width="135" /></p>
+
+<h4>加法指令&#xff1a;</h4>
+
+<p><img alt="" class="has" height="70" src="https://i-blog.csdnimg.cn/blog_migrate/db67648a1b545d3573d98fc90e49aa7d.png" width="259" /></p>
+
+<h4>乘法指令&#xff1a;</h4>
+
+<p><img alt="" class="has" height="68" src="https://i-blog.csdnimg.cn/blog_migrate/7ecdac2218c3ea226e5eece84fe59e60.png" width="351" /></p>
+
+<h4>间接寻址的指令&#xff1a;</h4>
+
+<p><img alt="" class="has" height="75" src="https://i-blog.csdnimg.cn/blog_migrate/0645738400e64a28958dc112f9555f13.png" width="392" /></p>
+
+<h4>带有中断的指令&#xff1a;</h4>
+
+<p><img alt="" class="has" height="74" src="https://i-blog.csdnimg.cn/blog_migrate/631505ef9cf53432348d51366ad95359.png" width="517" /></p>
+
+<h3>2.CPU 访存的不同性质</h3>
+
+<table align="left" border="1" cellpadding="1" cellspacing="1" style="width:500px;"><tbody><tr><td><strong>CPU 访存的性质</strong></td><td><strong>对应指令周期</strong></td></tr><tr><td>取指令</td><td>取指周期</td></tr><tr><td>取地址</td><td>间址周期</td></tr><tr><td>存取操作数或结果</td><td>执行周期</td></tr><tr><td>保存程序断点</td><td>中断周期</td></tr></tbody></table><p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<p> </p>
+
+<h2>四、指令流水</h2>
+
+<p>为提高系统处理能力&#xff0c;改进系统结构&#xff0c;开发系统并行性。</p>
+
+<p>并行性等级&#xff1a;</p>
+
+<ul><li>粗粒度并行性&#xff1a;作业级、程序级、进程级&#xff08;软件实现&#xff09;</li><li>细粒度并行性&#xff1a;指令之间或指令内部&#xff08;硬件实现&#xff09;</li></ul><h3>1.指令流水原理</h3>
+
+<h4>&#xff08;1&#xff09;指令串行执行</h4>
+
+<p><img alt="" class="has" height="52" src="https://i-blog.csdnimg.cn/blog_migrate/298cd6573bd5076be22ca91885db2e44.png" width="680" /></p>
+
+<p>由于取指令部件和执行机构不同&#xff0c;因此 CPU 执行过程中&#xff0c;总有一个处于空闲状态。</p>
+
+<h4>&#xff08;2&#xff09;二级流水</h4>
+
+<p><img alt="" class="has" height="127" src="https://i-blog.csdnimg.cn/blog_migrate/188f89771c9bb47e4663f15dcb078573.png" width="445" /></p>
+
+<p>由于指令取指时间远小于执行时间&#xff0c;且遇到条件转移指令时&#xff0c;下一条指令未知&#xff0c;因此降低了二级流水潜在效率。</p>
+
+<h4>&#xff08;3&#xff09;多级流水</h4>
+
+<p>将指令周期细分&#xff0c;实现多级流水&#xff0c;如 6 级流水</p>
+
+<p><img alt="" class="has" height="250" src="https://i-blog.csdnimg.cn/blog_migrate/eab8472a186cdc177fa7e50661ddb4ae.png" width="553" /></p>
+
+<p>将一个指令周期分为 6 个阶段。</p>
+
+<h3>2.流水线性能</h3>
+
+<h4>&#xff08;1&#xff09;吞吐率</h4>
+
+<p><img alt="" class="has" height="27" src="https://i-blog.csdnimg.cn/blog_migrate/3ee5d26738ba46e4a3ca976ddd373a2c.png" width="430" /></p>
+
+<h4>&#xff08;2&#xff09;加速比</h4>
+
+<p><img alt="" class="has" height="29" src="https://i-blog.csdnimg.cn/blog_migrate/0580d5d89a24d21565319a858da5ec9e.png" width="447" /></p>
+
+<h4>&#xff08;3&#xff09;效率</h4>
+
+<p><img alt="" class="has" height="106" src="https://i-blog.csdnimg.cn/blog_migrate/1904c733e84ce9a6356edf7fbd112ac8.png" width="447" /></p>
+
+<p><img alt="" class="has" height="75" src="https://i-blog.csdnimg.cn/blog_migrate/c02d3cd948e91bfefa27f9a562c252e9.png" width="450" /></p>
+
+<h3>3.影响性能的因素</h3>
+
+<h4>&#xff08;1&#xff09;访存冲突</h4>
+
+<p>不同指令争夺同一功能部件</p>
+
+<p>解决方法&#xff1a;</p>
+
+<ul><li>设置两个独立寄存器分别存放操作数和指令</li><li>采用指令预取技术&#xff08;适用于访存周期很短的情况&#xff09;</li><li>停顿</li></ul><h4>&#xff08;2&#xff09;相关问题</h4>
+
+<ul><li>控制相关&#xff1a;由转移指令引起</li><li>数据相关&#xff1a;不同指令因重叠操作&#xff0c;可能改变其读写顺序</li></ul><h3>4.流水线多发技术</h3>
+
+<h4>&#xff08;1&#xff09;超标量技术</h4>
+
+<p>在每个时钟周期内&#xff0c;同时并发执行多条独立指令。</p>
+
+<p><img alt="" class="has" height="181" src="https://i-blog.csdnimg.cn/blog_migrate/5113c4b6bb4c390edbdf75d1eafe207e.png" width="480" /></p>
+
+<h4>&#xff08;2&#xff09;超流水线技术</h4>
+
+<p>一个时钟周期内再分段</p>
+
+<p><img alt="" class="has" height="188" src="https://i-blog.csdnimg.cn/blog_migrate/2c5d40e5fae07183336dc0d4e5cb6cab.png" width="470" /></p>
+
+<h4>&#xff08;3&#xff09;超长指令字技术</h4>
+
+<p>挖掘指令间潜在并行性&#xff0c;将多条指令组合为一条具有多个操作码字段的超长指令。</p>
+
+<p><img alt="" class="has" height="171" src="https://i-blog.csdnimg.cn/blog_migrate/84fdb320eac87771039c105d59797690.png" width="464" /></p>
+
+<p> </p>
+
+<h2>五、中断系统</h2>
+
+<h3>1.引起中断的因素</h3>
+
+<ul><li>人为设置的中断</li><li>程序性事故</li><li>硬件故障</li><li>I/O 中断请求</li><li>外部事件&#xff08;如&#xff0c;用户通过键盘中断进程&#xff09;</li></ul><h3>2.中断请求标记&#xff08;INTR&#xff09;、判优逻辑</h3>
+
+<p><img alt="" class="has" height="77" src="https://i-blog.csdnimg.cn/blog_migrate/31c3c3f8d886e3af476e0c15b5ee1075.png" width="499" /></p>
+
+<h3>3.中断隐指令</h3>
+
+<p><strong>功能</strong>&#xff1a;</p>
+
+<ul><li>保护程序断点</li><li>寻找服务程序入口地址</li><li>硬件关中断</li></ul><h3>4.保护现场、恢复现场</h3>
+
+<h4>&#xff08;1&#xff09;保护现场</h4>
+
+<ul><li>保护断点&#xff1a;中断隐指令完成</li><li>保护寄存器内容&#xff1a;中断服务程序完成</li></ul><h4>&#xff08;2&#xff09;恢复现场&#xff1a;中断服务程序完成</h4>
+
+<p><img alt="" class="has" height="285" src="https://i-blog.csdnimg.cn/blog_migrate/5c06b930a10bb72d98499de551f07b6c.png" width="426" /></p>
+
+<p> </p>
+
+<p><strong>本文中图片均为刘宏伟教授在中国大学MOOC上的课件截图</strong></p>
+
+                </div>
+        </div>
+    </article>
+
+
+
+
+  <script>
+    $(function() {
+      setTimeout(function () {
+        var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+        if (mathcodeList.length > 0) {
+          for (let i = 0; i < mathcodeList.length; i++) {
+            if (mathcodeList[i].complete) {
+              if (mathcodeList[i].naturalWidth === 0 || mathcodeList[i].naturalHeight === 0) {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              }
+            } else {
+              mathcodeList[i].onerror = function() {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              };
+            }
+          }
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+      }, 500)
+    });
+  </script>
+<div class="article-footer-categories-wrap">
+  <div class="article-footer-category-segment">
+    <div class="article-footer-category-group">
+      <span class="article-footer-label">标签</span>
+      <div class="article-footer-pill-list">
+          <a rel="nofollow" data-report-query="spm=1001.2101.3001.4223" data-report-click='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"计算机组成原理","ab":"new","extra":"{\"searchword\":\"计算机组成原理\"}"}' data-report-view='{"mod":"popu_626","spm":"1001.2101.3001.4223","strategy":"计算机组成原理","ab":"new","extra":"{\"searchword\":\"计算机组成原理\"}"}' class="tag-link-new" href="https://so.csdn.net/so/search/s.do?q=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BB%84%E6%88%90%E5%8E%9F%E7%90%86&t=all&o=vip&s=&l=&f=&viparticle=&from_tracking_code=tag_word&from_code=app_blog_art" target="_blank" rel="noopener">#计算机组成原理</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+  <div class="directory-boxshadow-dialog-box">
+  </div>
+   <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+      <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png">
+      <div class="vip-limited-time-top">
+        确定要放弃本次机会？
+      </div>
+      <span class="vip-limited-time-text">福利倒计时</span>
+      <div class="limited-time-box-new">
+        <span class="time-hour"></span>
+        <i>:</i>
+        <span class="time-minite"></span>
+        <i>:</i>
+        <span class="time-second"></span>
+      </div>
+      <div class="limited-time-vip-box">
+        <p>
+          <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png">
+          <span class="def">立减 ¥</span>
+          <span class="active limited-num"></span>
+        </p>
+        <span class="">普通VIP年卡可用</span>
+      </div>
+      <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query='spm=1001.2101.3001.9621'>立即使用</a>
+  </div>
+</div>
+    <div class="more-toolbox-new more-toolbar" id="toolBarBox">
+      <div class="left-toolbox">
+        <div class="toolbox-left">
+            <div class="profile-box">
+              <a class="profile-href" target="_blank" href="https://blog.csdn.net/weixin_42107217"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1">
+                <span class="profile-name">
+                  RyanLintong
+                </span>
+              </a>
+            </div>
+            <div class="profile-attend">
+                <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+              <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </div>
+        </div>
+        <div class="toolbox-middle">
+          <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom">
+              <a class="tool-item-href">
+                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like-active.png" alt="">
+                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" alt="">
+                <span id="spanCount" class="count ">
+                    8
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">点赞</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+              <a class="tool-item-href">
+                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike-active.png" alt="">
+                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" alt="">
+                <span id="unlikeCount" class="count "></span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">踩</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+              <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect-active.png" alt="">
+                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" alt="">
+                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
+                <span class="count get-collection " data-num="30" id="get-collection">
+                    30
+                </span>
+              </a>
+              <div class="tool-hover-tip collect">
+                <div class="collect-operate-box">
+                  <span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+                </div>
+              </div>
+              <div class="tool-active-list">
+                <div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+                 <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt="">
+                </div>
+              </div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-item-comment">
+                <a class="tool-item-href" href="#commentBox" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png" alt="">
+                <span class="count">
+                      0
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">评论</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+              <a class="tool-item-href" href="javascript:;" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png" alt="">
+                <span class="count">分享</span>
+              </a>
+                <div class="QRcode" id="tool-QRcode">
+                <div class="share-bg-box">
+                  <div class="share-content">
+                    <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="qq">分享到 QQ</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="weibo">分享到新浪微博</a>
+                  </div>
+                  <div class="share-code">
+                    <div class="share-code-box" id='shareCode'></div>
+                    <div class="share-code-text">
+                      <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <li class="tool-item tool-item-size tool-active is-more" id="is-more">
+            <a class="tool-item-href">
+              <img class="isdefault" style="margin-right:0px;display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" alt="">
+              <span class="count"></span>
+            </a>
+            <div class="more-opt-box">
+              <div class="mini-box">
+                <a class="tool-item-href" id="toolReportBtnHide">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+              <div class="normal-box">
+                <a class="tool-item-href" id="toolReportBtnHideNormal">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbox-right">
+            <div class="tool-directory">
+                <a class="bt-columnlist-show"
+                  data-id="9628827"
+                  data-free="true"
+                  data-description=""
+                  data-subscribe="false"
+                  data-title="基础知识"
+                  data-img="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_224,w_224"
+                  data-url="https://blog.csdn.net/weixin_42107217/category_9628827.html"
+                  data-sum="6"
+                  data-people="2"
+                  data-price="0"
+                  data-hotRank="0"
+                  data-status="true"
+                  data-oldprice="0"
+                  data-join="false"
+                  data-studyvip="false"
+                  data-studysubscribe="false"
+                  data-report-view='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}'
+                  data-report-click='{"spm":"1001.2101.3001.6334","extend1":"专栏目录"}'>专栏目录</a>
+          </div>
+</div>
+</div>
+</div>
+<script type=text/javascript crossorigin src="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/collection-box/2.1.2/collection-box.js"></script>
+              <div id="dmp_ad_58" style="width:100%;overflow-x:hidden">
+                <div id="kp_box_58" data-pid="58"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview1/4402095?positionId=58&adBlockFlag=0&adId=1108079&queryWord=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.5002&articleId=104077387" frameborder="0" width= "100%"  height= "75px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=58&adBlockFlag=0&adId=1108079&a=1108079&c=4402095&k=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.5002&articleId=104077387&d=1&t=3&u=869435f8b7ad49e6af4a783aa657620d" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+              </div>
+            <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_commontools-0813aab227.min.js" type="text/javascript" async></script>
+              <div class="second-recommend-box recommend-box ">
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/m0_73384617/article/details/139887883"  data-report-view='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~ElasticSearch~Rate-1-139887883-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m0_73384617/article/details/139887883"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/m0_73384617/article/details/139887883" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~ElasticSearch~Rate-1-139887883-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m0_73384617/article/details/139887883"}'  data-report-query='spm=1001.2101.3001.11989&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-1-139887883-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-1-139887883-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>&mdash;&mdash;<em>CPU</em>的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_73384617" target="_blank"><span class="blog-title">m0_73384617的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-24</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2966
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/m0_73384617/article/details/139887883" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.11989","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~ElasticSearch~Rate-1-139887883-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"1","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m0_73384617/article/details/139887883"}'  data-report-query='spm=1001.2101.3001.11989&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-1-139887883-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-1-139887883-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">（1）人为设置的中断如转管指令（2）程序性事故溢出、操作码不能识别、除法非法（3）硬件故障（4）I/O设备（5）外部事件用键盘中断现行程序。</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<a id="commentBox" name="commentBox"></a>
+  <div id="pcCommentBox" class="comment-box comment-box-new2 unlogin-comment-box-new" style="display:none">
+      <div class="unlogin-comment-model">
+          <span class="unlogin-comment-tit">参与评论</span>
+        <span class="unlogin-comment-text">您还未登录，请先</span>
+        <span class="unlogin-comment-bt">登录</span>
+        <span class="unlogin-comment-text">后发表或查看评论</span>
+      </div>
+  </div>
+              <div class="recommend-box insert-baidu-box recommend-box-style ">
+                <div class="recommend-item-box no-index" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_57775169/article/details/143628189"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_57775169/article/details/143628189"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_57775169/article/details/143628189" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_57775169/article/details/143628189"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">xhs私信协议分析</div>
+					<div class="tag">最新发布</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_57775169" target="_blank"><span class="blog-title">佛系更新...</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">09-28</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3399
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_57775169/article/details/143628189" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"1","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/weixin_57775169/article/details/143628189"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-1-143628189-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">之前分析过xhs的shield算法，今天再聊聊xhs的私信，文章仅供学习参考研究交流，如有侵权请联系删帖。经过抓包分析发现私信接口并不是走的http协议，而是socket协议。而要获取socket包则需要使用wireshark软件1、protobuf的包体中的序号7，多次验证后发现文字信息的需要需要固定成12、protobuf的包体中的序号12，多次验证后发现文字信息的需要需要固定成1后续有时间的话，再研究一下视频<em>和</em>图片格式的私信协议，这次就分析到这里吧。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/qq_34757933/85358746"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromBaidu~PaidSort-2-85358746-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://download.csdn.net/download/qq_34757933/85358746"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/qq_34757933/85358746" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromBaidu~PaidSort-2-85358746-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://download.csdn.net/download/qq_34757933/85358746"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-85358746-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-85358746-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>.pdf</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">05-13</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/qq_34757933/85358746" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~BlogCommendFromBaidu~PaidSort-2-85358746-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"2","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://download.csdn.net/download/qq_34757933/85358746"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-85358746-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-2-85358746-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>.pdf</div>
+			</a>
+		</div>
+	</div>
+</div>
+		<dl id="recommend-item-box-tow" class="recommend-item-box type_blog clearfix">
+			
+		</dl>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/timonium/article/details/145508408"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/timonium/article/details/145508408"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/timonium/article/details/145508408" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/timonium/article/details/145508408"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">【IT小趣闻】免费的DeepSeek是如何赚钱的？</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/timonium" target="_blank"><span class="blog-title">SunMy的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">02-08</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1704
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/timonium/article/details/145508408" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"3","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://blog.csdn.net/timonium/article/details/145508408"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-pc_relevant_commercial_fallback_v1-3-145508408-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">导语：目前很多的通用人工智能也就是所谓的AGI例如文心一言、豆包、通义千问<em>和</em>最近大火的DeepSeek都是免费给普通用户使用的，对开源商业模式不太熟悉的普通人可不太了解这免费背后的商业套路，下面我们就一起来揭秘。开源模式能降低用户信任成本、加速技术普及，而商业化服务则针对企业级需求。DeepSeek 可通过组合上述策略，在服务开发者社区的同时，满足企业客户的深度需求，实现可持续发展。你也看出来了，上边是DeepSeek生成的，讲的还是挺明白的。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_67340472/article/details/130714768"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130714768-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_67340472/article/details/130714768"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_67340472/article/details/130714768" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130714768-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_67340472/article/details/130714768"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130714768-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130714768-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>CPU</em>的<em>功能</em><em>和</em>组成</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_67340472" target="_blank"><span class="blog-title">南明离火的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-16</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2139
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_67340472/article/details/130714768" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130714768-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_67340472/article/details/130714768"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130714768-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130714768-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">在照顾多数机器周期要求的情况下，选取适当的节拍数，作为基本节拍，如果在某个机器周期内统一的节拍数无法完成该周期的全部微操作，则可以延长节拍。按照机器周期的实际所需安排节拍数，需要多少节拍就发出多少节拍。把一个机器周期（<em>CPU</em>周期）分为若干个相等的时间段，每一个时间段对应一个电位信号，称为节拍电位信号。<em>CPU</em>是控制计算机自动完成取指令<em>和</em>执行指令任务的部件，是计算机的核心部件、简称<em>CPU</em>。将指令周期划分为若干个相对独立的操作阶段，称为<em>CPU</em>周期。指令周期是取出一条指令并执行这条指令的时间。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://zengyihong.blog.csdn.net/article/details/124423778"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-124423778-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://zengyihong.blog.csdn.net/article/details/124423778"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://zengyihong.blog.csdn.net/article/details/124423778" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-124423778-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://zengyihong.blog.csdn.net/article/details/124423778"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-124423778-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-124423778-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>CPU</em>的<em>功能</em><em>和</em>基本<em>结构</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_52797170" target="_blank"><span class="blog-title">梦想也许遥不可及，但重要的是追梦的过程，用博客记录自己的成长，记录自己一步一步向上攀登的印记</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-22</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3197
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://zengyihong.blog.csdn.net/article/details/124423778" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-124423778-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://zengyihong.blog.csdn.net/article/details/124423778"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-124423778-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-124423778-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">文章是观看王道<em>计算机组成</em><em>原理</em>所写
+<em>CPU</em>其他<em>功能</em>:先来回顾一下控制器的组成，后面的知识需要用到
+
+第一步取指
+根据程序计数器PC指定的主存地址，从主存（或缓存）读取指令，放入指令寄存器IR
+我们知道取出指令以后，肯定是想要进行相应的操作，但是我们肯定要先知道要做什么，也就是指令代码的含义，才能进行操作，所以下一步是译码。
+第二步译码
+根据IR中的指令，结合指令系统规范，分解指令的操作码、地址码等部分
+操作码&mdash;&mdash;指明做哪种操作
+地址码&mdash;&mdash;指明如何得到操作数、如何保存结果以及如何形成后续指令地址等
+第三步执行
+</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/cbwem/article/details/80561610"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-80561610-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/cbwem/article/details/80561610"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/cbwem/article/details/80561610" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-80561610-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/cbwem/article/details/80561610"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-80561610-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-80561610-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">【笔记】<em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>（一）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/cbwem" target="_blank"><span class="blog-title">time-space的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-03</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/cbwem/article/details/80561610" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-80561610-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/cbwem/article/details/80561610"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-80561610-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-80561610-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">
+
+一、<em>CPU</em>的<em>结构</em>
+1.<em>CPU</em>的<em>功能</em>
+2.<em>CPU</em><em>结构</em>框图
+3.<em>CPU</em>的寄存器
+用户可见寄存器
+控制<em>和</em>状态寄存器
+
+
+4.控制单元<em>和</em>中断系统
+
+
+二、指令周期
+1.指令周期的基本概念
+2.指令周期的数据流
+取指周期数据流
+间址周期的数据流
+执行周期的数据流
+中断周期的数据流
+
+
+
+
+
+
+
+
+
+
+
+一、<em>CPU</em>的<em>结构</em>
+
+1.<em>CPU</em>的<em>功能</em>
+
+&emsp;&emsp;（1）取指令 
+&emsp;&emsp;控制器必须具备能自动地从存储器中取出指...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_62862258/article/details/131384565"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-131384565-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_62862258/article/details/131384565"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_62862258/article/details/131384565" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-131384565-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_62862258/article/details/131384565"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-131384565-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-131384565-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">【微机<em>原理</em>】<em>CPU</em> 的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_62862258" target="_blank"><span class="blog-title">Rvosuke的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-25</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					5034
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_62862258/article/details/131384565" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-131384565-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_62862258/article/details/131384565"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-131384565-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-131384565-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">中央处理器（central processing unit，简称<em>CPU</em>），是电子计算机的主要设备之一，电脑中的核心配件。其<em>功能</em>主要是解释计算机指令以及处理计算机软件中的数据。<em>CPU</em>是计算机中负责读取指令，对指令译码并执行指令的核心部件。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://ddelephant.blog.csdn.net/article/details/108085289"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-8-108085289-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~ElasticSearch~Rate","dest":"https://ddelephant.blog.csdn.net/article/details/108085289"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://ddelephant.blog.csdn.net/article/details/108085289" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-8-108085289-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~ElasticSearch~Rate","dest":"https://ddelephant.blog.csdn.net/article/details/108085289"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-8-108085289-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-8-108085289-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>学习笔记（8）：<em>CPU</em>的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_41554005" target="_blank"><span class="blog-title">呆呆象呆呆的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-18</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2777
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://ddelephant.blog.csdn.net/article/details/108085289" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-8-108085289-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"8","strategy":"2~default~ElasticSearch~Rate","dest":"https://ddelephant.blog.csdn.net/article/details/108085289"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-8-108085289-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-8-108085289-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">第八章 <em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>
+8.1 <em>CPU</em>的<em>结构</em>
+8.1.1 <em>CPU</em>的<em>功能</em>
+控制器的<em>功能</em>（指令控制，操作控制，时间控制，处理中断）
+
+取指令
+分析指令
+执行指令，发出各种操作命令
+控制程序输入及结果的输出
+总线管理
+处理异常情况<em>和</em>特殊请求
+
+运算器的<em>功能</em>（数据加工）
+
+实现算术运算<em>和</em>逻辑运算
+
+8.1.2 <em>CPU</em>的<em>结构</em>框图
+
+8.1.3 <em>CPU</em>的寄存器
+用户可见寄存器
+
+通用寄存器
+
+存放操作数
+可作某种寻址方式所需的专用寄存器
+
+数据寄存器
+
+存放操作数（满足各种数据类型）
+两个寄存器拼接存放双倍字长数据</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/2302_80961196/article/details/148262106"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-9-148262106-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/2302_80961196/article/details/148262106"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/2302_80961196/article/details/148262106" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-9-148262106-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/2302_80961196/article/details/148262106"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-9-148262106-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-9-148262106-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">《<em>计算机组成</em><em>原理</em>》第 8 章 - <em>CPU</em> 的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/2302_80961196" target="_blank"><span class="blog-title">2302_80961196的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-27</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1271
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/2302_80961196/article/details/148262106" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-9-148262106-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"9","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/2302_80961196/article/details/148262106"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-9-148262106-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-9-148262106-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">本文系统介绍了<em>CPU</em>的核心架构<em>和</em>关键机制。主要内容包括： <em>CPU</em><em>功能</em><em>结构</em>：详细解析了<em>CPU</em>的寄存器分类（程序控制类、数据存储类、状态控制类）、控制单元<em>和</em>中断系统的工作<em>原理</em>，并通过Java代码模拟了寄存器操作<em>和</em>指令执行过程。 指令周期机制：阐述了指令执行的完整周期（取指、译码、执行、访存、中断），举例说明了加法指令的数据流动过程。 流水线技术：重点讲解了5级流水线<em>原理</em>、性能指标（吞吐率、加速比）及多发技术（如超标量技术），并提供了流水线<em>结构</em>的模拟实现。 中断处理系统：完整描述了中断分类（硬件/软件/异常）、处</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/z1997zc/article/details/135371887"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-10-135371887-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/z1997zc/article/details/135371887"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/z1997zc/article/details/135371887" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-10-135371887-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/z1997zc/article/details/135371887"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-10-135371887-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-10-135371887-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>17&mdash;&mdash;<em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>1</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/z1997zc" target="_blank"><span class="blog-title">z1997zc的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">01-06</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1393
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/z1997zc/article/details/135371887" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-10-135371887-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"10","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/z1997zc/article/details/135371887"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-10-135371887-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-10-135371887-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">本系列文章是学习了网课《哈尔滨工业大学&ndash;<em>计算机组成</em><em>原理</em>》之后，用以梳理思路而整理的听课笔记及相关思维拓展。本文涉及到的观点均为个人观点，如有不同意见，欢迎在评论区讨论。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_42566274/article/details/106838334"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-11-106838334-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/qq_42566274/article/details/106838334"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_42566274/article/details/106838334" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-11-106838334-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/qq_42566274/article/details/106838334"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-11-106838334-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-11-106838334-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">笔记篇：<em>计算机组成</em><em>原理</em>第八章 <em>CPU</em>的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_42566274" target="_blank"><span class="blog-title">繁臻的小窝</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-18</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					468
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_42566274/article/details/106838334" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-11-106838334-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"11","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/qq_42566274/article/details/106838334"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-11-106838334-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-11-106838334-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em>第八章 <em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>
+8.1 <em>CPU</em>的<em>结构</em>
+8.1.1 <em>CPU</em>的<em>功能</em>
+
+8.1.2 <em>CPU</em><em>结构</em>框图
+
+<em>CPU</em> 与系统总线
+
+<em>CPU</em> 的内部<em>结构</em>
+
+
+8.1.3 <em>CPU</em>的寄存器
+
+用户可见寄存器
+
+控制<em>和</em>状态寄存器
+
+
+8.1.4 控制单元 CU <em>和</em>中断系统
+
+8.1.5 ALU
+详见第六章
+8.2 指令周期
+8.2.1 指令周期的基本概念
+
+指令周期
+
+每条指令的指令周期不同
+
+具有间接寻址的指令周期
+
+带有中断周期的指令周期
+
+指令周期流程
+
+<em>CPU</em> 工作周期的标志
+
+
+8.2.2 指</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/Al_tair/article/details/137520600"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-12-137520600-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Al_tair/article/details/137520600"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/Al_tair/article/details/137520600" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-12-137520600-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Al_tair/article/details/137520600"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-12-137520600-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-12-137520600-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em> &mdash; <em>CPU</em> 的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/Al_tair" target="_blank"><span class="blog-title">Al_tair的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">04-08</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2231
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/Al_tair/article/details/137520600" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-12-137520600-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"12","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Al_tair/article/details/137520600"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-12-137520600-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-12-137520600-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">大家好呀！我是小笙，本章我主要分享<em>计算机组成</em><em>原理</em>的 <em>CPU</em> 的<em>结构</em><em>和</em><em>功能</em>知识，希望内容对你有所帮助！</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/Zevalin/article/details/136829078"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-13-136829078-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Zevalin/article/details/136829078"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/Zevalin/article/details/136829078" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-13-136829078-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Zevalin/article/details/136829078"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-13-136829078-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-13-136829078-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>计算机组成</em><em>原理</em> 第七章（<em>CPU</em>的工作过程）&mdash;第一节（<em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>）</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/Zevalin" target="_blank"><span class="blog-title">Zevalin的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-19</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1663
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/Zevalin/article/details/136829078" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-13-136829078-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"13","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/Zevalin/article/details/136829078"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-13-136829078-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-13-136829078-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">（5）程序状态字寄存器：保留由算术逻辑运算指令或测试指令的结果而建立的各种状态信息，如溢出标志（OP）、符号标志（SF）、零标志（ZF）、进位标志（CF）等。（4）微操作信号发生器：根据IR的内容（指令）、PSW的内容（状态信息）及时序信号，产生控制整个计算机系统所需的各种控制信号，其<em>结构</em>有组合逻辑型<em>和</em>存储逻辑型两种。SP是堆栈指针，用于指示栈顶的地址。，如用于基址寻址的段指针（存放基地址）、用于变址寻址的变址寄存器<em>和</em>用于堆栈寻址的栈指针，另外地址寄存器的位数必须足够长，以满足最大的地址范围。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/150008259"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-14-150008259-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/150008259"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/150008259" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-14-150008259-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/150008259"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-14-150008259-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-14-150008259-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">考研408《<em>计算机组成</em><em>原理</em>》复习笔记，第五章(1)&mdash;&mdash;<em>CPU</em><em>功能</em><em>和</em><em>结构</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_73991249" target="_blank"><span class="blog-title">m0_73991249的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">08-14</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1776
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/150008259" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~activity-14-150008259-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"14","strategy":"2~default~ElasticSearch~activity","dest":"https://devpress.csdn.net/v1/article/detail/150008259"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-14-150008259-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7Eactivity-14-150008259-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">本文系统梳理了<em>CPU</em>的核心知识框架，重点解析了<em>CPU</em>的<em>功能</em><em>和</em>组成<em>结构</em>。<em>CPU</em>由运算器<em>和</em>控制器两大部分组成，运算器负责算术逻辑运算，控制器负责指令执行控制。文章详细介绍了数据通路<em>和</em>控制部件的组成元件，包括ALU、寄存器、译码器等核心部件，并对比了专用数据通路<em>和</em>内部单总线两种连接方式。特别强调了需要记忆的关键部件及其<em>功能</em>特点，如运算器中的ALU、ACC、PSW，以及控制器中的PC、IR、MAR等。最后提供了高效记忆方法，区分用户可见<em>和</em>不可见的寄存器组件，为<em>计算机组成</em><em>原理</em>的学习提供了清晰的逻辑框架<em>和</em>应试重点。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/m15253053181/article/details/130939847"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-15-130939847-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m15253053181/article/details/130939847"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/m15253053181/article/details/130939847" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-15-130939847-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m15253053181/article/details/130939847"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-15-130939847-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-15-130939847-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">《<em>计算机组成</em><em>原理</em>》唐朔飞 第8章 <em>CPU</em>的<em>结构</em><em>和</em><em>功能</em> - 学习笔记</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m15253053181" target="_blank"><span class="blog-title">友人帐_的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-31</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2255
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/m15253053181/article/details/130939847" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~ElasticSearch~Rate-15-130939847-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"15","strategy":"2~default~ElasticSearch~Rate","dest":"https://blog.csdn.net/m15253053181/article/details/130939847"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-15-130939847-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EElasticSearch%7ERate-15-130939847-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">《<em>计算机组成</em><em>原理</em>》唐朔飞 第8章 <em>CPU</em>的<em>结构</em><em>和</em><em>功能</em>学习笔记</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_39512532/article/details/140526251"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-140526251-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_39512532/article/details/140526251"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_39512532/article/details/140526251" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-140526251-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_39512532/article/details/140526251"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-140526251-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-140526251-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">一文搞懂<em>CPU</em>处理器</div>
+					<div class="tag">热门推荐</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_39512532" target="_blank"><span class="blog-title">明静致远</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-18</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1万+
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_39512532/article/details/140526251" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-140526251-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_39512532/article/details/140526251"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-140526251-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-140526251-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">是计算机的核心部件。如果把计算机比作人，那<em>CPU</em>就是大脑，负责执行计算机程序中的指令，进行算术<em>和</em>逻辑运算，控制其他硬件组件工作。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/104934333"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-104934333-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/104934333"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/104934333" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-104934333-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/104934333"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-104934333-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-104934333-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">[<em>计算机组成</em><em>原理</em>]&mdash;8.<em>CPU</em>的<em>结构</em>与<em>功能</em>(详细)</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq__590980" target="_blank"><span class="blog-title">MengXin的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-17</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					4966
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/104934333" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-17-104934333-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"17","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/104934333"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-104934333-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-17-104934333-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">文章目录思维导图：一、<em>CPU</em>的<em>结构</em>1.<em>CPU</em>的<em>功能</em>2.<em>CPU</em>的<em>结构</em>框图3.<em>CPU</em>的寄存器4.控制单元<em>和</em>中断系统5.ALU二、指令周期1.指令周期的基本概念2.指令周期的数据流三、指令流水1.如何提高机器速度2.系统的并行性3.指令流水<em>原理</em>4.影响流水线性能的因素5.流水线性能6.流水线中的多发技术7.流水线<em>结构</em>四、中断系统1.概述2.中断请求标记<em>和</em>中断判优逻辑3.中断服务程序入口地址寻找4.中断响...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://liuyuhe.blog.csdn.net/article/details/105458028"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-105458028-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://liuyuhe.blog.csdn.net/article/details/105458028"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://liuyuhe.blog.csdn.net/article/details/105458028" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-105458028-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://liuyuhe.blog.csdn.net/article/details/105458028"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-105458028-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-105458028-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>CPU</em>的<em>结构</em><em>和</em><em>功能</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/Deep___Learning" target="_blank"><span class="blog-title">King</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">04-11</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					977
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://liuyuhe.blog.csdn.net/article/details/105458028" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-18-105458028-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"18","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://liuyuhe.blog.csdn.net/article/details/105458028"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-105458028-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-18-105458028-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">从分析<em>CPU</em>的<em>功能</em><em>和</em>内部<em>结构</em>入手，详细讨论机器完成一条指令的全过程，以及为了提高数据的处理能力、开发系统的并行性所采取的流水技术。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/rudy_liu/article/details/84788816"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-19-84788816-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/rudy_liu/article/details/84788816"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/rudy_liu/article/details/84788816" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-19-84788816-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/rudy_liu/article/details/84788816"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-84788816-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-84788816-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">微处理器、微控制器、寄存器这些你分的清楚吗</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/rudy_liu" target="_blank"><span class="blog-title">rudy_liu的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-04</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2355
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/rudy_liu/article/details/84788816" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.19","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-19-84788816-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"19","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/rudy_liu/article/details/84788816"}'  data-report-query='spm=1001.2101.3001.6650.19&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-84788816-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-19-84788816-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">&nbsp; &nbsp; &nbsp; &nbsp; 嵌入式系统的处理器大多是微控制器（microcontroller），微控制器不同于微处理器（microprocessor），它是指在同一块芯片内除了中央处理单元（<em>CPU</em>）之外还集成了部分内存<em>和</em>外设。集成于微控制器内的内存<em>和</em>外设我们分别称之为&ldquo;片内内存&rdquo;<em>和</em>&ldquo;片内外设&rdquo;，否则称之为&ldquo;片外内存&rdquo;<em>和</em>&ldquo;片外外设&rdquo;。
+
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;我们常用的台式机<em>和</em>笔记本电脑中的处理器芯片属于微处理器。微...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_41783335/article/details/91887674"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-20-91887674-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"20","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_41783335/article/details/91887674"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_41783335/article/details/91887674" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-20-91887674-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"20","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_41783335/article/details/91887674"}'  data-report-query='spm=1001.2101.3001.6650.20&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-20-91887674-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-20-91887674-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>cpu</em>，寄存器，控制器，运算器</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_41783335" target="_blank"><span class="blog-title">weixin_41783335的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-13</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					6866
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_41783335/article/details/91887674" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.20","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-20-91887674-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"landing_bge_commercial_es","index":"20","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_41783335/article/details/91887674"}'  data-report-query='spm=1001.2101.3001.6650.20&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-20-91887674-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-20-91887674-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">关于<em>CPU</em>
+
+寄存器
+
+<em>CPU</em>除了有控制器、运算器还有寄存器。其中寄存器的作用就是进行数据的临时存储。
+
+
+<em>CPU</em>的运算速度是非常快的，为了性能<em>CPU</em>在内部开辟一小块临时存储区域，并在进行运算时先将数据从内存复制到这一小块临时存储区域中，运算时就在这一小块临时存储区域内进行。我们称这一小块临时存储区域为寄存器。
+
+
+对于arm64系的<em>CPU</em>来说， 如果寄存器以x开头则表明的是一个64位的寄存器，如...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/ioriwellings/90483169"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.21","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"21","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/ioriwellings/90483169"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/ioriwellings/90483169" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.21","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"21","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/ioriwellings/90483169"}'  data-report-query='spm=1001.2101.3001.6650.21&utm_medium=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+					<div class="left ellipsis-online ellipsis-online-1">Programming Massively Parallel Processors A Hands-on Approach Fourth Edition大规模并行处理器编程实战 第四版</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block"></span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/ioriwellings/90483169" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.21","mod":"popu_387","extra":"{\"utm_medium\":\"distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235^v43^pc_blog_bottom_relevance_base6\",\"dist_request_id\":\"1788347700979_25084\"}","dist_request_id":"1788347700979_25084","ab_strategy":"default","index":"21","strategy":"pc_relevant_commercial_fallback_v1","dest":"https://download.csdn.net/download/ioriwellings/90483169"}'  data-report-query='spm=1001.2101.3001.6650.21&utm_medium=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6&depth_1-utm_source=distribute.pc_relevant.none-task-download-pc_relevant_commercial_fallback_v1-21-90483169-blog-104077387.235%5Ev43%5Epc_blog_bottom_relevance_base6'>
+				<div class="desc ellipsis-online ellipsis-online-1">大规模并行处理器编程实战 第四版Programming Massively Parallel Processors A Hands-on Approach Fourth EditionAuthor:Wen-mei W. Hwu  : University of Illinois at Urbana-Champaign and NVIDIA, Champaign, IL, United StatesDavid B. Kirk : Formerly NVIDIA, United States Izzat El Hajj : American University of Beirut, Beirut, Lebanon</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+<script src="https://g.csdnimg.cn/common/csdn-footer/csdn-footer.js" data-isfootertrack="false" type="text/javascript"></script>
+<script type="text/javascript">
+    window.csdn.csdnFooter.options = {
+        el: '.blog-footer-bottom',
+        type: 2
+    }
+</script>          </main>
+<aside class="blog_container_aside">
+<div id="asideProfile" class="aside-box active">
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/weixin_42107217" target="_blank" data-report-click='{"mod":"popu_379","spm":"3001.4121","dest":"https://blog.csdn.net/weixin_42107217","ab":"new"}'>
+                <img src="https://profile-avatar.csdnimg.cn/43385410e0134227b5b0e21bb1b984d6_weixin_42107217.jpg!1" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex flex-column profile-intro-name-box">
+            <div class="profile-intro-name-boxTop">
+                <a href="https://blog.csdn.net/weixin_42107217" target="_blank" class="" id="uid" title="RyanLintong" data-report-click='{"mod":"popu_379","spm":"3001.4122","dest":"https://blog.csdn.net/weixin_42107217","ab":"new"}'>
+                    <span class="name" username="weixin_42107217">RyanLintong</span>
+                </a>
+            </div>
+            <div class="profile-intro-name-boxFooter-new">
+              <p class="profile-intro-name-leve">
+                <span>
+                  博客等级
+                </span>
+                  <img class="level" src="https://csdnimg.cn/identity/blog4.png">
+              </p>
+                <span class="profile-intro-name-years" title="已加入 CSDN 8年">码龄8年</span>
+               
+            </div>
+        </div>
+    </div>
+    <div class="profile-intro-rank-information">
+      <dl>
+        <a href="https://blog.csdn.net/weixin_42107217" data-report-click='{"mod":"1598321000_001","spm":"3001.4310"}' data-report-query="t=1">  
+            <dd><span >28</span></dd>
+            <dt>原创</dt>
+        </a>
+      </dl>
+       <dl title="111">
+        <dd>111</dd>
+        <dt>点赞</dt>
+      </dl>
+       <dl title="465">
+        <dd>465</dd>
+        <dt>收藏</dt>
+      </dl>
+      <dl id="fanBox" title="74">
+        <dd><span id="fan">74</span></dd>
+        <dt>粉丝</dt>
+      </dl>
+    </div>
+    <div class="profile-intro-name-boxOpration">
+        <div class="opt-letter-watch-box"> 
+            <a class="personal-watch bt-button" id="btnAttent" >关注</a>  
+        </div>
+        <div class="opt-letter-watch-box">
+        <a rel="nofollow" class="bt-button personal-letter" href="https://im.csdn.net/chat/weixin_42107217" target="_blank" rel="noopener">私信</a>
+        </div>
+    </div>
+</div>
+      <div class="swiper-slide-box-remuneration">
+        <a data-report-click='{"spm":"3001.9728","extra":{"index":"0"}}' data-report-view='{"spm":"3001.9728","extra":{"index":"0"}}' href="https://i.csdn.net/#/geek-star-fun-pack?utm_source=260901_vip_blogleftbanner" target="_blank">
+          <img src="https://i-operation.csdnimg.cn/images/dbf1a709c51a4563a0faeddc6fdf6dbc.png" alt="">
+        </a>
+      </div>
+<div class="box-shadow mb8" data-pid="blog" >
+    <div class="aside-content text-center" id="cpro_u2734133">
+        <div id="kp_box_56" data-pid="56"><div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:0;margin-bottom:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style>
+<script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=56&adId=1100446&adBlockFlag=0&a=1100446&c=0&k=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.5000&articleId=104077387&d=1&t=3&u=a3df1659b11948e09cbe13105ed63792" style="display: block;width: 0px;height: 0px;"></div>
+    </div>
+</div>
+
+
+
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/141649920" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920","ab":"new"}'>
+				傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">12555</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/103760320" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/103760320","ab":"new"}'>
+				计算机组成原理  存储器
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">8154</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/104077387" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/104077387","ab":"new"}'>
+				计算机组成原理  CPU 结构和功能
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">5460</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/89192579" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/89192579","ab":"new"}'>
+				解决pyqt5中由qtdesigner的ui文件生成的python文件难以修改问题（转载）
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">4211</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_42107217/article/details/81742904" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_42107217/article/details/81742904","ab":"new"}'>
+				Unused import statement
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">2988</span>
+                </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideCategory" class="aside-box aside-box-column flexible-box-new">
+    <h3 class="aside-title">分类专栏</h3>
+    <div class="aside-content" id="aside-content">
+        <ul>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12474426.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12474426.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        最优化
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327970.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327970.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        文献笔记
+                    </span>
+                </a>
+                <span class="special-column-num">2篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327971.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327971.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756930.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        分布式系统
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9628827.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9628827.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        基础知识
+                    </span>
+                </a>
+                <span class="special-column-num">6篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821040.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821040.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        python
+                    </span>
+                </a>
+                <span class="special-column-num">8篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821041.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821041.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        PAT
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8011693.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8011693.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        数据结构
+                    </span>
+                </a>
+                <span class="special-column-num">3篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7943217.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7943217.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        pycharm错误类型
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404453.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404453.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        go
+                    </span>
+                </a>
+                <span class="special-column-num">6篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404770.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404770.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        区块链
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9206519.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9206519.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        MySQl
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+        </ul>
+    </div>
+    <p class="text-center">
+      <a class="flexible-btn-new" data-report-click='{"spm":"3001.10779","strategy":"展开全部"}' data-maxheight="0" data-minheight="208px" data-fbox="#aside-content" data-flag="flag"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></a>
+      <a class="flexible-btn-new-close" data-report-click='{"spm":"3001.10779","strategy":"收起"}' data-minheight="208px" data-fbox="#aside-content" data-scroll="true" data-flag="flag"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></a>
+    </p>
+</div>
+  <div class="article-previous" id="article-previous">
+      <dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+          <dt>
+              上一篇：
+          </dt>
+          <dd>
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/104071132" data-report-query="spm=3001.10752">
+              计算机组成原理 指令系统
+            </a>
+          </dd>
+      </dl>
+      <dl class="next" data-report-click='{"spm":"3001.10796","extend1":"下一篇"}' data-report-view='{"spm":"3001.10796","extend1":"下一篇"}'>
+          <dt>
+            下一篇：
+          </dt>
+          <dd >
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/130705221" data-report-query="spm=3001.10796">
+              I‘m back
+            </a>
+          </dd>
+      </dl>
+  </div>
+<div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920#comments_38524287","ab":"new"}'>傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/2301_81875652" class="user-name" target="_blank">2301_81875652: </a>
+                    <span class="code-comments">抱歉我有点没看懂，报错TypeError: argument &#39;tokens&#39;: &#39;str&#39; object cannot be interpreted as an integer的话，最后一行要改啥，我现在就是运行local模式报错这个问题，其他都成功了</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">大家在看</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/qq_53329130/article/details/164172255" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/qq_53329130/article/details/164172255","strategy":"202_1052723-4500076_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/qq_53329130/article/details/164172255","strategy":"202_1052723-4500076_RCMD","ab":"new"}'>
+				YOLOv13改进策略【卷积层篇】| CoordConv 坐标卷积，让卷积知道目标在哪
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/2302_82029124/article/details/164227455" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2302_82029124/article/details/164227455","strategy":"202_1052723-4500135_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2302_82029124/article/details/164227455","strategy":"202_1052723-4500135_RCMD","ab":"new"}'>
+				从零开始构建你的第一个C#/.NET应用程序：新手入门全指南
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">393</span>
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/2601_95581257/article/details/164302675" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2601_95581257/article/details/164302675","strategy":"202_1052723-4500103_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2601_95581257/article/details/164302675","strategy":"202_1052723-4500103_RCMD","ab":"new"}'>
+				第一章-MyBatis概述与环境搭建
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/2601_95581257/article/details/164302727" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2601_95581257/article/details/164302727","strategy":"202_1052723-4500105_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2601_95581257/article/details/164302727","strategy":"202_1052723-4500105_RCMD","ab":"new"}'>
+				第二章-第一个MyBatis程序
+        </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/2501_92994675/article/details/164296004" target="_blank"  data-report-click='{"spm":"3001.10093","dest":"https://blog.csdn.net/2501_92994675/article/details/164296004","strategy":"202_1052723-4500104_RCMD","ab":"new"}' data-report-view='{"spm":"3001.10093","dest":"https://blog.csdn.net/2501_92994675/article/details/164296004","strategy":"202_1052723-4500104_RCMD","ab":"new"}'>
+				计算机毕业设计推荐:基于spring boot的反诈宣防与教育一体化管理平台、毕业设计选题、计算机毕设、选题推荐、毕设指导、项目定制、源码、高质量项目
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">13</span>
+        </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideArchive" class="aside-box" style="display:block!important; width:300px;">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix">
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/141649920" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/141649920","ab":"left"}'>傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/133916758" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/133916758","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/133916758","ab":"left"}'>学习最优化课程中的一些疑惑</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/131365713" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/131365713","ab":"left"}' data-report-view='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_42107217/article/details/131365713","ab":"left"}'>文献笔记——A View of Cloud Computing</a>
+            </li>
+        </ul>
+        <div class="archive-bar"></div>
+        <div class="archive-box">
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2024&amp;month=08" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2024&amp;month=08"}'><span class="year">2024年</span><span class="num">1篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2023&amp;month=10" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2023&amp;month=10"}'><span class="year">2023年</span><span class="num">4篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2020&amp;month=01" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2020&amp;month=01"}'><span class="year">2020年</span><span class="num">4篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2019&amp;month=12" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2019&amp;month=12"}'><span class="year">2019年</span><span class="num">8篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2018&amp;month=12" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_42107217?type=blog&amp;year=2018&amp;month=12"}'><span class="year">2018年</span><span class="num">14篇</span></a></div>
+        </div>
+    </div>
+</div>
+    <div id="footerRightAds" class="isShowFooterAds">
+      <div class="aside-box">
+        <div id="kp_box_57" data-pid="57"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/4492406?positionId=57&adBlockFlag=0&adId=1110447&queryWord=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.5001&articleId=104077387" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=57&adBlockFlag=0&adId=1110447&a=1110447&c=4492406&k=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.5001&articleId=104077387&d=1&t=3&u=1e8795e9336f4bbfb2f0a388fa229f55" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+      </div>
+    </div>
+    <!-- 详情页显示目录 -->
+<div class="aside-box cknows-side-card js-aside-cknows">
+  <div class="cknows-side-header">
+    <div class="cknows-side-header-row">
+      <div class="cknows-side-logo-wrap">
+        <img class="cknows-side-logo" src="https://csdnimg.cn/release/blogv2/dist/pc/img/c-blog-slidelogo-White.png" alt="C知道">
+      </div>
+      <p class="cknows-side-brand">· AI 阅读助手</p>
+    </div>
+  </div>
+  <div class="swiper cknows-side-swiper">
+    <div class="swiper-wrapper cknows-swiper-wrapper"></div>
+    <div class="cknows-side-pagination swiper-pagination"></div>
+  </div>
+</div>
+<!--文章目录-->
+<div id="asidedirectory" class="aside-box">
+    <div class='groupfile groupfile-active' id="directory">
+        <h3 class="aside-title">目录</h3>
+        <div class="align-items-stretch group_item" id="align-items-stretch">
+            <div class="pos-box">
+            <div class="scroll-box">
+                <div class="toc-box"></div>
+            </div>
+            </div>
+        </div>
+          <p class="flexible-btn-new" id="flexible-btn-groupfile" data-report-click='{"spm":"3001.10780","strategy":"展开全部"}' data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></p>
+          <p class="flexible-btn-new-close close" data-report-click='{"spm":"3001.10780","strategy":"收起"}'  data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></p>
+    </div>
+</div>
+<div class="gitcode-qc-left-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"left\"}"}'></div>
+</aside>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).parents("p.text-center").remove();
+	})
+</script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-tooltip/2.7/user-tooltip.js"></script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-medal/2.0.0/user-medal.js"></script>
+        </div>
+<div class="recommend-right align-items-stretch clearfix article-component-material-third-column" id="rightAside" data-type="recommend">
+    <aside class="recommend-right_aside">
+            <div class="rightside-fixed-hide">
+              <div class="programmer1Box">
+                  <div id="kp_box_530" data-pid="530"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/4266090?positionId=530&adBlockFlag=0&adId=1109071&queryWord=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.4647&articleId=104077387" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=530&adBlockFlag=0&adId=1109071&a=1109071&c=4266090&k=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.4647&articleId=104077387&d=1&t=3&u=7272afa1e0a64247a1c936ecfe80a7ae" style="display: block;width: 0px;height: 0px;"><script src="https://kunpeng-render.csdnimg.cn/publisher/latest/closeAdFrame.js"></script></div>
+              </div>
+      </div>
+        <div id="recommend-right" >
+<div class="aside-box cknows-side-card js-aside-cknows">
+  <div class="cknows-side-header">
+    <div class="cknows-side-header-row">
+      <div class="cknows-side-logo-wrap">
+        <img class="cknows-side-logo" src="https://csdnimg.cn/release/blogv2/dist/pc/img/c-blog-slidelogo-White.png" alt="C知道">
+      </div>
+      <p class="cknows-side-brand">· AI 阅读助手</p>
+    </div>
+  </div>
+  <div class="swiper cknows-side-swiper">
+    <div class="swiper-wrapper cknows-swiper-wrapper"></div>
+    <div class="cknows-side-pagination swiper-pagination"></div>
+  </div>
+</div>
+          <div class='flex-column aside-box groupfile groupfile-active ' id="groupfile">
+              <div class="groupfile-div">
+              <h3 class="aside-title">目录</h3>
+              <div class="align-items-stretch group_item" id="align-items-stretch-right">
+                  <div class="pos-box">
+                      <div class="scroll-box">
+                          <div class="toc-box"></div>
+                      </div>
+                  </div>
+              </div>
+                <p class="flexible-btn-new" id="flexible-btn-groupfile" data-report-click='{"spm":"3001.10782","strategy":"展开全部"}' data-traigger="true" data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch-right"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></p>
+                <p class="flexible-btn-new-close close" data-report-click='{"spm":"3001.10782","strategy":"收起"}' data-traigger="true"  data-minheight="117px" data-maxheight="446px" data-fbox="#align-items-stretch-right"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></p>
+              </div>
+          </div>
+          <div class="gitcode-qc-right-box aside-box" data-report-click='{"spm":"3001.11256", "extra":"{\"position\":\"right\"}"}'></div>
+              <div id="recommendAdBox">
+                  <div id="kp_box_479" data-pid="479"><div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=479&adId=1100447&adBlockFlag=0&a=1100447&c=0&k=计算机组成原理  CPU 结构和功能&spm=1001.2101.3001.4834&articleId=104077387&d=1&t=3&u=226cc84857574ce8bbc30ef6b9a101dd" style="display: block;width: 0px;height: 0px;"></div>
+              </div>
+  <div class="article-previous" id="article">
+      <dl data-report-click='{"spm":"3001.10752","extend1":"上一篇"}' data-report-view='{"spm":"3001.10752","extend1":"上一篇"}'>
+          <dt>
+              上一篇：
+          </dt>
+          <dd>
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/104071132" data-report-query="spm=3001.10752">
+              计算机组成原理 指令系统
+            </a>
+          </dd>
+      </dl>
+      <dl class="next" data-report-click='{"spm":"3001.10796","extend1":"下一篇"}' data-report-view='{"spm":"3001.10796","extend1":"下一篇"}'>
+          <dt>
+            下一篇：
+          </dt>
+          <dd >
+            <a href="https://blog.csdn.net/weixin_42107217/article/details/130705221" data-report-query="spm=3001.10796">
+              I‘m back
+            </a>
+          </dd>
+      </dl>
+  </div>
+          <div class='aside-box kind_person d-flex flex-column flexible-box-new' >
+                  <h3 class="aside-title">分类专栏</h3>
+                  <div class="align-items-stretch kindof_item" id="kind_person_column">
+                      <div class="aside-content" id="aside-content-column">
+                          <ul>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12474426.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12474426.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756913.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          最优化
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327970.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327970.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          文献笔记
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">2篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_12327971.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_12327971.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756930.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          分布式系统
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9628827.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9628827.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756780.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          基础知识
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">6篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821040.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821040.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          python
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">8篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7821041.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7821041.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          PAT
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8011693.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8011693.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          数据结构
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">3篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_7943217.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_7943217.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          pycharm错误类型
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404453.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404453.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          go
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">6篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_8404770.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_8404770.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          区块链
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_42107217/category_9206519.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_42107217/category_9206519.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          MySQl
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                          </ul>
+                      </div>
+                        <p class="text-center">
+                          <a class="flexible-btn-new" data-report-click='{"spm":"3001.10783","strategy":"展开全部"}' data-traigger="true" data-maxheight="0" data-minheight="208px" data-fbox="#aside-content-column" data-flag="flag"><span class="text">展开全部</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-bot-White.png" alt=""></a>
+                          <a class="flexible-btn-new-close" data-report-click='{"spm":"3001.10783","strategy":"收起"}'data-traigger="true"  data-minheight="208px" data-fbox="#aside-content-column" data-scroll="true" data-flag="flag"><span class="text">收起</span> <img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowup-line-top-White.png" alt=""></a>
+                        </p>
+                  </div>
+          </div>
+        </div>
+    </aside>
+</div>
+<div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right-concision" >
+            <div class='flex-column aside-box groupfile' id="groupfileConcision">
+                <div class="groupfile-div1">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+      </div>
+      <div class="mask-dark"></div>
+        <script type="text/javascript">
+        var timert = setInterval(function() {
+          sideToolbar = $(".csdn-side-toolbar");
+          if (sideToolbar.length > 0) {
+            sideToolbar.css('cssText', 'bottom:64px !important;')
+            clearInterval(timert);
+          }
+        }, 200);
+        </script>
+      <div class="skin-boxshadow"></div>
+      <div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+	<div class="comment-side-tit">
+		<span class="comment-side-tit-count">评论</span>	
+	<img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"></div>
+  <div id="pcCommentSideBox" class="comment-box comment-box-new2 unlogin-comment-box-new" style="display:none">
+	
+	</div>
+	<div id="pcFlodCommentSideBox" class="pc-flodcomment-sidebox">
+		<div class="comment-fold-tit"><span id="lookUnFlodComment" class="back"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png" alt=""></span>被折叠的&nbsp;<span class="count"></span>&nbsp;条评论
+		 <a href="https://blogdev.blog.csdn.net/article/details/122245662" class="tip" target="_blank">为什么被折叠?</a>
+		 <a href="https://bbs.csdn.net/forums/FreeZone" class="park" target="_blank">
+		 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png">到【灌水乐园】发言</a>                                
+		</div>
+		<div class="comment-fold-content"></div>
+		<div id="lookBadComment" class="look-bad-comment side-look-comment">
+			<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+		</div>
+	</div>
+</div>
+<div class="comment-rewarddialog-box">
+  <div class="form-box">
+    <div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+    </div>
+    <form id="commentRewardForm">
+      <div class="ipt-box">
+        <label for="txtName">祝福语</label>
+        <div class="ipt-btn-box">
+          <input type="text" name="name" id="txtName" autocomplete="off" maxlength="50">
+          <a class="btn-ipt btn-random"></a>
+        </div>
+        <p class="notice">请填写红包祝福语或标题</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtSendAmount">红包数量</label>
+        <div class="ipt-txt-box">
+          <input type="text" name="sendAmount" maxlength="4" id="txtSendAmount" placeholder="请填写红包数量(最小10个)" autocomplete="off">
+          <span class="after-txt">个</span>
+        </div>
+        <p class="notice">红包个数最小为10个</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtMoney">红包总金额</label>
+        <div class="ipt-txt-box error">
+          <input type="text" name="money" maxlength="5" id="txtMoney" placeholder="请填写总金额(最低5元)" autocomplete="off">
+          <span class="after-txt">元</span>
+        </div>
+        <p class="notice">红包金额最低5元</p>
+      </div>
+      <div class="balance-info-box">
+        <label>余额支付</label>
+        <div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a href="https://i.csdn.net/#/wallet/balance/recharge" class="link-charge" target="_blank">前往充值 ></a>
+        </div>
+      </div>
+      <div class="opt-box">
+        <div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+        <button type="button" class="ml-auto btn-cancel">取消</button>
+        <button type="button" class="ml8 btn-submit" disabled="true">确定</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+
+<div class="redEnvolope" id="redEnvolope">
+  <div class="env-box">
+    <div class="env-container">
+      <div class="pre-open" id="preOpen">
+        <div class="top">
+          <header>
+            <img class="clearTpaErr" :src="redpacketAuthor.avatar" alt="" />
+            <div class="author">成就一亿技术人!</div>
+          </header>
+          <div class="bot-icon"></div>
+        </div>
+        <footer>
+          <div class="red-openbtn open-start"></div>
+          <div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+          </div>
+        </footer>
+      </div>
+      <div class="opened" id="opened">
+        <div class="bot-icon">
+          <header>
+            <a class="creatorUrl" href="" target="_blank">
+              <img class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2" alt="" />
+            </a>
+            <div class="author">
+              <div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+          </header>
+        </div>
+        <div class="receive-box">
+          <header></header>
+          <div class="receive-list">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="close-btn"></div>
+  </div>
+</div>
+      
+      <div class="pay-code">
+      <div class="pay-money">实付<span class="pay-money-span" data-nowprice='' data-oldprice=''>元</span></div>
+      <div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+      <div class="content-code">
+        <div id="payCode" data-id="">
+          <div class="renovate">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png">
+            <span>点击重新获取</span>
+          </div>
+        </div>
+        <div class="pay-style"><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"></span><span class="text">扫码支付</span></div>
+      </div>
+      <div class="bt-close">
+        <svg t="1567152543821" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12">
+          <defs>
+            <style type="text/css"></style>
+          </defs>
+          <path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+        </svg>
+      </div>
+      <div class="pay-balance">
+        <input type="radio" class="pay-code-radio" data-type="details">
+        <span class="span">钱包余额</span>
+          <span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+          <div class="pay-code-tile">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png" alt="">
+            <div class="pay-code-content">
+              <div class="span">
+                <p class="title">抵扣说明：</p>
+                <p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a>
+    </div>
+    <div style="display:none;">
+      <img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+    </div>
+    <div class="keyword-dec-box" id="keywordDecBox"></div>
+  </body>
+    <!-- 富文本柱状图  -->
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/chart.css" />
+    <script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/lib/chart.min.js"></script>
+    <script type="text/javascript" src="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/chart/widget2chart.js"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/axios-83fa28cedf.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-8defd55d6e.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-3c7b273c43.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/edit_copy_code-43c2d050a0.min.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css">
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-dark.css">
+  <script src="https://g.csdnimg.cn/user-accusation/1.0.6/user-accusation.js" type="text/javascript"></script>
+  <script>
+    // 全局声明
+    if (window.csdn === undefined) {
+      window.csdn = {};
+    }
+    var sideToolbarOpt = {}
+    $(function() {
+      $(document).on('click', "#toolReportBtnHideNormal,#toolReportBtnHide", function() {
+        window.csdn.loginBox.key({
+          biz: 'blog',
+          subBiz: 'other_service',
+          cb: function() {
+            window.csdn.feedback({
+              "type": 'blog',
+              "rtype": 'article',
+              "rid": articleId,
+              "reportedName": username,
+              "submitOptions": {
+                "title": articleTitle,
+                "contentUrl": articleDetailUrl
+              },
+              "callback": function() {
+                showToast({
+                  text: "感谢您的举报，我们会尽快审核！",
+                  bottom: '10%',
+                  zindex: 9000,
+                  speed: 500,
+                  time: 1500
+                })
+              }
+            })
+          }
+        })
+      });
+    })
+      window.csdn.sideToolbar = {
+        options: {
+          ...sideToolbarOpt,
+          theme: 'white',
+        }
+      }
+  </script>
+    <script src="https://g.csdnimg.cn/baidu-search/1.0.12/baidu-search.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/download/old_static/js/qrcode.js"></script>
+  <script src="https://g.csdnimg.cn/lib/qrcode/1.0.0/qrcode.min.js"></script>
+  <script src="https://g.csdnimg.cn/user-ordercart/3.0.1/user-ordercart.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/user-ordertip/5.0.3/user-ordertip.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/4.0.5/order-payment.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/3.1.1-download-e-isolated/order-payment.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/common-48ed13f265.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/detail-f3e391f97f.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/column-efcae2ca36.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/side-toolbar/3.6/side-toolbar.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/copyright/1.0.4/copyright.js" type="text/javascript"></script>
+  <script>
+    $(".MathJax").remove();
+    if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+      $('div.markdown_views')[0].className = 'markdown_views';
+    }
+  </script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processClass: "mathjax",
+        ignoreClass: "title-article|no-mathjax",
+        preview: "none"
+      },
+      
+      // 优先使用 HTML-CSS 而非 NativeMML
+      "HTML-CSS": {
+        preferredFont: "STIX",        // 使用 STIX 字体
+        availableFonts: ["STIX", "TeX"],
+        webFont: "STIX-Web",
+        scale: 100,                   // 放大 20%
+        minScaleAdjust: 100,
+        linebreaks: { 
+          automatic: true, 
+          width: "90% container" 
+        },
+        matchFontHeight: true,
+        styles: {
+          ".MathJax": {
+            "font-weight": "500 !important"  // 加粗
+          }
+        }
+      },
+      
+      // 禁用 NativeMML（浏览器原生渲染质量不好）
+      NativeMML: {
+        scale: 100
+      },
+      
+      // 设置优先级：HTML-CSS > SVG > NativeMML
+      menuSettings: {
+        renderer: "HTML-CSS"
+      },
+      
+      messageStyle: "none"
+    });
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+  </script>
+  <script src="https://g.csdnimg.cn/static/mathjax-2.7.9/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script></html>
