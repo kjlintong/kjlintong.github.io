@@ -9,8 +9,8 @@ layout: null
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="page-title">Tong Lin — 个人主页</title>
-<meta name="description" content="Tong Lin（林通）的个人主页 — 国防科技大学计算机硕士，现居深圳。Datawhale 正式成员，开源社区 Contributor，专注本地大模型部署、RAG 应用与全栈开发。">
-<meta name="keywords" content="Tong Lin, 林通, LT Blog, 个人主页, 本地大模型, RAG, Ollama, 全栈开发, Datawhale">
+<meta name="description" content="Tong Lin's personal website — computer science master, full-stack developer, focused on local LLM deployment, RAG applications, and open-source.">
+<meta name="keywords" content="Tong Lin, LT Blog, Personal Website, Local LLM, RAG, Ollama, Full-stack Development">
 <meta name="author" content="Tong Lin">
 <!-- Open Graph (微信/Facebook 分享) -->
 <meta property="og:site_name" content="Tong Lin — Personal Website">
@@ -30,13 +30,11 @@ layout: null
   "@context": "https://schema.org",
   "@type": "WebSite",
   "name": "Tong Lin",
-  "alternateName": "林通",
   "url": "https://kjlintong.github.io/",
-  "description": "Tong Lin 的个人主页 — 国防科技大学计算机硕士，Datawhale 正式成员，专注本地大模型部署、RAG 应用与全栈开发。",
+  "description": "Tong Lin — personal website.",
   "author": {
     "@type": "Person",
     "name": "Tong Lin",
-    "alternateName": "林通",
     "url": "https://kjlintong.github.io/",
     "jobTitle": "Software Engineer",
     "email": "ltong9463@gmail.com",
@@ -352,24 +350,48 @@ section { padding: 100px 0; }
 .project-link { font-size: 13px; color: var(--accent); display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; }
 .project-link:hover { color: #b89060; }
 
-/* Blog */
+/* Blog — timeline list */
 .blog-section {
   padding: 80px 0;
   background: var(--bg-warm);
   border-top: 0.5px solid var(--gold-line);
   border-bottom: 0.5px solid var(--gold-line);
 }
-.blog-card {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 24px; padding: 32px 36px; background: var(--surface);
-  box-shadow: var(--shadow); border-radius: 2px;
-  transition: all 0.35s ease-out;
+.blog-timeline {
+  list-style: none; padding: 0; margin: 0 0 28px;
+  border-top: 1px solid var(--gold-line);
 }
-.blog-card:hover { box-shadow: var(--shadow-md); }
-.blog-info h3 { font-family: var(--font-display); font-size: 18px; font-weight: 700; color: var(--fg); margin-bottom: 4px; }
-.blog-info p { font-size: 14px; color: var(--muted); }
-.blog-arrow { width: 20px; height: 20px; color: var(--muted); transition: transform 0.35s ease-out, color 0.35s ease-out; }
-.blog-card:hover .blog-arrow { transform: translateX(4px); color: var(--accent); }
+.blog-item {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--gold-line);
+  transition: background 0.2s;
+}
+.blog-item:hover { background: rgba(0,0,0,0.015); }
+.blog-date-col {
+  text-align: right; font-size: 13px; color: var(--charcoal-muted);
+  font-variant-numeric: tabular-nums; padding-top: 2px; line-height: 1.5;
+}
+.blog-content h3 {
+  font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--fg); margin: 0 0 6px; letter-spacing: -0.01em;
+}
+.blog-content h3 a { color: inherit; text-decoration: none; }
+.blog-content h3 a:hover { color: var(--accent); }
+.blog-content .excerpt {
+  font-size: 14px; color: #9a9589; line-height: 1.65; margin: 0 0 8px;
+}
+.blog-meta {
+  display: flex; gap: 12px; flex-wrap: wrap; font-size: 11px; color: #b8b3a5;
+}
+.blog-meta span { display: inline-flex; align-items: center; gap: 4px; }
+.timeline-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--accent); opacity: 0.3;
+  grid-column: 1; justify-self: end; margin-top: 6px;
+}
 
 /* Contact */
 .contact-links { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -524,7 +546,7 @@ section { padding: 100px 0; }
     <div class="about-content">
       <div class="about-text">
         <p data-i18n="about-p1">
-          我是 Tong Lin（林通），<strong>国防科技大学</strong>计算机硕士毕业。毕业后到深圳工作。
+          I am Tong Lin, a computer science master's graduate from the National University of Defense Technology. Currently based in Shenzhen.
         </p>
         <p data-i18n="about-p2">
           工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。
@@ -964,31 +986,28 @@ section { padding: 100px 0; }
   <div class="wide-container">
     <p class="section-label" data-i18n="blog-label">最新文章</p>
     <h2 class="section-heading" data-i18n="blog-heading">写下的东西</h2>
-    <div class="project-list" style="margin-bottom:28px;">
+    <ul class="blog-timeline">
       {% for post in site.posts limit:3 %}
-      <div class="project-card" style="background:var(--surface);border:0.5px solid var(--gold-line);" data-od-id="post-{{ forloop.index }}">
-        <div class="project-header">
-          <span class="project-name"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></span>
-          <div class="project-meta">
-            <span class="project-stat" style="font-size:13px;color:var(--muted);">
-              {{ post.date | date: "%Y-%m-%d" }}
-            </span>
+      <li class="blog-item">
+        <span class="timeline-dot"></span>
+        <span class="blog-date-col">{{ post.date | date: "%b %d, %Y" }}</span>
+        <div class="blog-content">
+          <h3><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+          <p class="excerpt">
+            {% if post.description %}{{ post.description | truncate: 100 }}{% else %}{{ post.excerpt | strip_html | truncate: 100 }}{% endif %}
+          </p>
+          <div class="blog-meta">
+            {% if post.categories %}
+            <span>📁 {{ post.categories | join: ', ' }}</span>
+            {% endif %}
+            {% if post.tags and post.tags.size > 0 %}
+            <span>#{{ post.tags | first }}</span>
+            {% endif %}
           </div>
         </div>
-        <p class="project-desc" style="color:var(--muted);">
-          {% if post.description %}{{ post.description | truncate: 100 }}{% else %}{{ post.excerpt | strip_html | truncate: 100 }}{% endif %}
-        </p>
-        <div class="project-tags">
-          {% if post.categories %}{% for cat in post.categories %}
-          <span class="project-tag">📁 {{ cat }}</span>
-          {% endfor %}{% endif %}
-          {% if post.tags %}{% for tag in post.tags limit:3 %}
-          <span class="project-tag">#{{ tag }}</span>
-          {% endfor %}{% endif %}
-        </div>
-      </div>
+      </li>
       {% endfor %}
-    </div>
+    </ul>
     <div style="display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
       <a href="/blog/" class="btn btn-outline" style="border-color:var(--accent);color:var(--accent);" data-i18n="blog-view-all">查看全部文章 →</a>
       <a href="https://blog.csdn.net/weixin_42107217" style="color:var(--muted);font-size:14px;" data-i18n="blog-csdn">CSDN 博客 →</a>
@@ -1073,7 +1092,7 @@ const i18n = {
     'hero-location': '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> 深圳，中国',
     'btn-email': '给我写信',
     'about-label': '关于我',
-    'about-p1': '我是 Tong Lin（林通），<strong>国防科技大学</strong>计算机硕士毕业。毕业后到深圳工作。',
+    'about-p1': 'I am Tong Lin, an M.S. graduate in Computer Science from NUDT. Based in Shenzhen.',
     'about-p2': '工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。',
     'tag-swim': '游泳', 'tag-piano': '钢琴', 'tag-flute': '长笛',
     'tag-go': '围棋', 'tag-plants': '绿植', 'tag-pets': '猫狗双全',
@@ -1120,7 +1139,7 @@ const i18n = {
     'hero-location': '<svg class="icon" viewBox="0 0 24 24" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg> Shenzhen, China',
     'btn-email': 'Send me a letter',
     'about-label': 'About',
-    'about-p1': 'I\'m Tong Lin (林通), a computer science master\'s graduate from the <strong>National University of Defense Technology</strong>. Currently working in Shenzhen.',
+    'about-p1': 'I'm Tong Lin, a computer science master's graduate from the National University of Defense Technology. Currently working in Shenzhen.',
     'about-p2': 'Outside of work, I enjoy swimming, playing piano, flute, and Go (Weiqi). I have a cat and a dog who are better at enjoying life than I am.',
     'tag-swim': 'Swimming', 'tag-piano': 'Piano', 'tag-flute': 'Flute',
     'tag-go': 'Go (Weiqi)', 'tag-plants': 'Plants', 'tag-pets': 'Cat & Dog parent',

@@ -4,7 +4,7 @@ SEOTitle: Tong Lin's Blog
 header-img: img/post-bg-desk.jpg
 email: ryanlinwork@outlook.com
 description: "In me the tiger sniffs the rose."
-keyword: "LT, LT Blog, 林通的博客, 林通, Tong Lin, 个人主页, 本地大模型, RAG, Ollama, 全栈开发"
+keyword: "Tong Lin, LT Blog, Personal Website, Local LLM, RAG, Ollama, Full-stack Development"
 url: "https://kjlintong.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'blog/github'
 github_repo: "https://github.com/kjlintong/kjlintong.github.io" # you code repository
@@ -14,7 +14,7 @@ author:
   name: "Tong Lin"
   given_name: "Tong"
   family_name: "Lin"
-  alternate_name: "林通"
+  alternate_name: "Tong Lin"
   job_title: "Software Engineer"
   email: "ltong9463@gmail.com"
   url: "https://kjlintong.github.io"
