@@ -4,10 +4,23 @@ SEOTitle: Tong Lin's Blog
 header-img: img/post-bg-desk.jpg
 email: ryanlinwork@outlook.com
 description: "In me the tiger sniffs the rose."
-keyword: "LT, LT Blog, 林通的博客, 林通"
+keyword: "LT, LT Blog, 林通的博客, 林通, Tong Lin, 个人主页, 本地大模型, RAG, Ollama, 全栈开发"
 url: "https://kjlintong.github.io"          # your host, for absolute URL
-baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
+baseurl: ""      # for example, '/blog' if your blog hosted on 'blog/github'
 github_repo: "https://github.com/kjlintong/kjlintong.github.io" # you code repository
+
+# Author info (used for SEO JSON-LD)
+author:
+  name: "Tong Lin"
+  given_name: "Tong"
+  family_name: "Lin"
+  alternate_name: "林通"
+  job_title: "Software Engineer"
+  email: "ltong9463@gmail.com"
+  url: "https://kjlintong.github.io"
+  github: "https://github.com/kjlintong"
+  image: "https://kjlintong.github.io/img/profile.jpg"
+  description: "国防科技大学计算机硕士，全栈开发者，Datawhale 正式成员，专注本地大模型部署、RAG 应用与开源。"
 
 # Sidebar settings
 sidebar: true                           # whether or not using Sidebar.
@@ -15,9 +28,8 @@ sidebar-about-description: "Goals determine what you going to be!"
 sidebar-avatar: /img/profile.jpg      # use absolute URL, seeing it's used in both `/` and `/about/`
 
 
-
 # SNS settings
-RSS: false
+RSS: true
 # weibo_username:     qiubaiying
 #zhihu_username:     qiubaiying
 github_username:    kjlintong
@@ -25,22 +37,27 @@ github_username:    kjlintong
 #jianshu_username:   e71990ada2fd
 #twitter_username:   qiubaiying
 
+# GitHub Sponsors（打赏入口）
+github_sponsors: "https://github.com/sponsors/kjlintong"
 
 
 
 # Build settings
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
-permalink: pretty
-paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+# permalink 用 /blog/:title —— 语义化、稳定、与分类解耦（避免中文分类名编码进 URL 破坏已收录链接）
+permalink: /blog/:title/
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","_site"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+# Plugins（GitHub Pages 白名单内，自动生成 sitemap）
+plugins:
+  - jekyll-sitemap
 
 
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
-
+#gems: [jekyll-paginate]
 
 
 
@@ -59,28 +76,30 @@ kramdown:
 # Disqus（https://disqus.com/）
 # disqus_username: qiubaiying
 
-# Gitalk
-gitalk:
-  enable: true    #是否开启Gitalk评论
-  clientID: f2c84e7629bb1446c1a4                            #生成的clientID
-  clientSecret: ca6d6139d1e1b8c43f8b2e19492ddcac8b322d0d    #生成的clientSecret
-  repo: kjlintong.github.io    #仓库名称
-  owner: kjlintong    #github用户名
-  admin: kjlintong
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
-
+# Giscus（基于 GitHub Discussions，无需后端、无广告、支持 GitHub 登录）
+# 配置方法：在 https://giscus.app 填写仓库后获取 repo-id 和 category-id
+giscus:
+  enable: true    #是否开启 Giscus 评论
+  repo: "kjlintong/kjlintong.github.io"    # 仓库名称（owner/repo）
+  repo_id: "REPLACE_WITH_YOUR_REPO_ID"     # TODO: 用户替换 — 从 giscus.app 获取
+  category: "Announcements"                # 用于讨论的分类名
+  category_id: "REPLACE_WITH_YOUR_CATEGORY_ID"  # TODO: 用户替换 — 从 giscus.app 获取
+  mapping: "pathname"                      # 按页面路径映射讨论
+  lang: "zh-CN"                            # 语言
+  reactions_enabled: "1"                   # 开启表情回应
+  emit_metadata: "0"
 
 # 统计
+# Google Analytics 4（GA4）
+# TODO: 用户替换 — 在 https://analytics.google.com 创建数据流后获取 Measurement ID
+ga4_track_id: "G-XXXXXXXXXX"
 
-# Analytics settings
 # Baidu Analytics
 ba_track_id: e6b49a6508a9d4bfe8b0a19c8b1141e4
 
 # Google Analytics
 #ga_track_id: 'UA-90855596-1'            # Format: UA-xxxxxx-xx
 #ga_domain: qiubaiying.top               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
-
-
 
 
 

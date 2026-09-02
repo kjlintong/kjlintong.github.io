@@ -100,6 +100,13 @@
                         src="https://ghbtns.com/github-btn.html?user={{ site.github_username }}&repo={{ site.github_username }}.github.io&type=star&count=true" >
                     </iframe>
                 </p>
+                {% if site.github_sponsors %}
+                <p class="sponsor text-center">
+                    <a href="{{ site.github_sponsors }}" target="_blank" rel="noopener" style="color:#28a745; font-weight:bold;">
+                        <i class="fa fa-heart" aria-hidden="true"></i> 支持我 · Sponsor
+                    </a>
+                </p>
+                {% endif %}
             </div>
         </div>
     </div>

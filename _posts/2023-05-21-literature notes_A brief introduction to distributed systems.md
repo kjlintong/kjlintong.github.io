@@ -1,12 +1,14 @@
 ---
-
 layout:     post
 title:      literature notes
 subtitle:   "A brief introduction to distributed systems"
+description: "分布式系统经典入门论文阅读笔记：从微处理器与高速网络两大技术基础出发，概述分布式系统的定义、动机与核心挑战。"
 date:       2023-05-21
 author:     Ryan
 header-img: img/post-bg-re-vs-ng2.jpg
 catalog: true
+categories:
+    - 技术
 tags:
 
     - distributed system

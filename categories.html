@@ -1,0 +1,31 @@
+---
+layout: page
+title: "Categories"
+description: "按分类归档"
+header-img: "img/post-bg-desk.jpg"
+---
+
+{% for category in site.categories %}
+{% assign cat_name = category[0] %}
+<div class="one-tag-list">
+    <span class="fa fa-folder listing-seperator" id="{{ cat_name | slugify }}">
+        <span class="tag-text">{{ cat_name }}</span>
+    </span>
+    {% for post in category[1] %}
+    <div class="post-preview">
+        <a href="{{ post.url | prepend: site.baseurl }}">
+            <h2 class="post-title">{{ post.title }}</h2>
+            {% if post.subtitle %}
+            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+            {% endif %}
+        </a>
+        <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</p>
+    </div>
+    <hr>
+    {% endfor %}
+</div>
+{% endfor %}
+
+{% if site.categories == empty %}
+<p>暂无分类，快来写下第一篇文章吧。</p>
+{% endif %}
