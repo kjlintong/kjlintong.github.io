@@ -22,26 +22,17 @@ Cloud computing refers to both the applications delivered as services over the I
 
 ### Top 10 Obstacles and Opportunities for Cloud Computing
 
-|  || OBSTACLE || OPPORTUNITY |
-
-| 1 || Availability/Business Continuity || Use Multiple Cloud Providers |
-
-| 2 || Data Lock-In || Standardize APIs; Compatible SW to enable Surge or Hybrid Cloud Computing |
-
-| 3 || Data Confidentiality and Auditability || Deploy Encryption, VLANs, Firewalls |
-
-| 4 || Data Transfer Bottlenecks || FedExing Disks; Higher BW Switches |
-
-| 5 || Performance Unpredictability || Improved VM Support; Flash Memory; Gang Schedule VMs |
-
-| 6 || Scalable Storage || Invent Scalable Store |
-
-| 7 || Bugs in Large Distributed Systems || Invent Debugger that relies on Distributed VMs |
-
-| 8 || Scaling Quickly || Invent Auto-Scaler that relies on ML; Snapshots for Conservation |
-
-| 9 || Reputation Fate Sharing || Offer reputation-guarding services like those for email |
-
-| 10 || Software Licensing || Pay-for-use licenses |
+| # | Obstacle | Opportunity |
+| :---: | :--- | :--- |
+| 1 | Availability/Business Continuity | Use Multiple Cloud Providers |
+| 2 | Data Lock-In | Standardize APIs; Compatible SW to enable Surge or Hybrid Cloud Computing |
+| 3 | Data Confidentiality and Auditability | Deploy Encryption, VLANs, Firewalls |
+| 4 | Data Transfer Bottlenecks | FedExing Disks; Higher BW Switches |
+| 5 | Performance Unpredictability | Improved VM Support; Flash Memory; Gang Schedule VMs |
+| 6 | Scalable Storage | Invent Scalable Store |
+| 7 | Bugs in Large Distributed Systems | Invent Debugger that relies on Distributed VMs |
+| 8 | Scaling Quickly | Invent Auto-Scaler that relies on ML; Snapshots for Conservation |
+| 9 | Reputation Fate Sharing | Offer reputation-guarding services like those for email |
+| 10 | Software Licensing | Pay-for-use licenses |
 
 Sometimes, sending the disks, or even the whole computer, is more effective than sending a lot of data by a network.
