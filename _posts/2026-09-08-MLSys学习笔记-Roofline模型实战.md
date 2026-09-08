@@ -319,4 +319,4 @@ print(f"   but must load ENTIRE KV-Cache + weights from HBM.")
 print(f"   → Very low arithmetic intensity → Memory-Bound")
 ```
 
-如果这篇笔记对你有帮助,欢迎交流。下一站:Memory Wall,看看"算力翻倍、带宽不翻倍"的 H100 到底输在哪里。
+如果这篇笔记对你有帮助,欢迎交流。
