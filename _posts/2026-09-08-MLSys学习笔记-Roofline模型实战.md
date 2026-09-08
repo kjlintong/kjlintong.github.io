@@ -199,7 +199,7 @@ ResNet-50 有 50 层,每层 10μs 的框架税 + 0.02ms 调度开销,固定部�
 
 2. **batch size 是性价比最高的旋钮,但有天花板**。小 batch 翻倍 batch,吞吐量接近翻倍;可越过脊点之后收益迅速衰减(+91% → +7%)。在线推理场景还要受延迟约束(batch 越大单请求延迟越高,0.54 → 7.24 ms),所以实际部署是在吞吐与延迟之间找平衡点。
 
-3. **"升级硬件"不是一个简单命题**。H100 算力是 A100 的 3.2 倍,但在内存受限的工作负载上只快 3%。选卡之前,先回答一个问题:**我的工作负载在屋顶的哪一侧?** 顺便说一句,报告里补了一个有趣的反例:边缘设备(如 Jetson AGX Orin)算力和带宽都低,但算力/带宽比反而最高,脊点最高——意味着小模型在边缘设备上更容易"怎么喂都喂不饱算力"。
+3. **"升级硬件"不是一个简单命题**。H100 算力是 A100 的 3.2 倍,但在内存受限的工作负载上只快 3%。选卡之前,先回答一个问题:**我的工作负载在屋顶的哪一侧?** 顺便说一句,一个有趣的反例:边缘设备(如 Jetson AGX Orin)算力和带宽都低,但算力/带宽比反而最高,脊点最高——意味着小模型在边缘设备上更容易"怎么喂都喂不饱算力"。
 
 4. **LLM 推理是内存墙的奴隶**。AI ≈ 1 FLOP/byte 意味着:除非改变数据搬运的本质(量化、缓存、稀疏化),否则堆算力对单流延迟几乎无效。这也解释了为什么推理框架的军备竞赛在 KV Cache 和量化上,而不是在 SM 数量上。
 
@@ -223,6 +223,100 @@ for bs in [1, 2, 4, 8, 16, 32, 64, 128, 256]:
     print(bs, p.bottleneck, f"{p.throughput:.0f}/s")
 ```
 
-- 环境:WSL2 + conda 环境 mlsysim(python 3.11,mlsysim 0.1.1),全程无 GPU。实验脚本 `mlsysim_roofline_task1.py` 与完整实验报告存于本地 project 目录。
+- 环境:WSL2 + conda 环境 mlsysim(python 3.11,mlsysim 0.1.1),全程无 GPU。
+
+## 附:完整运行脚本(可直接复制运行)
+
+```python
+"""
+MLSys·im Task 1: Roofline 模型实战 - ResNet50 on A100
+对应打卡要求：https://github.com/datawhalechina/llm-algo-leetcode/issues/76
+教程参考：https://mlsysbook.ai/mlsysim/tutorials/00_hello_roofline.html
+"""
+
+import mlsysim
+from mlsysim import Engine
+
+print(f"✅ mlsysim version: {mlsysim.__version__}")
+
+# ================= 1. Setup: 选择模型与硬件 =================
+# 严格按照教程 API 调用内置模型和硬件
+model = mlsysim.Models.Vision.ResNet50
+hardware = mlsysim.Hardware.Cloud.A100
+
+print(f"\n📦 Model: {model.name}")
+print(f"   - Parameters: {model.parameters:,}")
+print(f"   - Inference FLOPs (single image): {model.inference_flops:,}")
+
+print(f"\n🖥️  Hardware: {hardware.name}")
+print(f"   - Peak Compute (FP16): {hardware.compute.peak_flops.to('TFLOPs/s')}")
+print(f"   - Memory Bandwidth: {hardware.memory.bandwidth.to('TB/s')}")
+
+# ================= 2. 最小实验: Single Image Inference =================
+print("\n" + "="*60)
+print("🔍 Single Image Inference (batch_size=1)")
+print("="*60)
+
+profile = Engine.solve(
+    model=model,
+    hardware=hardware,
+    batch_size=1,
+    precision="fp16"
+)
+
+print(f"   - Latency: {profile.latency.to('ms')}")
+print(f"   - Throughput: {profile.throughput}")
+print(f"   - Bottleneck: {profile.bottleneck}")
+
+# ================= 3. Batch Size 扫描 =================
+print("\n" + "="*60)
+print("📊 Batch Size Sweep (1 → 256)")
+print("="*60)
+print(f"{'Batch':<8} {'Latency(ms)':<14} {'Throughput':<18} {'Bottleneck'}")
+print("-" * 60)
+
+batch_sizes = [1, 2, 4, 8, 16, 32, 64, 128, 256]
+results = []
+
+for bs in batch_sizes:
+    p = Engine.solve(model=model, hardware=hardware, batch_size=bs, precision="fp16")
+    results.append(p)
+    print(f"{bs:<8} {p.latency.to('ms'):<14} {str(p.throughput):<18} {p.bottleneck}")
+
+# ================= 4. Exercise 2: A100 vs H100 对比 =================
+print("\n" + "="*60)
+print("✏️  Exercise 2: A100 vs H100 Crossover Comparison")
+print("="*60)
+
+h100 = mlsysim.Hardware.Cloud.H100
+print(f"H100 Peak Compute (FP16): {h100.compute.peak_flops.to('TFLOPs/s')}")
+print(f"H100 Memory Bandwidth: {h100.memory.bandwidth.to('TB/s')}")
+
+print(f"\n{'Batch':<8} {'A100 BN':<15} {'H100 BN'}")
+print("-" * 40)
+
+for bs in [1, 8, 32, 64, 128]:
+    pa = Engine.solve(model=model, hardware=hardware, batch_size=bs, precision="fp16")
+    ph = Engine.solve(model=model, hardware=h100, batch_size=bs, precision="fp16")
+    print(f"{bs:<8} {pa.bottleneck:<15} {ph.bottleneck}")
+
+# ================= 5. Exercise 3: Llama-3 8B 分析 =================
+print("\n" + "="*60)
+print("✏️  Exercise 3: Llama-3-8B Memory-Bound Analysis")
+print("="*60)
+
+llama = mlsysim.Models.Language.Llama3_8B
+p_llama = Engine.solve(model=llama, hardware=hardware, batch_size=1, precision="fp16")
+
+print(f"Model: {llama.name}")
+print(f"   - Parameters: {llama.parameters:,}")
+print(f"   - Batch=1 Latency: {p_llama.latency.to('ms')}")
+print(f"   - Bottleneck: {p_llama.bottleneck}")
+print(f"\n💡 Why Memory-Bound?")
+print(f"   LLM autoregressive decoding processes ONE token at a time.")
+print(f"   FLOPs are tiny (only attention + FFN for 1 token),")
+print(f"   but must load ENTIRE KV-Cache + weights from HBM.")
+print(f"   → Very low arithmetic intensity → Memory-Bound")
+```
 
 如果这篇笔记对你有帮助,欢迎交流。下一站:Memory Wall,看看"算力翻倍、带宽不翻倍"的 H100 到底输在哪里。
