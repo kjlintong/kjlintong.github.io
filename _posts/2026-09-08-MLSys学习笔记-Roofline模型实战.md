@@ -18,7 +18,7 @@ tags:
   - mlsysim
 ---
 
-> 最近在参加 Datawhale 的 [LLM 算法打卡营](https://github.com/datawhalechina/llm-algo-leetcode/issues/76),任务驱动下开始系统学习 [MLSysBook](https://mlsysbook.ai/mlsysim/) 的 mlsysim 仿真框架。前两天啃完了入门教程 [Hello, Roofline](https://mlsysbook.ai/mlsysim/tutorials/00_hello_roofline.html),从"只会看显存大小选卡"到"5 行代码预测性能瓶颈",收获不小。这篇文章既是学习总结,也把过程中踩过的概念坑和读源码发现的小细节一并整理出来。
+> 最近在参加 Datawhale 的 [mlsysim学习活动](https://github.com/datawhalechina/llm-algo-leetcode/issues/76),任务驱动下开始系统学习 [MLSysBook](https://mlsysbook.ai/mlsysim/) 的 mlsysim 仿真框架。这两天啃完了入门教程 [Hello, Roofline](https://mlsysbook.ai/mlsysim/tutorials/00_hello_roofline.html),从"只会看显存大小选卡"到"5 行代码预测性能瓶颈",收获不小。这篇文章既是学习总结,也把过程中踩过的概念坑和读源码发现的小细节一并整理出来。
 
 ---
 
