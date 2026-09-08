@@ -46,7 +46,7 @@ in a single coherent system the collection of nodes as a whole operates the same
 
 为了帮助开发分布式应用，分布式系统通常被组织为一个单独的软件层，从逻辑上讲，它被置于作为计算机各自操作系统之上。这种组织方式如图所示。
 
-![](https://i-blog.csdnimg.cn/blog_migrate/03443a844d6e993ad6675e1898b4792c.png)
+![](/img/posts/2023-05-22-lit-note-distributed/middleware.png)
 
 Fig.2 中间件(from "A brief introduction to distributed systems")
 
