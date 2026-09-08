@@ -57,7 +57,7 @@ Giscus 留言板、SEO 全套优化、GA4 统计、GitHub Sponsors 打赏。
 | `_layouts/page.html` | 修复 featured-tags Liquid 嵌套 bug |
 | `_layouts/keynote.html` | Gitalk → Giscus |
 | `about.html` | Gitalk → Giscus |
-| `index.html`（首页） | head 补 SEO/OG/Twitter/JSON-LD/GA4；导航加「博客」；博客区内链 `/blog/` + 保留 CSDN；页脚加 Sponsor 按钮 |
+| `index.html`（首页） | head 补 SEO/OG/Twitter/JSON-LD/GA4；导航加「博客」；博客区内链 `/blog/` + 删除 CSDN 链接；页脚加 Sponsor 按钮 |
 | `_posts/*.md` | 两篇文章补 `categories` 和 `description` 字段 |
 | `.travis.yml` | 移除 jekyll-paginate / 失效 codecov，换 jekyll-sitemap |
 | `.gitignore` | 忽略 `.jekyll-cache` |

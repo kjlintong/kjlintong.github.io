@@ -115,10 +115,4 @@ service-worker: true
 
 
 
-# Friends
-friends: [
-    {
-        title: "CSDN",
-        href: "https://blog.csdn.net/weixin_42107217"
-    }
-]
+
