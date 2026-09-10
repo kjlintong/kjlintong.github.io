@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "文献笔记 A Brief Introduction to Distributed Systems"
+title_en: "Reading Notes: A Brief Introduction to Distributed Systems"
 subtitle: ""
+lang_pair: /blog/lit-note-distributed-systems-en/
 date: 2023-05-22
 author: Ryan
 permalink: /blog/lit-note-distributed-systems-overview/

@@ -1,7 +1,9 @@
 ---
 layout: post
 title: "傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录"
+title_en: "A Noob-Friendly Guide: Deploying GraphRAG with Local Ollama, and Every Pitfall I Hit"
 subtitle: ""
+lang_pair: /blog/graphrag-ollama-local-deployment-en/
 date: 2024-08-28
 author: Ryan
 permalink: /blog/graphrag-ollama-local-deployment-guide/

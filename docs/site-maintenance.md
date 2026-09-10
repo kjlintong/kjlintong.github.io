@@ -38,10 +38,19 @@
 - `img/profile.jpg` 为选定头像（800×800，玫瑰米调，约 133KB）。替换头像：压到 ≤800px、JPEG 格式后同名覆盖。
 - OG/Twitter 分享图默认回退到 `img/profile.jpg`（`head.html` 内 `page.header-img` 缺省逻辑），换头像后分享缓存需重新抓取。
 
-## 中英双语（既有机制）
+## 中英双语（2026-09 升级为全站机制）
 
-- 记忆键 `pg-lang`，与 `pg-theme` 平行；切换过一次后全站同步。
-- 首页 `index.html` 内的双语文案走 `data-i18n`/`data-i18n-html` 键 + 内联字典，新增文案须同时补中英两条，键名加进两处字典。
+- 记忆键 `pg-lang`（`zh`/`en`），**默认英文**；与 `pg-theme` 平行，切换过一次后全站同步。
+- 三个共享文件：
+  - `js/tonglin-i18n.js` — 全站语言引擎：读 `<html data-lang>`、换 `data-i18n` 文案、`data-i18n-attr` 属性、`.bi[data-lang]` 双语块显隐（CSS 驱动）、`[data-tax]` 分类/标签组按语言门控、`data-show="zh en"` 通用门控、`a[data-post-url]` 文章链接随语言切镜像（`window.POST_LINKS` / `POST_LINKS_REV`，由 `head.html` 全站生成）、`window.PAGE_TITLE` 换标签页标题。
+  - `js/tonglin-i18n-dict.js` — 共享词典（导航/页脚/打赏/搜索/归档/404 + 分类标签 `cat-原名` 双向显示名）。defer 加载，会合并页面内联脚本用 `window.__i18nPush({zh:…,en:…})` 注册的页面级词条。
+  - `_includes/head.html` — 防闪烁内联脚本同时应用 `data-theme` + `data-lang`；为每篇带 `lang: en`+`lang_pair` 的镜像文章生成正反两张 URL 映射表。
+- 文章双语两种模式并存：
+  1. **镜像文章**：中文版 + 英文版各一篇，英文版 frontmatter 标 `lang: en`、`lang_pair: /中文URL/`、`title_zh:`（有英文副标题镜像时中文版用 `title_en:`/`subtitle_en:` 反向标注）。列表页/分类/标签/搜索自动按语言只显示一条、链接指向对应镜像。
+  2. **单语文章内嵌双语**：frontmatter `title_en:` 即可让列表/标题处显示双语言（`.bi` span 对）。
+- 静态 HTML 文案一律**默认写英文**（无 JS 也显示英文），中文由词典换回。
+- 首页 `index.html` 为 layout:null 自定义页，保留独立内联词典（含全站文案 + 合并共享词典分类键），并自带 `.blog-item` 按语言裁剪至 3 条的 `trimBlog()`。
+- 新文章须知：中文文章若有英文版，英文版 frontmatter 照上面模式 1 填写即可自动接入；无 `lang_pair` 的文章在两种语言下都显示。
 
 ## 构建与发布
 

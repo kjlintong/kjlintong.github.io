@@ -1,7 +1,10 @@
 ---
 layout: post
 title: 用 5 行代码预测模型瓶颈：MLSys·im Roofline 教程学习笔记
+title_en: "Predicting Model Bottlenecks in 5 Lines of Code: MLSys·im Roofline Tutorial Notes"
 subtitle: 从 Datawhale 打卡任务开始的性能分析之旅——ResNet-50、Llama-3 在 A100/H100 上的 roofline 实战与踩坑复盘
+subtitle_en: "A performance-analysis journey starting from a Datawhale assignment — rooflining ResNet-50 and Llama-3 on A100/H100, with a post-mortem of every pitfall"
+lang_pair: /blog/mlsysim-roofline-en/
 description: "这两天的 MLSys 学习记录:基于 MLSysBook 的 mlsysim 教程,亲手跑通 Roofline 模型分析——用算术强度与脊点判断 ResNet-50 在 A100/H100 上的瓶颈变迁,解析 LLM 推理的内存墙现象。文章包含完整的实验数据、学习过程中的六个疑惑与解答,以及我读引擎源码挖出的两个细节:效率系数与层税开销对性能预测的影响。"
 date: 2026-09-08
 author: Ryan

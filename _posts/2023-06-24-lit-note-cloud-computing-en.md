@@ -1,19 +1,23 @@
 ---
 layout: post
-title: "文献笔记 A View of Cloud Computing"
-title_en: "Reading Notes: A View of Cloud Computing"
+title: "Reading Notes: A View of Cloud Computing"
+title_zh: "文献笔记 A View of Cloud Computing"
 subtitle: ""
-lang_pair: /blog/lit-note-cloud-computing-en/
 date: 2023-06-24
 author: Ryan
-permalink: /blog/lit-note-cloud-computing-overview/
+permalink: /blog/lit-note-cloud-computing-en/
+lang: en
+lang_pair: /blog/lit-note-cloud-computing-overview/
 categories:
-  - 技术
+  - Tech
 tags:
-  - 文献阅读
-  - 云计算
+  - Literature Notes
+  - Cloud Computing
+description: "Classic paper reading notes: Armbrust et al.'s authoritative definition of cloud computing and the 10 obstacles to adoption with their corresponding opportunities."
+---
 
-description: "经典论文阅读笔记：Armbrust 等人对云计算的权威定义，以及影响云计算落地的 10 大障碍与对应的解决机会。"
+*[中文原文](/blog/lit-note-cloud-computing-overview/)*
+
 ---
 
 ### Defining Cloud Computing

@@ -30,17 +30,26 @@ layout: default
                 <div class="post-heading">
                     <div class="tags">
                         {% for tag in page.tags %}
-                        <a class="tag" href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}">{{ tag }}</a>
+                        <a class="tag" href="{{ site.baseurl }}/tags/#{{ tag }}" title="{{ tag }}"><span data-i18n="cat-{{ tag }}">{{ tag }}</span></a>
                         {% endfor %}
                     </div>
-                    <h1>{{ page.title }}</h1>
+                    <h1>{% if page.title_en %}<span class="bi" data-lang="zh">{{ page.title }}</span><span class="bi" data-lang="en">{{ page.title_en }}</span>{% elsif page.title_zh %}<span class="bi" data-lang="zh">{{ page.title_zh }}</span><span class="bi" data-lang="en">{{ page.title }}</span>{% else %}{{ page.title }}{% endif %}</h1>
                     {% comment %}
                         always create a h2 for keeping the margin , Hux
                     {% endcomment %}
                     {% comment %} if page.subtitle {% endcomment %}
-                    <h2 class="subheading">{{ page.subtitle }}</h2>
+                    <h2 class="subheading">{% if page.subtitle_en %}<span class="bi" data-lang="zh">{{ page.subtitle }}</span><span class="bi" data-lang="en">{{ page.subtitle_en }}</span>{% elsif page.subtitle_zh %}<span class="bi" data-lang="zh">{{ page.subtitle_zh }}</span><span class="bi" data-lang="en">{{ page.subtitle }}</span>{% else %}{{ page.subtitle }}{% endif %}</h2>
                     {% comment %} endif {% endcomment %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    {% if page.lang_pair %}
+                    <p>
+                        {% if page.lang == 'en' %}
+                        <a class="lang-pair-link" href="{{ page.lang_pair }}" data-i18n="lang-pair-zh">← 中文原文</a>
+                        {% else %}
+                        <a class="lang-pair-link" href="{{ page.lang_pair }}" data-i18n="lang-pair-en">English version →</a>
+                        {% endif %}
+                    </p>
+                    {% endif %}
+                    <span class="meta"><span data-i18n="posted-by-label">Posted by</span> {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} <span data-i18n="posted-on-label">on</span> {{ page.date | date: "%B %-d, %Y" }}</span>
                 </div>
             </div>
         </div>
@@ -65,17 +74,19 @@ layout: default
                 <ul class="pager">
                     {% if page.previous.url %}
                     <li class="previous">
-                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
-                        Previous<br>
-                        <span>{{page.previous.title}}</span>
+                        <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-post-url="{{ page.previous.url }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
+                        <span data-i18n="pager-prev">Previous</span><br>
+                        {% capture prev_disp %}{% if page.previous.title_en %}<span class="bi" data-lang="zh">{{page.previous.title}}</span><span class="bi" data-lang="en">{{page.previous.title_en}}</span>{% elsif page.previous.title_zh %}<span class="bi" data-lang="zh">{{page.previous.title_zh}}</span><span class="bi" data-lang="en">{{page.previous.title}}</span>{% else %}{{page.previous.title}}{% endif %}{% endcapture %}
+                        <span>{{ prev_disp }}</span>
                         </a>
                     </li>
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
-                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
-                        Next<br>
-                        <span>{{page.next.title}}</span>
+                        <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-post-url="{{ page.next.url }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
+                        <span data-i18n="pager-next">Next</span><br>
+                        {% capture next_disp %}{% if page.next.title_en %}<span class="bi" data-lang="zh">{{page.next.title}}</span><span class="bi" data-lang="en">{{page.next.title_en}}</span>{% elsif page.next.title_zh %}<span class="bi" data-lang="zh">{{page.next.title_zh}}</span><span class="bi" data-lang="en">{{page.next.title}}</span>{% else %}{{page.next.title}}{% endif %}{% endcapture %}
+                        <span>{{ next_disp }}</span>
                         </a>
                     </li>
                     {% endif %}
@@ -85,10 +96,8 @@ layout: default
                 <!-- Sponsor 打赏 -->
                 {% if site.github_sponsors %}
                 <div class="sponsor-box text-center" style="margin:40px auto; text-align:center;">
-                    <p style="margin-bottom:12px;">如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕</p>
-                    <a class="btn-sponsor" href="{{ site.github_sponsors }}" target="_blank" rel="noopener">
-                        <i class="fa fa-heart" aria-hidden="true"></i> 在 GitHub 上支持我
-                    </a>
+                    <p style="margin-bottom:12px;" data-i18n="sponsor-tip">If this post helped you, a coffee is always welcome ☕</p>
+                    <a class="btn-sponsor" href="{{ site.github_sponsors }}" target="_blank" rel="noopener" data-i18n="sponsor-btn"><i class="fa fa-heart" aria-hidden="true"></i> Support me on GitHub</a>
                 </div>
                 {% endif %}
 
@@ -112,7 +121,7 @@ layout: default
                 <div class="side-catalog">
                     <hr class="hidden-sm hidden-xs">
                     <h5>
-                        <a class="catalog-toggle" href="#">CATALOG</a>
+                        <h5><a class="catalog-toggle" href="#" data-i18n="catalog">CATALOG</a>
                     </h5>
                     <ul class="catalog-body"></ul>
                 </div>
@@ -129,12 +138,12 @@ layout: default
                 {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <h5><a href="/tags/" data-i18n="featured-tags">FEATURED TAGS</a></h5>
                     <div class="tags">
        					{% assign ft_condition = site.featured-condition-size %}
        					{% for tag in site.tags %}
                             {% if tag[1].size > ft_condition %}
-               					<a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
+               					<a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}" data-tax="{{ tag[0] }}" data-i18n="cat-{{ tag[0] }}">
                                     {{ tag[0] }}
                                 </a>
                             {% endif %}
@@ -146,7 +155,7 @@ layout: default
                 <!-- Friends Blog -->
                 {% if site.friends %}
                 <hr>
-                <h5>FRIENDS</h5>
+                <h5 data-i18n="friends">FRIENDS</h5>
                 <ul class="list-inline">
                     {% for friend in site.friends %}
                         <li><a href="{{friend.href}}">{{friend.title}}</a></li>

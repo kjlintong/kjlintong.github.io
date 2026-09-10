@@ -1,123 +1,51 @@
 ---
 layout: page
-title: "About"
+title: About
+i18n: about
 description: "Hey, this is LT."
 header-img: "img/post-bg-desk.jpg"
 ---
 
-<!-- Language Selector -->
-<!-- <select class="sel-lang" onchange= "onLanChange(this.options[this.options.selectedIndex].value)">
-    <option value="0" selected> 中文 Chinese </option>
-    <option value="1"> 英文 English </option>
-</select> -->
+<script>
+window.__i18nPush({
+  zh: {
+    'heading-about': '关于我', 'sub-about': 'Hey, this is LT.', 'title-about': '关于 - Tong Lin\'s Blog',
+    'about-p1': '我是 <strong>Tong Lin</strong>，你也可以叫我 Ryan。国防科技大学计算机硕士，现在在深圳工作。',
+    'about-p2': '业余时间喜欢游泳、弹钢琴、吹长笛、下围棋。',
+    'about-p3': '这是用 <a href="https://jekyll.com.cn/">Jekyll</a> 搭建的个人博客，主题基于 <a href="https://baiyingqiu.github.io/2017-02-06/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">qiubaiying 的博客主题</a>。我的 GitHub 主页在<a href="https://github.com/kjlintong">👉GitHub·LT</a>。有任何问题，欢迎随时找我交流～',
+    'about-talks': '相关资源',
+    'about-quote1': 'Hope is a good thing, maybe the best of things, and no good thing ever dies.',
+    'about-quote2': 'Some birds are not meant to be caged, their feathers are just too bright.'
+  },
+  en: {
+    'heading-about': 'About', 'sub-about': 'Hey, this is LT.', 'title-about': 'About - Tong Lin\'s Blog',
+    'about-p1': 'I\'m <strong>Tong Lin</strong> — you can also call me Ryan. I hold a master\'s degree in computer science from NUDT and currently work in Shenzhen.',
+    'about-p2': 'In my free time, I like swimming, playing the piano and flute, and Go (Weiqi).',
+    'about-p3': 'This is my personal blog built with <a href="https://jekyll.com.cn/">Jekyll</a>, based on <a href="https://baiyingqiu.github.io/2017-02-06/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">qiubaiying\'s blog theme</a>. My GitHub page is <a href="https://github.com/kjlintong">👉GitHub·LT</a>. Questions or ideas? Feel free to reach out anytime~',
+    'about-talks': 'Resources',
+    'about-quote1': 'Hope is a good thing, maybe the best of things, and no good thing ever dies.',
+    'about-quote2': 'Some birds are not meant to be caged, their feathers are just too bright.'
+  }
+});
+</script>
 
-<!-- Chinese Version -->
-<div class="zh post-container">
+<div class="post-container">
 
-    <!--copied from markdown -->
-    <blockquote><p>Hope is a good thing, maybe the best of things, and no good thing ever dies.<br>
-    Some birds are not meant to be caged, their feathers are just too bright.</p></blockquote>
+    <blockquote><p><span data-i18n="about-quote1">Hope is a good thing, maybe the best of things, and no good thing ever dies.</span><br>
+    <span data-i18n="about-quote2">Some birds are not meant to be caged, their feathers are just too bright.</span></p></blockquote>
 
-    <p>Hey，I'm<strong>Tong Lin</strong>. You also can call me Ryan. I am doing a master's degree in computer science and currently working in Shenzhen.</p>
+    <p data-i18n="about-p1">Hey，I'm<strong>Tong Lin</strong>. You also can call me Ryan. I am doing a master's degree in computer science and currently working in Shenzhen.</p>
 
-    <p>In my free time，I like to swim, play the piano, flute, play chess and etc.</p>
+    <p data-i18n="about-p2">In my free time，I like to swim, play the piano, flute, play chess and etc.</p>
 
-    <p>This is my personal blog built with <a href="https://baiyingqiu.github.io/2017/02/06/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">qiubaiying's blog</a> and <a href="http://jekyll.com.cn/">Jekyll</a> .I have a GitHub page<a href="https://github.com/kjlintong">👉GitHub·LT</a>。If you have any questions, please feel free to discuss with me~</p>
+    <p data-i18n="about-p3">This is my personal blog built with <a href="https://baiyingqiu.github.io/2017-02-06/%E5%BF%AB%E9%80%9F%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/">qiubaiying's blog</a> and <a href="http://jekyll.com.cn/">Jekyll</a> .I have a GitHub page<a href="https://github.com/kjlintong">👉GitHub·LT</a>。If you have any questions, please feel free to discuss with me~</p>
 
     <p></p>
-    
-    <h5>Talks</h5>
+
+    <h5 data-i18n="about-talks">Talks</h5>
 
     <ul>
         <li><a href="https://github.com">GitHub</a></li>
         <li><a href="http://jekyll.com.cn/">jekyll</a></li>
     </ul>
 </div>
-
-<!-- English Version -->
-<!-- <div class="en post-container">
-    <blockquote><p>Yet another iOS Developer. <br>
-    Yet another Life-long Student.</p></blockquote>
-
-    <p>Hi, I am <strong>Baiying Qiu</strong>，you can call me <strong>BY</strong>. I am an iOS software engineer and currently working in Xiamen</p>
-
-    <p>This is my personal blog, through making Github Pages and Jekyll.My GitHub  👉 <a href="http://github.com/qiubaiying">Github·BY</a>.</p>
-    
-    <p>I am a sports enthusiast, I like fitness, running and boxing.</p>
-
-    <h5>Talks</h5>
-
-    <ul>
-    <li><a href="https://github.com">GitHub</a></li>
-    <li><a href="http://jekyll.com.cn/">jekyll</a></li>
-    <li><a href="https://pages.github.com/">GitHub Pages</a></li>
-    <li><a href="https://qiubaiying.github.io">BY</a></li>
-    </ul>
-</div> -->
-
-<!-- Handle Language Change -->
-<script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
-
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
-
-    // handle render
-    function _render(){
-        var _hash = window.location.hash;
-        // en
-        if(_hash == "#en"){
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-        // zh by default
-        }else{
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
-    }
-
-    // handle select change
-    function onLanChange(index){
-        if(index == 0){
-            window.location.hash = "#zh"
-        }else{
-            window.location.hash = "#en"
-        }
-    }
-
-    // init
-    _render();
-</script>
-
-
- <!-- disqus 评论框 start  -->
-{% if site.disqus.enable %}
-
-<div class="comment">
-    <div id="disqus_thread" class="disqus-thread">
-    </div>
-</div>
-<!-- disqus 评论框 end -->
-
-<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-    /* * * CONFIGURATION VARIABLES * * */
-    var disqus_shortname = "{{site.disqus.username}}";
-    var disqus_identifier = "{{site.disqus.username}}/{{page.url}}";
-    var disqus_url = "{{site.url}}{{page.url}}";
-
-    (function() {
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-    })();
-</script>
-<!-- disqus 公共JS代码 end -->
-{% endif %}
-

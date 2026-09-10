@@ -527,6 +527,27 @@ footer .sponsor a { color: var(--rose); font-weight: 600; }
 footer .sponsor a:hover { color: #e2ccc4; }
 [data-theme="dark"] footer .copyright { color: var(--night-muted); }
 
+/* ---------- 中英双语（pg-lang / data-lang） ---------- */
+/* 双语块显隐：由 <html data-lang> 驱动，无 JS 时默认英文 */
+html[data-lang="zh"] .bi[data-lang="en"] { display: none !important; }
+html:not([data-lang="zh"]) .bi[data-lang="zh"] { display: none !important; }
+
+.lang-btn {
+  padding: 6px 10px; font-size: 11px; font-weight: 600; color: var(--muted);
+  background: transparent; border: none; cursor: pointer; letter-spacing: 0.08em;
+}
+.lang-btn:hover { color: var(--fg); }
+.lang-btn.active { color: var(--accent-strong); border-bottom: 1px solid var(--accent-strong); }
+.navbar-custom .lang-switch { display: inline-flex; align-items: center; float: none; gap: 2px; }
+/* 双语文章互链按钮 */
+.lang-pair-link {
+  display: inline-block; margin-bottom: 18px; padding: 5px 14px;
+  font-size: 12.5px; letter-spacing: 0.03em;
+  color: var(--accent-strong); text-decoration: none;
+  border: 1px solid var(--line); border-radius: 999px;
+}
+.lang-pair-link:hover { border-color: var(--accent-strong); text-decoration: none; }
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 767px) {
   .post-preview .post-title { font-size: 21px; }

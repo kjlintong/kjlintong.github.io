@@ -1,22 +1,36 @@
 ---
 layout: page
 title: "Categories"
-description: "按分类归档"
+i18n: categories
+description: "Posts archived by category"
 header-img: "img/post-bg-desk.jpg"
 ---
 
+<script>
+window.__i18nPush({
+  zh: { 'heading-categories': '分类', 'sub-categories': '按分类归档' },
+  en: { 'heading-categories': 'Categories', 'sub-categories': 'Posts archived by category' }
+});
+</script>
+
 {% for category in site.categories %}
 {% assign cat_name = category[0] %}
-<div class="one-tag-list">
+<div class="one-tag-list" data-tax="{{ cat_name }}">
     <span class="fa fa-folder listing-seperator" id="{{ cat_name | slugify }}">
-        <span class="tag-text">{{ cat_name }}</span>
+        <span class="tag-text" data-i18n="cat-{{ cat_name }}">{{ cat_name }}</span>
     </span>
     {% for post in category[1] %}
-    <div class="post-preview">
-        <a href="{{ post.url | prepend: site.baseurl }}">
+    <div class="post-preview{% if post.lang_pair %} bi{% endif %}"{% if post.lang_pair %} data-lang="{{ post.lang | default: 'zh' }}"{% endif %}>
+        <a href="{{ post.url }}" data-post-url="{{ post.url }}">
+            {% if post.title_en %}
+            <h2 class="post-title"><span class="bi" data-lang="zh">{{ post.title }}</span><span class="bi" data-lang="en">{{ post.title_en }}</span></h2>
+            {% elsif post.title_zh %}
+            <h2 class="post-title"><span class="bi" data-lang="zh">{{ post.title_zh }}</span><span class="bi" data-lang="en">{{ post.title }}</span></h2>
+            {% else %}
             <h2 class="post-title">{{ post.title }}</h2>
+            {% endif %}
             {% if post.subtitle %}
-            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
+            <h3 class="post-subtitle">{% if post.subtitle_en %}<span class="bi" data-lang="zh">{{ post.subtitle }}</span><span class="bi" data-lang="en">{{ post.subtitle_en }}</span>{% elsif post.subtitle_zh %}<span class="bi" data-lang="zh">{{ post.subtitle_zh }}</span><span class="bi" data-lang="en">{{ post.subtitle }}</span>{% else %}{{ post.subtitle }}{% endif %}</h3>
             {% endif %}
         </a>
         <p class="post-meta">{{ post.date | date: "%Y-%m-%d" }}</p>
@@ -27,5 +41,5 @@ header-img: "img/post-bg-desk.jpg"
 {% endfor %}
 
 {% if site.categories == empty %}
-<p>暂无分类，快来写下第一篇文章吧。</p>
+<p data-i18n="categories-empty">No categories yet — write the first post!</p>
 {% endif %}

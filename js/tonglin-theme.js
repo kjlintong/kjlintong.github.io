@@ -17,8 +17,13 @@
     try { localStorage.setItem(KEY, t); } catch (e) {}
     var btns = document.querySelectorAll('.theme-toggle');
     var next = t === 'dark' ? 'light' : 'dark';
+    var lang;
+    try { lang = localStorage.getItem('pg-lang') === 'zh' ? 'zh' : 'en'; } catch (e) { lang = 'en'; }
+    var label = (next === 'dark')
+      ? (lang === 'zh' ? '切换到深色模式' : 'Switch to dark mode')
+      : (lang === 'zh' ? '切换到明亮模式' : 'Switch to light mode');
     for (var i = 0; i < btns.length; i++) {
-      btns[i].setAttribute('aria-label', next === 'dark' ? '切换到深色模式' : '切换到明亮模式');
+      btns[i].setAttribute('aria-label', label);
       btns[i].setAttribute('data-target', next);
     }
   }
@@ -35,6 +40,8 @@
   }
 
   apply(current());
+  /* 语言切换后同步 aria-label */
+  document.addEventListener('i18n:change', function () { apply(current()); });
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', wire);
   } else {

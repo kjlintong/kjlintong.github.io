@@ -17,25 +17,29 @@
             <div class="navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{{ site.baseurl }}/">Home</a>
+                        <a href="{{ site.baseurl }}/" data-i18n="nav-home">Home</a>
                     </li>
                     <li>
-                        <a href="{{ site.baseurl }}/blog/">Blog</a>
+                        <a href="{{ site.baseurl }}/blog/" data-i18n="nav-blog">Blog</a>
                     </li>
                     <li>
-                        <a href="{{ site.baseurl }}/categories/">分类</a>
+                        <a href="{{ site.baseurl }}/categories/" data-i18n="nav-categories">Categories</a>
                     </li>
                     <li>
-                        <a href="{{ site.baseurl }}/tags/">标签</a>
+                        <a href="{{ site.baseurl }}/tags/" data-i18n="nav-tags">Tags</a>
                     </li>
                     <li>
-                        <a href="{{ site.baseurl }}/about/">About</a>
+                        <a href="{{ site.baseurl }}/about/" data-i18n="nav-about">About</a>
                     </li>
                     <li class="theme-toggle-li">
-                        <button type="button" class="theme-toggle" aria-label="切换到深色模式">
+                        <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
                             <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
                             <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
                         </button>
+                    </li>
+                    <li class="lang-switch">
+                        <button type="button" class="lang-btn" data-lang="zh" aria-label="切换到中文">中</button>
+                        <button type="button" class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
                     </li>
                 </ul>
             </div>

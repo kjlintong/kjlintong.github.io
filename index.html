@@ -4,34 +4,37 @@
 layout: null
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title data-i18n="page-title">Tong Lin — 个人主页</title>
+<title data-i18n="page-title">Tong Lin — Personal Website</title>
 <meta name="description" content="Tong Lin's personal website — LLM Agent Engineer, focused on local LLM deployment, RAG applications, and open source.">
 <meta name="keywords" content="Tong Lin, LT Blog, Personal Website, Local LLM, RAG, Ollama, Full-stack Development">
 <meta name="author" content="Tong Lin">
 <meta name="theme-color" content="#f0e6d7">
-<!-- 明暗主题：首屏渲染前应用，避免闪烁；默认明 -->
+<!-- 明暗主题 + 中英语言：首屏渲染前应用，避免闪烁；默认明 / 英文 -->
 <script>
 (function () {
-    var t;
-    try { t = localStorage.getItem('pg-theme'); } catch (e) {}
+    var t, l;
+    try { t = localStorage.getItem('pg-theme'); l = localStorage.getItem('pg-lang'); } catch (e) {}
     document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+    document.documentElement.setAttribute('data-lang', l === 'zh' ? 'zh' : 'en');
 })();
+window.__i18nExtra = window.__i18nExtra || [];
+window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 </script>
 <!-- Open Graph (微信/Facebook 分享) -->
 <meta property="og:site_name" content="Tong Lin — Personal Website">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tong Lin — 个人主页 / Personal Website">
-<meta property="og:description" content="大模型 Agent 工程师 · 业余音乐和围棋玩家。专注大模型部署、LLM Agent、RAG 应用与全栈开发。">
+<meta property="og:title" content="Tong Lin — Personal Website">
+<meta property="og:description" content="LLM Agent Engineer · amateur musician & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.">
 <meta property="og:url" content="https://kjlintong.github.io/">
 <meta property="og:image" content="https://kjlintong.github.io/img/profile.jpg">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tong Lin — 个人主页 / Personal Website">
-<meta name="twitter:description" content="大模型 Agent 工程师 · 业余音乐和围棋玩家。专注大模型部署、LLM Agent、RAG 应用与全栈开发。">
+<meta name="twitter:description" content="LLM Agent Engineer · amateur musician & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.">
 <meta name="twitter:image" content="https://kjlintong.github.io/img/profile.jpg">
 <!-- JSON-LD 结构化数据 -->
 <script type="application/ld+json">
@@ -377,18 +380,18 @@ section { padding: 92px 0; position: relative; z-index: 1; }
   <div class="nav-inner">
     <span class="nav-brand">Tong Lin</span>
     <ul class="nav-links">
-      <li><a href="#about" data-i18n="nav-about">关于</a></li>
-      <li><a href="#projects" data-i18n="nav-projects">项目</a></li>
-      <li><a href="/blog/" data-i18n="nav-blog">博客</a></li>
-      <li><a href="#contact" data-i18n="nav-contact">联系</a></li>
+      <li><a href="#about" data-i18n="nav-about">About</a></li>
+      <li><a href="#projects" data-i18n="nav-projects">Projects</a></li>
+      <li><a href="/blog/" data-i18n="nav-blog">Blog</a></li>
+      <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
     </ul>
     <div class="nav-right">
-      <button type="button" class="theme-toggle" aria-label="切换到深色模式">
+      <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
         <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
         <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
       </button>
-      <button class="lang-btn active" data-lang="zh" aria-label="中文">中</button>
-      <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+      <button class="lang-btn" data-lang="zh" aria-label="切换到中文">中</button>
+      <button class="lang-btn" data-lang="en" aria-label="Switch to English">EN</button>
     </div>
   </div>
 </nav>
@@ -398,21 +401,21 @@ section { padding: 92px 0; position: relative; z-index: 1; }
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="hero-kicker" data-i18n="hero-kicker">Hello World · 个人主页</p>
+        <p class="hero-kicker" data-i18n="hero-kicker">Hello World · Personal Site</p>
         <h1 class="hero-name">Tong&nbsp;Lin</h1>
-        <p class="hero-subtitle" data-i18n="hero-subtitle">大模型 Agent 工程师 · 业余音乐和围棋玩家</p>
+        <p class="hero-subtitle" data-i18n="hero-subtitle">LLM Agent Engineer · Amateur Musician &amp; Go Player</p>
         <p class="hero-description" data-i18n="hero-description">
-          国防科技大学计算机硕士毕业，现居深圳。<br>
-          Datawhale 正式成员，开源社区 Contributor。<br>
-          专注大模型部署、LLM Agent、RAG 应用与全栈开发。
+          M.S. in Computer Science, National University of Defense Technology. Based in Shenzhen.<br>
+          Formal member of Datawhale, open-source contributor.<br>
+          Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.
         </p>
         <div class="hero-meta">
-          <span><span class="dot"></span><span data-i18n="hero-location">深圳，中国</span></span>
+          <span><span class="dot"></span><span data-i18n="hero-location">Shenzhen, China</span></span>
           <span><span class="dot"></span><span data-i18n="hero-role">LLM Agent Engineer</span></span>
         </div>
         <div class="hero-actions">
           <a href="https://github.com/kjlintong" class="btn btn-primary" data-od-id="btn-github" data-i18n="btn-github">GitHub</a>
-          <a href="mailto:ltong9463@gmail.com" class="btn btn-text" data-od-id="btn-email" data-i18n="btn-email">给我写信</a>
+          <a href="mailto:ltong9463@gmail.com" class="btn btn-text" data-od-id="btn-email" data-i18n="btn-email">Write to me</a>
         </div>
       </div>
       <div class="avatar-col" data-od-id="avatar">
@@ -437,18 +440,18 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <section id="about" data-od-id="about">
   <div class="wrap">
     <p class="section-label"><span class="num">01</span><span data-i18n="about-label">关于我</span></p>
-    <h2 class="section-heading" data-i18n="about-heading">慢热的人，做快进的事</h2>
+    <h2 class="section-heading" data-i18n="about-heading">A slow person, doing fast things</h2>
     <div class="about-text">
-      <p data-i18n="about-p1">我是 Tong Lin，国防科技大学计算机硕士毕业，现居深圳。白天写代码，晚上练琴下棋。</p>
-      <p data-i18n="about-p2">工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。</p>
+      <p data-i18n="about-p1">I'm Tong Lin, an M.S. graduate in Computer Science from NUDT, based in Shenzhen. Code by day, piano and Go by night.</p>
+      <p data-i18n="about-p2">Outside of work I enjoy swimming, piano, flute, and Go. I have a cat and a dog who are better at enjoying life than I am.</p>
     </div>
     <div class="about-tags">
-      <span class="tag" data-i18n="tag-swim">游泳</span>
-      <span class="tag" data-i18n="tag-piano">钢琴</span>
-      <span class="tag" data-i18n="tag-flute">长笛</span>
-      <span class="tag" data-i18n="tag-go">围棋</span>
-      <span class="tag" data-i18n="tag-plants">绿植</span>
-      <span class="tag" data-i18n="tag-pets">猫狗双全</span>
+      <span class="tag" data-i18n="tag-swim">Swimming</span>
+      <span class="tag" data-i18n="tag-piano">Piano</span>
+      <span class="tag" data-i18n="tag-flute">Flute</span>
+      <span class="tag" data-i18n="tag-go">Go (Weiqi)</span>
+      <span class="tag" data-i18n="tag-plants">Plants</span>
+      <span class="tag" data-i18n="tag-pets">Cat &amp; Dog parent</span>
     </div>
   </div>
 </section>
@@ -458,14 +461,14 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Affiliation -->
 <section data-od-id="affiliation">
   <div class="wrap">
-    <p class="section-label"><span class="num">02</span><span data-i18n="affil-label">开源贡献</span></p>
+    <p class="section-label"><span class="num">02</span><span data-i18n="affil-label">Open Source</span></p>
     <div class="pull-quote">
-      <p class="pull-quote-org">Datawhale<span class="badge" data-i18n="affil-badge">正式成员</span></p>
+      <p class="pull-quote-org">Datawhale<span class="badge" data-i18n="affil-badge">Member</span></p>
       <p class="pull-quote-role">handy-ollama · Contributor</p>
       <p class="pull-quote-text" data-i18n="affil-desc">
-        Datawhale 是中国最大的开源学习组织之一。作为 Contributor，我参与了
-        <strong>handy-ollama</strong> 项目的编写——一套面向中文用户的 Ollama 本地部署教程，
-        帮助上千名开发者搭建自己的 AI 能力。
+        Datawhale is one of China's largest open-source learning organizations. As a Contributor,
+        I helped write <strong>handy-ollama</strong> — an Ollama local-deployment tutorial
+        for Chinese-speaking users that has helped thousands of developers build their own AI stack.
       </p>
     </div>
   </div>
@@ -476,28 +479,28 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Skills -->
 <section data-od-id="skills">
   <div class="wrap">
-    <p class="section-label"><span class="num">03</span><span data-i18n="skills-label">技术能力</span></p>
-    <h2 class="section-heading" data-i18n="skills-heading">擅长的事</h2>
+    <p class="section-label"><span class="num">03</span><span data-i18n="skills-label">Skills</span></p>
+    <h2 class="section-heading" data-i18n="skills-heading">What I do well</h2>
     <div class="skills-grid">
       <div class="skill-cell" data-od-id="skill-card-rag">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="1"/></svg>
         <p class="skill-name">LLM / RAG</p>
-        <p class="skill-desc" data-i18n="skill-rag">Ollama 部署 · LangChain · GraphRAG · 本地知识库</p>
+        <p class="skill-desc" data-i18n="skill-rag">Ollama deployment · LangChain · GraphRAG · Local knowledge bases</p>
       </div>
       <div class="skill-cell" data-od-id="skill-card-python">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         <p class="skill-name">Python</p>
-        <p class="skill-desc" data-i18n="skill-python">数据分析 · Web 后端 · 自动化脚本 · Jupyter</p>
+        <p class="skill-desc" data-i18n="skill-python">Data analysis · Web backends · Automation · Jupyter</p>
       </div>
       <div class="skill-cell" data-od-id="skill-card-frontend">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-        <p class="skill-name" data-i18n="skill-frontend">全栈开发</p>
-        <p class="skill-desc" data-i18n="skill-stack">React · Node.js · Ruby on Rails · 数据库</p>
+        <p class="skill-name" data-i18n="skill-frontend">Full-stack Development</p>
+        <p class="skill-desc" data-i18n="skill-stack">React · Node.js · Ruby on Rails · Databases</p>
       </div>
       <div class="skill-cell" data-od-id="skill-card-devops">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
         <p class="skill-name">DevOps</p>
-        <p class="skill-desc" data-i18n="skill-devops">Docker · CI/CD · Linux · 云服务部署</p>
+        <p class="skill-desc" data-i18n="skill-devops">Docker · CI/CD · Linux · Cloud deployment</p>
       </div>
     </div>
   </div>
@@ -508,12 +511,12 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Projects -->
 <section id="projects" data-od-id="projects">
   <div class="wrap">
-    <p class="section-label"><span class="num">04</span><span data-i18n="proj-label">精选项目</span></p>
-    <h2 class="section-heading" data-i18n="proj-heading">做过的东西</h2>
+    <p class="section-label"><span class="num">04</span><span data-i18n="proj-label">Selected Projects</span></p>
+    <h2 class="section-heading" data-i18n="proj-heading">Things I've built</h2>
     <div class="project-row" data-od-id="project-handy-ollama">
       <div>
         <p class="project-name"><a href="https://github.com/DatawhaleChina/handy-ollama">handy-ollama</a></p>
-        <p class="project-desc" data-i18n="proj-handy">面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Contributor 参与了部分章节的编写。</p>
+        <p class="project-desc" data-i18n="proj-handy">An Ollama local-deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. Contributed to several chapters.</p>
         <div class="project-tags">
           <span class="project-tag">Markdown</span>
           <span class="project-tag">Ollama</span>
@@ -530,24 +533,24 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Blog -->
 <section class="blog-section" data-od-id="blog">
   <div class="wrap">
-    <p class="section-label"><span class="num">05</span><span data-i18n="blog-label">最新文章</span></p>
-    <h2 class="section-heading" data-i18n="blog-heading">写下的东西</h2>
+    <p class="section-label"><span class="num">05</span><span data-i18n="blog-label">Latest Posts</span></p>
+    <h2 class="section-heading" data-i18n="blog-heading">Things I write</h2>
     <div class="blog-list">
-      {% for post in site.posts limit:3 %}
-      <div class="blog-item" data-od-id="post-{{ forloop.index }}">
+      {% for post in site.posts limit:6 %}
+      <div class="blog-item{% if post.lang_pair %} bi{% endif %}" data-od-id="post-{{ forloop.index }}"{% if post.lang_pair %} data-lang="{{ post.lang | default: 'zh' }}"{% endif %}>
         <span class="blog-date">{{ post.date | date: "%Y-%m-%d" }}</span>
         <div>
-          <h3 class="blog-title"><a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h3>
+          <h3 class="blog-title"><a href="{{ post.url | prepend: site.baseurl }}" data-post-url="{{ post.url }}">{% if post.title_en %}<span class="bi" data-lang="zh">{{ post.title }}</span><span class="bi" data-lang="en">{{ post.title_en }}</span>{% elsif post.title_zh %}<span class="bi" data-lang="zh">{{ post.title_zh }}</span><span class="bi" data-lang="en">{{ post.title }}</span>{% else %}{{ post.title }}{% endif %}</a></h3>
           <p class="blog-meta">
-            {% if post.categories %}<span>{{ post.categories | first }}</span>{% endif %}
-            {% if post.tags and post.tags.size > 0 %}<span>#{{ post.tags | first }}</span>{% endif %}
+            {% if post.categories %}<span data-i18n="cat-{{ post.categories | first }}">{{ post.categories | first }}</span>{% endif %}
+            {% if post.tags and post.tags.size > 0 %}<span data-i18n="cat-{{ post.tags | first }}">#{{ post.tags | first }}</span>{% endif %}
           </p>
         </div>
       </div>
       {% endfor %}
     </div>
     <div class="blog-more">
-      <a href="/blog/" class="btn btn-text" data-od-id="btn-blog-all" data-i18n="blog-view-all">查看全部文章 →</a>
+      <a href="/blog/" class="btn btn-text" data-od-id="btn-blog-all" data-i18n="blog-view-all">View all posts →</a>
     </div>
   </div>
 </section>
@@ -557,9 +560,9 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Contact -->
 <section id="contact" class="contact" data-od-id="contact">
   <div class="wrap">
-    <p class="section-label"><span class="num">06</span><span data-i18n="contact-label">联系我</span></p>
-    <h2 class="section-heading" data-i18n="contact-heading">一起聊聊</h2>
-    <p class="contact-desc" data-i18n="contact-desc">无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。</p>
+    <p class="section-label"><span class="num">06</span><span data-i18n="contact-label">Contact</span></p>
+    <h2 class="section-heading" data-i18n="contact-heading">Let's talk</h2>
+    <p class="contact-desc" data-i18n="contact-desc">Whether it's technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.</p>
     <div class="contact-links">
       <a href="https://github.com/kjlintong" class="btn" data-od-id="contact-github">
         <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
@@ -583,7 +586,7 @@ section { padding: 92px 0; position: relative; z-index: 1; }
         <p class="footer-sponsor">
           <a href="https://github.com/sponsors/kjlintong" class="sponsor-link" target="_blank" rel="noopener" data-i18n="sponsor">
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.5S1.5 10.2 1.5 5.9C1.5 3.7 3.2 2 5.4 2c1.1 0 2.1.5 2.6 1.3C8.5 2.5 9.5 2 10.6 2c2.2 0 3.9 1.7 3.9 3.9 0 4.3-6.5 8.6-6.5 8.6z"/></svg>
-            支持我 · Sponsor
+            Support me · Sponsor
           </a>
         </p>
       </div>
@@ -597,7 +600,18 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 </footer>
 
 <script src="{{ site.baseurl }}/js/tonglin-theme.js"></script>
+<script src="{{ site.baseurl }}/js/tonglin-i18n-dict.js"></script>
 <script>
+/* 中英镜像文章链接表：中文原文 URL -> 英文版 URL */
+window.POST_LINKS = {};
+window.POST_LINKS_REV = {};
+{% for post in site.posts %}{% if post.lang == 'en' and post.lang_pair %}
+window.POST_LINKS['{{ post.lang_pair }}'] = '{{ post.url | prepend: site.baseurl }}';
+window.POST_LINKS_REV['{{ post.url | prepend: site.baseurl }}'] = '{{ post.lang_pair }}';
+{% endif %}{% endfor %}
+</script>
+<script>
+if (window.I18N) { /* 合并共享词典(分类/标签显示名等) */ }
 const i18n = {
   zh: {
     'page-title': 'Tong Lin — 个人主页',
@@ -663,6 +677,10 @@ const i18n = {
   }
 };
 (function () {
+  if (window.I18N) {
+    Object.assign(i18n.zh, window.I18N.zh);
+    Object.assign(i18n.en, window.I18N.en);
+  }
   var lang = 'en';
   function getLang() {
     try { var s = localStorage.getItem('pg-lang'); if (s === 'zh' || s === 'en') return s; } catch (e) {}
@@ -670,6 +688,7 @@ const i18n = {
   }
   function apply(key) {
     lang = key;
+    document.documentElement.setAttribute('data-lang', key);
     var d = i18n[key]; if (!d) return;
     var t = document.querySelector('[data-i18n="page-title"]'); if (t) t.textContent = d['page-title'];
     document.documentElement.lang = key === 'zh' ? 'zh-CN' : 'en';
@@ -682,6 +701,27 @@ const i18n = {
     var btns = document.querySelectorAll('.lang-btn');
     for (var j = 0; j < btns.length; j++) btns[j].classList.toggle('active', btns[j].getAttribute('data-lang') === key);
     try { localStorage.setItem('pg-lang', key); } catch (e) {}
+    // 文章链接按语言切到镜像版本
+    var links = (key === 'en' ? (window.POST_LINKS || {}) : (window.POST_LINKS_REV || {}));
+    var pa = document.querySelectorAll('a[data-post-url]');
+    for (var q = 0; q < pa.length; q++) {
+      var u = pa[q].getAttribute('data-post-url');
+      var mapped = links[u];
+      if (mapped && u !== mapped) { pa[q].setAttribute('href', mapped); }
+      else if (!mapped) { pa[q].setAttribute('href', u); }
+    }
+    trimBlog();
+  }
+  /* 博客区只显示当前语言下最新的 3 条(镜像对隐藏后补齐计数) */
+  function trimBlog() {
+    var items = document.querySelectorAll('.blog-item');
+    var shown = 0;
+    for (var i = 0; i < items.length; i++) {
+      var langAttr = items[i].getAttribute('data-lang');
+      var mine = !langAttr || langAttr === lang;
+      if (mine && shown < 3) { items[i].style.display = ''; shown++; }
+      else { items[i].style.display = 'none'; }
+    }
   }
   var btns = document.querySelectorAll('.lang-btn');
   for (var k = 0; k < btns.length; k++) {

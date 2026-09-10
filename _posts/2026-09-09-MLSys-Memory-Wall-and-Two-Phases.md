@@ -1,7 +1,11 @@
 ---
 layout: post
 title: "The Memory Wall & Two Phases: Why 3.2x More FLOPS Buys Only 1.6x Speedup"
+title_zh: "内存墙与两阶段：为什么 3.2 倍算力只换来 1.6 倍加速"
 subtitle: "MLSys·im Learning Notes (Part 2) — from the Memory Wall to the Prefill/Decode dual walls: two bottlenecks inside a single LLM request"
+subtitle_zh: "MLSys·im 学习笔记（二）——从 Memory Wall 到 Prefill/Decode 双墙，一次 LLM 请求里的两套瓶颈"
+lang: en
+lang_pair: /blog/mlsysim-memory-wall/
 description: "Second stage of my MLSys learning: following the MLSysBook mlsysim tutorials 'The Memory Wall' and 'Two Phases, One Request', I verify hands-on why upgrading from A100 to H100 (3.2x compute) yields only ~1.6x speedup for LLM inference, dissect the asymmetry where Prefill (TTFT) hits the compute wall while Decode (ITL) hits the memory wall, and reproduce the counter-intuitive result that int4 makes TTFT bounce back — traced to the engine source: the H100's precision_flops table has no native INT4 compute path."
 date: 2026-09-09
 author: Ryan

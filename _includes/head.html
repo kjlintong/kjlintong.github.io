@@ -8,16 +8,37 @@
     <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
     <meta name="author" content="{{ site.author.name }}">
 
-    <!-- 明暗主题:首屏渲染前应用,避免闪烁;默认明 -->
+    <!-- 明暗主题 + 中英语言:首屏渲染前应用,避免闪烁;默认明 / 英文 -->
     <script>
         (function () {
-            var t;
-            try { t = localStorage.getItem('pg-theme'); } catch (e) {}
+            var t, l;
+            try { t = localStorage.getItem('pg-theme'); l = localStorage.getItem('pg-lang'); } catch (e) {}
             document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-lang', l === 'zh' ? 'zh' : 'en');
         })();
+        /* 页面级词条注册(共享词典 tonglin-i18n-dict.js 加载时统一合并) */
+        window.__i18nExtra = window.__i18nExtra || [];
+        window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
     </script>
     
-    <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
+    <title{% if page.i18n %} data-i18n="title-{{ page.i18n }}"{% endif %}>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
+    <script>
+      /* 中英镜像文章链接表:中文原文 URL -> 英文版 URL */
+      window.POST_LINKS = {};      /* 中文原文 URL -> 英文镜像 URL */
+      window.POST_LINKS_REV = {};  /* 英文镜像 URL -> 中文原文 URL */
+      {% for post in site.posts %}{% if post.lang == 'en' and post.lang_pair %}
+      window.POST_LINKS['{{ post.lang_pair }}'] = '{{ post.url }}';
+      window.POST_LINKS_REV['{{ post.url }}'] = '{{ post.lang_pair }}';
+      {% endif %}{% endfor %}
+    </script>
+    {% if page.title_en or page.title_zh %}
+    <script>
+      window.PAGE_TITLE = {
+        zh: {% if page.title_zh %}{{ page.title_zh | append: " — " | append: site.SEOTitle | jsonify }}{% else %}{{ page.title | append: " — " | append: site.SEOTitle | jsonify }}{% endif %},
+        en: {% if page.title_en %}{{ page.title_en | append: " — " | append: site.SEOTitle | jsonify }}{% else %}{{ page.title | append: " — " | append: site.SEOTitle | jsonify }}{% endif %}
+      };
+    </script>
+    {% endif %}
 
     <!-- ===== Open Graph (Facebook / WeChat / 微信分享) ===== -->
     <meta property="og:site_name" content="{{ site.title }}">
@@ -115,6 +136,9 @@
     <!-- 全站统一风格:明暗双主题 (在 hux-blog.min.css 之后加载) -->
     <link rel="stylesheet" href="{{ "/css/tonglin.css" | prepend: site.baseurl }}">
     <script src="{{ "/js/tonglin-theme.js" | prepend: site.baseurl }}" defer></script>
+    <!-- 全站中英双语(默认英文,记忆键 pg-lang) -->
+    <script src="{{ "/js/tonglin-i18n-dict.js" | prepend: site.baseurl }}" defer></script>
+    <script src="{{ "/js/tonglin-i18n.js" | prepend: site.baseurl }}" defer></script>
 
 
     <!-- Hux Delete, sad but pending in China

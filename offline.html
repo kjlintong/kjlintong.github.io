@@ -1,10 +1,17 @@
 ---
 layout: default
-description: "网络似乎出现了问题 😥"
+i18n: offline
+description: "Something seems wrong with the network 😥"
 header-img: "img/404-bg.jpg"
 permalink: /offline.html
 ---
 
+<script>
+window.__i18nPush({
+  zh: { 'heading-offline': '网络似乎出现了问题 😥', 'title-offline': '离线 - Tong Lin\'s Blog' },
+  en: { 'heading-offline': 'Something seems wrong with the network 😥', 'title-offline': 'Offline - Tong Lin\'s Blog' }
+});
+</script>
 
 <!-- Page Header -->
 <header class="intro-header" style="background-image: url('{{ site.baseurl }}/{% if page.header-img %}{{ page.header-img }}{% else %}{{ site.header-img }}{% endif %}')">
@@ -13,7 +20,7 @@ permalink: /offline.html
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div class="site-heading" id="tag-heading">
 					<h1>Offline</h1>
-					<span class="subheading">{{ page.description }}</span>
+					<span class="subheading" data-i18n="heading-offline">{{ page.description }}</span>
 				</div>
 			</div>
 		</div>

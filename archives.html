@@ -2,12 +2,40 @@
 layout: page
 title: Archives
 permalink: /archives/
-description: "历史文章存档"
+i18n: archives
+description: "Post Archives"
 ---
 
+<script>
+window.__i18nPush({
+  zh: {
+    'archives-desc': '按年份整理的博客文章索引，最新内容请访问 <a href="/blog/">博客首页</a>。',
+    'archives-migrated': '已迁移',
+    'archives-2024-graphrag': '傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录',
+    'archives-2023-optimization': '学习最优化课程中的一些疑惑',
+    'archives-2023-cloud': '文献笔记 A View of Cloud Computing',
+    'archives-2023-distributed': '文献笔记 A Brief Introduction to Distributed Systems'
+  },
+  en: {
+    'archives-desc': 'A year-by-year index of blog posts. For the latest, visit the <a href="/blog/">blog home</a>.',
+    'archives-migrated': 'Migrated',
+    'archives-2024-graphrag': 'A Noob-Friendly Guide: Deploying GraphRAG with Local Ollama (and Every Pitfall I Hit)',
+    'archives-2023-optimization': 'Questions from an Optimization Course: Cartesian Products and Convex Sets',
+    'archives-2023-cloud': 'Reading Notes: A View of Cloud Computing',
+    'archives-2023-distributed': 'Reading Notes: A Brief Introduction to Distributed Systems'
+  }
+});
+window.POST_LINKS = {
+  '/blog/graphrag-ollama-local-deployment-guide/': '/blog/graphrag-ollama-local-deployment-en/',
+  '/blog/optimization-course-notes/': '/blog/optimization-course-notes-en/',
+  '/blog/lit-note-cloud-computing-overview/': '/blog/lit-note-cloud-computing-en/',
+  '/blog/lit-note-distributed-systems-overview/': '/blog/lit-note-distributed-systems-en/'
+};
+</script>
+
 <div class="archive-hero">
-  <h1>历史文章存档</h1>
-  <p>按年份整理的博客文章索引，最新内容请访问 <a href="/blog/">博客首页</a>。</p>
+  <h1 data-i18n="heading-archives">Post Archives</h1>
+  <p data-i18n="archives-desc">A year-by-year index of blog posts. For the latest, visit the <a href="/blog/">blog home</a>.</p>
 </div>
 
 <div class="archive-list">
@@ -16,8 +44,8 @@ description: "历史文章存档"
     <ul class="archive-item-list">
       <li class="archive-item">
         <span class="archive-date">2024-08-28</span>
-        <a href="/blog/graphrag-ollama-local-deployment-guide/">傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
-        <span class="archive-badge migrated">已迁移</span>
+        <a href="/blog/graphrag-ollama-local-deployment-guide/" data-post-url="/blog/graphrag-ollama-local-deployment-guide/" data-i18n="archives-2024-graphrag">傻瓜操作：GraphRAG、Ollama 本地部署及踩坑记录</a>
+        <span class="archive-badge migrated" data-i18n="archives-migrated">Migrated</span>
       </li>
     </ul>
   </section>
@@ -27,18 +55,18 @@ description: "历史文章存档"
     <ul class="archive-item-list">
       <li class="archive-item">
         <span class="archive-date">2023-10-18</span>
-        <a href="/blog/optimization-course-notes/">学习最优化课程中的一些疑惑</a>
-        <span class="archive-badge migrated">已迁移</span>
+        <a href="/blog/optimization-course-notes/" data-post-url="/blog/optimization-course-notes/" data-i18n="archives-2023-optimization">学习最优化课程中的一些疑惑</a>
+        <span class="archive-badge migrated" data-i18n="archives-migrated">Migrated</span>
       </li>
       <li class="archive-item">
         <span class="archive-date">2023-06-24</span>
-        <a href="/blog/lit-note-cloud-computing-overview/">文献笔记 A View of Cloud Computing</a>
-        <span class="archive-badge migrated">已迁移</span>
+        <a href="/blog/lit-note-cloud-computing-overview/" data-post-url="/blog/lit-note-cloud-computing-overview/" data-i18n="archives-2023-cloud">文献笔记 A View of Cloud Computing</a>
+        <span class="archive-badge migrated" data-i18n="archives-migrated">Migrated</span>
       </li>
       <li class="archive-item">
         <span class="archive-date">2023-05-22</span>
-        <a href="/blog/lit-note-distributed-systems-overview/">文献笔记 A Brief Introduction to Distributed Systems</a>
-        <span class="archive-badge migrated">已迁移</span>
+        <a href="/blog/lit-note-distributed-systems-overview/" data-post-url="/blog/lit-note-distributed-systems-overview/" data-i18n="archives-2023-distributed">文献笔记 A Brief Introduction to Distributed Systems</a>
+        <span class="archive-badge migrated" data-i18n="archives-migrated">Migrated</span>
       </li>
     </ul>
   </section>
