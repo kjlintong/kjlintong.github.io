@@ -7,6 +7,15 @@
     <meta name="keywords"  content="{% if page.keywords %}{{ page.keywords }}{% elsif page.tags %}{{ page.tags | join: ', ' }}{% else %}{{ site.keyword }}{% endif %}">
     <meta name="theme-color" content="{{ site.chrome-tab-theme-color }}">
     <meta name="author" content="{{ site.author.name }}">
+
+    <!-- 明暗主题:首屏渲染前应用,避免闪烁;默认明 -->
+    <script>
+        (function () {
+            var t;
+            try { t = localStorage.getItem('pg-theme'); } catch (e) {}
+            document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+        })();
+    </script>
     
     <title>{% if page.title %}{{ page.title }} - {{ site.SEOTitle }}{% else %}{{ site.SEOTitle }}{% endif %}</title>
 
@@ -98,9 +107,14 @@
     <link rel="stylesheet" href="{{ "/css/syntax.css" | prepend: site.baseurl }}">
 
     <!-- Custom Fonts -->
-    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
     <!-- Hux change font-awesome CDN to qiniu -->
     <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- 全站统一风格:明暗双主题 (在 hux-blog.min.css 之后加载) -->
+    <link rel="stylesheet" href="{{ "/css/tonglin.css" | prepend: site.baseurl }}">
+    <script src="{{ "/js/tonglin-theme.js" | prepend: site.baseurl }}" defer></script>
 
 
     <!-- Hux Delete, sad but pending in China

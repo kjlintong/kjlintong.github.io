@@ -93,16 +93,11 @@
                 <p class="copyright text-muted">
                     Copyright &copy; {{ site.title }} {{ site.time | date: '%Y' }}
                     <br>
-                    Theme on <a href="{{ site.github_repo }}">GitHub</a> |
-                    <iframe
-                        style="margin-left: 2px; margin-bottom:-5px;"
-                        frameborder="0" scrolling="0" width="100px" height="20px"
-                        src="https://ghbtns.com/github-btn.html?user={{ site.github_username }}&repo={{ site.github_username }}.github.io&type=star&count=true" >
-                    </iframe>
+                    Theme on <a href="{{ site.github_repo }}">GitHub</a> · <a href="{{ site.github_repo }}/stargazers">Star</a>
                 </p>
                 {% if site.github_sponsors %}
                 <p class="sponsor text-center">
-                    <a href="{{ site.github_sponsors }}" target="_blank" rel="noopener" style="color:#28a745; font-weight:bold;">
+                    <a href="{{ site.github_sponsors }}" target="_blank" rel="noopener">
                         <i class="fa fa-heart" aria-hidden="true"></i> 支持我 · Sponsor
                     </a>
                 </p>
@@ -174,7 +169,7 @@
         async('{{ "/js/jquery.tagcloud.js" | prepend: site.baseurl }}',function(){
             $.fn.tagcloud.defaults = {
                 //size: {start: 1, end: 1, unit: 'em'},
-                color: {start: '#bbbbee', end: '#0085a1'},
+                color: {start: '#c4a79f', end: '#d6bdb5'},
             };
             $('#tag_cloud a').tagcloud();
         })

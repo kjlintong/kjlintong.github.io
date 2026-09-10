@@ -46,7 +46,7 @@ github_sponsors: "https://github.com/sponsors/kjlintong"
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 # permalink 用 /blog/:title —— 语义化、稳定、与分类解耦（避免中文分类名编码进 URL 破坏已收录链接）
 permalink: /blog/:title/
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","_site"]
+exclude: ["less","node_modules","Gruntfile.js","package.json","README.md","_site","docs"]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 # Plugins（GitHub Pages 白名单内，自动生成 sitemap）
@@ -76,20 +76,6 @@ kramdown:
 # Disqus（https://disqus.com/）
 # disqus_username: qiubaiying
 
-# Giscus（基于 GitHub Discussions，无需后端、无广告、支持 GitHub 登录）
-# 配置方法：在 https://giscus.app 填写仓库后获取 repo-id 和 category-id
-giscus:
-  enable: true    #是否开启 Giscus 评论
-  repo: "kjlintong/kjlintong.github.io"    # 仓库名称（owner/repo）
-  repo_id: "R_kgDOJivArA"                  # 从 giscus.app 获取
-  category: "Announcements"                # 用于讨论的分类名
-  category_id: "DIC_kwDOJivArM4DEsa7"      # 从 giscus.app 获取
-  mapping: "pathname"                      # 按页面路径映射讨论
-  lang: "zh-CN"                            # 语言
-  reactions_enabled: "1"                   # 开启表情回应
-  emit_metadata: "0"
-  input_position: "bottom"                 # 评论输入框位置
-
 # 统计
 # Google Analytics 4（GA4）
 ga4_track_id: "G-QPRHJYBXNG"
@@ -110,7 +96,7 @@ featured-condition-size: 1              # 相同标签数量大于这个数，�
 
 
 # Progressive Web Apps
-chrome-tab-theme-color: "#000000"
+chrome-tab-theme-color: "#f0e6d7"
 service-worker: true
 
 

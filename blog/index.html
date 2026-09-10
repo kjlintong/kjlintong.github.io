@@ -6,10 +6,9 @@ header-img: "img/post-bg-desk.jpg"
 ---
 
 <!-- 搜索框 -->
-<div class="search-box" style="margin-bottom: 30px;">
-    <input type="text" id="search-input" placeholder="🔍 搜索文章标题 / 内容 / 标签…（输入后即时模糊搜索）"
-           style="width:100%; padding:12px 16px; border:1px solid #eee; border-radius:6px; font-size:15px; outline:none;">
-    <div id="search-results" style="margin-top:10px;"></div>
+<div class="search-box">
+    <input type="text" id="search-input" placeholder="🔍 搜索文章标题 / 内容 / 标签…（输入后即时模糊搜索）">
+    <div id="search-results" class="search-results"></div>
 </div>
 
 <!-- 文章列表 -->
@@ -72,15 +71,15 @@ header-img: "img/post-bg-desk.jpg"
         if (!q || !fuse) { results.innerHTML = ''; return; }
         var hits = fuse.search(q).slice(0, 10);
         if (!hits.length) {
-            results.innerHTML = '<p style="color:#999;">没有找到匹配的文章。</p>';
+            results.innerHTML = '<p class="search-empty">没有找到匹配的文章。</p>';
             return;
         }
         var html = hits.map(function(h) {
             var p = h.item;
-            return '<div style="padding:10px 0;border-bottom:1px solid #f0f0f0;">' +
-                '<a href="' + p.url + '" style="font-size:16px;font-weight:600;">' + p.title + '</a>' +
-                '<span style="color:#aaa;font-size:13px;margin-left:10px;">' + (p.date || '') + '</span>' +
-                '<p style="color:#888;font-size:13px;margin:4px 0 0;">' + (p.excerpt || '') + '</p></div>';
+            return '<div class="search-result">' +
+                '<a href="' + p.url + '">' + p.title + '</a>' +
+                '<span class="meta">' + (p.date || '') + '</span>' +
+                '<p>' + (p.excerpt || '') + '</p></div>';
         }).join('');
         results.innerHTML = html;
     });

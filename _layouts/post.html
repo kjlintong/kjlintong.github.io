@@ -82,33 +82,11 @@ layout: default
                 </ul>
 
 
-                <!--Giscus评论 start  -->
-                {% if site.giscus.enable %}
-                <div id="giscus-container" class="comment">
-                    <script src="https://giscus.app/client.js"
-                        data-repo="{{ site.giscus.repo }}"
-                        data-repo-id="{{ site.giscus.repo_id }}"
-                        data-category="{{ site.giscus.category }}"
-                        data-category-id="{{ site.giscus.category_id }}"
-                        data-mapping="{{ site.giscus.mapping }}"
-                        data-strict="0"
-                        data-reactions-enabled="{{ site.giscus.reactions_enabled }}"
-                        data-emit-metadata="{{ site.giscus.emit_metadata }}"
-                        data-input-position="{{ site.giscus.input_position }}"
-                        data-theme="preferred_color_scheme"
-                        data-lang="{{ site.giscus.lang }}"
-                        crossorigin="anonymous"
-                        async>
-                    </script>
-                </div>
-                {% endif %}
-                <!-- Giscus end -->
-
                 <!-- Sponsor 打赏 -->
                 {% if site.github_sponsors %}
                 <div class="sponsor-box text-center" style="margin:40px auto; text-align:center;">
-                    <p style="color:#888; margin-bottom:12px;">如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕</p>
-                    <a class="btn btn-primary" style="background:#28a745;border-color:#28a745;color:#fff;" href="{{ site.github_sponsors }}" target="_blank" rel="noopener">
+                    <p style="margin-bottom:12px;">如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕</p>
+                    <a class="btn-sponsor" href="{{ site.github_sponsors }}" target="_blank" rel="noopener">
                         <i class="fa fa-heart" aria-hidden="true"></i> 在 GitHub 上支持我
                     </a>
                 </div>
