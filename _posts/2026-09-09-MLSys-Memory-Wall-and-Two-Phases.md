@@ -31,7 +31,7 @@ Yesterday's roofline told us a workload hits whichever ceiling comes first. Toda
 
 The tutorial gives a punchy table:
 
-| Regime | Binding constraint | Speedup scales with |
+| Regime | Binding constraint | Speedup |
 |--------|-------------------|---------------------|
 | Memory-Bound | HBM bandwidth (TB/s) | Bandwidth ratio between GPUs |
 | Compute-Bound | Peak FLOP/s | FLOP/s ratio between GPUs |
@@ -44,7 +44,7 @@ Now look at the A100 → H100 specs:
 | HBM bandwidth | 2.04 TB/s | 3.35 TB/s | **1.7x** |
 | Ridge point (FLOP/byte) | 153.0 | 295.2 | — |
 
-Compute grew 3.2x, bandwidth only 1.7x. The conclusion is almost free: **if your workload is memory-bound, the speedup ceiling when moving to an H100 is 1.7x — the extra 1.5x of compute is entirely wasted.**
+Compute grew 3.2x, bandwidth only 1.7x. It is easy to conclude: **if your workload is memory-bound, the speedup ceiling when moving to an H100 is 1.7x — the extra 1.5x of compute is entirely wasted.**
 
 Verify with Llama-3-8B at batch size 1 (FP16 weights = 8B params × 2 bytes = 16 GB):
 
@@ -91,7 +91,7 @@ Three findings:
 
 1. **No crossover anywhere.** This contrasts sharply with yesterday's ResNet-50, which flipped to Compute at batch=2. The reason: LLM decoding is autoregressive — every token must stream the entire weight set from HBM, so the arithmetic intensity is pinned at the **1 FLOP/byte scale** (8B model: 2P FLOPs and 2P bytes per token), two orders of magnitude below the A100's 153 and the H100's 295. **The decode ridge-point crossover does not exist in any practical batch range** — to feed the compute by growing the batch, you would run out of memory first.
 2. **Speedup is pinned at 1.6x.** Both GPUs are memory-bound the whole way; the contest is the bandwidth ratio, 3.35/2.04 ≈ 1.64. This is Section 1's conclusion, live on the bench.
-3. **Throughput does not grow linearly; it decays into a plateau.** From batch 1 to 8192, throughput only went 111 → 1268 (~11x) while the batch grew 8192x. This raised the first question I asked the AI tutor today — detailed in Section 5, Q1.
+3. **Throughput does not grow linearly; it plateaus.** From batch 1 to 8192, throughput only went 111 → 1268 (~11x) while the batch grew 8192x. This raised my first question of the day — detailed in Section 5, Q1.
 
 ---
 
@@ -101,7 +101,7 @@ The Memory Wall answers "does upgrading help?"; Two Phases answers **"why does t
 
 LLM generation is autoregressive, so one request naturally splits into two phases:
 
-- **Prefill**: the entire prompt (say 2048 tokens) goes through one parallel forward pass to produce the first token. All tokens compute simultaneously, saturating the GPU's compute units — **it hits the compute wall**. Its latency is TTFT (Time To First Token).
+- **Prefill**: the entire prompt (say 2048 tokens) goes through one parallel forward pass to produce the first token. All input tokens compute simultaneously, saturating the GPU's compute units — **it hits the compute wall**. Its latency is TTFT (Time To First Token).
 - **Decode**: every subsequent token runs a full forward pass but processes only one new token, while streaming the entire weight set (8B params = 16 GB) from HBM — **it hits the memory wall**. Its latency is ITL (Inter-Token Latency).
 
 The tutorial's key line: prefill's arithmetic intensity is ~**2048 FLOP/byte** (2048 tokens in parallel, weights reused 2048 times), far above the H100's ridge of 295; decode's is ~**1 FLOP/byte**, far below. **The same weights, loaded the same way, two completely different operating regimes.**
@@ -169,15 +169,13 @@ My 70B reproduction (weights 141.2 → 70.6 → 35.3 GB):
 Two crisp patterns:
 
 1. **Decode side: halve the weight bytes, halve the ITL.** 5.19 → 2.76 → 1.54; 43.15 → 21.97 → 11.39. Decode is "stream all weights per token," so byte count is the whole game.
-2. **Prefill side: a counter-intuitive "inverted V."** At int8, TTFT halves (70.97 → 35.47, 607 → 303.4) — quantization seems to help prefill too; but **at int4, TTFT "bounces back" to the fp16 level**. That looks like it violates the intuition that smaller weights should be faster, yet it turned out to be the most technically interesting question of the day (my fifth question to the tutor; root cause in Section 5, Q5).
+2. **Prefill side: a counter-intuitive "inverted V."** At int8, TTFT halves (70.97 → 35.47, 607 → 303.4) — quantization seems to help prefill too; but **at int4, TTFT "bounces back" to the fp16 level**. That looks like it violates the intuition that smaller weights should be faster, yet it turned out to be the most technically interesting question of the day (my fifth question; root cause in Section 5, Q5).
 
 One-sentence summary: **quantization mainly saves decode; prefill sits on the compute wall, and smaller weights don't compute faster unless the hardware actually has a matching low-precision compute path.**
 
 ---
 
 ## 5. Questions from My Learning Process
-
-Same loop as before: task + tutorial + experiments + cross-examining an AI tutor. Six questions, in chronological order:
 
 **Q1: If everything is Memory-Bound, why doesn't throughput grow linearly — why does the growth keep slowing down?**
 
