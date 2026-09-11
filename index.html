@@ -10,7 +10,7 @@ layout: null
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-i18n="page-title">Tong Lin — Personal Website</title>
 <meta name="description" content="Tong Lin's personal website — LLM Agent Engineer, focused on local LLM deployment, RAG applications, and open source.">
-<meta name="keywords" content="Tong Lin, LT Blog, Personal Website, Local LLM, RAG, Ollama, Full-stack Development">
+<meta name="keywords" content="Tong Lin, LT Blog, Personal Website, Local LLM, RAG, Ollama, LLM Agent, Knowledge Graph">
 <meta name="author" content="Tong Lin">
 <meta name="theme-color" content="#f0e6d7">
 <!-- 明暗主题 + 中英语言：首屏渲染前应用，避免闪烁；默认明 / 英文 -->
@@ -28,13 +28,13 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 <meta property="og:site_name" content="Tong Lin — Personal Website">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Tong Lin — Personal Website">
-<meta property="og:description" content="LLM Agent Engineer · amateur musician & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.">
+<meta property="og:description" content="LLM Agent Engineer · amateur flute & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and knowledge graphs.">
 <meta property="og:url" content="https://kjlintong.github.io/">
 <meta property="og:image" content="https://kjlintong.github.io/img/profile.jpg">
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Tong Lin — 个人主页 / Personal Website">
-<meta name="twitter:description" content="LLM Agent Engineer · amateur musician & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.">
+<meta name="twitter:description" content="LLM Agent Engineer · amateur flute & Go player. Focused on local LLM deployment, LLM agents, RAG applications, and knowledge graphs.">
 <meta name="twitter:image" content="https://kjlintong.github.io/img/profile.jpg">
 <!-- JSON-LD 结构化数据 -->
 <script type="application/ld+json">
@@ -325,6 +325,8 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 .contact { text-align: center; }
 .contact .section-label { justify-content: center; }
 .contact .section-heading { margin-left: auto; margin-right: auto; }
+.contact .about-text { text-align: left; max-width: 60ch; margin: 0 auto 28px; }
+.contact .about-tags { justify-content: center; margin-bottom: 34px; }
 .contact-desc { font-size: 15.5px; color: var(--muted); line-height: 1.85; max-width: 48ch; margin: 0 auto 34px; }
 .contact-links { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .contact-links .btn { background: transparent; border: 1px solid var(--line); color: var(--fg); }
@@ -380,10 +382,9 @@ section { padding: 92px 0; position: relative; z-index: 1; }
   <div class="nav-inner">
     <span class="nav-brand">Tong Lin</span>
     <ul class="nav-links">
-      <li><a href="#about" data-i18n="nav-about">About</a></li>
       <li><a href="#projects" data-i18n="nav-projects">Projects</a></li>
       <li><a href="/blog/" data-i18n="nav-blog">Blog</a></li>
-      <li><a href="#contact" data-i18n="nav-contact">Contact</a></li>
+      <li><a href="#about" data-i18n="nav-about">About</a></li>
     </ul>
     <div class="nav-right">
       <button type="button" class="theme-toggle" aria-label="Switch to dark mode">
@@ -401,13 +402,13 @@ section { padding: 92px 0; position: relative; z-index: 1; }
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="hero-kicker" data-i18n="hero-kicker">Hello World · Personal Site</p>
+        <p class="hero-kicker" data-i18n="hero-kicker">Hello World</p>
         <h1 class="hero-name">Tong&nbsp;Lin</h1>
-        <p class="hero-subtitle" data-i18n="hero-subtitle">LLM Agent Engineer · Amateur Musician &amp; Go Player</p>
+        <p class="hero-subtitle" data-i18n="hero-subtitle">LLM Agent Engineer · Amateur Flute &amp; Go Player</p>
         <p class="hero-description" data-i18n="hero-description">
           M.S. in Computer Science, National University of Defense Technology. Based in Shenzhen.<br>
           Formal member of Datawhale, open-source contributor.<br>
-          Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.
+          Focused on local LLM deployment, LLM agents, RAG applications, and knowledge graphs.
         </p>
         <div class="hero-meta">
           <span><span class="dot"></span><span data-i18n="hero-location">Shenzhen, China</span></span>
@@ -421,7 +422,7 @@ section { padding: 92px 0; position: relative; z-index: 1; }
       <div class="avatar-col" data-od-id="avatar">
         <figure class="avatar-frame">
           <img class="avatar-img" src="{{ site.baseurl }}/img/profile.jpg" alt="Tong Lin" width="300" height="345">
-          <figcaption class="avatar-caption" data-i18n="avatar-caption">Tong Lin · 深圳</figcaption>
+          <figcaption class="avatar-caption" data-i18n="avatar-caption">Tong Lin</figcaption>
         </figure>
         <div class="hero-shapes" aria-hidden="true">
           <span class="hs hs-ring"></span>
@@ -436,71 +437,51 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 
 <hr class="hairline">
 
-<!-- About -->
-<section id="about" data-od-id="about">
+<!-- Open Source & Projects -->
+<section id="projects" data-od-id="projects">
   <div class="wrap">
-    <p class="section-label"><span class="num">01</span><span data-i18n="about-label">关于我</span></p>
-    <h2 class="section-heading" data-i18n="about-heading">A slow person, doing fast things</h2>
-    <div class="about-text">
-      <p data-i18n="about-p1">I'm Tong Lin, an M.S. graduate in Computer Science from NUDT, based in Shenzhen. Code by day, piano and Go by night.</p>
-      <p data-i18n="about-p2">Outside of work I enjoy swimming, piano, flute, and Go. I have a cat and a dog who are better at enjoying life than I am.</p>
+    <p class="section-label"><span class="num">01</span><span data-i18n="proj-label">Open Source & Projects</span></p>
+    <h2 class="section-heading" data-i18n="proj-heading">Things I've built &amp; contributed to</h2>
+    <div class="project-row" data-od-id="project-handy-ollama">
+      <div>
+        <p class="project-name"><a href="https://github.com/DatawhaleChina/handy-ollama">handy-ollama</a></p>
+        <p class="project-desc" data-i18n="proj-handy">An Ollama local-deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. As a Datawhale member, I contributed to several chapters.</p>
+        <div class="project-tags">
+          <span class="project-tag">Ollama</span>
+          <span class="project-tag">Datawhale</span>
+          <span class="project-tag">Contributor</span>
+        </div>
+      </div>
+      <div class="project-stat" data-i18n="proj-stat">2k+<small>GitHub Stars</small></div>
     </div>
-    <div class="about-tags">
-      <span class="tag" data-i18n="tag-swim">Swimming</span>
-      <span class="tag" data-i18n="tag-piano">Piano</span>
-      <span class="tag" data-i18n="tag-flute">Flute</span>
-      <span class="tag" data-i18n="tag-go">Go (Weiqi)</span>
-      <span class="tag" data-i18n="tag-plants">Plants</span>
-      <span class="tag" data-i18n="tag-pets">Cat &amp; Dog parent</span>
-    </div>
-  </div>
-</section>
-
-<hr class="hairline">
-
-<!-- Affiliation -->
-<section data-od-id="affiliation">
-  <div class="wrap">
-    <p class="section-label"><span class="num">02</span><span data-i18n="affil-label">Open Source</span></p>
-    <div class="pull-quote">
-      <p class="pull-quote-org">Datawhale<span class="badge" data-i18n="affil-badge">Member</span></p>
-      <p class="pull-quote-role">handy-ollama · Contributor</p>
-      <p class="pull-quote-text" data-i18n="affil-desc">
-        Datawhale is one of China's largest open-source learning organizations. As a Contributor,
-        I helped write <strong>handy-ollama</strong> — an Ollama local-deployment tutorial
-        for Chinese-speaking users that has helped thousands of developers build their own AI stack.
-      </p>
-    </div>
-  </div>
-</section>
 
 <hr class="hairline">
 
 <!-- Skills -->
 <section data-od-id="skills">
   <div class="wrap">
-    <p class="section-label"><span class="num">03</span><span data-i18n="skills-label">Skills</span></p>
+    <p class="section-label"><span class="num">02</span><span data-i18n="skills-label">Skills</span></p>
     <h2 class="section-heading" data-i18n="skills-heading">What I do well</h2>
     <div class="skills-grid">
       <div class="skill-cell" data-od-id="skill-card-rag">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="1"/></svg>
         <p class="skill-name">LLM / RAG</p>
-        <p class="skill-desc" data-i18n="skill-rag">Ollama deployment · LangChain · GraphRAG · Local knowledge bases</p>
+        <p class="skill-desc" data-i18n="skill-rag">Ollama deployment · RAG applications · Vector search · Local knowledge bases</p>
+      </div>
+      <div class="skill-cell" data-od-id="skill-card-agent">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
+        <p class="skill-name">LLM Agent</p>
+        <p class="skill-desc" data-i18n="skill-agent">Agent development · Function calling · Tool use · Workflow orchestration</p>
+      </div>
+      <div class="skill-cell" data-od-id="skill-card-graph">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6.7 6.4l10.6 0.2"/><path d="M6.3 6.9l4.6 10.3"/><path d="M17.4 7.7l-4.3 9.4"/></svg>
+        <p class="skill-name">Knowledge Graph</p>
+        <p class="skill-desc" data-i18n="skill-graph">GraphRAG · Knowledge graph construction · Graph databases</p>
       </div>
       <div class="skill-cell" data-od-id="skill-card-python">
         <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
         <p class="skill-name">Python</p>
         <p class="skill-desc" data-i18n="skill-python">Data analysis · Web backends · Automation · Jupyter</p>
-      </div>
-      <div class="skill-cell" data-od-id="skill-card-frontend">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></svg>
-        <p class="skill-name" data-i18n="skill-frontend">Full-stack Development</p>
-        <p class="skill-desc" data-i18n="skill-stack">React · Node.js · Ruby on Rails · Databases</p>
-      </div>
-      <div class="skill-cell" data-od-id="skill-card-devops">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
-        <p class="skill-name">DevOps</p>
-        <p class="skill-desc" data-i18n="skill-devops">Docker · CI/CD · Linux · Cloud deployment</p>
       </div>
     </div>
   </div>
@@ -508,22 +489,17 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 
 <hr class="hairline">
 
-<!-- Projects -->
-<section id="projects" data-od-id="projects">
-  <div class="wrap">
-    <p class="section-label"><span class="num">04</span><span data-i18n="proj-label">Selected Projects</span></p>
-    <h2 class="section-heading" data-i18n="proj-heading">Things I've built</h2>
-    <div class="project-row" data-od-id="project-handy-ollama">
+    <div class="project-row" data-od-id="project-graphrag">
       <div>
-        <p class="project-name"><a href="https://github.com/DatawhaleChina/handy-ollama">handy-ollama</a></p>
-        <p class="project-desc" data-i18n="proj-handy">An Ollama local-deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. Contributed to several chapters.</p>
+        <p class="project-name"><a href="https://github.com/kjlintong/graphrag-local-ollama">graphrag-local-ollama</a></p>
+        <p class="project-desc" data-i18n="proj-graph">Microsoft GraphRAG with local Ollama models — fully offline intelligence analysis over your own documents.</p>
         <div class="project-tags">
-          <span class="project-tag">Markdown</span>
+          <span class="project-tag">GraphRAG</span>
           <span class="project-tag">Ollama</span>
-          <span class="project-tag">Datawhale</span>
+          <span class="project-tag">Knowledge Graph</span>
         </div>
       </div>
-      <div class="project-stat" data-i18n="proj-stat">2k+<small>GitHub Stars</small></div>
+      <div class="project-stat" data-i18n="proj-stat-own">Personal<small>Project</small></div>
     </div>
   </div>
 </section>
@@ -533,7 +509,7 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 <!-- Blog -->
 <section class="blog-section" data-od-id="blog">
   <div class="wrap">
-    <p class="section-label"><span class="num">05</span><span data-i18n="blog-label">Latest Posts</span></p>
+    <p class="section-label"><span class="num">03</span><span data-i18n="blog-label">Latest Posts</span></p>
     <h2 class="section-heading" data-i18n="blog-heading">Things I write</h2>
     <div class="blog-list">
       {% for post in site.posts limit:6 %}
@@ -557,11 +533,23 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 
 <hr class="hairline">
 
-<!-- Contact -->
-<section id="contact" class="contact" data-od-id="contact">
+<!-- About & Contact -->
+<section id="about" class="contact" data-od-id="about">
   <div class="wrap">
-    <p class="section-label"><span class="num">06</span><span data-i18n="contact-label">Contact</span></p>
-    <h2 class="section-heading" data-i18n="contact-heading">Let's talk</h2>
+    <p class="section-label"><span class="num">04</span><span data-i18n="about-label">About &amp; Contact</span></p>
+    <h2 class="section-heading" data-i18n="about-heading">A slow person, doing fast things</h2>
+    <div class="about-text">
+      <p data-i18n="about-p1">Daytime I build LLM agents, RAG pipelines, and knowledge graphs. Evenings are for flute, Go, and taking the dog for a walk.</p>
+      <p data-i18n="about-p2">I have a cat and a dog who are better at enjoying life than I am — I'm still learning from them.</p>
+    </div>
+    <div class="about-tags">
+      <span class="tag" data-i18n="tag-swim">Swimming</span>
+      <span class="tag" data-i18n="tag-piano">Piano</span>
+      <span class="tag" data-i18n="tag-flute">Flute</span>
+      <span class="tag" data-i18n="tag-go">Go (Weiqi)</span>
+      <span class="tag" data-i18n="tag-plants">Plants</span>
+      <span class="tag" data-i18n="tag-pets">Cat &amp; Dog parent</span>
+    </div>
     <p class="contact-desc" data-i18n="contact-desc">Whether it's technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.</p>
     <div class="contact-links">
       <a href="https://github.com/kjlintong" class="btn" data-od-id="contact-github">
@@ -592,7 +580,7 @@ section { padding: 92px 0; position: relative; z-index: 1; }
       </div>
       <p class="footer-coords">
         <span class="rose">Shenzhen</span> · 22.54°N 114.06°E<br>
-        LLM / RAG / Full-stack<br>
+        LLM / RAG / Agent / Knowledge Graph<br>
         Datawhale Member
       </p>
     </div>
@@ -615,63 +603,61 @@ if (window.I18N) { /* 合并共享词典(分类/标签显示名等) */ }
 const i18n = {
   zh: {
     'page-title': 'Tong Lin — 个人主页',
-    'nav-about': '关于', 'nav-projects': '项目', 'nav-blog': '博客', 'nav-contact': '联系',
-    'hero-kicker': 'Hello World · 个人主页',
-    'hero-subtitle': '大模型 Agent 工程师 · 业余音乐和围棋玩家',
-    'hero-description': '国防科技大学计算机硕士毕业，现居深圳。<br>Datawhale 正式成员，开源社区 Contributor。<br>专注大模型部署、LLM Agent、RAG 应用与全栈开发。',
+    'nav-about': '关于', 'nav-projects': '项目', 'nav-blog': '博客',
+    'hero-kicker': 'Hello World',
+    'hero-subtitle': '大模型 Agent 工程师 · 业余长笛和围棋玩家',
+    'hero-description': '国防科技大学计算机硕士毕业，现居深圳。<br>Datawhale 正式成员，开源社区 Contributor。<br>专注本地大模型部署、LLM Agent、RAG 应用与知识图谱。',
     'hero-location': '深圳，中国',
     'hero-role': 'LLM Agent Engineer',
     'btn-github': 'GitHub', 'btn-email': '给我写信',
-    'avatar-caption': 'Tong Lin · 深圳',
-    'about-label': '关于我',
+    'avatar-caption': 'Tong Lin',
+    'about-label': '关于与联系',
     'about-heading': '慢热的人，做快进的事',
-    'about-p1': '我是 Tong Lin，国防科技大学计算机硕士毕业，现居深圳。白天写代码，晚上练琴下棋。',
-    'about-p2': '工作之外喜欢游泳、弹钢琴、吹长笛、下围棋。也养了一猫一狗，它们比我更会享受当下。',
+    'about-p1': '白天，我写 Agent、搭 RAG 管线、做知识图谱；晚上，吹长笛、下围棋、遛狗。',
+    'about-p2': '家里有一猫一狗，它们比我更会享受当下——我还在向它们学习。',
     'tag-swim': '游泳', 'tag-piano': '钢琴', 'tag-flute': '长笛', 'tag-go': '围棋', 'tag-plants': '绿植', 'tag-pets': '猫狗双全',
-    'affil-label': '开源贡献', 'affil-badge': '正式成员',
-    'affil-desc': 'Datawhale 是中国最大的开源学习组织之一。作为 Contributor，我参与了<strong>handy-ollama</strong> 项目的编写——一套面向中文用户的 Ollama 本地部署教程，帮助上千名开发者搭建自己的 AI 能力。',
     'skills-label': '技术能力', 'skills-heading': '擅长的事',
-    'skill-rag': 'Ollama 部署 · LangChain · GraphRAG · 本地知识库',
+    'skill-rag': 'Ollama 部署 · RAG 应用 · 向量检索 · 本地知识库',
+    'skill-agent': 'Agent 开发 · Function Calling · 工具调用 · 工作流编排',
+    'skill-graph': 'GraphRAG · 知识图谱构建 · 图数据库',
     'skill-python': '数据分析 · Web 后端 · 自动化脚本 · Jupyter',
-    'skill-frontend': '全栈开发', 'skill-stack': 'React · Node.js · Ruby on Rails · 数据库',
-    'skill-devops': 'Docker · CI/CD · Linux · 云服务部署',
-    'proj-label': '精选项目', 'proj-heading': '做过的东西',
-    'proj-handy': '面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Contributor 参与了部分章节的编写。',
+    'proj-label': '开源与项目', 'proj-heading': '做过与贡献过的开源项目',
+    'proj-handy': '面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Datawhale 正式成员、Contributor，参与了部分章节的编写。',
     'proj-stat': '2k+<small>GitHub Stars</small>',
+    'proj-graph': '将 Microsoft GraphRAG 与本地 Ollama 模型结合，对自己的文档做完全离线的智能分析。',
+    'proj-stat-own': '个人<small>项目</small>',
     'blog-label': '最新文章', 'blog-heading': '写下的东西', 'blog-view-all': '查看全部文章 →',
-    'contact-label': '联系我', 'contact-heading': '一起聊聊',
     'contact-desc': '无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
     'sponsor': '支持我 · Sponsor'
   },
   en: {
     'page-title': 'Tong Lin — Personal Website',
-    'nav-about': 'About', 'nav-projects': 'Projects', 'nav-blog': 'Blog', 'nav-contact': 'Contact',
-    'hero-kicker': 'Hello World · Personal Site',
-    'hero-subtitle': 'LLM Agent Engineer · Amateur Musician & Go Player',
-    'hero-description': 'M.S. in Computer Science, National University of Defense Technology.<br>Based in Shenzhen. Formal member of Datawhale, open-source contributor.<br>Focused on local LLM deployment, LLM agents, RAG applications, and full-stack development.',
+    'nav-about': 'About', 'nav-projects': 'Projects', 'nav-blog': 'Blog',
+    'hero-kicker': 'Hello World',
+    'hero-subtitle': 'LLM Agent Engineer · Amateur Flute & Go Player',
+    'hero-description': 'M.S. in Computer Science, National University of Defense Technology.<br>Based in Shenzhen. Formal member of Datawhale, open-source contributor.<br>Focused on local LLM deployment, LLM agents, RAG applications, and knowledge graphs.',
     'hero-location': 'Shenzhen, China',
     'hero-role': 'LLM Agent Engineer',
     'btn-github': 'GitHub', 'btn-email': 'Write to me',
-    'avatar-caption': 'Tong Lin · Shenzhen',
-    'about-label': 'About',
+    'avatar-caption': 'Tong Lin',
+    'about-label': 'About & Contact',
     'about-heading': 'A slow person, doing fast things',
-    'about-p1': "I'm Tong Lin, an M.S. graduate in Computer Science from NUDT, based in Shenzhen. Code by day, piano and Go by night.",
-    'about-p2': 'Outside of work, I enjoy swimming, piano, flute, and Go. I have a cat and a dog who are better at enjoying life than I am.',
+    'about-p1': 'Daytime I build LLM agents, RAG pipelines, and knowledge graphs. Evenings are for flute, Go, and taking the dog for a walk.',
+    'about-p2': 'I have a cat and a dog who are better at enjoying life than I am — I\'m still learning from them.',
     'tag-swim': 'Swimming', 'tag-piano': 'Piano', 'tag-flute': 'Flute', 'tag-go': 'Go (Weiqi)', 'tag-plants': 'Plants', 'tag-pets': 'Cat & Dog parent',
-    'affil-label': 'Open Source Contributions', 'affil-badge': 'Member',
-    'affil-desc': 'Datawhale is one of China\'s largest open-source learning organizations. As a Contributor, I helped write parts of <strong>handy-ollama</strong>, a tutorial series that has helped thousands of developers deploy LLMs locally.',
     'skills-label': 'Skills', 'skills-heading': 'What I do well',
-    'skill-rag': 'Ollama deployment · LangChain · GraphRAG · Local knowledge bases',
+    'skill-rag': 'Ollama deployment · RAG applications · Vector search · Local knowledge bases',
+    'skill-agent': 'Agent development · Function calling · Tool use · Workflow orchestration',
+    'skill-graph': 'GraphRAG · Knowledge graph construction · Graph databases',
     'skill-python': 'Data analysis · Web backends · Automation · Jupyter',
-    'skill-frontend': 'Full-stack Development', 'skill-stack': 'React · Node.js · Ruby on Rails · Databases',
-    'skill-devops': 'Docker · CI/CD · Linux · Cloud deployment',
-    'proj-label': 'Selected Projects', 'proj-heading': "Things I've built",
-    'proj-handy': 'An Ollama local deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. Contributed to several chapters.',
+    'proj-label': 'Open Source & Projects', 'proj-heading': 'Things I\'ve built & contributed to',
+    'proj-handy': 'An Ollama local deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. As a Datawhale member, I contributed to several chapters.',
     'proj-stat': '2k+<small>GitHub Stars</small>',
+    'proj-graph': 'Microsoft GraphRAG with local Ollama models — fully offline intelligence analysis over your own documents.',
+    'proj-stat-own': 'Personal<small>Project</small>',
     'blog-label': 'Latest Posts', 'blog-heading': 'Things I write', 'blog-view-all': 'View all posts →',
-    'contact-label': 'Contact', 'contact-heading': "Let's talk",
-    'contact-desc': "Whether it's technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.",
+    'contact-desc': 'Whether it\'s technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
     'sponsor': 'Support me · Sponsor'
   }
