@@ -437,11 +437,43 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 
 <hr class="hairline">
 
+<!-- Skills -->
+<section data-od-id="skills">
+  <div class="wrap">
+    <p class="section-label"><span class="num">01</span><span data-i18n="skills-label">Skills</span></p>
+    <h2 class="section-heading" data-i18n="skills-heading">What I do well</h2>
+    <div class="skills-grid">
+      <div class="skill-cell" data-od-id="skill-card-rag">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="1"/></svg>
+        <p class="skill-name">LLM / RAG</p>
+        <p class="skill-desc" data-i18n="skill-rag">Ollama deployment · RAG applications · Vector search · Local knowledge bases</p>
+      </div>
+      <div class="skill-cell" data-od-id="skill-card-agent">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
+        <p class="skill-name">LLM Agent</p>
+        <p class="skill-desc" data-i18n="skill-agent">Agent development · Function calling · Tool use · Workflow orchestration</p>
+      </div>
+      <div class="skill-cell" data-od-id="skill-card-graph">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6.7 6.4l10.6 0.2"/><path d="M6.3 6.9l4.6 10.3"/><path d="M17.4 7.7l-4.3 9.4"/></svg>
+        <p class="skill-name">Knowledge Graph</p>
+        <p class="skill-desc" data-i18n="skill-graph">GraphRAG · Knowledge graph construction · Graph databases</p>
+      </div>
+      <div class="skill-cell" data-od-id="skill-card-python">
+        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        <p class="skill-name">Python</p>
+        <p class="skill-desc" data-i18n="skill-python">Data analysis · Web backends · Automation · Jupyter</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
 <!-- Open Source & Projects -->
 <section id="projects" data-od-id="projects">
   <div class="wrap">
-    <p class="section-label"><span class="num">01</span><span data-i18n="proj-label">Open Source & Projects</span></p>
-    <h2 class="section-heading" data-i18n="proj-heading">Things I've built &amp; contributed to</h2>
+    <p class="section-label"><span class="num">02</span><span data-i18n="proj-label">Open Source & Projects</span></p>
+    <h2 class="section-heading" data-i18n="proj-heading">Things I've built</h2>
     <div class="project-row" data-od-id="project-handy-ollama">
       <div>
         <p class="project-name"><a href="https://github.com/DatawhaleChina/handy-ollama">handy-ollama</a></p>
@@ -465,38 +497,6 @@ section { padding: 92px 0; position: relative; z-index: 1; }
         </div>
       </div>
       <div class="project-stat" data-i18n="proj-stat-own">Personal<small>Project</small></div>
-    </div>
-  </div>
-</section>
-
-<hr class="hairline">
-
-<!-- Skills -->
-<section data-od-id="skills">
-  <div class="wrap">
-    <p class="section-label"><span class="num">02</span><span data-i18n="skills-label">Skills</span></p>
-    <h2 class="section-heading" data-i18n="skills-heading">What I do well</h2>
-    <div class="skills-grid">
-      <div class="skill-cell" data-od-id="skill-card-rag">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M12 2a4 4 0 0 0-4 4v2H6a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V10a2 2 0 0 0-2-2h-2V6a4 4 0 0 0-4-4z"/><circle cx="12" cy="15" r="1"/></svg>
-        <p class="skill-name">LLM / RAG</p>
-        <p class="skill-desc" data-i18n="skill-rag">Ollama deployment · RAG applications · Vector search · Local knowledge bases</p>
-      </div>
-      <div class="skill-cell" data-od-id="skill-card-agent">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="8" width="16" height="11" rx="2"/><path d="M12 8V5"/><circle cx="12" cy="3.5" r="1.5"/><circle cx="9" cy="13" r="1"/><circle cx="15" cy="13" r="1"/></svg>
-        <p class="skill-name">LLM Agent</p>
-        <p class="skill-desc" data-i18n="skill-agent">Agent development · Function calling · Tool use · Workflow orchestration</p>
-      </div>
-      <div class="skill-cell" data-od-id="skill-card-graph">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="5" cy="5" r="2"/><circle cx="19" cy="6" r="2"/><circle cx="12" cy="19" r="2"/><path d="M6.7 6.4l10.6 0.2"/><path d="M6.3 6.9l4.6 10.3"/><path d="M17.4 7.7l-4.3 9.4"/></svg>
-        <p class="skill-name">Knowledge Graph</p>
-        <p class="skill-desc" data-i18n="skill-graph">GraphRAG · Knowledge graph construction · Graph databases</p>
-      </div>
-      <div class="skill-cell" data-od-id="skill-card-python">
-        <svg class="skill-icon" viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-        <p class="skill-name">Python</p>
-        <p class="skill-desc" data-i18n="skill-python">Data analysis · Web backends · Automation · Jupyter</p>
-      </div>
     </div>
   </div>
 </section>
@@ -618,7 +618,7 @@ const i18n = {
     'skill-agent': 'Agent 开发 · Function Calling · 工具调用 · 工作流编排',
     'skill-graph': 'GraphRAG · 知识图谱构建 · 图数据库',
     'skill-python': '数据分析 · Web 后端 · 自动化脚本 · Jupyter',
-    'proj-label': '开源与项目', 'proj-heading': '做过与贡献过的开源项目',
+    'proj-label': '开源与项目', 'proj-heading': '做过的东西',
     'proj-handy': '面向中文开发者的 Ollama 本地部署教程。从环境搭建到 API 调用，一站式掌握大模型私有化部署。作为 Datawhale 正式成员、Contributor，参与了部分章节的编写。',
     'proj-stat': '2k+<small>GitHub Stars</small>',
     'proj-graph': '将 Microsoft GraphRAG 与本地 Ollama 模型结合，对自己的文档做完全离线的智能分析。',
@@ -648,7 +648,7 @@ const i18n = {
     'skill-agent': 'Agent development · Function calling · Tool use · Workflow orchestration',
     'skill-graph': 'GraphRAG · Knowledge graph construction · Graph databases',
     'skill-python': 'Data analysis · Web backends · Automation · Jupyter',
-    'proj-label': 'Open Source & Projects', 'proj-heading': 'Things I\'ve built & contributed to',
+    'proj-label': 'Open Source & Projects', 'proj-heading': 'Things I\'ve built',
     'proj-handy': 'An Ollama local deployment tutorial for Chinese-speaking developers. From environment setup to API calls — a one-stop guide to private LLM deployment. As a Datawhale member, I contributed to several chapters.',
     'proj-stat': '2k+<small>GitHub Stars</small>',
     'proj-graph': 'Microsoft GraphRAG with local Ollama models — fully offline intelligence analysis over your own documents.',
