@@ -6,7 +6,7 @@ subtitle: "MLSys·im Learning Notes (Part 3) — a formula for how much memory o
 subtitle_zh: "MLSys·im 学习笔记（三）——用公式算清一个请求吃多少显存，序列长度如何决定并发上限，以及为什么\"压缩\"和\"剪枝\"在推理提速上完全是两回事"
 lang: en
 lang_pair: /blog/mlsysim-kv-cache/
-description: "Third stage of my MLSys learning: following the Datawhale mlsysim task (KV-Cache & model properties), I hand-compute the KV-Cache memory ledger — each term of the formula mapped to a Llama-3-8B hyperparameter — verify that doubling sequence length halves the concurrency ceiling (260 @2K → 130 @4K → 16 @32K → 4 @128K on one H100), and settle an AI-assistant's wrong prediction: INT4 speedup actually climbs monotonically with batch (3.38x → 3.86x) instead of hitting a critical point, because the engine scales KV-Cache bytes with precision too. Finally CompressionModel shows quantization 'compresses and accelerates' while unstructured pruning 'saves storage but no time'."
+description: "Third stage of my MLSys learning: following the Datawhale mlsysim task (KV-Cache & model properties), I hand-compute the KV-Cache memory ledger — each term of the formula mapped to a Llama-3-8B hyperparameter — verify that doubling sequence length halves the concurrency ceiling (260 @2K → 130 @4K → 16 @32K → 4 @128K on one H100), and overturn a common intuition: INT4 speedup actually climbs monotonically with batch (3.38x → 3.86x) instead of hitting a critical point, because the engine scales KV-Cache bytes with precision too. Finally CompressionModel shows quantization 'compresses and accelerates' while unstructured pruning 'saves storage but no time'."
 date: 2026-09-12
 author: Ryan
 permalink: /blog/mlsysim-kv-cache-en/
