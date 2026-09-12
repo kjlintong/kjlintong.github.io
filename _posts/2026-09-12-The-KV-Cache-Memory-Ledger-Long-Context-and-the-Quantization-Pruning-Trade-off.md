@@ -129,7 +129,7 @@ Quantization halves/quarters the weight bytes, with completely asymmetric effect
 - **Decode side: halve the bytes, halve the ITL.** 5.19 → 2.76 → 1.54, strictly tracking weight size. Decode moves the whole weight matrix per token; bytes are the lever.
 - **Prefill side: it only accelerates if the hardware has a low-precision compute path.** int8 looks up 1979 TFLOP/s in H100's precision_flops table and halves TTFT; int4 finds no native INT4 path on H100, falls back to the FP16 peak, and TTFT snaps back — the "inverted V" I traced to the source in Part 2.
 
-One line: **quantization rescues Decode, not Prefill.** That is the soul of Task 3, and it seeds the next section: what exactly does compression "compress", and what does it accelerate?
+One line: **quantization rescues Decode, not Prefill**.
 
 ---
 
@@ -206,9 +206,9 @@ The key insight: **PagedAttention is a "space" optimization, Continuous Batching
 
 This also explains why the tutorial puts PagedAttention in the "memory utilization" lesson: like quantization, it **makes better use of the wall's interior rather than pushing the wall**.
 
-### Q4: INT4 speedup rises with batch instead of falling — the AI assistant's prediction was wrong?
+### Q4: INT4 speedup rises with batch instead of falling?
 
-This is the most dramatic question of the day. Optional experiment O2 asks you to "sweep batch 1–256 and find where INT4 speedup drops below 2× and 1.5×" — the wording implies speedup decays with batch. My AI assistant predicted the same: "as batch grows, inference shifts from memory-bound to compute-bound and INT4 speedup gradually declines; the critical batch is somewhere in the tens to low hundreds."
+This is the most dramatic question of the day. Optional experiment O2 asks you to "sweep batch 1–256 and find where INT4 speedup drops below 2× and 1.5×" — the wording implies speedup decays with batch. When I asked an AI, its prediction was the same: "as batch grows, inference shifts from memory-bound to compute-bound and INT4 speedup gradually declines; the critical batch is somewhere in the tens to low hundreds."
 
 Measured results (H100, 8B, seq 2048) say otherwise:
 
@@ -228,12 +228,12 @@ Measured results (H100, 8B, seq 2048) say otherwise:
 
 *Fig 4: INT4 vs FP16 ITL speedup climbs monotonically from 3.38× at batch=1 to 3.86× at batch=256. There is no "critical point" decline.*
 
-**The speedup doesn't decay — it climbs, asymptotically approaching the theoretical limit of 4×.** Two root causes:
+**The speedup doesn't decay — it climbs, asymptotically approaching the theoretical limit of 4×.** Two reasons:
 
 1. **Task 2 already proved it: Decode is memory-bound forever and never flips to compute-bound with batch.** LLM decoding has arithmetic intensity of order 1 FLOP/byte, and no realistic batch gets anywhere near any GPU's ridge point. The assistant transferred the ResNet-50 experience ("larger batch crosses the ridge into compute-bound") onto decode, where it doesn't apply — **different workload class, the regime-shift rule doesn't transfer**.
 2. **In the engine, the KV-Cache scales with precision too** (bytes_per_elem follows precision, so INT4's KV is also quartered, see Section 6). FP16's ledger is "16.06 GB + KV", INT4's is "4.02 GB + KV/4"; the ratio actually widens as KV grows, and the fixed per-layer tax gets amortized away — so the speedup monotonically approaches 4×.
 
-This also shows that the "critical batch" premise of the task wording rests on two wrong assumptions: "KV doesn't scale with precision" and "decode can turn compute-bound". **The simulator gives you the answer; wrong premises give you wrong expectations — running it yourself beats any prediction.**
+This also shows that the "critical batch" premise of the task wording rests on two wrong assumptions: "KV doesn't scale with precision" and "decode can turn compute-bound".
 
 ### Q5: Why does the engine's INT4 KV-Cache shrink too?
 
@@ -271,9 +271,7 @@ CompressionModel.solve(
 
 3. **Quantization/pruning solves capacity — correction: quantization solves both, pruning only one.** Quantization cuts bytes per element, which simultaneously cuts decode time (bandwidth wall: less to move) and total footprint (capacity wall); unstructured pruning cuts only storage, not movement. **Before picking an optimization, ask which side of the wall you're hitting**: cut memory → prune; cut time → quantize (or 2:4 sparsity).
 
-4. **AI assistants get it wrong too — and representatively.** The O2 prediction failure is a valuable reminder: the assistant transplanted ResNet-50's "bigger batch crosses the ridge into compute-bound" onto LLM decode, whose arithmetic intensity (~1) never gets that chance. **When prediction conflicts with measurement, trust measurement; when a task's wording implies a conclusion, ask what its premises are first** — that habit is worth more than learning mlsysim itself.
-
-5. **The simulation tool's simplifications are its boundaries.** KV scaling with precision, static accuracy_delta — both are simplifications the engine makes to teach mechanisms clearly. When using a tool for decisions, you must know which numbers are mechanism (reliable) and which are assumptions (reference only). **Where the tool ends is where you go back to the real system to run the experiment.**
+4. **The simulation tool's simplifications are its boundaries.** KV scaling with precision, static accuracy_delta — both are simplifications the engine makes to teach mechanisms clearly. When using a tool for decisions, you must know which numbers are mechanism (reliable) and which are assumptions (reference only). **Where the tool ends is where you go back to the real system to run the experiment.**
 
 ---
 
