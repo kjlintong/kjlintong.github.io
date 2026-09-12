@@ -23,9 +23,7 @@ tags:
   - mlsysim
 ---
 
-> Yesterday, in [MLSys·im Roofline Tutorial Notes](/blog/mlsysim-roofline-hello/), I learned to judge whether a workload is compute-bound or memory-bound in five lines of code, using arithmetic intensity and the ridge point. Today I moved on to the second stage of the Datawhale [mlsysim study activity](https://github.com/datawhalechina/llm-algo-leetcode/issues/83), covering [The Memory Wall](https://mlsysbook.ai/mlsysim/tutorials/01_memory_wall.html) and [Two Phases, One Request](https://mlsysbook.ai/mlsysim/tutorials/02_two_phases.html). This pushes yesterday's "static" roofline toward two questions that matter in production: **how much faster does a hardware upgrade actually get you, and how does the bottleneck shift as an LLM request generates tokens?**
-
-*This is the English version of [the Chinese original](/blog/mlsysim-memory-wall/).*
+> Yesterday, in [MLSys·im Roofline Tutorial Notes](/blog/mlsysim-roofline-en/), I learned to judge whether a workload is compute-bound or memory-bound in five lines of code, using arithmetic intensity and the ridge point. Today I moved on to the second stage of the Datawhale [mlsysim study activity](https://github.com/datawhalechina/llm-algo-leetcode/issues/83), covering [The Memory Wall](https://mlsysbook.ai/mlsysim/tutorials/01_memory_wall.html) and [Two Phases, One Request](https://mlsysbook.ai/mlsysim/tutorials/02_two_phases.html). This pushes yesterday's "static" roofline toward two questions that matter in production: **how much faster does a hardware upgrade actually get you, and how does the bottleneck shift as an LLM request generates tokens?**
 
 ---
 
@@ -273,7 +271,7 @@ Two things worth noting: first, prefill explicitly contains the **O(S²) attenti
 
 ## 8. Next Steps & References
 
-- Tutorial chain: 00 Hello Roofline ([Part 1, Chinese](/blog/mlsysim-roofline-hello/)) → 01 The Memory Wall (this post) → 02 Two Phases, One Request (this post) → [KV-Cache: The Hidden Tax](https://mlsysbook.ai/mlsysim/tutorials/03_kv_cache.html) (concurrency limits) → Quantization: Not a Free Lunch → The $9M Question.
+- Tutorial chain: 00 Hello Roofline ([Part 1](/blog/mlsysim-roofline-en/)) → 01 The Memory Wall (this post) → 02 Two Phases, One Request (this post) → [KV-Cache: The Hidden Tax](https://mlsysbook.ai/mlsysim/tutorials/03_kv_cache.html) (concurrency limits) → Quantization: Not a Free Lunch → The $9M Question.
 - Task: [Datawhale llm-algo-leetcode #83](https://github.com/datawhalechina/llm-algo-leetcode/issues/83)
 - Reproduce: `pip install mlsysim`; scripts in the appendix below.
 - Environment: WSL2 + conda env mlsysim (python 3.11, mlsysim 0.1.1), no GPU required.

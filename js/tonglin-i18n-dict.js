@@ -52,7 +52,6 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
     'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> 在 GitHub 上支持我',
     'pager-prev': '上一篇', 'pager-next': '下一篇',
     'posted-by-label': '作者', 'posted-on-label': '发布于',
-    'lang-pair-en': '英文版 →', 'lang-pair-zh': '← 中文原文',
     'featured-tags': 'FEATURED TAGS', 'about-me': 'ABOUT ME', 'catalog': 'CATALOG', 'friends': 'FRIENDS',
     /* ---- 博客列表/搜索 ---- */
     'search-placeholder': '🔍 搜索文章标题 / 内容 / 标签…（输入后即时模糊搜索）',
@@ -78,7 +77,6 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
     'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> Support me on GitHub',
     'pager-prev': 'Previous', 'pager-next': 'Next',
     'posted-by-label': 'Posted by', 'posted-on-label': 'on',
-    'lang-pair-en': 'English version →', 'lang-pair-zh': '← 中文原文',
     'featured-tags': 'FEATURED TAGS', 'about-me': 'ABOUT ME', 'catalog': 'CATALOG', 'friends': 'FRIENDS',
     /* ---- 博客列表/搜索 ---- */
     'search-placeholder': '🔍 Search titles / content / tags… (live fuzzy search)',

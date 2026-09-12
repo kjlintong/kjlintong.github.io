@@ -16,10 +16,6 @@ tags:
 description: "Questions raised while studying optimization: what is a Cartesian product, what does it mean for convex sets in n-dimensional space, and is the product of convex sets still convex."
 ---
 
-*[中文原文](/blog/optimization-course-notes/)*
-
----
-
 Thanks, GPT.
 
 ### I: You are a mathematics professor. Please explain to me the meaning of the Cartesian product.

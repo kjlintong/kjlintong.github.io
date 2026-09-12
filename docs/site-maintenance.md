@@ -48,6 +48,7 @@
 - 文章双语两种模式并存：
   1. **镜像文章**：中文版 + 英文版各一篇，英文版 frontmatter 标 `lang: en`、`lang_pair: /中文URL/`、`title_zh:`（有英文副标题镜像时中文版用 `title_en:`/`subtitle_en:` 反向标注）。列表页/分类/标签/搜索自动按语言只显示一条、链接指向对应镜像。
   2. **单语文章内嵌双语**：frontmatter `title_en:` 即可让列表/标题处显示双语言（`.bi` span 对）。
+- **语言切换统一走右上角按钮**（2026-09-12 起）：镜像文章页点右上角 `EN`/`中` 会直接跳转到对应语言版本（`setLang()` 查 `POST_LINKS`/`POST_LINKS_REV` 表命中当前 URL 即 `location.href` 跳转）；非镜像页原地切界面文案。**文章内禁止再放语言互链**——`.lang-pair-link`（layout 头部按钮）、正文 `*[中文原文](…)*` / `*[English version](…)*` 均已移除，词典词条 `lang-pair-en/zh` 与 CSS 规则也已删除；写新镜像文章时不要再加这类链接。
 - 静态 HTML 文案一律**默认写英文**（无 JS 也显示英文），中文由词典换回。
 - 首页 `index.html` 为 layout:null 自定义页，保留独立内联词典（含全站文案 + 合并共享词典分类键），并自带 `.blog-item` 按语言裁剪至 3 条的 `trimBlog()`。
 - 新文章须知：中文文章若有英文版，英文版 frontmatter 照上面模式 1 填写即可自动接入；无 `lang_pair` 的文章在两种语言下都显示。

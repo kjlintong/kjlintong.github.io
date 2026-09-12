@@ -16,10 +16,6 @@ tags:
 description: "Complete GraphRAG local deployment guide: environment setup, dependency install, project init — wiring Microsoft GraphRAG to a local Ollama model for fully offline knowledge-base QA, plus a record of every pitfall hit during deployment."
 ---
 
-*[中文原文](/blog/graphrag-ollama-local-deployment-guide/)*
-
----
-
 I spent a whole day wrestling with it, but GraphRAG is finally deployed. Here's a record of the bittersweet pitfall-hunting process.
 
 # 1. Introduction to GraphRAG

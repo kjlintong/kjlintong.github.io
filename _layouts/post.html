@@ -40,15 +40,6 @@ layout: default
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{% if page.subtitle_en %}<span class="bi" data-lang="zh">{{ page.subtitle }}</span><span class="bi" data-lang="en">{{ page.subtitle_en }}</span>{% elsif page.subtitle_zh %}<span class="bi" data-lang="zh">{{ page.subtitle_zh }}</span><span class="bi" data-lang="en">{{ page.subtitle }}</span>{% else %}{{ page.subtitle }}{% endif %}</h2>
                     {% comment %} endif {% endcomment %}
-                    {% if page.lang_pair %}
-                    <p>
-                        {% if page.lang == 'en' %}
-                        <a class="lang-pair-link" href="{{ page.lang_pair }}" data-i18n="lang-pair-zh">← 中文原文</a>
-                        {% else %}
-                        <a class="lang-pair-link" href="{{ page.lang_pair }}" data-i18n="lang-pair-en">English version →</a>
-                        {% endif %}
-                    </p>
-                    {% endif %}
                     <span class="meta"><span data-i18n="posted-by-label">Posted by</span> {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} <span data-i18n="posted-on-label">on</span> {{ page.date | date: "%B %-d, %Y" }}</span>
                 </div>
             </div>

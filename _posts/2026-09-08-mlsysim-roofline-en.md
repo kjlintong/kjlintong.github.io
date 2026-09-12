@@ -22,10 +22,6 @@ tags:
 description: "Two days of MLSys learning notes: following the MLSysBook mlsysim tutorial, hands-on Roofline analysis — using arithmetic intensity and the ridge point to judge how ResNet-50's bottleneck shifts between A100 and H100, and explaining the memory-wall behavior of LLM inference. Includes full experiment data, six questions I had and their answers, plus two details found by reading the simulator source: efficiency coefficients and per-layer tax overhead in performance prediction."
 ---
 
-*[中文原文](/blog/mlsysim-roofline-hello/)*
-
----
-
 > Recently I joined Datawhale's [mlsysim study activity](https://github.com/datawhalechina/llm-algo-leetcode/issues/76), and the assignment format pushed me to systematically learn the mlsysim simulation framework from [MLSysBook](https://mlsysbook.ai/mlsysim/). Over the past two days I worked through the introductory tutorial [Hello, Roofline](https://mlsysbook.ai/mlsysim/tutorials/00_hello_roofline.html), going from "picking a GPU by VRAM size alone" to "predicting a performance bottleneck in five lines of code" — quite a haul. This post is both a study summary and a collection of the conceptual pitfalls I hit and the small details I dug up by reading the engine source.
 
 ---

@@ -87,6 +87,20 @@
 
   function setLang(next) {
     next = next === 'zh' ? 'zh' : 'en';
+    var key = current();
+    // 镜像文章页:右上角按钮切换语言 = 跳到另一语言版本(正文是单语的,只切界面没意义)
+    // POST_LINKS: 中文原文 URL -> 英文镜像 URL;POST_LINKS_REV: 反向
+    var table = next === 'en' ? window.POST_LINKS : window.POST_LINKS_REV;
+    var path = (location.pathname || '').replace(/\/+$/, '');
+    if (table && next !== key) {
+      for (var u in table) {
+        if (u.replace(/\/+$/, '') === path) {
+          try { localStorage.setItem(KEY, next); } catch (e) {}
+          window.location.href = table[u];
+          return;
+        }
+      }
+    }
     try { localStorage.setItem(KEY, next); } catch (e) {}
     document.documentElement.setAttribute('data-lang', next);
     apply();

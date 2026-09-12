@@ -20,10 +20,6 @@ tags:
 description: "A real personal-site upgrade: resisting the temptation to migrate to Astro, I did incremental refactoring on the existing Jekyll setup and shipped categories/tags, full-text search, Giscus comments, a full SEO pass, GA4 analytics, and a sponsor button. This post records the full decision process, implementation details, and pitfalls."
 ---
 
-*[中文原文](/blog/jekyll-incremental-upgrade-guide/)*
-
----
-
 > I recently upgraded my GitHub Pages personal site. The hardest question to decide was: **should I migrate to a more modern framework (Astro)?**
 > In the end I chose "incremental refactoring on top of the existing Jekyll setup". This post is about why, and how each feature actually shipped.
 

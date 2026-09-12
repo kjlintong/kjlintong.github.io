@@ -16,10 +16,6 @@ tags:
 description: "Classic paper reading notes: Armbrust et al.'s authoritative definition of cloud computing and the 10 obstacles to adoption with their corresponding opportunities."
 ---
 
-*[中文原文](/blog/lit-note-cloud-computing-overview/)*
-
----
-
 ### Defining Cloud Computing
 
 >

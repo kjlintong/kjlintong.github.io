@@ -16,10 +16,6 @@ tags:
 description: "Reading notes on Coulouris-style distributed systems overview: definition, transparency classifications, and common design goals."
 ---
 
-*[中文原文](/blog/lit-note-distributed-systems-overview/)*
-
----
-
 ## 1. What Is a Distributed System?
 
 ### A broad definition of a distributed system:
