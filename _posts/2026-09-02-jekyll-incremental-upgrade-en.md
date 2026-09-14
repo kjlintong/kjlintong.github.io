@@ -164,6 +164,8 @@ The static homepage needs its own copy added separately. Once you substitute the
 
 Set up a single link, `https://github.com/sponsors/kjlintong`, and put entry buttons in the footer, at the bottom of article pages, and on the homepage. Anyone can click to tip through GitHub Sponsors — no fees, purely the official channel.
 
+> Update (2026-09-14): the tipping channel has switched to [Ko-fi](https://ko-fi.com/ryanlin65969); the footer, post-bottom and homepage entries are all updated.
+
 ### 6. Homepage posts section: let Jekyll render the latest posts
 
 Originally the homepage just had two external-link cards. The goal was to show a post list the way the "featured projects" section works. **Key trick**: add an **empty frontmatter** (`---`) to the previously pure-static `index.html`, and Jekyll will render it with Liquid, so the post list updates automatically:
@@ -192,4 +194,4 @@ Originally the homepage just had two external-link cards. The goal was to show a
 
 This upgrade didn't swap the framework and didn't rewrite the homepage, yet on top of preserving the original visual design it filled in the modern-site staples: the post system, full-text search, comments, SEO, analytics, and tipping. **Sometimes the best refactoring is the clear-eyed decision not to refactor.** I hope this account of the trade-offs and the implementation details helps if you, like me, maintain an old blog.
 
-If you're also tinkering with a Jekyll / GitHub Pages site, comments are welcome — or support me via GitHub Sponsors ☕
+If you're also tinkering with a Jekyll / GitHub Pages site, comments are welcome — or buy me a coffee via [Ko-fi](https://ko-fi.com/ryanlin65969) ☕

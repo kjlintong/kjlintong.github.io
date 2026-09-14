@@ -28,10 +28,10 @@ Giscus 留言板、SEO 全套优化、GA4 统计、GitHub Sponsors 打赏。
 - 替换后文章页 / 关于页 / keynote 页的评论区即可正常工作（当前显示"giscus is not installed"属预期，说明集成是活的，配置后即消失）。
 - ⚠️ **安全提醒**：原 `_config.yml` 里 Gitalk 的 `clientSecret` 明文泄露在公开仓库，本次已全部移除并更换为 Giscus（Giscus 无需暴露任何密钥，更安全）。
 
-### 3. GitHub Sponsors 链接
-- 文件：`_config.yml` 第 41 行 `github_sponsors: "https://github.com/sponsors/kjlintong"`
-- 前提：账号需已开通 GitHub Sponsors（[github.com/sponsors/account](https://github.com/sponsors/account)）。
-- 链接已指向你的账号，若未开通会自动跳转引导页，无需修改。
+### 3. Ko-fi 打赏链接
+- 文件：`_config.yml` 的 `ko_fi: "https://ko-fi.com/ryanlin65969"`
+- 前提：Ko-fi 账号（[ko-fi.com/ryanlin65969](https://ko-fi.com/ryanlin65969)）。
+- 2026-09-14 由 GitHub Sponsors 切换为 Ko-fi，配置键 `github_sponsors` 已更名为 `ko_fi`。
 
 ---
 

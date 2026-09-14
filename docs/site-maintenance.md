@@ -71,6 +71,7 @@ git add -A && git commit -m "…" && git push
 
 - 页脚 ghbtns.com 星标 iframe 已移除（服务停用，暗色下空白框），版权行保留文字版 Star 链接。
 - 页脚 `sponsor` 按钮、标签云颜色、代码高亮暗色调均在 `tonglin.css` 主题化，改样式先查 token 再动手。
+- 打赏入口为 Ko-fi（2026-09-14 由 GitHub Sponsors 切换）：链接配置在 `_config.yml` 的 `ko_fi`（原键名 `github_sponsors` 已更名）。
 - GA4（`ga4_track_id`）在 `_config.yml`，ID 待替换为正式值。
 - Giscus 评论系统已移除（2026-09-10）：`_config.yml` 无 giscus 块，`about.html`、`_layouts/post.html`、`_layouts/keynote.html` 均无评论容器。若未来要恢复，重新加回即可。
 - about 页工作城市已更新为 Shenzhen（深圳），中英文案同源。

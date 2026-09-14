@@ -46,10 +46,10 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
     'nav-home': '首页', 'nav-blog': '博客', 'nav-categories': '分类', 'nav-tags': '标签', 'nav-about': '关于',
     'lang-aria-zh': '切换到中文', 'lang-aria-en': 'Switch to Chinese',
     /* ---- 页脚 ---- */
-    'footer-sponsor': '<i class="fa fa-heart" aria-hidden="true"></i> 支持我 · Sponsor',
+    'footer-sponsor': '<i class="fa fa-heart" aria-hidden="true"></i> 请我喝杯咖啡 ☕',
     /* ---- 文章页 ---- */
     'sponsor-tip': '如果这篇文章对你有帮助，欢迎请我喝杯咖啡 ☕',
-    'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> 在 GitHub 上支持我',
+    'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> 请我喝杯咖啡 ☕',
     'pager-prev': '上一篇', 'pager-next': '下一篇',
     'posted-by-label': '作者', 'posted-on-label': '发布于',
     'featured-tags': 'FEATURED TAGS', 'about-me': 'ABOUT ME', 'catalog': 'CATALOG', 'friends': 'FRIENDS',
@@ -71,10 +71,10 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
     'nav-home': 'Home', 'nav-blog': 'Blog', 'nav-categories': 'Categories', 'nav-tags': 'Tags', 'nav-about': 'About',
     'lang-aria-zh': '切换到中文', 'lang-aria-en': 'Switch to Chinese',
     /* ---- 页脚 ---- */
-    'footer-sponsor': '<i class="fa fa-heart" aria-hidden="true"></i> Support me · Sponsor',
+    'footer-sponsor': '<i class="fa fa-heart" aria-hidden="true"></i> Buy me a coffee ☕',
     /* ---- 文章页 ---- */
     'sponsor-tip': 'If this post helped you, a coffee is always welcome ☕',
-    'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> Support me on GitHub',
+    'sponsor-btn': '<i class="fa fa-heart" aria-hidden="true"></i> Buy me a coffee ☕',
     'pager-prev': 'Previous', 'pager-next': 'Next',
     'posted-by-label': 'Posted by', 'posted-on-label': 'on',
     'featured-tags': 'FEATURED TAGS', 'about-me': 'ABOUT ME', 'catalog': 'CATALOG', 'friends': 'FRIENDS',
