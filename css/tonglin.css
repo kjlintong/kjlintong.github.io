@@ -500,10 +500,11 @@ img { max-width: 100%; }
 .search-results .search-result p { color: var(--muted); font-size: 13px; margin: 4px 0 0; }
 .search-results .search-empty { color: var(--muted); }
 
-/* ---------- Footer ---------- */
+/* ---------- Footer(明:奶油区带;暗:与页面同色) ---------- */
 footer {
-  background: var(--night);
-  color: var(--night-fg);
+  background: var(--bg-soft);
+  color: var(--fg);
+  border-top: 1px solid var(--line);
   padding-top: 48px;
   padding-bottom: 40px;
 }
@@ -514,18 +515,23 @@ footer {
 footer .list-inline { margin-top: 0; }
 footer .list-inline .fa-stack { font-size: 1.25em; }
 footer .list-inline .fa-circle { color: var(--rose); }
-footer .list-inline .fa-inverse { color: var(--night); }
+footer .list-inline .fa-inverse { color: var(--bg-soft); }
+[data-theme="dark"] footer .list-inline .fa-inverse { color: var(--night); }
 footer .copyright {
-  color: var(--night-muted);
+  color: var(--muted);
   font-size: 13px;
   letter-spacing: 0.02em;
   margin-top: 22px;
 }
-footer .copyright a { color: var(--rose); border-bottom: 1px solid rgba(196, 167, 159, 0.35); }
-footer .copyright a:hover { color: var(--rose); border-color: var(--rose); }
-footer .sponsor a { color: var(--rose); font-weight: 600; }
-footer .sponsor a:hover { color: #e2ccc4; }
 [data-theme="dark"] footer .copyright { color: var(--night-muted); }
+footer .copyright a { color: var(--accent-strong); border-bottom: 1px solid rgba(120, 91, 78, 0.35); }
+footer .copyright a:hover { color: var(--accent-strong); border-color: var(--accent-strong); }
+[data-theme="dark"] footer .copyright a { color: var(--rose); border-bottom-color: rgba(196, 167, 159, 0.35); }
+[data-theme="dark"] footer .copyright a:hover { color: var(--rose); border-color: var(--rose); }
+footer .sponsor a { color: var(--accent-strong); font-weight: 600; }
+footer .sponsor a:hover { color: var(--accent-strong-hover); }
+[data-theme="dark"] footer .sponsor a { color: var(--rose); }
+[data-theme="dark"] footer .sponsor a:hover { color: #e2ccc4; }
 
 /* ---------- 中英双语（pg-lang / data-lang） ---------- */
 /* 双语块显隐：由 <html data-lang> 驱动，无 JS 时默认英文 */
