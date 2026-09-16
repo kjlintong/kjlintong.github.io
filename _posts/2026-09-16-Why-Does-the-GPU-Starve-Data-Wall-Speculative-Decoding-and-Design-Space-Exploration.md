@@ -251,7 +251,7 @@ A second takeaway from Section 5.3: the draft-size result disagrees with common 
 
 - Tutorial chain: 00 Hello Roofline ([Part 1](/blog/mlsysim-roofline-en/)) -> 01 Memory Wall + 02 Two Phases ([Part 2](/blog/mlsysim-memory-wall-en/)) -> 03 KV-Cache ([Part 3](/blog/mlsysim-kv-cache-en/)) -> [04 Starving the GPU](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/04_starving_the_gpu.html) + [12 Design Space Exploration](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/12_design_space_exploration.html) + [Module 2](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorial_module2.pdf) (this post).
 - Check-in task: [Datawhale llm-algo-leetcode #136](https://github.com/datawhalechina/llm-algo-leetcode/issues/136).
-- Reproduction: `pip install mlsysim`; the three scripts are in the appendix below (Script 1 covers E1-E3, Script 2 covers E5 — the DSE run needs a cluster config; `Frontier_8K` lives in `mlsysim.Systems.Clusters`).
+- Reproduction: `pip install mlsysim`; the three scripts in the appendix all run directly (E1-E3 and E4/O1/O3 need no cluster; E5 uses the built-in `Frontier_8K` cluster from `mlsysim.Systems.Clusters`).
 - Environment: WSL2 + conda env mlsysim (Python 3.11, mlsysim 0.1.1), no GPU involved — pure simulation.
 
 ## Appendix: Full Run Scripts (Copy & Run)
