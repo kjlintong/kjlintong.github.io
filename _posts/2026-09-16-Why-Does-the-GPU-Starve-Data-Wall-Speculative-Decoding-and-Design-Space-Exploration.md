@@ -235,8 +235,6 @@ The second layer I push back on: **"with generation length dominating, inference
 2. **The measurements support the memory wall, not the compute wall.** If the bottleneck really flipped to compute, we should see prefill-like regime behavior; but the measurements show (a) the only compute-bound segment — prefill (TTFT) — did not move at all; (b) total latency scales strictly linearly with K, a constant per-step cost, which is exactly what "every token priced by an HBM stream read" looks like — not what a compute-bound regime looks like.
 3. **When would the author's claim hold? Under large-batch serving.** Decode's arithmetic intensity rises with batch (see the roofline analysis in Part 2): at high enough concurrency the GPU's compute gets saturated and decode genuinely shifts from memory-bound to compute-bound. But that is a *system-throughput* shift; for a single request at low concurrency, inference-time compute is just "longer decode", still memory-bound. This is the other side of the same coin as Part 3's KV-Cache conclusion: **long sequences are priced by memory, not by compute.**
 
-Worth noting: the tutorial author is himself aware of modeling-granularity limits — when he merged another PR of mine he mentioned the engine's fixed 0.6 speedup factor "deserves its own issue". Engine shortcuts that compress memory/compute mechanics into constants are exactly another instance of "conclusions only hold within the modeling granularity".
-
 ## 8. My Take: Three Rulers and a "Find the Bottleneck First" Mindset
 
 Task 4 condenses the single-point skills from the first three posts into a methodology. I read it as three rulers:
