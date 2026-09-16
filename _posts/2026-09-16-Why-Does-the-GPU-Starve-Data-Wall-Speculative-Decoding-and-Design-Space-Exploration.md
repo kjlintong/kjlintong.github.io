@@ -223,6 +223,20 @@ Two key observations:
 1. **TTFT does not move at all** — prefill only processes the prompt itself; hidden reasoning happens in the decode phase. So at K=32 the TTFT share drops from 100% to 0.8%, and latency is almost entirely generation.
 2. **Total latency and energy scale linearly with K**: at K=32 one answer costs 8.38 seconds and 5.87 kJ. The systems impact is disruptive — the same GPU cluster can only serve 1/K of the concurrency. "Inference-time compute scaling" buys quality on the business side; on the systems side it is the most expensive optimization there is.
 
+### 7.1 Memory Wall or Compute Wall? Where I Disagree with the Tutorial
+
+The Module 2 summary page makes a claim: **"Inference shifts back toward being compute-bound as generation length dominates prefill"** — inference-time compute supposedly moves the bottleneck from the memory wall "back" to the compute wall. There are two layers to that sentence; I agree with the first and disagree with the second.
+
+The first layer is right: **compute demand really does shift from training to inference.** o1 turns FLOPs that used to be spent on training into extra tokens generated at inference time. That is the essence of inference-time compute scaling, and it is the biggest systems impact — capacity planning goes from "how big should the training cluster be" to "how many FLOPs will inference burn".
+
+The second layer I push back on: **"with generation length dominating, inference becomes compute-bound" — I think it is still stuck on the decode memory wall.** Three reasons:
+
+1. **Hidden reasoning tokens are just ordinary autoregressive decode.** K reasoning steps are not "more compute" — they are "more decode steps": each one streams the weights from HBM once and emits a token, structurally identical to generating a normal answer. Decode is memory-bound — measured in Part 2 (ITL is priced by HBM bandwidth). K steps of reasoning just walk that memory-bound road longer; the physics of each step does not change.
+2. **The measurements support the memory wall, not the compute wall.** If the bottleneck really flipped to compute, we should see prefill-like regime behavior; but the measurements show (a) the only compute-bound segment — prefill (TTFT) — did not move at all; (b) total latency scales strictly linearly with K, a constant per-step cost, which is exactly what "every token priced by an HBM stream read" looks like — not what a compute-bound regime looks like.
+3. **When would the author's claim hold? Under large-batch serving.** Decode's arithmetic intensity rises with batch (see the roofline analysis in Part 2): at high enough concurrency the GPU's compute gets saturated and decode genuinely shifts from memory-bound to compute-bound. But that is a *system-throughput* shift; for a single request at low concurrency, inference-time compute is just "longer decode", still memory-bound. This is the other side of the same coin as Part 3's KV-Cache conclusion: **long sequences are priced by memory, not by compute.**
+
+Worth noting: the tutorial author is himself aware of modeling-granularity limits — when he merged another PR of mine he mentioned the engine's fixed 0.6 speedup factor "deserves its own issue". Engine shortcuts that compress memory/compute mechanics into constants are exactly another instance of "conclusions only hold within the modeling granularity".
+
 ## 8. My Take: Three Rulers and a "Find the Bottleneck First" Mindset
 
 Task 4 condenses the single-point skills from the first three posts into a methodology. I read it as three rulers:
