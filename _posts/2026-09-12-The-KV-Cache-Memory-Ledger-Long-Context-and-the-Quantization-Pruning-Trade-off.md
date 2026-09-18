@@ -6,7 +6,7 @@ subtitle: "MLSys·im Learning Notes (Part 3) — a formula for how much memory o
 subtitle_zh: "MLSys·im 学习笔记（三）——用公式算清一个请求吃多少显存，序列长度如何决定并发上限，以及为什么\"压缩\"和\"剪枝\"在推理提速上完全是两回事"
 lang: en
 lang_pair: /blog/mlsysim-kv-cache/
-description: "Third stage of my MLSys learning: following the Datawhale mlsysim task (KV-Cache & model properties), I hand-compute the KV-Cache memory ledger — each term of the formula mapped to a Llama-3-8B hyperparameter — verify that doubling sequence length halves the concurrency ceiling (260 @2K → 130 @4K → 16 @32K → 4 @128K on one H100), and overturn a common intuition: INT4 speedup actually climbs monotonically with batch (3.38x → 3.86x) instead of hitting a critical point, because the engine scales KV-Cache bytes with precision too. Finally CompressionModel shows quantization 'compresses and accelerates' while unstructured pruning 'saves storage but no time'."
+description: "Third stage of my MLSys learning: following the Datawhale mlsysim task (KV-Cache & model properties), I hand-compute the KV-Cache memory ledger — each term of the formula mapped to a Llama-3-8B hyperparameter — verify that doubling sequence length halves the concurrency ceiling (260 @2K → 130 @4K → 16 @32K → 4 @128K on one H100), and unravel a counter-intuitive result: INT4 speedup climbs with batch (3.38x → 3.86x) in the tool because KV-Cache bytes scale with precision, locking the theoretical ratio at 4x; in real deployments KV stays FP16, so speedup falls to 1.2x — the critical batch does exist, and its cause is KV, not compute. Finally CompressionModel shows quantization 'compresses and accelerates' while unstructured pruning 'saves storage but no time'."
 date: 2026-09-12
 author: Ryan
 permalink: /blog/mlsysim-kv-cache-en/
@@ -208,7 +208,7 @@ This also explains why the tutorial puts PagedAttention in the "memory utilizati
 
 ### Q4: INT4 speedup rises with batch instead of falling?
 
-This is the most dramatic question of the day. Optional experiment O2 asks you to "sweep batch 1–256 and find where INT4 speedup drops below 2× and 1.5×" — the wording implies speedup decays with batch. When I asked an AI, its prediction was the same: "as batch grows, inference shifts from memory-bound to compute-bound and INT4 speedup gradually declines; the critical batch is somewhere in the tens to low hundreds."
+Optional experiment O2's wording is "show the FP16 vs INT4 ITL comparison across batch sizes and find the critical batch size where INT4 speedup starts declining". My prior was: as batch grows, LLM inference eventually shifts from memory-bound to compute-bound, the bytes quantization saves stop mattering, and speedup should fall.
 
 Measured results (H100, 8B, seq 2048) say otherwise:
 
@@ -230,14 +230,53 @@ Measured results (H100, 8B, seq 2048) say otherwise:
 
 **The speedup doesn't decay — it climbs, asymptotically approaching the theoretical limit of 4×.** Two reasons:
 
-1. **Task 2 already proved it: Decode is memory-bound forever and never flips to compute-bound with batch.** LLM decoding has arithmetic intensity of order 1 FLOP/byte, and no realistic batch gets anywhere near any GPU's ridge point. The assistant transferred the ResNet-50 experience ("larger batch crosses the ridge into compute-bound") onto decode, where it doesn't apply — **different workload class, the regime-shift rule doesn't transfer**.
-2. **In the engine, the KV-Cache scales with precision too** (bytes_per_elem follows precision, so INT4's KV is also quartered, see Section 6). FP16's ledger is "16.06 GB + KV", INT4's is "4.02 GB + KV/4"; the ratio actually widens as KV grows, and the fixed per-layer tax gets amortized away — so the speedup monotonically approaches 4×.
+1. **Why "larger batch → compute-bound" is wrong: arithmetic intensity saturates — it isn't pinned at 1.** The intuition "batch grows → FLOPs grow linearly, weights are read only once → eventually compute-bound" silently assumes the denominator contains only weights. Put KV into the denominator and it changes:
 
-This also shows that the "critical batch" premise of the task wording rests on two wrong assumptions: "KV doesn't scale with precision" and "decode can turn compute-bound".
+```
+AI(B) = 2·N·B / (N·b_w + B·KV_req)
+```
+
+At small batch the weights dominate: AI ≈ 2B/b_w, growing linearly with B — the intuition holds in this regime. At large batch KV dominates: AI converges to 2N/KV_req and stops growing. At seq=2K that saturation value is 60 FLOP/byte (Llama-3-8B: N = 8.03B, KV_req = 0.268 GB), while the H100 ridge is 295 (989 TFLOP/s ÷ 3.35 TB/s; still ~148 at the engine's default 0.5 efficiency) — a fivefold gap no batch can close. **It's not that the compute is too small — it's that KV traffic grows exactly as fast as compute (both ∝ B), so the ratio converges to a constant.** The ResNet-50 instinct ("crank the batch, cross the ridge") simply doesn't transfer to decode.
+
+Worth untangling a pair of easily-confused questions here: **AI answers "which wall do you hit"** (compute vs bandwidth); **speedup answers "who dominates inside the wall"** (what share of the traffic is compressible). "Memory-bound forever" does not mean "speedup stays constant" — the composition of the traffic inside the wall changes with batch, which is exactly why the real-system speedup falls in Q5: not because the wall changed, but because the creditor inside it did.
+
+2. **In the tool the ratio is locked at 4×.** Because the engine scales KV-Cache with precision too (bytes_per_elem follows precision, so INT4's KV is quartered, see Q5), FP16's ledger is "16.06 GB + B·KV" and INT4's is "4.02 GB + B·KV/4" — every term shrinks by the same factor, so **the theoretical speedup is exactly 4.00×, independent of batch**. Then what is the 3.38→3.86 "rise"? Fixed overhead amortizing: every generated token carries a fixed per-layer tax (32 layers × 10 μs = 0.32 ms, dug out in Part 1). At small batch the tax is ~6% of ITL, pinning speedup at 3.38; the larger the batch, the longer the memory time, the smaller the tax's share, and the speedup monotonically approaches 4×. **In the tool there is no "rising speedup" mechanism — only amortization.**
+
+So the "critical batch" the task asks about can't be found in the tool — the tool's assumptions hide the decline: KV scales with precision (every traffic term shrinks proportionally), and the ITL model has no compute ceiling. **In real systems the critical batch does exist — driven by KV, not compute** — see Q5.
 
 ### Q5: Why does the engine's INT4 KV-Cache shrink too?
 
 A follow-up to Q4. In real deployments the KV-Cache normally stays FP16 (or gets its own dedicated KV quantization) — a separate concern from weight quantization. But mlsysim's `ServingModel` binds `bytes_per_elem` to precision, so at INT4 the KV elements count as 0.5 bytes each — hence int4's KV (0.070 GB @bs1) is a quarter of fp16's (0.268 GB) in the O2 table above. That's a simplification the engine makes, not a deployment convention. Its benefit: the "quantization speedup" experiment cleanly approaches the weight-byte ratio. Its cost: if you want to model a real system (INT4 weights + FP16 KV), you have to manually add the KV part back. **Knowing which assumptions the engine made for you is something no documentation will tell you.**
+
+What about real deployments? KV normally stays FP16 (or gets its own dedicated quantization) — weight quantization can't touch it. Restore KV to FP16 and run the same bandwidth model for "INT4 weights + FP16 KV". The bytes moved per decode step split into two piles: weights — constant, compressible (16.06 → 4.02 GB); KV — 0.268 GB × B, incompressible. This gives the speedup a clean form — **a share-weighted harmonic mean**:
+
+```
+speedup(B) = 1 / (f_w/4 + f_kv)
+```
+
+where f_w is the weight share of the traffic and f_kv the KV share (f_w + f_kv = 1). Only the weight share can be divided by four; the KV share stays as is:
+
+| Batch | Weight share f_w | KV share f_kv | Speedup |
+|-------|------------------|---------------|---------|
+| 1 | 98.4% | 1.6% | **3.81×** |
+| 16 | 78.9% | 21.1% | 2.45× |
+| 32 | 65.2% | 34.8% | **1.96×** |
+| 64 | 48.4% | 51.6% | 1.57× |
+| 128 | 31.9% | 68.1% | 1.31× |
+| 256 | 19.0% | 81.0% | **1.17×** |
+
+Read the two sets of numbers together and the apparent contradiction dissolves: AI climbs from 1.0 to 48.6 (B=256) toward a saturation limit of 60 — still five times short of the H100 ridge at 295, so **the workload stays memory-bound the whole way** (memory time is always 6×+ the compute time; 25.3 ms vs 4.2 ms at B=256). Meanwhile the **weight share falls from 98.4% to 19.0%**, dragging speedup from 3.81× to 1.17×. One sentence: AI saturating means you never crossed the wall; speedup falling means the creditor inside the wall changed — the compressible weights get diluted to a constant, and compressing them stops paying off.
+
+The "critical batch" the task asks you to find genuinely exists in real systems: it crosses 2× around batch≈30 at seq 2K (derived from 2B·KV = W), and earlier with longer contexts; the 50/50 crossover where KV traffic overtakes weights sits at batch≈60 (≈15 at 8K, ≈4 at 32K). The tool never shows this decline because both "drop channels" are closed: KV scales with precision (every traffic term shrinks by the same factor and cancels out, pinning speedup at exactly 4.00×), and the ITL model is pure bytes/bandwidth with no roofline ceiling — you can't even see a compute cap.
+
+To model the real system, add the FP16 KV back by hand — two lines on top of Script 2:
+
+```python
+# INT4 weights, FP16 KV (the real deployment habit)
+kv_fp16 = model.get_kv_cache_size(seq_len=2048, batch_size=B, precision="fp16")
+total_int4 = model.size_in_bytes("int4") + kv_fp16      # not W_int4 + B*kv_int4
+speedup    = (model.size_in_bytes("fp16") + kv_fp16) / total_int4
+```
 
 ---
 
@@ -271,7 +310,7 @@ CompressionModel.solve(
 
 3. **Quantization/pruning solves capacity — correction: quantization solves both, pruning only one.** Quantization cuts bytes per element, which simultaneously cuts decode time (bandwidth wall: less to move) and total footprint (capacity wall); unstructured pruning cuts only storage, not movement. **Before picking an optimization, ask which side of the wall you're hitting**: cut memory → prune; cut time → quantize (or 2:4 sparsity).
 
-4. **The simulation tool's simplifications are its boundaries.** KV scaling with precision, static accuracy_delta — both are simplifications the engine makes to teach mechanisms clearly. When using a tool for decisions, you must know which numbers are mechanism (reliable) and which are assumptions (reference only). **Where the tool ends is where you go back to the real system to run the experiment.**
+4. **The simulation tool's simplifications are its boundaries.** KV scaling with precision, static accuracy_delta — both are simplifications the engine makes to teach mechanisms clearly. When using a tool for decisions, you must know which numbers are mechanism (reliable) and which are assumptions (reference only). **Where the tool ends is where you go back to the real system to run the experiment.** Q4/Q5 is the case in point: the same experiment shows a speedup locked at 4× in the tool and falling to 1.2× in reality — the entire gap comes from a single assumption, "KV scales with precision" — and the moment you restore FP16 KV, the task's "critical batch" reappears.
 
 ---
 
