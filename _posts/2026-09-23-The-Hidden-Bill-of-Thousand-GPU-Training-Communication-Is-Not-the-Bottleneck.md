@@ -25,7 +25,7 @@ tags:
   - GPU
 ---
 
-> The previous post, [Why Does the GPU Starve](/blog/mlsysim-system-optimization-en/), pushed the view from single-point analysis to whole-pipeline optimization. Today I enter the fifth stage of the Datawhale [mlsysim learning task](https://github.com/datawhalechina/llm-algo-leetcode/issues/137), which reframes the question: **going from one machine to a thousand GPUs, how does the cost change?** The tutorials are [06 Scaling to 1000 GPUs](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/06_scaling_1000_gpus.html), [07 Geography is a Systems Variable](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/07_geography.html), and [08 The $9M Question](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/08_nine_million_dollar.html). Two surprises: in the scale sweep table, **communication overhead does not grow with scale — it falls from 1336.8 ms to 319.1 ms**; and the heavily promoted reliability conclusion crosses over much later than the tutorial claims.
+> The previous post, [Why Does the GPU Starve](/blog/mlsysim-system-optimization-en/), pushed the view from single-point analysis to whole-pipeline optimization. Today I enter the fifth stage of the Datawhale [mlsysim learning task](https://github.com/datawhalechina/llm-algo-leetcode/issues/137), which reframes the question: **going from one machine to a thousand GPUs, how does the cost change?** The tutorials are [06 Scaling to 1000 GPUs](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/06_scaling_1000_gpus.html), [07 Geography is a Systems Variable](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/07_geography.html), and [08 The $9M Question](https://harvard-edge.github.io/cs249r_book_dev/mlsysim/tutorials/08_nine_million_dollar.html). Two surprises: in the scale sweep table, **communication overhead does not grow with scale — it falls from 1336.8 ms to 319.1 ms**; and the reliability conclusion crosses over much later than the tutorial claims.
 
 ---
 
@@ -34,16 +34,16 @@ tags:
 I ran E1 (3D parallelism), E2 (scale sweep), O1 (reliability & checkpoints), E4 (site selection), and E3 (economics) with Llama-3-70B + DGX H100 + InfiniBand NDR on mlsysim 0.1.2, pure simulation. Five things worth remembering separately:
 
 1. Communication is the bottleneck everyone quotes at thousand-GPU scale. Measured, it is only 5.6%~7.4% of step time and **falls rather than rises with scale** — but that is not because the network gets better; the tutorial's table mixes two different batch conventions into one column.
-2. The engine's cluster MTBF is a **node-level series model**: one node 4285.7 h, 512 GPUs 67.0 h. The tutorial's background text assumes MTTF/N, which gives 97.7 h for 512 GPUs.
-3. The tutorial's §5 verdict is "reliability overhead dominates communication overhead". The direction is right, but by its own accounting the **crossover sits near 2560 GPUs, not 1024** — at 1024 GPUs reliability loss is only 0.71x communication loss.
-4. For the same 30-day job the engine carries two reliability ledgers. §5 uses "write time + half an interval of rollback"; `ReliabilityResult.goodput_ratio` uses "write/interval + recovery/MTBF". At 1024 GPUs it reports one third of §5's number.
-5. Site selection is the single strongest lever in this stage: the same 32 GPUs, the same 30 days, Poland emits **61.1x** Quebec's carbon. On the economics side, Capex is a constant **83.4%** of a 30-day TCO — **short training jobs are almost entirely depreciation, not electricity**.
+2. The engine's cluster MTBF is a **node-level series model**: one node 4285.7 h, 512 GPUs 67.0 h. The tutorial's "512 GPUs about 97 h" is another assumption obtained by dividing MTTF by the GPU count directly.
+3. The tutorial's §5 verdict is "reliability overhead dominates communication overhead". The direction is right, but the **crossover sits near 2560 GPUs, not 1024** — at 1024 GPUs reliability loss is only 0.71x communication loss.
+4. For the same cluster's 30-day job the engine carries two reliability ledgers. §5 uses "write time + half an interval of rollback"; `ReliabilityResult.goodput_ratio` uses "write/interval + recovery/MTBF". At 1024 GPUs it reports one third of §5's number.
+5. Site selection: the same 32 GPUs, the same 30 days, Poland emits **61.1x** Quebec's carbon. On the economics side, Capex is a constant **83.4%** of a 30-day TCO — **short training jobs are almost entirely depreciation, not electricity**.
 
 ---
 
 ## 2. E2 scale sweep: why the table runs backwards
 
-The tutorial's sweep is simple: TP fixed at 8 (intra-node NVLink), PP=1 (no bubbles), DP grows with node count, batch = `max(64, n_gpus)`:
+The tutorial's sweep parameters: TP fixed at 8 (intra-node NVLink), PP=1 (no bubbles), DP grows with node count, batch = `max(64, n_gpus)`:
 
 | GPUs | Nodes | Comm (ms) | Bubble (ms) | Efficiency | Step (ms) | Throughput (tok/s) | Comm share |
 |---|---|---|---|---|---|---|---|
@@ -55,7 +55,7 @@ The tutorial's sweep is simple: TP fixed at 8 (intra-node NVLink), PP=1 (no bubb
 | 512 | 64 | 313.5 | 0.0 | 92.7% | 4,287.2 | 955.4 | 7.31% |
 | 1024 | 128 | 319.1 | 0.0 | 92.6% | 4,292.8 | 1,908.3 | 7.43% |
 
-Communication drops from 1336.8 ms to 236.2 ms, then climbs back to 319.1 ms. Efficiency sits at 92%~94% throughout — near-perfect scaling. The tutorial explains this as Amdahl's-law communication being "manageable", then pivots to reliability.
+Communication drops from 1336.8 ms to 236.2 ms, then climbs back to 319.1 ms. Efficiency sits at 92%~94% throughout — near-perfect scaling. The tutorial explains this as Amdahl's-law communication being "manageable".
 
 **I did not accept that table directly.** The first red flag was the 8→32 step: nodes quadruple, communication falls to a third. Splitting communication into its TP and DP components makes it clear:
 
@@ -98,7 +98,7 @@ The tutorial gives the bubble fraction as `(P-1)/(M+P-1)`. With 8 GPUs, TP=4, PP
 
 All four points coincide; P=4 and P=8 agree too. The engine uses the textbook naive form — no 1F1B benefit, no interleaved-scheduling compression. So **microbatches in this engine buy you only "improvement in the formula", not the engineering gains of scheduling algorithms**. Worth remembering when using it for parallelism decisions.
 
-### 2.2 E1's 3D parallelism: good numbers, but the configurations are infeasible
+### 2.2 E1's 3D parallelism
 
 Single node 8×H100, batch=64, fp16, sweeping TP×PP:
 
@@ -112,9 +112,7 @@ Single node 8×H100, batch=64, fp16, sweeping TP×PP:
 | 4 | 2 | 1 | 25,638.6 | 50.0% | 1145.6 | 63.7% |
 | 2 | 4 | 1 | 29,338.8 | 75.0% | 763.6 | 55.7% |
 
-Three clean patterns: **turning on PP eats half or three-quarters of the step in bubbles**; TP from 1 to 4 raises efficiency monotonically (memory-wall pressure drops); TP=8 falls back.
-
-But there is a hidden premise: `node_profile.feasible` is **False for all nine configurations**. 70B parameters with Adam states need 2192~10172 GiB per GPU against 85.9 GiB available. The engine still returns efficiency and throughput, because those are computed under the assumption that the data fits. So this table tells you **how to trade TP off PP given that the job can run at all** — it does not tell you "is 8 GPUs enough". The answer to that is a clear no.
+Three patterns: **turning on PP eats half or three-quarters of the step in bubbles**; TP from 1 to 4 raises efficiency monotonically (memory-wall pressure drops); TP=8 falls back.
 
 ---
 
@@ -229,8 +227,6 @@ The E2 configuration (32 GPUs), 30 days, only the grid changes:
 
 Poland/Quebec = **61.1x**, Poland/US = 2.7x, Poland/Iceland = 43.7x. Tutorial 07's repeated "40x" is the **purity gap** (820/20 gCO₂/kWh); the actual carbon gap also folds in PUE (1.58 vs 1.06) and energy mix (25.5 vs 17.1 MWh) — so the real number is *larger* than the purity gap.
 
-There is a counterintuitive point here: tutorial §2 compares 30 days in Quebec with 10 days in Poland and concludes "Poland emits more in a third of the time than Quebec in a full run". Arithmetically true (7.0 t > 0.3 t), but **the real lever is purity, not duration** — 30 days in Quebec vs 15 days in Poland is still Poland's problem (4.1 t vs 0.3 t). Put differently: as long as the purity gap vastly exceeds the duration ratio, the duration variable can be ignored. Site selection matters precisely because **it is a one-time, permanent decision**, whereas training duration is fixed by the task.
-
 ### 4.1 Do not count operational carbon only
 
 Sweeping `embodied_carbon_per_device` (Poland, 30 days):
@@ -290,7 +286,7 @@ TCO scales **strictly linearly** with GPU count, and carbon intensity per dollar
 
 Electricity is unchanged; Capex and maintenance double. The tutorial's source comments say 2.0~2.5 corresponds to full facility cost and 1.0 to cards only — **the default of 1.0 is an optimistic convention**, and budgeting with it under-reports by roughly a factor of two.
 
-### 5.1 Back to the "$9M Question": why cost is non-linear
+### 5.1 Back to the "$9M Question": why cost is not linear
 
 The check-in task asks why large-scale training cost is not linear. In this model I found non-linearity in only three places, and none of them is a scale elasticity of the "bigger is cheaper/expensive" kind:
 
@@ -319,9 +315,8 @@ This stage was not technically hard — but after running it, what I found is th
 1. **Communication falling with scale.** On the surface, "the network is good"; in fact `max(64, N)` breaks the batch convention between 8 and 32 GPUs. Two different quantities in one column, invisible to the eye.
 2. **Is MTBF 67 h or 97 h?** The tutorial's background uses MTTF/N; the engine uses node series. A 45% difference. Both are right, but they model different failure assumptions — the first assumes only GPUs fail, the second assumes a NIC or PSU can also stall the whole job. The latter is closer to reality.
 3. **How much time does reliability eat?** §5's ledger, the goodput ledger, and whichever C you choose combine into a range of 1.8%~12.7%. The "10-30%" quoted in the tutorial's key-insight box runs high for this model.
-4. **40x or 61x?** Purity gap and total carbon gap are different things; PUE stretches the difference by 47%.
 
-My habit going forward: **before quoting a tutorial's conclusion, reproduce its conventions**. E2's table, taken as a conclusion, is "communication manageable, reliability dominates" — fine. But once you use it to decide ("should I change the checkpoint interval from 2 h to 1 h?"), a 3x convention error flips the decision.
+My habit going forward: **before quoting a tutorial's conclusion, reproduce its conventions first**. E2's table, taken as a conclusion, is "communication manageable, reliability dominates" — fine. But once you use it to decide ("should I change the checkpoint interval from 2 h to 1 h?"), a 3x convention error flips the decision.
 
 The positioning of this tool is now clear too: **it is a calculator that writes its assumptions down, not an oracle that hands you answers**. Its value is that every number it gives you can be interrogated — *what is C here, does the denominator include communication loss, is this batch global or local?* Those questions are, for the most part, what distributed systems design consists of.
 

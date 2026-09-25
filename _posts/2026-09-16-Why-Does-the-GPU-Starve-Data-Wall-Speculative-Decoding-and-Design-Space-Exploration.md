@@ -44,11 +44,11 @@ t_step = max(t_io, t_cpu, t_gpu)      # step time is set by the slowest stage
 U      = t_gpu / t_step               # GPU utilization
 ```
 
-That is the core intuition of the Data Wall: **no matter how fast the GPU is, if the stages feeding it cannot keep up, the end-to-end throughput does not move.** This stage uses three mlsysim models to examine the pipeline segment by segment.
+That is the core intuition of the Data Wall: **no matter how fast the GPU is, if the stages feeding it cannot keep up, the end-to-end throughput does not move.** This stage uses three mlsysim models to check the pipeline segment by segment.
 
-## 2. E1: Measure the GPU "Ceiling" First
+## 2. E1: Find the GPU "Ceiling" First
 
-First, establish the baseline: how fast is the pure GPU compute of ResNet-50 on an A100, batch=256, FP16? This becomes the "ceiling" every other stage is compared against.
+First, establish the baseline: how fast is the pure GPU compute of ResNet-50 on an A100, batch=256, FP16? This becomes the baseline every other stage is compared against.
 
 ```python
 model = mlsysim.Models.Vision.ResNet50
@@ -65,7 +65,7 @@ Measured result:
 | Throughput (ceiling) | 18,323 img/s |
 | Bottleneck | Compute |
 
-13.97 ms means the GPU can "eat" 18,000 images per second. Keep this number — it is the ruler for every comparison that follows.
+The GPU can "eat" 18,000 images per second. Keep this number — it is the ruler for every comparison that follows.
 
 ## 3. E2: Can Storage I/O Keep Up?
 
@@ -184,9 +184,9 @@ Run drafts of different sizes (alpha fixed at 0.75):
 
 ![Speculative decoding: draft model size vs speedup](/img/posts/2026-09-16-mlsysim-system-optimization-en/spec-draft-speedup.png)
 
-There is a subtle but revealing gap between this and the usual story ("a draft too small -> low acceptance, too large -> exploding overhead, 8B is the sweet spot"): **in the mlsysim engine, the acceptance rate alpha is a parameter you pass in directly — it does not automatically vary with the draft model's size.** With alpha fixed at 0.75, a smaller draft has only upsides: r shrinks, the denominator shrinks, speedup climbs — so GPT-2 wins; the 70B draft is as slow as the target itself, so proposals are slow and verification is slow, a pure overhead of 0.62x (slower than not using spec decoding at all).
+There is a gap between this and the usual story ("a draft too small -> low acceptance, too large -> exploding overhead, 8B is the compromise"): **in the mlsysim engine, the acceptance rate alpha is a parameter you pass in directly — it does not automatically vary with the draft model's size.** With alpha fixed at 0.75, a smaller draft has only upsides: r shrinks, the denominator shrinks, speedup climbs — so GPT-2 wins; the 70B draft is as slow as the target itself, so proposals are slow and verification is slow, a pure overhead of 0.62x (slower than not using spec decoding at all).
 
-The "8B sweet spot" argument actually depends on something the engine does not model: in reality, alpha is a function of how close the draft's distribution is to the target's — a draft too small guesses poorly (low alpha), a draft too large is slow on its own (high r). By **decoupling** alpha from model size, the engine lets you study either effect in isolation, then combine them yourself. The real-world trade-off is "guesses well enough" vs "runs fast enough", and the engine helps you understand the two forces separately before composing them.
+The "8B" argument actually depends on something the engine does not model: in reality, alpha is a function of how close the draft's distribution is to the target's — a draft too small guesses poorly (low alpha), a draft too large is slow on its own (high r). By **decoupling** alpha from model size, the engine lets you study either effect in isolation, then combine them yourself. The real-world trade-off is "guesses well enough" vs "runs fast enough", and the engine helps you understand the two forces separately before composing them.
 
 ## 6. E5: Design Space Exploration — Declarative Search Instead of Nested Loops
 
@@ -235,7 +235,7 @@ The second layer I push back on: **"with generation length dominating, inference
 2. **The measurements support the memory wall, not the compute wall.** If the bottleneck really flipped to compute, we should see prefill-like regime behavior; but the measurements show (a) the only compute-bound segment — prefill (TTFT) — did not move at all; (b) total latency scales strictly linearly with K, a constant per-step cost, which is exactly what "every token priced by an HBM stream read" looks like — not what a compute-bound regime looks like.
 3. **When would the author's claim hold? Under large-batch serving.** Decode's arithmetic intensity rises with batch (see the roofline analysis in Part 2): at high enough concurrency the GPU's compute gets saturated and decode genuinely shifts from memory-bound to compute-bound. But that is a *system-throughput* shift; for a single request at low concurrency, inference-time compute is just "longer decode", still memory-bound. This is the other side of the same coin as Part 3's KV-Cache conclusion: **long sequences are priced by memory, not by compute.**
 
-## 8. My Take: Three Rulers and a "Find the Bottleneck First" Mindset
+## 8. My Take: Three Rulers and "Find the Bottleneck First"
 
 Task 4 condenses the single-point skills from the first three posts into a methodology. I read it as three rulers:
 
