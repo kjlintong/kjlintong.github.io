@@ -90,7 +90,7 @@ Cut off in arrival order. It makes the experiment more "honest": in a real syste
 
 My version: 314 users, 1.78x throughput speedup. After the merge: 259 users, 1.47x. The difference is exactly what the "food-picking" had fed. The maintainer preferred a plain but true number over a pretty but cheating one.
 
-## 5. Four Takeaways from Being Edited
+## 5. Three Takeaways from Being Edited
 
 1. **Demo code is ground zero for "looks like it runs".** Crashes and errors get caught instantly; an experiment that prints numbers on every row can be demonstrating nothing. Before writing a demo, ask: does this output *actually* vary with the independent variable, and by how much?
 
