@@ -1,6 +1,6 @@
 # LT Blog · kjlintong.github.io
 
-林通的个人博客,基于 Hux 主题改造的 Jekyll 站点。
+个人博客,基于 Hux 主题改造的 Jekyll 站点。
 
 记录大模型与 Agent 相关的技术笔记、学习心得,全站中英双语。
 
