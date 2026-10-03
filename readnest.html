@@ -474,6 +474,25 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 .footer-coords .accent { color: var(--accent-strong); }
 [data-theme="dark"] .footer-coords .accent { color: var(--rose); }
 
+.footer-support {
+  margin-top: 34px; padding-top: 26px;
+  border-top: 1px dashed var(--line);
+}
+.footer-support-head {
+  font-size: 14px; color: var(--fg); margin: 0 0 14px; line-height: 1.6;
+}
+.footer-support-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.support-link {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 9px 16px; border-radius: 999px;
+  border: 1px solid var(--line); background: var(--bg);
+  color: var(--fg); text-decoration: none; font-size: 13.5px;
+  transition: border-color .15s, background .15s, transform .15s;
+}
+.support-link:hover { border-color: var(--accent-strong); transform: translateY(-1px); }
+.support-domestic { border-color: var(--rose, #d98a8a); }
+.support-foreign { border-color: var(--accent-strong, #6b8f71); }
+
 /* ---------- GitHub stats ---------- */
 .gh-card {
   background: var(--code-bg);
@@ -1225,6 +1244,13 @@ a:focus-visible, button:focus-visible {
         <div data-i18n="footer-year">© 2026 kjlintong</div>
         <div><span class="accent">kjlintong.github.io</span> · readnest.html</div>
       </div>
+      <div class="footer-support">
+        <p class="footer-support-head" data-i18n="support-head">If Readnest helps you, a small tip keeps it going.</p>
+        <div class="footer-support-links">
+          <a class="support-link support-domestic" href="https://afdian.com/a/ryanlintong" target="_blank" rel="noopener" data-i18n="support-domestic">国内赞助 · 爱发电</a>
+          <a class="support-link support-foreign" href="https://ko-fi.com/ryanlin65969" target="_blank" rel="noopener" data-i18n="support-foreign">国外赞助 · Ko-fi</a>
+        </div>
+      </div>
     </div>
   </div>
 </footer>
@@ -1353,7 +1379,10 @@ Object.assign(window.I18N.en, {
 
   'footer-brand': 'Open source & reading',
   'footer-text': 'Readnest \u00b7 reading tracker \u00b7 Flutter \u00b7 SQLite \u00b7 local-first \u00b7 MIT licensed.',
-  'footer-year': '\u00a9 2026 kjlintong'
+  'footer-year': '\u00a9 2026 kjlintong',
+  'support-head': 'If Readnest helps you, a small tip keeps it going.',
+  'support-domestic': 'Domestic \u00b7 Afdian',
+  'support-foreign': 'International \u00b7 Ko-fi'
 });
 
 Object.assign(window.I18N.zh, {
@@ -1477,7 +1506,10 @@ Object.assign(window.I18N.zh, {
 
   'footer-brand': '\u5f00\u6e90 \u00b7 \u9605\u8bfb',
   'footer-text': 'Readnest \u00b7 \u9605\u8bfb\u8bb0\u5f55 \u00b7 Flutter \u00b7 SQLite \u00b7 \u672c\u5730\u4f18\u5148 \u00b7 MIT \u534f\u8bae\u3002',
-  'footer-year': '\u00a9 2026 kjlintong'
+  'footer-year': '\u00a9 2026 kjlintong',
+  'support-head': '\u5982\u679c Readnest \u5bf9\u4f60\u6709\u7528\uff0c\u968f\u624b\u6253\u8d4f\u80fd\u8ba9\u5b83\u575a\u6301\u4e0b\u53bb\u3002',
+  'support-domestic': '\u56fd\u5185\u8d5e\u52a9 \u00b7 \u7231\u53d1\u7535',
+  'support-foreign': '\u56fd\u5916\u8d5e\u52a9 \u00b7 Ko-fi'
 });
 </script>
 
