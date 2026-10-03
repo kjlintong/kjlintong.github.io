@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Readnest Privacy Policy</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site">
+<a class="brand" href="readnest/index.html">Readnest</a>
+<nav><a href="readnest/index.html">Home</a><a href="privacy.html">Privacy (中文)</a><a href="privacy-en.html" class="on">Privacy (EN)</a></nav>
+</header>
+<main>
+<h1>Privacy Policy (English)</h1>
+<p><strong>Effective date</strong>: 2026-10-01</p>
+<p><strong>Scope</strong>: This Privacy Policy applies to the reading application <strong>Readnest</strong> (hereinafter the "App") developed and published by <strong>Tong Lin (individual developer)</strong> (hereinafter "we", "us", or "our").</p>
+<blockquote><p>Note: This policy is hosted on the developer's website so that both the stores and users can reach it:</p> <p>English <code>https://kjlintong.github.io/privacy-en.html</code> ｜ Chinese <code>https://kjlintong.github.io/privacy.html</code></p> <p>The web version is generated from this file by <code>store/tools/build_site.py</code> (output in <code>store/web/</code>).</p> <p>Developer identity: <strong>Tong Lin · ltong9463@gmail.com (individual developer, no registered company)</strong>.</p></blockquote>
+<hr>
+<h2>1. How We Approach Your Data</h2>
+<p>This App uses a <strong>local-first</strong> architecture:</p>
+<ul><li>Your bookshelf, reading progress, notes, statistics, and settings are <strong>stored entirely in an on-device local database (SQLite)</strong>;</li><li>We <strong>do not provide any account system, nor do we operate backend servers that collect or store your data</strong>;</li><li>We <strong>do not sell, rent, or share your personal data with any third party for advertising or marketing purposes</strong>.</li></ul>
+<hr>
+<h2>2. What Data We Process</h2>
+<ul><li><strong>Locally stored data</strong>: Book information you add or import (title, author, category, progress, rating, notes, cover, etc.), reading statistics, and app settings. This data exists only on your device.</li><li><strong>Credentials you enter</strong>: If you use the "WeRead Sync" or "LLM" features, you enter the corresponding API Key / Base URL / model name in Settings. These credentials <strong>are stored only in your device's system keystore (Android Keystore / iOS Keychain, via flutter_secure_storage)</strong> and <strong>are never written in plaintext to the app's SQLite database</strong>; they are never uploaded to us and are sent only to the endpoints you specify.</li><li><strong>What we do not collect</strong>: The App integrates no third-party analytics, advertising, or crash-reporting SDKs, and does not collect device identifiers, precise location, or your behavioral data. There is exactly one exception: the <strong>on-device text-recognition SDK used for photo import (Google ML Kit)</strong> sends Google <strong>anonymous operational metrics that carry no image content</strong>. See section 3.4 below.</li></ul>
+<hr>
+<h2>3. When Data Leaves Your Device</h2>
+<p>The App communicates with third-party services <strong>only when you actively enable and configure the corresponding feature</strong>. All communication goes through credentials you provide, to endpoints you choose.</p>
+<h3>3.1 WeRead Sync (optional)</h3>
+<ul><li><strong>Trigger</strong>: You enter a WeRead API Key in Settings.</li><li><strong>Recipient</strong>: Tencent WeRead official gateway <code>https://i.weread.qq.com</code>.</li><li><strong>Data sent</strong>: API requests to fetch your bookshelf, reading progress, reading statistics, and store search.</li><li><strong>Note</strong>: Operated by Tencent with servers in China. If you do not enter the Key, the App never contacts this service.</li></ul>
+<h3>3.2 LLM / AI Features (optional)</h3>
+<p>You may enter any OpenAI-compatible or Anthropic-protocol LLM endpoint (Base URL, API Key, model name). The following data is sent to your configured endpoint when you trigger the relevant feature:</p>
+<ul><li><strong>Metadata completion</strong>: A small amount of information (title, author) to complete missing book metadata.</li><li><strong>Reading report generation</strong>: <strong>Aggregated reading statistics</strong>, plus the <strong>titles, authors, categories, reading status, and ratings of books that changed during the reporting period</strong> (<strong>excluding note content</strong>).</li><li><strong>Screenshot recognition (multimodal)</strong>: When you enable "organize OCR results with LLM" or "multimodal model reads image" to import a bookshelf photo/screenshot, <strong>the image (JPEG) you select is uploaded to your configured multimodal endpoint</strong> to recognize book titles. This is optional and requires you to actively select and confirm the image each time.</li></ul>
+<blockquote><p><strong>Important consent</strong>: Screenshots may contain personal information such as book titles and covers. Uploading images to a multimodal model is sensitive data processing; the App will <strong>request your separate explicit consent</strong> before using this feature, and you may disable it at any time in Settings.</p></blockquote>
+<h3>3.3 Public Metadata Services (optional)</h3>
+<p>To complete book covers, descriptions, ISBN, etc., the App queries the following public APIs by title/author:</p>
+<ul><li>Google Books API (<code>https://www.googleapis.com/books/v1/volumes</code>)</li><li>Open Library (<code>https://openlibrary.org</code>)</li></ul>
+<p>These queries contain only the title/author of the book you are importing, used to match public bibliographic data. They are skipped automatically in networks where these services are unreachable, without interrupting import.</p>
+<p>When a book has a cover image, the App <strong>downloads that image directly from wherever it is hosted</strong> (typically <code>books.google.com</code> or <code>covers.openlibrary.org</code>) in order to display it. Such a request contains nothing but the image address itself.</p>
+<h3>3.4 Operational metrics from the on-device text-recognition SDK (automatic)</h3>
+<p>Text recognition during photo and album import is performed <strong>locally on your device by Google ML Kit</strong>. <strong>The image you select, and the text recognised from it, never leave your device.</strong> However, under Google's official ML Kit terms of service, the SDK will:</p>
+<ul><li>contact Google servers from time to time in order to receive bug fixes, updated models, and hardware-accelerator compatibility information; and</li><li>send Google <strong>metrics about the performance and utilization of the API within this App</strong> (for example, how often it is invoked, how long processing takes, and the device model and OS version).</li></ul>
+<p>These metrics describe the SDK's own operation. They <strong>do not contain the image you scanned, your book titles, or your notes</strong>, and we — the developer — do not receive them either. This behaviour is determined by the SDK and cannot be switched off by the App. If you never use photo or album import, these requests never occur.</p>
+<p>Source: <a href="https://developers.google.com/ml-kit/terms" rel="noopener">https://developers.google.com/ml-kit/terms</a></p>
+<hr>
+<h2>4. Permissions</h2>
+<ul><li><strong>Camera</strong>: To photograph your bookshelf for title recognition (camera import).</li><li><strong>Photo / Media Library</strong>: To pick bookshelf screenshots from the album for recognition (album import).</li><li><strong>Internet</strong>: For the sync, AI, and metadata features above.</li></ul>
+<p>We invoke the corresponding permission only when you actually use the related feature, following the principle of minimal permission and purpose disclosure.</p>
+<hr>
+<h2>5. Data Security</h2>
+<ul><li>Your data is stored in the device-private directory; both the app sandbox and the system keystore are protected by the OS.</li><li>Your API keys are stored in system-level secure storage (Android Keystore / iOS Keychain, via <code>flutter_secure_storage</code>) and are never written in plaintext to the app's SQLite database.</li><li>You may export your data as a JSON file via the in-app "Export / Restore" feature for backup. The file is stored where you choose and managed by you; the App does not upload it automatically.</li></ul>
+<hr>
+<h2>6. Children's Privacy</h2>
+<p>The App is not specifically directed to children under 13 and does not knowingly collect children's personal information. As the App has no account system, we do not actively verify user age.</p>
+<hr>
+<h2>7. Your Rights and Data Deletion</h2>
+<p>Because the App has no account dependency and all data is stored locally:</p>
+<ul><li><strong>Access &amp; export</strong>: You may view all data in-app at any time and obtain a JSON copy via export.</li><li><strong>Deletion</strong>: Clearing app data in system settings or uninstalling the App permanently deletes all local data; exported backup files are deleted by you.</li><li>If your jurisdiction grants rights to access, rectify, delete, port, or object to processing of your data (e.g., GDPR in the EU, CCPA in California), contact us via the details below.</li></ul>
+<hr>
+<h2>8. Changes to This Policy</h2>
+<p>We may update this policy from time to time. Material changes will be communicated via in-app notice or update notes.</p>
+<hr>
+<h2>9. Contact Us</h2>
+<p>For any questions about this policy or your data, contact: <strong>ltong9463@gmail.com</strong> Developer website: <strong><a href="https://kjlintong.github.io/" rel="noopener">https://kjlintong.github.io/</a></strong> Data Controller: <strong>Tong Lin (individual developer, no registered company)</strong>, established in: <strong>China</strong></p>
+<hr>
+<h2>10. Pricing and Tips</h2>
+<p>Every feature of the App can be used at no cost. The App contains <strong>no advertising, no in-app purchases and no subscriptions</strong>.</p>
+<p>If you would like to support continued development, you can open an external tipping page (Ko-fi) from <strong>Settings → Support the Developer</strong>. Tipping is <strong>entirely voluntary and unlocks nothing</strong> — the App works exactly the same either way. The page opens in your system browser, payment is handled by that third-party platform, and the App <strong>takes no part in the transaction and never sees your payment details</strong>.</p>
+<hr>
+<p><em>This policy was drafted by the developer. Before release, we recommend a review by qualified legal counsel against current regulations (GDPR, CCPA, PIPL, etc.).</em></p>
+</main>
+<footer class="site">
+<p>Readnest — A private, local-first reading tracker</p><p>Contact: <a href="mailto:ltong9463@gmail.com">ltong9463@gmail.com</a> ｜ Developer website: <a href="https://kjlintong.github.io/" rel="noopener">kjlintong.github.io</a> ｜ Support the developer: <a href="https://ko-fi.com/ryanlin65969" rel="noopener">Ko-fi</a></p>
+</footer>
+</body>
+</html>
