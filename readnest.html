@@ -267,7 +267,7 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 }
 .phone-frame {
   position: relative; width: 100%; max-width: 200px;
-  aspect-ratio: 9 / 19.5; border-radius: 26px;
+  aspect-ratio: 9 / 16; border-radius: 26px;
   padding: 4px; background: var(--code-bg);
   border: 1px solid var(--line);
   box-shadow:
@@ -474,6 +474,195 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 .footer-coords .accent { color: var(--accent-strong); }
 [data-theme="dark"] .footer-coords .accent { color: var(--rose); }
 
+/* ---------- GitHub stats ---------- */
+.gh-card {
+  background: var(--code-bg);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 28px 30px 26px;
+}
+[data-theme="dark"] .gh-card { background: var(--surface); }
+.gh-head {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; margin-bottom: 18px;
+}
+.gh-title {
+  font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--fg); line-height: 1.3;
+}
+.gh-title .repo-name {
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--muted); margin-left: 6px; letter-spacing: 0.02em;
+  font-weight: 400;
+}
+.gh-tag {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 4px 10px; border: 1px solid var(--leaf-ink);
+  border-radius: 999px; font-size: 10.5px; font-weight: 600;
+  color: var(--leaf-ink); letter-spacing: 0.16em; text-transform: uppercase;
+  font-family: var(--font-mono); text-transform: uppercase;
+}
+[data-theme="dark"] .gh-tag { border-color: var(--leaf); color: var(--leaf); }
+.gh-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 0; border-top: 1px solid var(--line);
+}
+.gh-cell {
+  padding: 16px 14px 14px;
+  border-right: 1px solid var(--line);
+}
+.gh-cell:last-child { border-right: none; }
+.gh-value {
+  font-family: var(--font-display); font-weight: 600;
+  font-size: 30px; color: var(--fg); line-height: 1;
+  letter-spacing: -0.01em; display: inline-flex; align-items: baseline; gap: 6px;
+}
+.gh-value .gh-ico {
+  width: 16px; height: 16px; display: inline-block;
+  color: var(--rose); flex-shrink: 0;
+}
+.gh-value .gh-ico svg { width: 100%; height: 100%; }
+.gh-cell-link .gh-value:hover { color: var(--accent-strong); }
+.gh-cell-label {
+  margin-top: 8px; font-size: 10.5px; font-weight: 600;
+  color: var(--muted); letter-spacing: 0.14em;
+  text-transform: uppercase; line-height: 1.4;
+}
+.gh-note {
+  margin: 14px 0 0; padding-top: 14px;
+  border-top: 1px solid var(--line);
+  font-size: 13px; color: var(--muted); line-height: 1.7;
+}
+.gh-note code {
+  font-family: var(--font-mono); font-size: 12px;
+  background: var(--bg-soft); padding: 2px 6px; border-radius: 3px;
+  color: var(--fg);
+}
+
+/* ---------- Build commands ---------- */
+.build-wrap { margin-top: 24px; }
+.build-intro {
+  font-size: 14px; color: var(--muted);
+  margin-bottom: 14px; line-height: 1.7;
+}
+.build-intro code {
+  font-family: var(--font-mono); font-size: 12.5px;
+  background: var(--bg-soft); padding: 2px 6px; border-radius: 3px;
+  color: var(--fg);
+}
+.build-list { display: flex; flex-direction: column; gap: 8px; }
+.cmd {
+  display: grid; grid-template-columns: 28px 1fr 36px;
+  gap: 14px; align-items: center;
+  background: var(--bg-soft); border: 1px solid var(--line);
+  border-radius: 6px; padding: 10px 14px;
+  font-family: var(--font-mono); font-size: 13px;
+  transition: border-color 0.2s, background 0.2s;
+}
+.cmd:hover { border-color: var(--accent-strong); }
+.cmd-n {
+  color: var(--rose); font-size: 12px; font-weight: 600;
+  text-align: center;
+}
+.cmd-code {
+  color: var(--fg); word-break: break-all;
+  padding-left: 8px;
+}
+.cmd-copy {
+  width: 30px; height: 30px; border-radius: 4px;
+  background: transparent; border: 1px solid var(--line);
+  color: var(--muted); cursor: pointer;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 0; transition: color 0.2s, border-color 0.2s, background 0.2s;
+}
+.cmd-copy:hover { color: var(--fg); border-color: var(--accent-strong); }
+.cmd-copy.copied {
+  color: var(--leaf-ink); border-color: var(--leaf-ink);
+  background: var(--leaf-soft);
+}
+[data-theme="dark"] .cmd-copy.copied { color: var(--leaf); border-color: var(--leaf); }
+.cmd-copy svg { width: 14px; height: 14px; }
+
+/* ---------- FAQ ---------- */
+.faq {
+  display: grid; grid-template-columns: 1fr;
+  gap: 0; border-top: 1px solid var(--line);
+}
+.faq-item {
+  padding: 22px 0 22px;
+  border-bottom: 1px solid var(--line);
+}
+.faq-q {
+  display: flex; align-items: baseline; gap: 14px;
+  font-family: var(--font-display); font-size: 20px; font-weight: 600;
+  color: var(--fg); line-height: 1.35; margin-bottom: 10px;
+}
+.faq-q .faq-idx {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500;
+  color: var(--rose); letter-spacing: 0.06em; flex-shrink: 0;
+}
+.faq-a {
+  font-size: 15px; color: var(--muted);
+  line-height: 1.85; padding-left: 34px; max-width: 62ch;
+}
+.faq-a strong { color: var(--fg); font-weight: 600; }
+.faq-a code {
+  font-family: var(--font-mono); font-size: 13px;
+  background: var(--bg-soft); padding: 1px 6px; border-radius: 3px;
+  color: var(--fg);
+}
+.faq-a a { color: var(--accent-strong); }
+
+/* ---------- Roadmap ---------- */
+.roadmap-intro {
+  font-size: 15.5px; color: var(--muted);
+  line-height: 1.85; max-width: 62ch; margin-bottom: 30px;
+}
+.roadmap-intro strong { color: var(--fg); font-weight: 600; }
+.roadmap {
+  display: grid; grid-template-columns: 1fr;
+  gap: 0; border-top: 1px solid var(--line);
+}
+.roadmap-row {
+  display: grid; grid-template-columns: 60px 1fr auto;
+  gap: 24px; align-items: center;
+  padding: 18px 4px 18px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.roadmap-tag {
+  font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+  color: var(--rose); letter-spacing: 0.04em;
+}
+.roadmap-item {
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 15px; color: var(--fg); line-height: 1.5;
+}
+.roadmap-item strong { font-weight: 600; }
+.roadmap-item .roadmap-note {
+  font-size: 13px; color: var(--muted); font-style: italic;
+}
+.roadmap-status {
+  font-size: 11px; font-weight: 600;
+  color: var(--muted); letter-spacing: 0.14em;
+  text-transform: uppercase; text-align: right;
+  white-space: nowrap;
+}
+.roadmap-status.is-done { color: var(--leaf-ink); }
+[data-theme="dark"] .roadmap-status.is-done { color: var(--leaf); }
+.roadmap-status.is-done::before {
+  content: "✓"; margin-right: 6px; font-weight: 700;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
   .hero-grid,
@@ -488,6 +677,10 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   .gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .footer-inner { flex-direction: column; align-items: flex-start; }
   .footer-coords { text-align: left; }
+  .gh-grid { grid-template-columns: repeat(3, 1fr); }
+  .gh-cell { padding: 14px 12px 12px; }
+  .gh-value { font-size: 26px; }
+  .roadmap-row { grid-template-columns: 44px 1fr auto; gap: 16px; padding: 16px 2px; }
 }
 @media (max-width: 520px) {
   .wrap { padding: 0 22px; }
@@ -497,6 +690,19 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   .gallery { grid-template-columns: 1fr; }
   .download-meta .meta-row { grid-template-columns: 88px 1fr; }
   .stat-value { font-size: 34px; }
+  .gh-cell { padding: 12px 8px; }
+  .gh-value { font-size: 22px; }
+  .gh-note { font-size: 12.5px; }
+  .cmd { grid-template-columns: 24px 1fr 30px; gap: 10px; font-size: 12px; padding: 8px 10px; }
+  .cmd-code { font-size: 11.5px; word-break: break-all; padding-left: 4px; }
+  .faq-q { font-size: 18px; }
+  .faq-a { padding-left: 26px; }
+  .roadmap-row { grid-template-columns: 38px 1fr; row-gap: 6px; padding: 14px 0; }
+  .roadmap-row .roadmap-status { grid-column: 2 / 3; text-align: left; }
+  .roadmap-tag { font-size: 12px; }
+  .roadmap-item { font-size: 14px; }
+  .roadmap-item .roadmap-note { font-size: 12px; }
+  .roadmap-status { font-size: 10.5px; }
 }
 
 /* ---------- Focus ---------- */
@@ -543,7 +749,7 @@ a:focus-visible, button:focus-visible {
         <div class="hero-meta">
           <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v0.9.0 release candidate</span></span>
           <span class="pill"><span class="pill-dot brick" aria-hidden="true"></span><span data-i18n="meta-license">MIT · open source</span></span>
-          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK · iOS soon</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK out · iOS soon</span></span>
         </div>
         <div class="hero-actions">
           <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download">
@@ -763,11 +969,53 @@ a:focus-visible, button:focus-visible {
 
 <hr class="hairline">
 
-<!-- Stats + Download -->
+<!-- Section 04 — GitHub, build & download -->
 <section class="section" data-od-id="build" id="build">
   <div class="wrap">
-    <p class="section-label"><span class="num">04</span><span data-i18n="build-label">Build &amp; download</span></p>
-    <h2 class="section-heading" data-i18n="build-heading">Grab it or read the source</h2>
+    <p class="section-label"><span class="num">04</span><span data-i18n="build-label">GitHub · Build · Download</span></p>
+    <h2 class="section-heading" data-i18n="build-heading">Where it lives, how to run it</h2>
+
+    <!-- GitHub card -->
+    <div class="gh-card" data-od-id="gh-card">
+      <div class="gh-head">
+        <p class="gh-title" data-i18n="gh-title">The repository <span class="repo-name">kjlintong/reading-tracker</span></p>
+        <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener" class="gh-tag">MIT · Dart</a>
+      </div>
+      <div class="gh-grid">
+        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/stargazers" target="_blank" rel="noopener" data-od-id="gh-stars">
+          <div class="gh-value" data-gh="stars">
+            <span class="gh-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7L12 17.8 5.7 21.2l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
+            </span>
+            <span data-gh-val="stars">0</span>
+          </div>
+          <div class="gh-cell-label">Stars</div>
+        </a>
+        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/network/members" target="_blank" rel="noopener" data-od-id="gh-forks">
+          <div class="gh-value" data-gh="forks">
+            <span class="gh-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="5" r="2.2"/><circle cx="12" cy="19" r="2.2"/><path d="M6 7.2v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-3"/><path d="M12 13.2v3.6"/></svg>
+            </span>
+            <span data-gh-val="forks">0</span>
+          </div>
+          <div class="gh-cell-label">Forks</div>
+        </a>
+        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/commits/main" target="_blank" rel="noopener" data-od-id="gh-commits">
+          <div class="gh-value" data-gh="commits">
+            <span class="gh-ico" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v6.5M12 15.5V22"/></svg>
+            </span>
+            <span data-gh-val="commits">0</span>
+          </div>
+          <div class="gh-cell-label">Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code></div>
+        </a>
+      </div>
+      <p class="gh-note">
+        <span data-i18n="gh-note-before">Readnest is a solo project so far — </span><strong id="gh-contributors" data-gh-val="contributors">1</strong> <span data-i18n="gh-note-mid">contributor, </span><span data-i18n="gh-note-after">but the MIT license is a genuine open invitation. Grab the latest <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a> below, or read the source and file an issue.</span>
+      </p>
+    </div>
+
+    <!-- Product stats + download -->
     <div class="stats-download">
 
       <div>
@@ -790,6 +1038,34 @@ a:focus-visible, button:focus-visible {
           </div>
         </div>
         <p class="stat-note" data-i18n="build-note">v0.9.0 is a release candidate, built with Flutter 3.24.x / Dart 3.5.x on Android SDK 34. <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT-licensed source</a>.</p>
+
+        <!-- Build commands -->
+        <div class="build-wrap">
+          <p class="build-intro" data-i18n="build-intro">Want to build it yourself? You need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands from <code>app/</code>:</p>
+          <div class="build-list">
+            <div class="cmd">
+              <span class="cmd-n">01</span>
+              <span class="cmd-code" data-od-id="cmd-pubget">flutter pub get</span>
+              <button type="button" class="cmd-copy" data-copy="flutter pub get" aria-label="Copy flutter pub get">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
+              </button>
+            </div>
+            <div class="cmd">
+              <span class="cmd-n">02</span>
+              <span class="cmd-code" data-od-id="cmd-run">flutter run</span>
+              <button type="button" class="cmd-copy" data-copy="flutter run" aria-label="Copy flutter run">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
+              </button>
+            </div>
+            <div class="cmd">
+              <span class="cmd-n">03</span>
+              <span class="cmd-code" data-od-id="cmd-build">flutter build apk --release</span>
+              <button type="button" class="cmd-copy" data-copy="flutter build apk --release" aria-label="Copy flutter build apk">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
 
       <aside class="download-card" data-od-id="download-card">
@@ -821,16 +1097,117 @@ a:focus-visible, button:focus-visible {
             <dd class="v">Flutter <code>3.24.x</code> · Dart <code>3.5.x</code> · Android SDK <code>34</code></dd>
           </div>
           <div class="meta-row">
-            <dt class="k" data-i18n="d-steps">Build</dt>
-            <dd class="v"><code>flutter pub get</code> → <code>flutter run</code> → <code>flutter build apk --release</code></dd>
-          </div>
-          <div class="meta-row">
             <dt class="k" data-i18n="d-lic">License</dt>
             <dd class="v">MIT — read, fork, ship.</dd>
           </div>
         </dl>
       </aside>
 
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- Section 05 — FAQ -->
+<section class="section" data-od-id="faq" id="faq">
+  <div class="wrap">
+    <p class="section-label"><span class="num">05</span><span data-i18n="faq-label">Questions</span></p>
+    <h2 class="section-heading" data-i18n="faq-heading">Things you probably want to ask</h2>
+
+    <div class="faq">
+
+      <div class="faq-item" data-od-id="faq-sync">
+        <h3 class="faq-q"><span class="faq-idx">Q1</span><span data-i18n="faq1-q">Does it sync my data to a server?</span></h3>
+        <p class="faq-a" data-i18n="faq1-a"><strong>No — not by design.</strong> Readnest is strictly local-first: your books, notes, and reading plans live in a <code>SQLite</code> file on your device. There is no backend, no login, no cloud sync. If you want to back up your library, copy the local SQLite file — that's it.</p>
+      </div>
+
+      <div class="faq-item" data-od-id="faq-login">
+        <h3 class="faq-q"><span class="faq-idx">Q2</span><span data-i18n="faq2-q">Do I need an account?</span></h3>
+        <p class="faq-a" data-i18n="faq2-a"><strong>No.</strong> The whole point is that you don't. There is no login screen, no email field, no API key you have to configure for core features. Install the APK, open the app, that's the sign-up.</p>
+      </div>
+
+      <div class="faq-item" data-od-id="faq-ios">
+        <h3 class="faq-q"><span class="faq-idx">Q3</span><span data-i18n="faq3-q">When will iOS be out?</span></h3>
+        <p class="faq-a" data-i18n="faq3-a"><strong>Not yet on the App Store.</strong> The codebase is one Flutter project that compiles for both platforms, but the iOS build needs a Mac runner I don't own. There is a <code>codemagic.yaml</code> in the repo that would sign and ship the iOS build through Codemagic's cloud — if you run into it first, the source is already ready. See the <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">repo's iOS section</a>.</p>
+      </div>
+
+      <div class="faq-item" data-od-id="faq-weread">
+        <h3 class="faq-q"><span class="faq-idx">Q4</span><span data-i18n="faq4-q">How is this different from WeRead?</span></h3>
+        <p class="faq-a" data-i18n="faq4-a">WeRead is a reader with a massive ecosystem. <strong>Readnest is the mirror you own.</strong> You import your WeRead library into Readnest via the official Agent gateway — the books stay in your phone's SQLite, the ratings and notes stay yours, and Readnest never phones home on your behalf.</p>
+      </div>
+
+      <div class="faq-item" data-od-id="faq-ai">
+        <h3 class="faq-q"><span class="faq-idx">Q5</span><span data-i18n="faq5-q">Does the AI report see my books?</span></h3>
+        <p class="faq-a" data-i18n="faq5-a"><strong>Only the statistics — not the text.</strong> Before any prompt is sent to the model, Readnest aggregates your local reading data into an anonymous summary (counts, distributions, no titles, no note text). You bring your own LLM key, and the key never touches Readnest's servers because there are none.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<hr class="hairline">
+
+<!-- Section 06 — Roadmap -->
+<section class="section" data-od-id="roadmap" id="roadmap">
+  <div class="wrap">
+    <p class="section-label"><span class="num">06</span><span data-i18n="roadmap-label">Roadmap</span></p>
+    <h2 class="section-heading" data-i18n="roadmap-heading">What's next</h2>
+    <p class="roadmap-intro" data-i18n="roadmap-intro">The full plan lives in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. Here's the shape, with today's status.</p>
+    <div class="roadmap">
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P0</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm0"><strong>Data model + local DB + Notion migration + OCR algorithm</strong></span>
+        </div>
+        <span class="roadmap-status is-done" data-i18n="st-done">Done</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P1</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm1"><strong>Flutter app: shelf, detail, import, stats</strong></span>
+          <span class="roadmap-note" data-i18n="rm1-note">Skeleton shipped, compiled and tested in v0.9.0.</span>
+        </div>
+        <span class="roadmap-status is-done" data-i18n="st-done">Done</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P2</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm2"><strong>OCR polish: multi-platform screenshots, recognition tuning</strong></span>
+        </div>
+        <span class="roadmap-status" data-i18n="st-next">Next</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P3</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm3"><strong>AI reports: scheduled runs, history, preference profile</strong></span>
+          <span class="roadmap-note" data-i18n="rm3-note">API ready; UI already shipped as v0.9.0's "AI reading report" tab.</span>
+        </div>
+        <span class="roadmap-status" data-i18n="st-part">In progress</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P4</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm4"><strong>Reading log: session duration, streaks, calendar heatmap</strong></span>
+        </div>
+        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P5</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm5"><strong>Optional sync: WebDAV / cloud storage for multi-device</strong></span>
+          <span class="roadmap-note" data-i18n="rm5-note">Opt-in only; local-first stays the default.</span>
+        </div>
+        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
+      </div>
+      <div class="roadmap-row">
+        <span class="roadmap-tag">P6</span>
+        <div class="roadmap-item">
+          <span data-i18n="rm6"><strong>Windows desktop build</strong></span>
+          <span class="roadmap-note" data-i18n="rm6-note">Flutter officially supports it; small change surface.</span>
+        </div>
+        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
+      </div>
     </div>
   </div>
 </section>
@@ -863,7 +1240,7 @@ Object.assign(window.I18N.en, {
   'hero-desc': 'Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Import your WeRead, Notion, CSV, and shelf-photo libraries in minutes.',
   'meta-version': 'v0.9.0 release candidate',
   'meta-license': 'MIT · open source',
-  'meta-platform': 'Android APK · iOS soon',
+  'meta-platform': 'Android APK out · iOS soon',
   'btn-download': 'Download APK',
   'btn-source': 'GitHub repo',
 
@@ -906,13 +1283,18 @@ Object.assign(window.I18N.en, {
   'pp3-title': 'Offline by design',
   'pp3-body': 'Reading, OCR, and every chart work with the airplane mode switch on. ML Kit does text recognition on-device; no image ever leaves the phone.',
 
-  'build-label': 'Build & download',
-  'build-heading': 'Grab it or read the source',
+  'build-label': 'GitHub · Build · Download',
+  'build-heading': 'Where it lives, how to run it',
   's1-label': 'Seed books',
   's2-label': 'Bilingual strings · zero drift',
   's3-label': 'Tests passing',
   's4-label': 'Android APK out · iOS next',
   'build-note': 'v0.9.0 is a release candidate, built with Flutter 3.24.x / Dart 3.5.x on Android SDK 34. <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT-licensed source</a>.',
+  'build-intro': 'Want to build it yourself? You need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands from <code>app/</code>:',
+  'gh-title': 'The repository <span class="repo-name">kjlintong/reading-tracker</span>',
+  'gh-note-before': 'Readnest is a solo project so far — ',
+  'gh-note-mid': 'contributor, ',
+  'gh-note-after': 'but the MIT license is a genuine open invitation. Grab the latest <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a> below, or read the source and file an issue.',
   'd-title': 'Readnest v0.9.0',
   'd-tag': 'Release candidate',
   'btn-download-release': 'Get the APK',
@@ -920,8 +1302,39 @@ Object.assign(window.I18N.en, {
   'd-ver': 'Version',
   'd-plat': 'Platform',
   'd-size': 'Build',
-  'd-steps': 'Steps',
   'd-lic': 'License',
+
+  'faq-label': 'Questions',
+  'faq-heading': 'Things you probably want to ask',
+  'faq1-q': 'Does it sync my data to a server?',
+  'faq1-a': '<strong>No — not by design.</strong> Readnest is strictly local-first: your books, notes, and reading plans live in a <code>SQLite</code> file on your device. There is no backend, no login, no cloud sync. If you want to back up your library, copy the local SQLite file — that\'s it.',
+  'faq2-q': 'Do I need an account?',
+  'faq2-a': '<strong>No.</strong> The whole point is that you don\'t. There is no login screen, no email field, no API key you have to configure for core features. Install the APK, open the app, that\'s the sign-up.',
+  'faq3-q': 'When will iOS be out?',
+  'faq3-a': '<strong>Not yet on the App Store.</strong> The codebase is one Flutter project that compiles for both platforms, but the iOS build needs a Mac runner I don\'t own. There is a <code>codemagic.yaml</code> in the repo that would sign and ship the iOS build through Codemagic\'s cloud — if you run into it first, the source is already ready. See the <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">repo\'s iOS section</a>.',
+  'faq4-q': 'How is this different from WeRead?',
+  'faq4-a': 'WeRead is a reader with a massive ecosystem. <strong>Readnest is the mirror you own.</strong> You import your WeRead library into Readnest via the official Agent gateway — the books stay in your phone\'s SQLite, the ratings and notes stay yours, and Readnest never phones home on your behalf.',
+  'faq5-q': 'Does the AI report see my books?',
+  'faq5-a': '<strong>Only the statistics — not the text.</strong> Before any prompt is sent to the model, Readnest aggregates your local reading data into an anonymous summary (counts, distributions, no titles, no note text). You bring your own LLM key, and the key never touches Readnest\'s servers because there are none.',
+
+  'roadmap-label': 'Roadmap',
+  'roadmap-heading': 'What\'s next',
+  'roadmap-intro': 'The full plan lives in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. Here\'s the shape, with today\'s status.',
+  'rm0': '<strong>Data model + local DB + Notion migration + OCR algorithm</strong>',
+  'rm1': '<strong>Flutter app: shelf, detail, import, stats</strong>',
+  'rm1-note': 'Skeleton shipped, compiled and tested in v0.9.0.',
+  'rm2': '<strong>OCR polish: multi-platform screenshots, recognition tuning</strong>',
+  'rm3': '<strong>AI reports: scheduled runs, history, preference profile</strong>',
+  'rm3-note': 'API ready; UI already shipped as v0.9.0\'s "AI reading report" tab.',
+  'rm4': '<strong>Reading log: session duration, streaks, calendar heatmap</strong>',
+  'rm5': '<strong>Optional sync: WebDAV / cloud storage for multi-device</strong>',
+  'rm5-note': 'Opt-in only; local-first stays the default.',
+  'rm6': '<strong>Windows desktop build</strong>',
+  'rm6-note': 'Flutter officially supports it; small change surface.',
+  'st-done': 'Done',
+  'st-next': 'Next',
+  'st-todo': 'Backlog',
+  'st-part': 'In progress',
 
   'footer-brand': 'Open source & writing',
   'footer-text': 'Readnest · reading tracker · Flutter · SQLite · local-first · MIT licensed.',
@@ -980,13 +1393,18 @@ Object.assign(window.I18N.zh, {
   'pp3-title': '离线可用',
   'pp3-body': '阅读、OCR、所有图表在飞行模式下照常工作。ML Kit 端侧完成文字识别，图片永不离机。',
 
-  'build-label': '构建 · 下载',
-  'build-heading': '下载或读源码',
+  'build-label': 'GitHub · 构建 · 下载',
+  'build-heading': '源码在哪儿，怎么跑起来',
   's1-label': '内置示例书',
   's2-label': '双语文案 · 零漂移',
   's3-label': '测试用例通过',
   's4-label': 'Android 已发布 · iOS 后续',
   'build-note': 'v0.9.0 为发布候选，基于 Flutter 3.24.x / Dart 3.5.x 与 Android SDK 34 构建。<a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT 协议源码</a>。',
+  'build-intro': '想自己构建？需要 Flutter <code>3.24.x</code>、Dart <code>3.5.x</code>、Android SDK <code>34</code>。从 <code>app/</code> 目录跑三步：',
+  'gh-title': '源码仓库 <span class="repo-name">kjlintong/reading-tracker</span>',
+  'gh-note-before': 'Readnest 目前是我一个人的项目 —— ',
+  'gh-note-mid': '个贡献者，',
+  'gh-note-after': '但 MIT 授权是真心开放。可先取 <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a>，也可以读源码提 issue。',
   'd-title': 'Readnest v0.9.0',
   'd-tag': '发布候选',
   'btn-download-release': '获取 APK',
@@ -994,8 +1412,39 @@ Object.assign(window.I18N.zh, {
   'd-ver': '版本',
   'd-plat': '平台',
   'd-size': '环境',
-  'd-steps': '命令',
   'd-lic': '授权',
+
+  'faq-label': '常见问题',
+  'faq-heading': '你可能想问的',
+  'faq1-q': '数据会同步到服务器吗？',
+  'faq1-a': '<strong>不会 —— 也不是设计目标。</strong>Readnest 严格本地优先：书籍、笔记、阅读计划都躺在你手机本地的 <code>SQLite</code> 里。没有后端，没有账号，没有云同步。想备份就复制本地 SQLite 文件——这就是全部。',
+  'faq2-q': '需要注册账号吗？',
+  'faq2-a': '<strong>不需要。</strong>这正是它的设计目标。没有登录页，没有邮箱栏，核心功能也无需配 API Key。装 APK、打开 App，这就是你的注册。',
+  'faq3-q': 'iOS 什么时候出？',
+  'faq3-a': '<strong>App Store 上还没有。</strong>代码是同一个 Flutter 工程，两个平台都能编译，但 iOS 构建需要 Mac runner——我手上暂时没有。仓库里已经有一份 <code>codemagic.yaml</code>，走 Codemagic 云端就能签 & 出包——如果你先跑到这一步，源码已经准备好了。见仓库的 iOS 章节。',
+  'faq4-q': '和微信读书有什么区别？',
+  'faq4-a': '微信读书是一个拥有庞大生态的阅读器。<strong>Readnest 是你自己拥有的那一面镜子。</strong>你通过官方 Agent 网关把微信读书的书单导进 Readnest——书籍躺在你手机的 SQLite 里，评分与笔记都归你，Readnest 从不代你回电。',
+  'faq5-q': 'AI 报告会看到我的书吗？',
+  'faq5-a': '<strong>只看到统计——看不到原文。</strong>在向模型发 prompt 之前，Readnest 先把本地数据聚合成一份匿名摘要（计数、分布，不含书名、不含笔记正文）。你自己带 LLM Key，Key 也不会经过 Readnest 的服务端——因为根本没有服务端。',
+
+  'roadmap-label': '路线图',
+  'roadmap-heading': '下一步是什么',
+  'roadmap-intro': '完整规划在 <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>。这里是骨架与当前进度。',
+  'rm0': '<strong>数据模型 + 本地库 + Notion 迁移 + OCR 算法</strong>',
+  'rm1': '<strong>Flutter App：书架、详情、导入、统计</strong>',
+  'rm1-note': '骨架已在 v0.9.0 编译通过并跑通全部测试。',
+  'rm2': '<strong>OCR 打磨：多平台截图适配、识别率调优</strong>',
+  'rm3': '<strong>AI 报告：定时生成、历史留存、偏好画像</strong>',
+  'rm3-note': '接口就绪；v0.9.0 已先上 UI（"AI 阅读报告"标签）。',
+  'rm4': '<strong>阅读日志：时长记录、连续天数、日历热力图</strong>',
+  'rm5': '<strong>可选同步：WebDAV / 云存储多设备</strong>',
+  'rm5-note': '纯 opt-in，本地优先仍是默认。',
+  'rm6': '<strong>Windows 桌面端</strong>',
+  'rm6-note': 'Flutter 官方支持，改动面很小。',
+  'st-done': '已完成',
+  'st-next': '下一步',
+  'st-todo': '待办',
+  'st-part': '进行中',
 
   'footer-brand': '开源 · 写作',
   'footer-text': 'Readnest · 阅读管理 · Flutter · SQLite · 本地优先 · MIT 授权。',
@@ -1007,5 +1456,121 @@ Object.assign(window.I18N.zh, {
 <script src="/js/tonglin-theme.js"></script>
 <script src="/js/tonglin-i18n-dict.js"></script>
 <script src="/js/tonglin-i18n.js"></script>
+
+<!-- GitHub live stats + copy-to-clipboard for build commands -->
+<script>
+(function () {
+  'use strict';
+
+  // --- GitHub API: fill in live star/fork/contributor counts. ---
+  // Fails silently; the default zeros remain visible if GitHub is unreachable.
+  var GH_REPO = 'kjlintong/reading-tracker';
+  var GH_API  = 'https://api.github.com/repos/' + GH_REPO;
+
+  function setStat(name, value) {
+    var nodes = document.querySelectorAll('[data-gh-val="' + name + '"]');
+    for (var i = 0; i < nodes.length; i++) nodes[i].textContent = value;
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '';
+    var d = new Date(iso);
+    if (isNaN(d.getTime())) return '';
+    return d.getFullYear() + '-' +
+           String(d.getMonth() + 1).padStart(2, '0') + '-' +
+           String(d.getDate()).padStart(2, '0');
+  }
+
+  // Fetch the current main branch sha (last commit) — one extra call, cheap.
+  function fetchLastSha() {
+    return fetch(GH_API + '/commits?per_page=1').then(function (r) {
+      return r.ok ? r.json() : [];
+    }).then(function (arr) {
+      if (arr && arr[0] && arr[0].commit) {
+        var m = arr[0].commit.message || '';
+        var subject = m.split('\n')[0];
+        setStat('commit-sha', arr[0].sha.slice(0, 7));
+        setStat('commit-subject', subject);
+        setStat('commit-date', fmtDate(arr[0].commit.author && arr[0].commit.author.date));
+      }
+    }).catch(function () {});
+  }
+
+  function fetchRepo() {
+    return fetch(GH_API, { cache: 'no-store' }).then(function (r) {
+      return r.ok ? r.json() : null;
+    }).then(function (d) {
+      if (!d) return;
+      setStat('stars', d.stargazers_count);
+      setStat('forks', d.forks_count);
+      // Commits: the API doesn't give a direct count, but contributors' total is
+      // a good, honest fallback (and for a solo project they're the same number).
+      // We prefer the contributors endpoint's total sum.
+      return fetch(GH_API + '/contributors?per_page=100', { cache: 'no-store' })
+        .then(function (r) { return r.ok ? r.json() : []; })
+        .then(function (list) {
+          if (!Array.isArray(list)) return 0;
+          var total = list.reduce(function (s, c) { return s + (c.contributions || 0); }, 0);
+          setStat('commits', total);
+          setStat('contributors', list.length);
+        });
+    }).then(function () { return fetchLastSha(); })
+      .catch(function () {});
+  }
+
+  // Kick off after DOM ready; wrap in a try so any failure is truly silent.
+  function kick() {
+    try { fetchRepo(); } catch (e) {}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', kick);
+  } else {
+    kick();
+  }
+
+  // --- Copy buttons for the flutter build commands ---
+  document.addEventListener('click', function (ev) {
+    var btn = ev.target.closest && ev.target.closest('.cmd-copy');
+    if (!btn) return;
+    var text = btn.getAttribute('data-copy') || '';
+    if (!text) return;
+    var done = function () {
+      btn.classList.add('copied');
+      btn.setAttribute('aria-label', 'Copied');
+      // Swap the copy icon for a checkmark briefly.
+      var svg = btn.querySelector('svg');
+      var original = svg ? svg.outerHTML : '';
+      if (svg) {
+        svg.outerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>';
+      }
+      setTimeout(function () {
+        btn.classList.remove('copied');
+        btn.setAttribute('aria-label', 'Copy ' + text);
+        var newBtn = document.querySelector('.cmd-copy[data-copy="' + text.replace(/"/g, '\\"') + '"]');
+        if (newBtn && original) {
+          var cur = newBtn.querySelector('svg');
+          if (cur) cur.outerHTML = original;
+        }
+      }, 1600);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(done).catch(function () { fallbackCopy(text); done(); });
+    } else {
+      fallbackCopy(text); done();
+    }
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
 </body>
 </html>
