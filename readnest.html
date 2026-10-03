@@ -16,8 +16,8 @@ window.__i18nExtra = window.__i18nExtra || [];
 window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 </script>
 <title data-i18n="page-title">Readnest — A local-first reading companion</title>
-<meta name="description" content="Readnest — a local-first reading companion built in Flutter. Every book stays in your phone's SQLite; no account, no server, no cloud sync. Import from WeRead, Notion, CSV, and shelf-photo OCR. v0.9.0, MIT, Android APK ready.">
-<meta name="keywords" content="Readnest, reading tracker, local-first, Flutter, SQLite, WeRead, OCR, privacy, MIT, Android app, reading log, bookshelf">
+<meta name="description" content="Readnest is a reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync. Import from WeRead, Goodreads, CSV, or a photo of your bookshelf. v0.9.0, MIT, Android APK available.">
+<meta name="keywords" content="Readnest, reading tracker, reading log, local-first, Flutter, SQLite, WeRead, OCR, privacy, MIT, Android app, reading plan, bookshelf">
 <link rel="shortcut icon" href="/img/favicon.ico">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,11 +34,11 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   "applicationCategory": "ProductivityApplication",
   "url": "https://kjlintong.github.io/readnest.html",
   "softwareVersion": "0.9.0",
-  "description": "A local-first reading companion built in Flutter. Every book stays in your phone's SQLite — no account, no server, no cloud sync.",
+  "description": "A reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "license": "https://github.com/kjlintong/reading-tracker#readme",
   "codeRepository": "https://github.com/kjlintong/reading-tracker",
-  "screenshot": "https://kjlintong.github.io/assets/readnest/01-shelf.png",
+  "screenshot": "https://kjlintong.github.io/assets/readnest/01-shelf.zh.png",
   "author": {
     "@type": "Organization",
     "name": "kjlintong",
@@ -46,16 +46,16 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   }
 }
 </script>
-<meta property="og:site_name" content="kjlintong">
+<meta property="og:site_name" content="Readnest">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Readnest — a local-first reading companion">
-<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Notion, CSV, and shelf-photo OCR. v0.9.0 · MIT.">
+<meta property="og:title" content="Readnest — a reading log that lives on your phone">
+<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Goodreads, CSV, or a bookshelf photo. v0.9.0 · MIT.">
 <meta property="og:url" content="https://kjlintong.github.io/readnest.html">
-<meta property="og:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.png">
+<meta property="og:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Readnest — a local-first reading companion">
-<meta name="twitter:description" content="Flutter + SQLite, no account, no server. v0.9.0 · MIT.">
-<meta name="twitter:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.png">
+<meta name="twitter:title" content="Readnest — a reading log that lives on your phone">
+<meta name="twitter:description" content="Flutter + SQLite, no account, no server, no cloud sync. v0.9.0 · MIT.">
+<meta name="twitter:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <style>
 /* ============================================================
    Readnest product page — sits on top of css/tonglin.css
@@ -740,16 +740,16 @@ a:focus-visible, button:focus-visible {
   <div class="wrap">
     <div class="hero-grid">
       <div>
-        <p class="hero-kicker"><span class="dot" aria-hidden="true"></span><span data-i18n="hero-kicker">Local-first reading companion</span></p>
+        <p class="hero-kicker"><span class="dot" aria-hidden="true"></span><span data-i18n="hero-kicker">A reading log that stays on your phone</span></p>
         <h1 class="hero-name">Readnest</h1>
-        <p class="hero-subtitle" data-i18n="hero-subtitle">A bookshelf that lives on your phone.</p>
+        <p class="hero-subtitle" data-i18n="hero-subtitle">Your shelf, your notes, and your reading plans — stored on your phone.</p>
         <p class="hero-description" data-i18n="hero-desc">
-          Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Bring in a WeRead shelf, a Goodreads CSV, a Notion export, or a photo of your actual bookshelf — eight ways in, one bookshelf out.
+          Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone — no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.
         </p>
         <div class="hero-meta">
-          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v0.9.0 release candidate</span></span>
-          <span class="pill"><span class="pill-dot brick" aria-hidden="true"></span><span data-i18n="meta-license">MIT · open source</span></span>
-          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK out · iOS soon</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v0.9.0 released</span></span>
+          <span class="pill"><span class="pill-dot brick" aria-hidden="true"></span><span data-i18n="meta-license">MIT licensed, open source</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK available · iOS not yet</span></span>
         </div>
         <div class="hero-actions">
           <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download">
@@ -766,7 +766,7 @@ a:focus-visible, button:focus-visible {
         <span class="glow" aria-hidden="true"></span>
         <div class="phone-frame hero-phone">
           <div class="phone-screen">
-            <img src="/assets/readnest/01-shelf.png" alt="Readnest bookshelf screen" width="1080" height="1920" loading="eager">
+            <img src="/assets/readnest/01-shelf.en.png" data-i18n-attr="src:shot1-img" alt="Readnest bookshelf screen" width="1080" height="1920" loading="eager">
           </div>
         </div>
       </div>
@@ -779,8 +779,8 @@ a:focus-visible, button:focus-visible {
 <!-- Features -->
 <section class="section" data-od-id="features" id="features">
   <div class="wrap">
-    <p class="section-label"><span class="num">01</span><span data-i18n="features-label">Feature set</span></p>
-    <h2 class="section-heading" data-i18n="features-heading">What you get</h2>
+    <p class="section-label"><span class="num">01</span><span data-i18n="features-label">What it does</span></p>
+    <h2 class="section-heading" data-i18n="features-heading">Eight ways to add a book, one shelf to keep them</h2>
     <div class="features-grid">
 
       <article class="feature-cell" data-od-id="feature-import">
@@ -790,7 +790,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f1-title">Multi-source import</h3>
         </div>
-        <p class="feature-body" data-i18n="f1-body">Eight ways in — manual entry, shelf-screenshot OCR, shelf-photo OCR, WeRead shelf sync, reading-progress sync, CSV / Notion import, Goodreads CSV, and Open Library / Google Books search. They all land on one bookshelf.</p>
+        <p class="feature-body" data-i18n="f1-body">Type the book in by hand, photograph a screenshot or the physical shelf and let ML Kit read it, pull a WeRead shelf across, sync how far you have got, or import from CSV, Notion, Goodreads, Open Library, and Google Books. Whichever way it arrives, it lands on the same shelf.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-model">
@@ -800,7 +800,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f2-title">One data model</h3>
         </div>
-        <p class="feature-body" data-i18n="f2-body">Every source collapses into the same <strong>Book</strong> schema. A single <strong>extra{}</strong> map carries whatever a source system stores — zero-loss migration.</p>
+        <p class="feature-body" data-i18n="f2-body">Every source is converted into the same <strong>Book</strong> record before it is stored. Anything a source system wants to keep that Readnest has no field for goes into an <strong>extra{}</strong> map, so a later import can still read it back.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-dedupe">
@@ -810,7 +810,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f3-title">Deduplication</h3>
         </div>
-        <p class="feature-body" data-i18n="f3-body">ISBN wins, then <strong>title + first author</strong> falls back. Fields only fill gaps — your hand-entered ratings and summaries are never overwritten.</p>
+        <p class="feature-body" data-i18n="f3-body">Two imports of the same book become one record. ISBN decides when it is there; otherwise Readnest falls back to <strong>title plus first author</strong>. Only blank fields are filled in, so a rating or summary you typed yourself is never overwritten.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-tags">
@@ -820,7 +820,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f4-title">Category unification</h3>
         </div>
-        <p class="feature-body" data-i18n="f4-body">A 127-alias mapping folds WeRead's own categories into a controlled 20-term vocabulary, so the same idea never splits into two labels in your stats.</p>
+        <p class="feature-body" data-i18n="f4-body">WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories, so a single subject does not show up as two separate slices in your statistics.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-plans">
@@ -830,7 +830,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f5-title">Reading plans</h3>
         </div>
-        <p class="feature-body" data-i18n="f5-body">Daily plans are recurring tasks — mark done today, back on the list tomorrow. Only when the whole plan closes does it archive. Local notifications, no cloud.</p>
+        <p class="feature-body" data-i18n="f5-body">A daily plan is a repeating task, not a one-off. Tick today and it comes back tomorrow; the plan is only archived when you decide the whole thing is finished. Reminders are scheduled on the device, so they arrive without a network connection.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-stats">
@@ -840,7 +840,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f6-title">Reading statistics</h3>
         </div>
-        <p class="feature-body" data-i18n="f6-body">Status split, category distribution, monthly reading, rating spread, in-progress progress, and source platform share — seven charts, each one toggleable in display settings. Reading duration and active days are deliberately absent: the app has no way to measure them, and a fabricated number is worse than a missing one.</p>
+        <p class="feature-body" data-i18n="f6-body">Reading status, categories, monthly reading, ratings, progress, and where the books came from — seven charts you can switch off individually in the display settings. Reading time and active days are left out on purpose: Readnest cannot actually measure them, and a made-up number is worse than an honest blank.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-profile">
@@ -850,7 +850,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f7-title">Reading profile</h3>
         </div>
-        <p class="feature-body" data-i18n="f7-body">A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. Both export as an image — share it, or save it to your photo album.</p>
+        <p class="feature-body" data-i18n="f7-body">A bubble chart of the categories you actually read, plus personality tags you can add, edit, or delete yourself. Both can be exported as an image — send it to someone, or keep it in your photo album.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-ai">
@@ -860,7 +860,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f8-title">AI reading report</h3>
         </div>
-        <p class="feature-body" data-i18n="f8-body">Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly reports, archived so you can reread them, in five voices — or your own.</p>
+        <p class="feature-body" data-i18n="f8-body">You pick the model. It receives statistics Readnest has already worked out locally — counts and percentages, never a book title or a line of your notes — and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in five voices or one of your own.</p>
       </article>
 
     </div>
@@ -873,14 +873,14 @@ a:focus-visible, button:focus-visible {
 <section class="section" data-od-id="gallery" id="screens">
   <div class="wrap">
     <p class="section-label"><span class="num">02</span><span data-i18n="gallery-label">Screens</span></p>
-    <h2 class="section-heading" data-i18n="gallery-heading">Inside the app</h2>
+    <h2 class="section-heading" data-i18n="gallery-heading">The app itself</h2>
     <div class="gallery-wrap">
       <div class="gallery">
 
         <figure class="phone-item" data-od-id="shot-shelf">
           <div class="phone-frame">
             <div class="phone-screen">
-              <img src="/assets/readnest/01-shelf.png" alt="Bookshelf screen" width="1080" height="1920" loading="lazy">
+              <img src="/assets/readnest/01-shelf.en.png" data-i18n-attr="src:shot1-img" alt="Bookshelf screen" width="1080" height="1920" loading="lazy">
             </div>
           </div>
           <figcaption class="phone-caption" data-i18n="shot1">Bookshelf</figcaption>
@@ -889,7 +889,7 @@ a:focus-visible, button:focus-visible {
         <figure class="phone-item" data-od-id="shot-stats">
           <div class="phone-frame">
             <div class="phone-screen">
-              <img src="/assets/readnest/02-stats.png" alt="Statistics screen" width="1080" height="1920" loading="lazy">
+              <img src="/assets/readnest/02-stats.en.png" data-i18n-attr="src:shot2-img" alt="Statistics screen" width="1080" height="1920" loading="lazy">
             </div>
           </div>
           <figcaption class="phone-caption" data-i18n="shot2">Statistics</figcaption>
@@ -898,7 +898,7 @@ a:focus-visible, button:focus-visible {
         <figure class="phone-item" data-od-id="shot-profile">
           <div class="phone-frame">
             <div class="phone-screen">
-              <img src="/assets/readnest/03-profile.png" alt="Reading profile screen" width="1080" height="1920" loading="lazy">
+              <img src="/assets/readnest/03-profile.en.png" data-i18n-attr="src:shot3-img" alt="Reading profile screen" width="1080" height="1920" loading="lazy">
             </div>
           </div>
           <figcaption class="phone-caption" data-i18n="shot3">Reading profile</figcaption>
@@ -907,7 +907,7 @@ a:focus-visible, button:focus-visible {
         <figure class="phone-item" data-od-id="shot-report">
           <div class="phone-frame">
             <div class="phone-screen">
-              <img src="/assets/readnest/05-report.png" alt="AI reading report screen" width="1080" height="1920" loading="lazy">
+              <img src="/assets/readnest/05-report.en.png" data-i18n-attr="src:shot4-img" alt="AI reading report screen" width="1080" height="1920" loading="lazy">
             </div>
           </div>
           <figcaption class="phone-caption" data-i18n="shot4">AI reading report</figcaption>
@@ -916,14 +916,14 @@ a:focus-visible, button:focus-visible {
         <figure class="phone-item" data-od-id="shot-notes">
           <div class="phone-frame">
             <div class="phone-screen">
-              <img src="/assets/readnest/07-notes.png" alt="Records and plans screen" width="1080" height="1920" loading="lazy">
+              <img src="/assets/readnest/07-notes.en.png" data-i18n-attr="src:shot5-img" alt="Records and plans screen" width="1080" height="1920" loading="lazy">
             </div>
           </div>
           <figcaption class="phone-caption" data-i18n="shot5">Notes and plans</figcaption>
         </figure>
 
       </div>
-      <p class="gallery-note" data-i18n="gallery-note">Five screenshots, pulled straight from the app's own documentation.</p>
+      <p class="gallery-note" data-i18n="gallery-note">Real screenshots, taken on the phone — not mock-ups.</p>
     </div>
   </div>
 </section>
@@ -934,11 +934,11 @@ a:focus-visible, button:focus-visible {
 <section class="section" data-od-id="privacy" id="privacy">
   <div class="wrap">
     <p class="section-label"><span class="num">03</span><span data-i18n="privacy-label">Privacy &amp; offline</span></p>
-    <h2 class="section-heading" data-i18n="privacy-heading">Your books, your phone, no questions asked.</h2>
+    <h2 class="section-heading" data-i18n="privacy-heading">Your books never leave your phone</h2>
     <div class="privacy-layout">
       <div>
-        <p class="privacy-lede" data-i18n="privacy-lede">Local-first isn't a slogan. It's the actual architecture — <strong>SQLite on disk</strong>, on your device.</p>
-        <p class="privacy-text" data-i18n="privacy-text">Readnest has no backend. There is no account to sign up for, no API key to configure for core features, no cloud sync to keep, and no server to subpoena. If your phone is lost, your library is lost with it. That is the point.</p>
+        <p class="privacy-lede" data-i18n="privacy-lede">Local-first here is not a slogan but an implementation detail: <strong>a SQLite file on your own device</strong>.</p>
+        <p class="privacy-text" data-i18n="privacy-text">Readnest has no backend. There is no account to create, no API key to configure for the core features, no cloud sync to keep running, and no server that could be asked to hand anything over. The trade-off is honest: if you lose the phone, you lose the library with it.</p>
       </div>
       <ul class="privacy-points">
         <li class="privacy-point" data-od-id="pp-local">
@@ -946,21 +946,21 @@ a:focus-visible, button:focus-visible {
             <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
             <span data-i18n="pp1-title">Local only</span>
           </div>
-          <p class="privacy-point-body" data-i18n="pp1-body">Books, notes, and reading logs live in a local <strong>SQLite</strong> database. No account, no server, no cloud sync.</p>
+          <p class="privacy-point-body" data-i18n="pp1-body">Books, notes, and reading logs live in a <strong>SQLite</strong> database on the device. No account, no server, no cloud sync.</p>
         </li>
         <li class="privacy-point" data-od-id="pp-ai">
           <div class="privacy-point-head">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v3"/><path d="M12 18v3"/><path d="M5 12H3"/><path d="M21 12h-2"/><circle cx="12" cy="12" r="4"/></svg>
-            <span data-i18n="pp2-title">AI that respects your text</span>
+            <span data-i18n="pp2-title">The AI sees numbers, not text</span>
           </div>
-          <p class="privacy-point-body" data-i18n="pp2-body">Reading reports upload only aggregated statistics — never book titles, never note text. The model can't invent numbers it wasn't given, and the LLM key stays yours.</p>
+          <p class="privacy-point-body" data-i18n="pp2-body">A report uploads aggregated statistics only — no book titles, no note text. The model cannot invent figures it was not given, and the LLM key is yours to supply.</p>
         </li>
         <li class="privacy-point" data-od-id="pp-offline">
           <div class="privacy-point-head">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4c-5 0-9 3.5-9 8v2"/><path d="M12 4c5 0 9 3.5 9 8v2"/><path d="M4 16c0-1.1.9-2 2-2h12c1.1 0 2 .9 2 2"/><path d="M8 18a4 4 0 0 1 8 0"/></svg>
-            <span data-i18n="pp3-title">Offline by design</span>
+            <span data-i18n="pp3-title">Works offline</span>
           </div>
-          <p class="privacy-point-body" data-i18n="pp3-body">Reading, OCR, and every chart work with the airplane mode switch on. ML Kit does text recognition on-device; no image ever leaves the phone.</p>
+          <p class="privacy-point-body" data-i18n="pp3-body">Note-taking, OCR, and every chart work in airplane mode. ML Kit recognises text on the device, so no image is ever uploaded.</p>
         </li>
       </ul>
     </div>
@@ -973,7 +973,7 @@ a:focus-visible, button:focus-visible {
 <section class="section" data-od-id="build" id="build">
   <div class="wrap">
     <p class="section-label"><span class="num">04</span><span data-i18n="build-label">GitHub · Build · Download</span></p>
-    <h2 class="section-heading" data-i18n="build-heading">Where it lives, how to run it</h2>
+    <h2 class="section-heading" data-i18n="build-heading">Where the code is, and how to build it</h2>
 
     <!-- GitHub card -->
     <div class="gh-card" data-od-id="gh-card">
@@ -989,7 +989,7 @@ a:focus-visible, button:focus-visible {
             </span>
             <span data-gh-val="stars">0</span>
           </div>
-          <div class="gh-cell-label">Stars</div>
+          <div class="gh-cell-label" data-i18n="gh-stars-label">Stars</div>
         </a>
         <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/network/members" target="_blank" rel="noopener" data-od-id="gh-forks">
           <div class="gh-value" data-gh="forks">
@@ -998,7 +998,7 @@ a:focus-visible, button:focus-visible {
             </span>
             <span data-gh-val="forks">0</span>
           </div>
-          <div class="gh-cell-label">Forks</div>
+          <div class="gh-cell-label" data-i18n="gh-forks-label">Forks</div>
         </a>
         <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/commits/main" target="_blank" rel="noopener" data-od-id="gh-commits">
           <div class="gh-value" data-gh="commits">
@@ -1007,11 +1007,11 @@ a:focus-visible, button:focus-visible {
             </span>
             <span data-gh-val="commits">0</span>
           </div>
-          <div class="gh-cell-label">Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code></div>
+          <div class="gh-cell-label"><span data-i18n="gh-commits-label">Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code></span></div>
         </a>
       </div>
       <p class="gh-note">
-        <span data-i18n="gh-note-before">Readnest is a solo project so far — </span><strong id="gh-contributors" data-gh-val="contributors">1</strong> <span data-i18n="gh-note-mid">contributor, </span><span data-i18n="gh-note-after">but the MIT license is a genuine open invitation. Grab the latest <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a> below, or read the source and file an issue.</span>
+        <span data-i18n="gh-note-before">Readnest is maintained by one person so far — </span><strong id="gh-contributors" data-gh-val="contributors">1</strong> <span data-i18n="gh-note-mid">contributor, </span><span data-i18n="gh-note-after">and the MIT license means you can take it from here. <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">Download v0.9.0</a>, or read the source and open an issue.</span>
       </p>
     </div>
 
@@ -1026,22 +1026,22 @@ a:focus-visible, button:focus-visible {
           </div>
           <div class="stat-cell" data-od-id="stat-i18n">
             <div class="stat-value">763</div>
-            <div class="stat-label" data-i18n="s2-label">Bilingual strings · zero drift</div>
+            <div class="stat-label" data-i18n="s2-label">Chinese and English strings, in sync</div>
           </div>
           <div class="stat-cell" data-od-id="stat-tests">
             <div class="stat-value">426</div>
-            <div class="stat-label" data-i18n="s3-label">Tests passing</div>
+            <div class="stat-label" data-i18n="s3-label">Automated tests passing</div>
           </div>
           <div class="stat-cell" data-od-id="stat-platform">
-            <div class="stat-value">Android<span class="unit">· iOS soon</span></div>
-            <div class="stat-label" data-i18n="s4-label">Android APK out · iOS next</div>
+            <div class="stat-value" data-i18n="s4-value">Android<span class="unit">· iOS later</span></div>
+            <div class="stat-label" data-i18n="s4-label">APK released · iOS not yet</div>
           </div>
         </div>
-        <p class="stat-note" data-i18n="build-note">v0.9.0 is a release candidate, built with Flutter 3.24.x / Dart 3.5.x on Android SDK 34. <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT-licensed source</a>.</p>
+        <p class="stat-note" data-i18n="build-note">v0.9.0 is out, built with Flutter 3.24.x / Dart 3.5.x against Android SDK 34. The source is <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT licensed</a>.</p>
 
         <!-- Build commands -->
         <div class="build-wrap">
-          <p class="build-intro" data-i18n="build-intro">Want to build it yourself? You need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands from <code>app/</code>:</p>
+          <p class="build-intro" data-i18n="build-intro">To build it yourself you need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands, run from the <code>app/</code> directory:</p>
           <div class="build-list">
             <div class="cmd">
               <span class="cmd-n">01</span>
@@ -1071,7 +1071,7 @@ a:focus-visible, button:focus-visible {
       <aside class="download-card" data-od-id="download-card">
         <div class="download-head">
           <p class="download-title" data-i18n="d-title">Readnest v0.9.0</p>
-          <span class="download-tag" data-i18n="d-tag">Release candidate</span>
+          <span class="download-tag" data-i18n="d-tag">Released</span>
         </div>
         <div class="download-actions">
           <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download-release">
@@ -1086,11 +1086,11 @@ a:focus-visible, button:focus-visible {
         <dl class="download-meta">
           <div class="meta-row">
             <dt class="k" data-i18n="d-ver">Version</dt>
-            <dd class="v">v0.9.0 · <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener">release notes</a></dd>
+            <dd class="v">v0.9.0 · <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" data-i18n="d-notes">release notes</a></dd>
           </div>
           <div class="meta-row">
             <dt class="k" data-i18n="d-plat">Platform</dt>
-            <dd class="v">Android 8.0+ APK · iOS not yet on the App Store</dd>
+            <dd class="v" data-i18n="d-plat-v">Android 7.0+ APK · iOS not yet on the App Store</dd>
           </div>
           <div class="meta-row">
             <dt class="k" data-i18n="d-size">Build</dt>
@@ -1098,7 +1098,7 @@ a:focus-visible, button:focus-visible {
           </div>
           <div class="meta-row">
             <dt class="k" data-i18n="d-lic">License</dt>
-            <dd class="v">MIT — read, fork, ship.</dd>
+            <dd class="v" data-i18n="d-lic-v">MIT — read it, fork it, ship it.</dd>
           </div>
         </dl>
       </aside>
@@ -1118,28 +1118,28 @@ a:focus-visible, button:focus-visible {
     <div class="faq">
 
       <div class="faq-item" data-od-id="faq-sync">
-        <h3 class="faq-q"><span class="faq-idx">Q1</span><span data-i18n="faq1-q">Does it sync my data to a server?</span></h3>
-        <p class="faq-a" data-i18n="faq1-a"><strong>No — not by design.</strong> Readnest is strictly local-first: your books, notes, and reading plans live in a <code>SQLite</code> file on your device. There is no backend, no login, no cloud sync. If you want to back up your library, copy the local SQLite file — that's it.</p>
+        <h3 class="faq-q"><span class="faq-idx">Q1</span><span data-i18n="faq1-q">Is my data uploaded anywhere?</span></h3>
+        <p class="faq-a" data-i18n="faq1-a"><strong>No, and that is deliberate.</strong> Your books, notes, and reading plans live in a <code>SQLite</code> file on your phone. There is no backend to sync with and no account to log into. If you want a backup, copy that file.</p>
       </div>
 
       <div class="faq-item" data-od-id="faq-login">
-        <h3 class="faq-q"><span class="faq-idx">Q2</span><span data-i18n="faq2-q">Do I need an account?</span></h3>
-        <p class="faq-a" data-i18n="faq2-a"><strong>No.</strong> The whole point is that you don't. There is no login screen, no email field, no API key you have to configure for core features. Install the APK, open the app, that's the sign-up.</p>
+        <h3 class="faq-q"><span class="faq-idx">Q2</span><span data-i18n="faq2-q">Do I need to register an account?</span></h3>
+        <p class="faq-a" data-i18n="faq2-a"><strong>No.</strong> There is no sign-up screen and nothing to configure before you can start using it. Install the APK, open it, add a book.</p>
       </div>
 
       <div class="faq-item" data-od-id="faq-ios">
-        <h3 class="faq-q"><span class="faq-idx">Q3</span><span data-i18n="faq3-q">When will iOS be out?</span></h3>
-        <p class="faq-a" data-i18n="faq3-a"><strong>Not yet on the App Store.</strong> The codebase is one Flutter project that compiles for both platforms, but the iOS build needs a Mac runner I don't own. There is a <code>codemagic.yaml</code> in the repo that would sign and ship the iOS build through Codemagic's cloud — if you run into it first, the source is already ready. See the <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">repo's iOS section</a>.</p>
+        <h3 class="faq-q"><span class="faq-idx">Q3</span><span data-i18n="faq3-q">When is the iOS version coming?</span></h3>
+        <p class="faq-a" data-i18n="faq3-a"><strong>There isn't one yet.</strong> It is a single Flutter codebase that compiles for both platforms, but building for iOS needs a Mac, which I do not have. The repo does include a <code>codemagic.yaml</code>, which is the usual way to sign and ship an iOS build from a cloud Mac — so if you have access to one, the source is ready to go.</p>
       </div>
 
       <div class="faq-item" data-od-id="faq-weread">
         <h3 class="faq-q"><span class="faq-idx">Q4</span><span data-i18n="faq4-q">How is this different from WeRead?</span></h3>
-        <p class="faq-a" data-i18n="faq4-a">WeRead is a reader with a massive ecosystem. <strong>Readnest is the mirror you own.</strong> You import your WeRead library into Readnest via the official Agent gateway — the books stay in your phone's SQLite, the ratings and notes stay yours, and Readnest never phones home on your behalf.</p>
+        <p class="faq-a" data-i18n="faq4-a">WeRead is where you read; Readnest is where you keep the record. You can bring your WeRead shelf across, and once it is here the books live in your phone's own database — your ratings and notes included. Readnest does not talk to WeRead on your behalf after the import.</p>
       </div>
 
       <div class="faq-item" data-od-id="faq-ai">
         <h3 class="faq-q"><span class="faq-idx">Q5</span><span data-i18n="faq5-q">Does the AI report see my books?</span></h3>
-        <p class="faq-a" data-i18n="faq5-a"><strong>Only the statistics — not the text.</strong> Before any prompt is sent to the model, Readnest aggregates your local reading data into an anonymous summary (counts, distributions, no titles, no note text). You bring your own LLM key, and the key never touches Readnest's servers because there are none.</p>
+        <p class="faq-a" data-i18n="faq5-a"><strong>Only the numbers, never the text.</strong> Before a prompt is sent, Readnest turns your reading data into a summary of counts and percentages — no titles, no note text. You supply the API key for whichever model you want to use, and it never passes through Readnest because there is no Readnest server.</p>
       </div>
 
     </div>
@@ -1153,7 +1153,7 @@ a:focus-visible, button:focus-visible {
   <div class="wrap">
     <p class="section-label"><span class="num">06</span><span data-i18n="roadmap-label">Roadmap</span></p>
     <h2 class="section-heading" data-i18n="roadmap-heading">What's next</h2>
-    <p class="roadmap-intro" data-i18n="roadmap-intro">The full plan lives in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. Here's the shape, with today's status.</p>
+    <p class="roadmap-intro" data-i18n="roadmap-intro">The full plan is in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. This is the short version, with where each item stands today.</p>
     <div class="roadmap">
       <div class="roadmap-row">
         <span class="roadmap-tag">P0</span>
@@ -1233,225 +1233,251 @@ a:focus-visible, button:focus-visible {
 <script>
 window.I18N = window.I18N || { zh: {}, en: {} };
 Object.assign(window.I18N.en, {
-  'page-title': 'Readnest — A local-first reading companion',
+  'page-title': 'Readnest \u2014 a reading log that lives on your phone',
   'nav-projects': 'Projects', 'nav-blog': 'Blog', 'nav-about': 'About',
 
-  'hero-kicker': 'Local-first reading companion',
-  'hero-subtitle': 'A bookshelf that lives on your phone.',
-  'hero-desc': 'Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Bring in a WeRead shelf, a Goodreads CSV, a Notion export, or a photo of your actual bookshelf \u2014 eight ways in, one bookshelf out.',
-  'meta-version': 'v0.9.0 release candidate',
-  'meta-license': 'MIT · open source',
-  'meta-platform': 'Android APK out · iOS soon',
+  'hero-kicker': 'A reading log that stays on your phone',
+  'hero-subtitle': 'Your shelf, your notes, and your reading plans \u2014 stored on your phone.',
+  'hero-desc': 'Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone \u2014 no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.',
+  'meta-version': 'v0.9.0 released',
+  'meta-license': 'MIT licensed, open source',
+  'meta-platform': 'Android APK available \u00b7 iOS not yet',
   'btn-download': 'Download APK',
   'btn-source': 'GitHub repo',
 
-  'features-label': 'Feature set',
-  'features-heading': 'What you get',
-  'f1-title': 'Multi-source import',
-  'f1-body': 'Eight ways in — manual entry, shelf-screenshot OCR, shelf-photo OCR, WeRead shelf sync, reading-progress sync, CSV / Notion import, Goodreads CSV, and Open Library / Google Books search. They all land on one bookshelf.',
-  'f2-title': 'One data model',
-  'f2-body': 'Every source collapses into the same <strong>Book</strong> schema. A single <strong>extra{}</strong> map carries whatever a source system stores — zero-loss migration.',
-  'f3-title': 'Deduplication',
-  'f3-body': 'ISBN wins, then <strong>title + first author</strong> falls back. Fields only fill gaps — your hand-entered ratings and summaries are never overwritten.',
-  'f4-title': 'Category unification',
-  'f4-body': 'A 127-alias mapping folds WeRead\'s own categories into a controlled 20-term vocabulary, so the same idea never splits into two labels in your stats.',
+  'shot1-img': '/assets/readnest/01-shelf.en.png',
+  'shot2-img': '/assets/readnest/02-stats.en.png',
+  'shot3-img': '/assets/readnest/03-profile.en.png',
+  'shot4-img': '/assets/readnest/05-report.en.png',
+  'shot5-img': '/assets/readnest/07-notes.en.png',
+
+  'features-label': 'What it does',
+  'features-heading': 'Eight ways to add a book, one shelf to keep them',
+  'f1-title': 'Bring in books from anywhere',
+  'f1-body': 'Type the book in by hand, photograph a screenshot or the physical shelf and let ML Kit read it, pull a WeRead shelf across, sync how far you have got, or import from CSV, Notion, Goodreads, Open Library, and Google Books. Whichever way it arrives, it lands on the same shelf.',
+  'f2-title': 'One record for every source',
+  'f2-body': 'Every source is converted into the same <strong>Book</strong> record before it is stored. Anything a source system wants to keep that Readnest has no field for goes into an <strong>extra{}</strong> map, so a later import can still read it back.',
+  'f3-title': 'Merging duplicates',
+  'f3-body': 'Two imports of the same book become one record. ISBN decides when it is there; otherwise Readnest falls back to <strong>title plus first author</strong>. Only blank fields are filled in, so a rating or summary you typed yourself is never overwritten.',
+  'f4-title': 'Categories that line up',
+  'f4-body': 'WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories, so a single subject does not show up as two separate slices in your statistics.',
   'f5-title': 'Reading plans',
-  'f5-body': 'Daily plans are recurring tasks — mark done today, back on the list tomorrow. Only when the whole plan closes does it archive. Local notifications, no cloud.',
+  'f5-body': 'A daily plan is a repeating task, not a one-off. Tick today and it comes back tomorrow; the plan is only archived when you decide the whole thing is finished. Reminders are scheduled on the device, so they arrive without a network connection.',
   'f6-title': 'Reading statistics',
-  'f6-body': 'Status split, category distribution, monthly reading, rating spread, in-progress progress, and source platform share \u2014 seven charts, each one toggleable in display settings. Reading duration and active days are deliberately absent: the app has no way to measure them, and a fabricated number is worse than a missing one.',
+  'f6-body': 'Reading status, categories, monthly reading, ratings, progress, and where the books came from \u2014 seven charts you can switch off individually in the display settings. Reading time and active days are left out on purpose: Readnest cannot actually measure them, and a made-up number is worse than an honest blank.',
   'f7-title': 'Reading profile',
-  'f7-body': 'A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. Both export as an image \u2014 share it, or save it to your photo album.',
+  'f7-body': 'A bubble chart of the categories you actually read, plus personality tags you can add, edit, or delete yourself. Both can be exported as an image \u2014 send it to someone, or keep it in your photo album.',
   'f8-title': 'AI reading report',
-  'f8-body': 'Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly reports, archived so you can reread them, in five voices \u2014 or your own.',
+  'f8-body': 'You pick the model. It receives statistics Readnest has already worked out locally \u2014 counts and percentages, never a book title or a line of your notes \u2014 and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in five voices or one of your own.',
 
   'gallery-label': 'Screens',
-  'gallery-heading': 'Inside the app',
+  'gallery-heading': 'The app itself',
   'shot1': 'Bookshelf',
   'shot2': 'Statistics',
   'shot3': 'Reading profile',
   'shot4': 'AI reading report',
   'shot5': 'Notes and plans',
-  'gallery-note': 'Five screenshots, pulled straight from the app\'s own documentation.',
+  'gallery-note': 'Real screenshots, taken on the phone \u2014 not mock-ups.',
 
   'privacy-label': 'Privacy & offline',
-  'privacy-heading': 'Your books, your phone, no questions asked.',
-  'privacy-lede': 'Local-first isn\'t a slogan. It\'s the actual architecture — <strong>SQLite on disk</strong>, on your device.',
-  'privacy-text': 'Readnest has no backend. There is no account to sign up for, no API key to configure for core features, no cloud sync to keep, and no server to subpoena. If your phone is lost, your library is lost with it. That is the point.',
+  'privacy-heading': 'Your books never leave your phone',
+  'privacy-lede': 'Local-first here is not a slogan but an implementation detail: <strong>a SQLite file on your own device</strong>.',
+  'privacy-text': 'Readnest has no backend. There is no account to create, no API key to configure for the core features, no cloud sync to keep running, and no server that could be asked to hand anything over. The trade-off is honest: if you lose the phone, you lose the library with it.',
   'pp1-title': 'Local only',
-  'pp1-body': 'Books, notes, and reading logs live in a local <strong>SQLite</strong> database. No account, no server, no cloud sync.',
-  'pp2-title': 'AI that respects your text',
-  'pp2-body': 'Reading reports upload only aggregated statistics — never book titles, never note text. The model can\'t invent numbers it wasn\'t given, and the LLM key stays yours.',
-  'pp3-title': 'Offline by design',
-  'pp3-body': 'Reading, OCR, and every chart work with the airplane mode switch on. ML Kit does text recognition on-device; no image ever leaves the phone.',
+  'pp1-body': 'Books, notes, and reading logs live in a <strong>SQLite</strong> database on the device. No account, no server, no cloud sync.',
+  'pp2-title': 'The AI sees numbers, not text',
+  'pp2-body': 'A report uploads aggregated statistics only \u2014 no book titles, no note text. The model cannot invent figures it was not given, and the LLM key is yours to supply.',
+  'pp3-title': 'Works offline',
+  'pp3-body': 'Note-taking, OCR, and every chart work in airplane mode. ML Kit recognises text on the device, so no image is ever uploaded.',
 
-  'build-label': 'GitHub · Build · Download',
-  'build-heading': 'Where it lives, how to run it',
-  's1-label': 'Seed books',
-  's2-label': 'Bilingual strings · zero drift',
-  's3-label': 'Tests passing',
-  's4-label': 'Android APK out · iOS next',
-  'build-note': 'v0.9.0 is a release candidate, built with Flutter 3.24.x / Dart 3.5.x on Android SDK 34. <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT-licensed source</a>.',
-  'build-intro': 'Want to build it yourself? You need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands from <code>app/</code>:',
+  'build-label': 'GitHub \u00b7 Build \u00b7 Download',
+  'build-heading': 'Where the code is, and how to build it',
+  's1-label': 'Sample books bundled in',
+  's2-label': 'Chinese and English strings, in sync',
+  's3-label': 'Automated tests passing',
+  's4-label': 'APK released \u00b7 iOS not yet',
+  's4-value': 'Android<span class="unit">\u00b7 iOS later</span>',
+  'build-note': 'v0.9.0 is out, built with Flutter 3.24.x / Dart 3.5.x against Android SDK 34. The source is <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT licensed</a>.',
+  'build-intro': 'To build it yourself you need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands, run from the <code>app/</code> directory:',
   'gh-title': 'The repository <span class="repo-name">kjlintong/reading-tracker</span>',
-  'gh-note-before': 'Readnest is a solo project so far — ',
+  'gh-stars-label': 'Stars',
+  'gh-forks-label': 'Forks',
+  'gh-commits-label': 'Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code>',
+  'gh-note-before': 'Readnest is maintained by one person so far \u2014 ',
   'gh-note-mid': 'contributor, ',
-  'gh-note-after': 'but the MIT license is a genuine open invitation. Grab the latest <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a> below, or read the source and file an issue.',
+  'gh-note-after': 'and the MIT license means you can take it from here. <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">Download v0.9.0</a>, or read the source and open an issue.',
   'd-title': 'Readnest v0.9.0',
-  'd-tag': 'Release candidate',
+  'd-tag': 'Released',
   'btn-download-release': 'Get the APK',
   'btn-source-alt': 'Source & docs',
   'd-ver': 'Version',
+  'd-notes': 'release notes',
   'd-plat': 'Platform',
+  'd-plat-v': 'Android 7.0+ APK \u00b7 iOS not yet on the App Store',
   'd-size': 'Build',
   'd-lic': 'License',
+  'd-lic-v': 'MIT \u2014 read it, fork it, ship it.',
 
   'faq-label': 'Questions',
-  'faq-heading': 'Things you probably want to ask',
-  'faq1-q': 'Does it sync my data to a server?',
-  'faq1-a': '<strong>No — not by design.</strong> Readnest is strictly local-first: your books, notes, and reading plans live in a <code>SQLite</code> file on your device. There is no backend, no login, no cloud sync. If you want to back up your library, copy the local SQLite file — that\'s it.',
-  'faq2-q': 'Do I need an account?',
-  'faq2-a': '<strong>No.</strong> The whole point is that you don\'t. There is no login screen, no email field, no API key you have to configure for core features. Install the APK, open the app, that\'s the sign-up.',
-  'faq3-q': 'When will iOS be out?',
-  'faq3-a': '<strong>Not yet on the App Store.</strong> The codebase is one Flutter project that compiles for both platforms, but the iOS build needs a Mac runner I don\'t own. There is a <code>codemagic.yaml</code> in the repo that would sign and ship the iOS build through Codemagic\'s cloud — if you run into it first, the source is already ready. See the <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">repo\'s iOS section</a>.',
+  'faq-heading': 'Things worth asking',
+  'faq1-q': 'Is my data uploaded anywhere?',
+  'faq1-a': '<strong>No, and that is deliberate.</strong> Your books, notes, and reading plans live in a <code>SQLite</code> file on your phone. There is no backend to sync with and no account to log into. If you want a backup, copy that file.',
+  'faq2-q': 'Do I need to register an account?',
+  'faq2-a': '<strong>No.</strong> There is no sign-up screen and nothing to configure before you can start using it. Install the APK, open it, add a book.',
+  'faq3-q': 'When is the iOS version coming?',
+  'faq3-a': '<strong>There isn\'t one yet.</strong> It is a single Flutter codebase that compiles for both platforms, but building for iOS needs a Mac, which I do not have. The repo does include a <code>codemagic.yaml</code>, which is the usual way to sign and ship an iOS build from a cloud Mac \u2014 so if you have access to one, the source is ready to go.',
   'faq4-q': 'How is this different from WeRead?',
-  'faq4-a': 'WeRead is a reader with a massive ecosystem. <strong>Readnest is the mirror you own.</strong> You import your WeRead library into Readnest via the official Agent gateway — the books stay in your phone\'s SQLite, the ratings and notes stay yours, and Readnest never phones home on your behalf.',
+  'faq4-a': 'WeRead is where you read; Readnest is where you keep the record. You can bring your WeRead shelf across, and once it is here the books live in your phone\'s own database \u2014 your ratings and notes included. Readnest does not talk to WeRead on your behalf after the import.',
   'faq5-q': 'Does the AI report see my books?',
-  'faq5-a': '<strong>Only the statistics — not the text.</strong> Before any prompt is sent to the model, Readnest aggregates your local reading data into an anonymous summary (counts, distributions, no titles, no note text). You bring your own LLM key, and the key never touches Readnest\'s servers because there are none.',
+  'faq5-a': '<strong>Only the numbers, never the text.</strong> Before a prompt is sent, Readnest turns your reading data into a summary of counts and percentages \u2014 no titles, no note text. You supply the API key for whichever model you want to use, and it never passes through Readnest because there is no Readnest server.',
 
   'roadmap-label': 'Roadmap',
-  'roadmap-heading': 'What\'s next',
-  'roadmap-intro': 'The full plan lives in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. Here\'s the shape, with today\'s status.',
-  'rm0': '<strong>Data model + local DB + Notion migration + OCR algorithm</strong>',
-  'rm1': '<strong>Flutter app: shelf, detail, import, stats</strong>',
-  'rm1-note': 'Shipped and feature-complete in v0.9.0 \u2014 426 automated tests green.',
-  'rm2': '<strong>OCR polish: multi-platform screenshots, recognition tuning</strong>',
+  'roadmap-heading': 'What is still on the list',
+  'roadmap-intro': 'The full plan is in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. This is the short version, with where each item stands today.',
+  'rm0': '<strong>Data model, local database, Notion migration, OCR</strong>',
+  'rm1': '<strong>The Flutter app: shelf, book detail, import, statistics</strong>',
+  'rm1-note': 'Shipped in v0.9.0, with 426 automated tests passing.',
+  'rm2': '<strong>OCR improvements: more screenshot formats, better recognition</strong>',
   'rm3': '<strong>AI reports: preference profile, richer prompts</strong>',
-  'rm3-note': 'Report archive, annual/monthly periods, and scheduled generation already shipped in v0.9.0.',
-  'rm4': '<strong>Optional timing capture, for whoever wants duration metrics</strong>',
-  'rm4-note': 'Off by default — duration and active-day stats stay hidden until there is a real data source.',
-  'rm5': '<strong>Optional sync: WebDAV / cloud storage for multi-device</strong>',
-  'rm5-note': 'Opt-in only; local-first stays the default.',
-  'rm6': '<strong>Windows desktop build</strong>',
-  'rm6-note': 'Flutter officially supports it; small change surface.',
+  'rm3-note': 'Report archive, yearly and monthly periods, and scheduled generation already ship in v0.9.0.',
+  'rm4': '<strong>Optional reading-time capture, for anyone who wants duration stats</strong>',
+  'rm4-note': 'Off by default \u2014 until there is a real data source, there is nothing honest to put in those two charts.',
+  'rm5': '<strong>Optional sync: WebDAV or cloud storage, for more than one device</strong>',
+  'rm5-note': 'Opt-in only; staying local-first is the default.',
+  'rm6': '<strong>A Windows desktop build</strong>',
+  'rm6-note': 'Flutter supports it officially, and the app is already one codebase.',
   'st-done': 'Done',
   'st-next': 'Next',
   'st-todo': 'Backlog',
   'st-part': 'In progress',
 
   'footer-brand': 'Open source & reading',
-  'footer-text': 'Readnest · reading tracker · Flutter · SQLite · local-first · MIT licensed.',
-  'footer-year': '© 2026 kjlintong'
+  'footer-text': 'Readnest \u00b7 reading tracker \u00b7 Flutter \u00b7 SQLite \u00b7 local-first \u00b7 MIT licensed.',
+  'footer-year': '\u00a9 2026 kjlintong'
 });
 
 Object.assign(window.I18N.zh, {
-  'page-title': 'Readnest — 一个本地优先的阅读伴侣',
-  'nav-projects': '项目', 'nav-blog': '博客', 'nav-about': '关于',
+  'page-title': 'Readnest \u2014 \u4e00\u4e2a\u5b58\u5728\u624b\u673a\u91cc\u7684\u9605\u8bfb\u8bb0\u5f55',
+  'nav-projects': '\u9879\u76ee', 'nav-blog': '\u535a\u5ba2', 'nav-about': '\u5173\u4e8e',
 
-  'hero-kicker': '本地优先 · 阅读伴侣',
-  'hero-subtitle': '你的手机，就是那座书架。',
-  'hero-desc': '基于 Flutter 与 SQLite 打造。每一本书、每一条笔记、每一份阅读计划都留在你的手机里。没有账号，没有服务器，没有云同步。微信读书书架、Goodreads CSV、Notion 导出，或一张真实书架的照片——八条入口，一座书架。',
-  'meta-version': 'v0.9.0 发布候选',
-  'meta-license': 'MIT · 开源',
-  'meta-platform': 'Android APK · iOS 后续',
-  'btn-download': '下载 APK',
-  'btn-source': 'GitHub 仓库',
+  'hero-kicker': '\u4e00\u4e2a\u5b58\u5728\u624b\u673a\u91cc\u7684\u9605\u8bfb\u8bb0\u5f55',
+  'hero-subtitle': '\u4e66\u67b6\u3001\u7b14\u8bb0\u3001\u9605\u8bfb\u8ba1\u5212\uff0c\u90fd\u5b58\u5728\u4f60\u7684\u624b\u673a\u91cc\u3002',
+  'hero-desc': 'Readnest \u662f\u4e00\u4e2a\u7528 Flutter \u5199\u7684\u9605\u8bfb\u8bb0\u5f55 App\u3002\u6570\u636e\u5168\u90e8\u5b58\u5728\u4f60\u81ea\u5df1\u624b\u673a\u4e0a\u7684 SQLite \u6570\u636e\u5e93\u91cc\uff0c\u4e0d\u8981\u6ce8\u518c\u3001\u4e0d\u8fde\u670d\u52a1\u5668\u3001\u4e0d\u4e0a\u4f20\u3002\u4e5f\u53ef\u4ee5\u4ece\u5fae\u4fe1\u8bfb\u4e66\u3001Goodreads\u3001CSV \u6587\u4ef6\u6216\u4e66\u67b6\u7167\u7247\u5bfc\u5165\u3002',
+  'meta-version': 'v0.9.0 \u5df2\u53d1\u5e03',
+  'meta-license': 'MIT \u534f\u8bae\uff0c\u5f00\u6e90',
+  'meta-platform': 'Android APK \u5df2\u4e0a\u7ebf \u00b7 iOS \u672a\u4e0a\u7ebf',
+  'btn-download': '\u4e0b\u8f7d APK',
+  'btn-source': 'GitHub \u4ed3\u5e93',
 
-  'features-label': '功能一览',
-  'features-heading': '这套 App 交付什么',
-  'f1-title': '多源导入',
-  'f1-body': '手动填写、书架截图 OCR、书架照片 OCR、微信读书书架同步、同步阅读进度、CSV / Notion 导入、Goodreads CSV、Open Library / Google Books 搜索——八条入口，一座书架。',
-  'f2-title': '统一数据模型',
-  'f2-body': '所有来源折叠进同一个 <strong>Book</strong> 结构。<strong>extra{}</strong> 兜底保存源系统自定义字段，迁移零丢失。',
-  'f3-title': '多源合并去重',
-  'f3-body': '优先 ISBN，其次 <strong>书名 + 首位作者</strong> 兜底。字段只补空缺——你手填的评分与摘要从不被覆盖。',
-  'f4-title': '分类归一化',
-  'f4-body': '127 条别名把微信读书自有分类收敛到 20 类受控词表，同一语义不会再在统计里分裂成两个标签。',
-  'f5-title': '阅读计划',
-  'f5-body': '每日型计划是周期任务——今天打卡，明天回到待完成。整体完成才归档。本地通知，不接服务器。',
-  'f6-title': '阅读统计',
-  'f6-body': '阅读状态、分类分布、月度在读、评分分布、在读进度、来源平台——七张图，都能在图表显示设置里自选显隐。阅读时长与阅读天数是刻意不画的：App 没有手段监控它们，编一个数字比留空更糟。',
-  'f7-title': '阅读档案',
-  'f7-body': '偏好分布气泡图 + 可增删改的性格标签。两者都能导出成图——分享出去，或存进手机相册。',
-  'f8-title': 'AI 阅读报告',
-  'f8-body': '把本地算好的聚合统计交给自选大模型，模型不碰书名与笔记原文，也不会编造数字。年报月报存进档案可回看，五种语气，也能自定义。',
+  'shot1-img': '/assets/readnest/01-shelf.zh.png',
+  'shot2-img': '/assets/readnest/02-stats.zh.png',
+  'shot3-img': '/assets/readnest/03-profile.zh.png',
+  'shot4-img': '/assets/readnest/05-report.zh.png',
+  'shot5-img': '/assets/readnest/07-notes.zh.png',
 
-  'gallery-label': '界面预览',
-  'gallery-heading': '走进这套 App',
-  'shot1': '书架',
-  'shot2': '统计',
-  'shot3': '阅读档案',
-  'shot4': 'AI 阅读报告',
-  'shot5': '记录 · 计划',
-  'gallery-note': '五张截图，直接取自项目 docs 目录。',
+  'features-label': '\u529f\u80fd',
+  'features-heading': '\u516b\u79cd\u52a0\u4e66\u7684\u65b9\u5f0f\uff0c\u53ea\u5f52\u5230\u4e00\u5ea7\u4e66\u67b6',
+  'f1-title': '\u4ece\u5404\u5904\u5f15\u5165\u4e66',
+  'f1-body': '\u624b\u52a8\u586b\u5199\u3001\u622a\u56fe\u8bc6\u522b\u3001\u62cd\u7167\u8bc6\u522b\u4e66\u67b6\u3001\u5fae\u4fe1\u8bfb\u4e66\u4e66\u5355\u540c\u6b65\u3001\u540c\u6b65\u9605\u8bfb\u8fdb\u5ea6\uff0c\u4ee5\u53ca CSV\u3001Notion\u3001Goodreads\u3001Open Library\u3001Google Books \u5bfc\u5165\u3002\u4e0d\u8bba\u8d70\u54ea\u6761\u8def\u5b50\uff0c\u6700\u7ec8\u90fd\u843d\u5728\u540c\u4e00\u5ea7\u4e66\u67b6\u4e0a\u3002',
+  'f2-title': '\u4e0d\u540c\u6765\u6e90\u7edf\u4e00\u5b58\u6210\u4e00\u6761\u8bb0\u5f55',
+  'f2-body': '\u5bfc\u5165\u65f6\u5148\u628a\u6570\u636e\u8f6c\u6210\u540c\u4e00\u79cd <strong>Book</strong> \u8bb0\u5f55\u518d\u5165\u5e93\u3002\u6765\u6e90\u7cfb\u7edf\u91cc\u3001Readnest \u6ca1\u6709\u5b57\u6bb5\u53ef\u5b58\u7684\u5b57\u6bb5\u653e\u8fdb <strong>extra{}</strong>\uff0c\u4ee5\u540e\u518d\u5bfc\u5165\u4e5f\u8fd8\u80fd\u8bfb\u56de\u6765\u3002',
+  'f3-title': '\u91cd\u590d\u7684\u4e66\u81ea\u52a8\u5408\u5e76',
+  'f3-body': '\u540c\u4e00\u672c\u4e66\u5bfc\u4e24\u6b21\u53ea\u4f1a\u7559\u4e00\u6761\u8bb0\u5f55\u3002\u6709 ISBN \u65f6\u6309 ISBN \u5224\u65ad\uff0c\u6ca1\u6709\u5c31\u6309<strong>\u4e66\u540d\u52a0\u7b2c\u4e00\u4f5c\u8005</strong>\u5339\u914d\u3002\u53ea\u8865\u7a7a\u767d\u7684\u5b57\u6bb5\uff0c\u4f60\u81ea\u5df1\u586b\u7684\u8bc4\u5206\u548c\u7b80\u4ecb\u4e0d\u4f1a\u88ab\u8986\u76d6\u3002',
+  'f4-title': '\u5206\u7c7b\u7edf\u4e00\u53e3\u5f84',
+  'f4-body': '\u5fae\u4fe1\u8bfb\u4e66\u628a\u67d0\u4e2a\u4e66\u67b6\u53eb\u201c\u7ecf\u5178\u7b7e\u5356\u201d\u6216\u201c\u4e2a\u4eba\u6210\u957f\u201d\uff0cGoodreads \u53ef\u80fd\u53eb\u201c\u81ea\u52a9\u6210\u957f\u201d\u3002127 \u6761\u522b\u540d\u6620\u5c04\u4f1a\u628a\u8fd9\u7c7b\u540d\u5b57\u6536\u5230\u56fa\u5b9a\u7684 20 \u4e2a\u54c1\u724c\u8bcd\u8868\u91cc\uff0c\u8fd9\u6837\u540c\u4e00\u4e2a\u8bfb\u7269\u4e0d\u4f1a\u5728\u7edf\u8ba1\u91cc\u88ab\u5272\u6210\u4e24\u5757\u3002',
+  'f5-title': '\u9605\u8bfb\u8ba1\u5212',
+  'f5-body': '\u6bcf\u65e5\u8ba1\u5212\u662f\u5468\u671f\u6027\u4efb\u52a1\uff0c\u4e0d\u662f\u4e00\u6b21\u6027\u7684\u4efb\u52a1\u3002\u4eca\u5929\u6253\u5361\uff0c\u660e\u5929\u8fd8\u4f1a\u518d\u51fa\u73b0\uff1b\u6574\u4e2a\u8ba1\u5212\u7ed3\u675f\u65f6\u624d\u5f52\u6863\u3002\u63d0\u9192\u7531\u624b\u673a\u672c\u5730\u6392\u7a0b\uff0c\u4e0d\u9700\u8981\u7f51\u7edc\u4e5f\u80fd\u5230\u65f6\u63d0\u9192\u3002',
+  'f6-title': '\u9605\u8bfb\u7edf\u8ba1',
+  'f6-body': '\u9605\u8bfb\u72b6\u6001\u3001\u54c1\u724c\u5206\u5e03\u3001\u6708\u5ea6\u5728\u8bfb\u3001\u8bc4\u5206\u3001\u8fdb\u5ea6\u3001\u6765\u6e90\u5e73\u53f0\uff0c\u5171\u4e03\u5f20\u56fe\uff0c\u90fd\u80fd\u5728\u56fe\u8868\u663e\u793a\u8bbe\u7f6e\u91cc\u9010\u5f20\u5173\u6389\u3002\u9605\u8bfb\u65f6\u957f\u548c\u6d3b\u8dc3\u5929\u6570\u5f88\u6709\u610f\u5730\u6ca1\u505a\uff1aReadnest \u6839\u672c\u6d4b\u4e0d\u51fa\u8fd9\u4e24\u4e2a\u6570\u5b57\uff0c\u7f16\u4e00\u4e2a\u6bd4\u7559\u7a7a\u66f4\u4e0d\u53cb\u597d\u3002',
+  'f7-title': '\u9605\u8bfb\u6863\u6848',
+  'f7-body': '\u4e00\u5f20\u6c14\u6ce1\u56fe\u5448\u73b0\u4f60\u5b9e\u9645\u8bfb\u8fc7\u7684\u54c1\u724c\uff0c\u52a0\u4e0a\u53ef\u4ee5\u81ea\u5df1\u589e\u5220\u6539\u7684\u6027\u683c\u6807\u7b7e\u3002\u4e24\u8005\u90fd\u80fd\u5bfc\u51fa\u6210\u56fe\u7247\uff0c\u53d1\u7ed9\u522b\u4eba\u6216\u5b58\u8fdb\u624b\u673a\u76f8\u518c\u3002',
+  'f8-title': 'AI \u9605\u8bfb\u62a5\u544a',
+  'f8-body': '\u4f60\u81ea\u5df1\u9009\u5927\u6a21\u578b\u3002\u53d1\u7ed9\u5b83\u7684\u662f Readnest \u5728\u672c\u5730\u5df2\u7ecf\u7b97\u597d\u7684\u7edf\u8ba1\u6570\u5b57\uff0c\u6700\u591a\u5c31\u662f\u4e2a\u6bd4\u4f8b\uff0c\u4e0d\u542b\u4efb\u4f55\u4e66\u540d\u548c\u7b14\u8bb0\u539f\u6587\uff0c\u5e76\u4e14\u4f1a\u63d0\u9192\u5b83\u4e0d\u8981\u7f16\u9020\u6570\u5b57\u3002\u5e74\u62a5\u3001\u6708\u62a5\u4f1a\u5b58\u4e0b\u6765\u65e5\u540e\u53ef\u4ee5\u91cd\u65b0\u7ffb\u770b\uff0c\u8bed\u6c14\u6709\u4e94\u79cd\uff0c\u4e5f\u80fd\u81ea\u5b9a\u4e49\u3002',
 
-  'privacy-label': '隐私 · 离线',
-  'privacy-heading': '书是你的，手机是你的，别的都不问。',
-  'privacy-lede': '本地优先不是一句口号——它是实际的架构：SQLite 直接落在你手机本地。',
-  'privacy-text': 'Readnest 没有后端。没有要注册的账号，核心功能也无需配 API Key，没有云同步要维护，也没有服务器可被 subpoena。手机丢了，书架就随它而去——这正是设计意图。',
-  'pp1-title': '只存本地',
-  'pp1-body': '书籍、笔记、阅读日志都躺在本地 <strong>SQLite</strong> 数据库里。没有账号，没有服务器，没有云同步。',
-  'pp2-title': '尊重原文的 AI',
-  'pp2-body': 'AI 报告只上传聚合统计——从不上传书名与笔记原文。模型无法编造未给它的数字，LLM 密钥始终是你的。',
-  'pp3-title': '离线可用',
-  'pp3-body': '阅读、OCR、所有图表在飞行模式下照常工作。ML Kit 端侧完成文字识别，图片永不离机。',
+  'gallery-label': '\u754c\u9762',
+  'gallery-heading': '\u771f\u673a\u622a\u56fe',
+  'shot1': '\u4e66\u67b6',
+  'shot2': '\u7edf\u8ba1',
+  'shot3': '\u9605\u8bfb\u6863\u6848',
+  'shot4': 'AI \u9605\u8bfb\u62a5\u544a',
+  'shot5': '\u7b14\u8bb0\u4e0e\u8ba1\u5212',
+  'gallery-note': '\u771f\u673a\u622a\u56fe\uff0c\u4e0d\u662f\u6a21\u578b\u56fe\u3002',
 
-  'build-label': 'GitHub · 构建 · 下载',
-  'build-heading': '源码在哪儿，怎么跑起来',
-  's1-label': '内置示例书',
-  's2-label': '双语文案 · 零漂移',
-  's3-label': '测试用例通过',
-  's4-label': 'Android 已发布 · iOS 后续',
-  'build-note': 'v0.9.0 为发布候选，基于 Flutter 3.24.x / Dart 3.5.x 与 Android SDK 34 构建。<a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT 协议源码</a>。',
-  'build-intro': '想自己构建？需要 Flutter <code>3.24.x</code>、Dart <code>3.5.x</code>、Android SDK <code>34</code>。从 <code>app/</code> 目录跑三步：',
-  'gh-title': '源码仓库 <span class="repo-name">kjlintong/reading-tracker</span>',
-  'gh-note-before': 'Readnest 目前是我一个人的项目 —— ',
-  'gh-note-mid': '个贡献者，',
-  'gh-note-after': '但 MIT 授权是真心开放。可先取 <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a>，也可以读源码提 issue。',
+  'privacy-label': '\u9690\u79c1 \u00b7 \u79bb\u7ebf',
+  'privacy-heading': '\u4e66\u4e0d\u4f1a\u79bb\u5f00\u4f60\u7684\u624b\u673a',
+  'privacy-lede': '\u672c\u5730\u4f18\u5148\u4e0d\u662f\u53e3\u53f7\uff0c\u800c\u662f\u5b9e\u73b0\u65b9\u5f0f\uff1a<strong>\u6570\u636e\u5c31\u662f\u4f60\u8bbe\u5907\u4e0a\u7684\u4e00\u4e2a SQLite \u6587\u4ef6</strong>\u3002',
+  'privacy-text': 'Readnest \u6ca1\u6709\u540e\u7aef\u3002\u4e0d\u8981\u6ce8\u518c\u8d26\u53f7\uff0c\u6838\u5fc3\u529f\u80fd\u4e0d\u9700\u8981\u914d\u4efb\u4f55 API Key\uff0c\u6ca1\u6709\u4e91\u540c\u6b65\u8981\u7ef4\u62a4\uff0c\u4e5f\u6ca1\u6709\u4ec0\u4e48\u670d\u52a1\u5668\u53ef\u4ee5\u88ab\u8981\u6c42\u4ea4\u51fa\u6570\u636e\u3002\u4ee3\u4ef7\u4e5f\u662f\u8bf4\u6b5b\u7684\uff1a\u624b\u673a\u4e22\u4e86\uff0c\u4e66\u67b6\u5c31\u6ca1\u4e86\u3002',
+  'pp1-title': '\u53ea\u5b58\u672c\u5730',
+  'pp1-body': '\u4e66\u7c4d\u3001\u7b14\u8bb0\u3001\u9605\u8bfb\u8bb0\u5f55\u90fd\u5b58\u5728\u8bbe\u5907\u4e0a\u7684 <strong>SQLite</strong> \u6570\u636e\u5e93\u91cc\u3002\u4e0d\u8981\u8d26\u53f7\uff0c\u6ca1\u6709\u670d\u52a1\u5668\uff0c\u6ca1\u6709\u4e91\u540c\u6b65\u3002',
+  'pp2-title': 'AI \u53ea\u770b\u6570\u5b57\uff0c\u4e0d\u770b\u539f\u6587',
+  'pp2-body': '\u62a5\u544a\u53ea\u4e0a\u4f20\u805a\u5408\u540e\u7684\u7edf\u8ba1\u6570\u5b57\uff0c\u4e0d\u542b\u4e66\u540d\uff0c\u4e5f\u4e0d\u542b\u7b14\u8bb0\u539f\u6587\u3002\u6a21\u578b\u62ff\u4e0d\u5230\u7684\u6570\u5b57\u7f16\u4e0d\u51fa\u6765\uff0cLLM Key \u4e5f\u7531\u4f60\u81ea\u5df1\u63d0\u4f9b\u3002',
+  'pp3-title': '\u65ad\u7f51\u4e5f\u80fd\u7528',
+  'pp3-body': '\u8bb0\u7b14\u8bb0\u3001OCR \u548c\u6240\u6709\u56fe\u8868\u5728\u98de\u884c\u6a21\u5f0f\u4e0b\u7167\u5e38\u5de5\u4f5c\u3002\u6587\u5b57\u8bc6\u522b\u7531\u8bbe\u5907\u4e0a\u7684 ML Kit \u5b8c\u6210\uff0c\u56fe\u7247\u4e0d\u4f1a\u4e0a\u4f20\u3002',
+
+  'build-label': 'GitHub \u00b7 \u6784\u5efa \u00b7 \u4e0b\u8f7d',
+  'build-heading': '\u4ee3\u7801\u5728\u54ea\u91cc\uff0c\u600e\u4e48\u81ea\u5df1\u7f16\u8bd1',
+  's1-label': '\u5185\u7f6e\u793a\u4f8b\u4e66',
+  's2-label': '\u4e2d\u82f1\u6587\u6848\u5df2\u5bf9\u9f50',
+  's3-label': '\u81ea\u52a8\u5316\u6d4b\u8bd5\u901a\u8fc7\u6570',
+  's4-label': 'APK \u5df2\u53d1\u5e03 \u00b7 iOS \u672a\u4e0a\u7ebf',
+  's4-value': 'Android<span class="unit">\u00b7 iOS \u540e\u7eed</span>',
+  'build-note': 'v0.9.0 \u5df2\u53d1\u5e03\uff0c\u57fa\u4e8e Flutter 3.24.x / Dart 3.5.x \u4e0e Android SDK 34 \u6784\u5efa\u3002\u6e90\u7801\u9075\u5faa <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT \u534f\u8bae</a>\u3002',
+  'build-intro': '\u60f3\u81ea\u5df1\u7f16\u8bd1\uff0c\u9700\u8981 Flutter <code>3.24.x</code>\u3001Dart <code>3.5.x</code> \u548c Android SDK <code>34</code>\u3002\u5728 <code>app/</code> \u76ee\u5f55\u4e0b\u6267\u884c\u4e09\u6761\u547d\u4ee4\uff1a',
+  'gh-title': '\u6e90\u7801\u4ed3\u5e93 <span class="repo-name">kjlintong/reading-tracker</span>',
+  'gh-stars-label': '\u6536\u85cf',
+  'gh-forks-label': 'Fork \u6570',
+  'gh-commits-label': '\u63d0\u4ea4\u6570\uff08main \u5206\u652f\uff09',
+  'gh-note-before': 'Readnest \u76ee\u524d\u4e5f\u662f\u4e00\u4e2a\u4eba\u5728\u7ef4\u62a4 \u2014\u2014 ',
+  'gh-note-mid': '\u4f4d\u8d21\u732e\u8005\uff0c',
+  'gh-note-after': '\u4f46\u662f MIT \u534f\u8bae\u4fdd\u7559\u4e86\u4f60\u63a5\u624b\u7684\u53ef\u80fd\u3002\u53ef\u4ee5\u5148\u4e0b\u8f7d <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a>\uff0c\u4e5f\u53ef\u4ee5\u76f4\u63a5\u8bfb\u6e90\u7801\u63d0 issue\u3002',
   'd-title': 'Readnest v0.9.0',
-  'd-tag': '发布候选',
-  'btn-download-release': '获取 APK',
-  'btn-source-alt': '源码与文档',
-  'd-ver': '版本',
-  'd-plat': '平台',
-  'd-size': '环境',
-  'd-lic': '授权',
+  'd-tag': '\u5df2\u53d1\u5e03',
+  'btn-download-release': '\u4e0b\u8f7d APK',
+  'btn-source-alt': '\u6e90\u7801\u4e0e\u6587\u6863',
+  'd-ver': '\u7248\u672c',
+  'd-notes': '\u66f4\u65b0\u8bf4\u660e',
+  'd-plat': '\u5e73\u53f0',
+  'd-plat-v': 'Android 7.0+ APK \u00b7 iOS \u5c1a\u672a\u4e0a\u67b6 App Store',
+  'd-size': '\u73af\u5883',
+  'd-lic': '\u534f\u8bae',
+  'd-lic-v': 'MIT \u2014 \u770b\u4e0b\u3001\u4e8c\u6b21\u5f00\u53d1\u3001\u81ea\u7531\u53d1\u5e03\u3002',
 
-  'faq-label': '常见问题',
-  'faq-heading': '你可能想问的',
-  'faq1-q': '数据会同步到服务器吗？',
-  'faq1-a': '<strong>不会 —— 也不是设计目标。</strong>Readnest 严格本地优先：书籍、笔记、阅读计划都躺在你手机本地的 <code>SQLite</code> 里。没有后端，没有账号，没有云同步。想备份就复制本地 SQLite 文件——这就是全部。',
-  'faq2-q': '需要注册账号吗？',
-  'faq2-a': '<strong>不需要。</strong>这正是它的设计目标。没有登录页，没有邮箱栏，核心功能也无需配 API Key。装 APK、打开 App，这就是你的注册。',
-  'faq3-q': 'iOS 什么时候出？',
-  'faq3-a': '<strong>App Store 上还没有。</strong>代码是同一个 Flutter 工程，两个平台都能编译，但 iOS 构建需要 Mac runner——我手上暂时没有。仓库里已经有一份 <code>codemagic.yaml</code>，走 Codemagic 云端就能签 & 出包——如果你先跑到这一步，源码已经准备好了。见仓库的 iOS 章节。',
-  'faq4-q': '和微信读书有什么区别？',
-  'faq4-a': '微信读书是一个拥有庞大生态的阅读器。<strong>Readnest 是你自己拥有的那一面镜子。</strong>你通过官方 Agent 网关把微信读书的书单导进 Readnest——书籍躺在你手机的 SQLite 里，评分与笔记都归你，Readnest 从不代你回电。',
-  'faq5-q': 'AI 报告会看到我的书吗？',
-  'faq5-a': '<strong>只看到统计——看不到原文。</strong>在向模型发 prompt 之前，Readnest 先把本地数据聚合成一份匿名摘要（计数、分布，不含书名、不含笔记正文）。你自己带 LLM Key，Key 也不会经过 Readnest 的服务端——因为根本没有服务端。',
+  'faq-label': '\u5e38\u89c1\u95ee\u9898',
+  'faq-heading': '\u5e7c\u95ee\u7c7b',
+  'faq1-q': '\u6211\u7684\u6570\u636e\u4f1a\u4e0a\u4f20\u5417\uff1f',
+  'faq1-a': '<strong>\u4e0d\u4f1a\uff0c\u800c\u4e14\u8fd9\u662f\u6709\u610f\u4e3a\u4e4b\u7684\u3002</strong>\u4e66\u7c4d\u3001\u7b14\u8bb0\u3001\u9605\u8bfb\u8ba1\u5212\u90fd\u5b58\u5728\u624b\u673a\u4e0a\u7684 <code>SQLite</code> \u6587\u4ef6\u91cc\uff0c\u6ca1\u6709\u540e\u7aef\u53ef\u4ee5\u540c\u6b65\uff0c\u4e5f\u4e0d\u8981\u767b\u5f55\u3002\u60f3\u5907\u4efd\u5c31\u628a\u90a3\u4e2a\u6587\u4ef6\u590d\u5236\u8fc7\u53bb\u3002',
+  'faq2-q': '\u9700\u8981\u6ce8\u518c\u8d26\u53f7\u5417\uff1f',
+  'faq2-a': '<strong>\u4e0d\u9700\u8981\u3002</strong>\u6ca1\u6709\u6ce8\u518c\u9875\u9762\uff0c\u4e5f\u4e0d\u9700\u8981\u4ec0\u4e48\u914d\u7f6e\u5c31\u80fd\u5f00\u59cb\u4f7f\u7528\u3002\u88c5\u4e0a APK\u3001\u6253\u5f00\u3001\u6dfb\u4e00\u672c\u4e66\uff0c\u5c31\u8fd9\u4e48\u591a\u3002',
+  'faq3-q': 'iOS \u7248\u4ec0\u4e48\u65f6\u5019\u51fa\uff1f',
+  'faq3-a': '<strong>\u76ee\u524d\u8fd8\u6ca1\u6709\u3002</strong>\u8fd9\u662f\u540c\u4e00\u4e2a Flutter \u5de5\u7a0b\uff0c\u4e24\u4e2a\u5e73\u53f0\u90fd\u80fd\u7f16\u8bd1\uff0c\u4f46 iOS \u4e0a\u5305\u9700\u8981 Mac\u3002\u4ed3\u5e93\u91cc\u6709\u4e00\u4efd <code>codemagic.yaml</code>\uff0c\u901a\u5e38\u5c31\u7528\u5b83\u5728\u4e91\u7aef Mac \u4e0a\u7b7e\u540d\u51fa\u5305\u2014\u2014\u5982\u679c\u4f60\u6709\u8fd9\u4e2a\u6761\u4ef6\uff0c\u6e90\u7801\u968f\u65f6\u53ef\u4ee5\u7f16\u8bd1\u3002',
+  'faq4-q': '\u548c\u5fae\u4fe1\u8bfb\u4e66\u6709\u4ec0\u4e48\u4e0d\u540c\uff1f',
+  'faq4-a': '\u5fae\u4fe1\u8bfb\u4e66\u662f\u770b\u4e66\u7684\u5730\u65b9\uff0cReadnest \u662f\u8bb0\u8d26\u7684\u5730\u65b9\u3002\u53ef\u4ee5\u628a\u5fae\u4fe1\u8bfb\u4e66\u7684\u4e66\u5355\u5bfc\u8fc7\u6765\uff0c\u5bfc\u8fdb\u6765\u4e4b\u540e\uff0c\u4e66\u3001\u8bc4\u5206\u548c\u7b14\u8bb0\u90fd\u5b58\u5728\u4f60\u624b\u673a\u81ea\u5df1\u7684\u6570\u636e\u5e93\u91cc\uff0c\u4e4b\u540e Readnest \u4e0d\u4f1a\u66ff\u4f60\u56de\u8fde WeRead\u3002',
+  'faq5-q': 'AI \u62a5\u544a\u4f1a\u770b\u5230\u6211\u7684\u4e66\u5417\uff1f',
+  'faq5-a': '<strong>\u53ea\u770b\u6570\u5b57\uff0c\u4e0d\u770b\u539f\u6587\u3002</strong>\u53d1 prompt \u4e4b\u524d\uff0cReadnest \u5148\u628a\u9605\u8bfb\u6570\u636e\u538b\u6210\u4e00\u4efd\u53ea\u6709\u8ba1\u6570\u548c\u6bd4\u4f8b\u7684\u6458\u8981\uff0c\u4e0d\u542b\u4e66\u540d\uff0c\u4e5f\u4e0d\u542b\u7b14\u8bb0\u539f\u6587\u3002\u7528\u54ea\u4e2a\u6a21\u578b\u3001\u7528\u4ec0\u4e48 Key\uff0c\u90fd\u7531\u4f60\u81ea\u5df1\u63d0\u4f9b\uff0c\u4e0d\u4f1a\u7ecf\u8fc7 Readnest\u2014\u2014\u56e0\u4e3a\u6839\u672c\u6ca1\u6709\u670d\u52a1\u7aef\u3002',
 
-  'roadmap-label': '路线图',
-  'roadmap-heading': '下一步是什么',
-  'roadmap-intro': '完整规划在 <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>。这里是骨架与当前进度。',
-  'rm0': '<strong>数据模型 + 本地库 + Notion 迁移 + OCR 算法</strong>',
-  'rm1': '<strong>Flutter App：书架、详情、导入、统计</strong>',
-  'rm1-note': 'v0.9.0 已功能完整交付，426 项自动化测试全绿。',
-  'rm2': '<strong>OCR 打磨：多平台截图适配、识别率调优</strong>',
-  'rm3': '<strong>AI 报告：偏好画像、更丰富的提示词</strong>',
-  'rm3-note': '报告归档、年报月报周期、定时生成均已在 v0.9.0 交付。',
-  'rm4': '<strong>可选的时长采集，给想要时长统计的人</strong>',
-  'rm4-note': '默认关闭：在真有数据来源之前，时长与活跃天数一律不上图。',
-  'rm5': '<strong>可选同步：WebDAV / 云存储多设备</strong>',
-  'rm5-note': '纯 opt-in，本地优先仍是默认。',
-  'rm6': '<strong>Windows 桌面端</strong>',
-  'rm6-note': 'Flutter 官方支持，改动面很小。',
-  'st-done': '已完成',
-  'st-next': '下一步',
-  'st-todo': '待办',
-  'st-part': '进行中',
+  'roadmap-label': '\u8def\u7ebf\u56fe',
+  'roadmap-heading': '\u8fd8\u5269\u4e0b\u8fd9\u4e9b',
+  'roadmap-intro': '\u5b8c\u6574\u89c4\u5212\u5728 <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-\u6280\u672f\u65b9\u6848.md" target="_blank" rel="noopener"><code>docs/01-\u6280\u672f\u65b9\u6848.md</code></a>\u3002\u4e0b\u9762\u662f\u6458\u8981\u7248\uff0c\u5e76\u6807\u4e86\u5f53\u524d\u8fdb\u5ea6\u3002',
+  'rm0': '<strong>\u6570\u636e\u6a21\u578b\u3001\u672c\u5730\u5e93\u3001Notion \u8fc1\u79fb\u3001OCR \u7b97\u6cd5</strong>',
+  'rm1': '<strong>Flutter App\uff1a\u4e66\u67b6\u3001\u8be6\u60c5\u3001\u5bfc\u5165\u3001\u7edf\u8ba1</strong>',
+  'rm1-note': 'v0.9.0 \u5df2\u4ea4\u4ed8\uff0c426 \u9879\u81ea\u52a8\u5316\u6d4b\u8bd5\u5168\u90e8\u901a\u8fc7\u3002',
+  'rm2': '<strong>OCR \u6253\u78e8\uff1a\u66f4\u591a\u622a\u56fe\u683c\u5f0f\u3001\u8bc6\u522b\u7387\u4f18\u5316</strong>',
+  'rm3': '<strong>AI \u62a5\u544a\uff1a\u504f\u597d\u753b\u50cf\u3001\u66f4\u4e30\u5bcc\u7684\u63d0\u793a\u8bcd</strong>',
+  'rm3-note': '\u62a5\u544a\u5f52\u6863\u3001\u5e74\u62a5\u6708\u62a5\u5468\u671f\u3001\u5b9a\u65f6\u751f\u6210\u5747\u5df2\u5728 v0.9.0 \u4ea4\u4ed8\u3002',
+  'rm4': '<strong>\u53ef\u9009\u7684\u9605\u8bfb\u65f6\u957f\u91c7\u96c6\uff0c\u7ed9\u9700\u8981\u65f6\u957f\u7edf\u8ba1\u7684\u4eba</strong>',
+  'rm4-note': '\u9ed8\u8ba4\u5173\u95ed\u3002\u5728\u771f\u6709\u53ef\u7528\u7684\u6570\u636e\u6765\u6e90\u4e4b\u524d\uff0c\u8fd9\u4e24\u5f20\u56fe\u6ca1\u6709\u8db3\u591f\u8bda\u5b9e\u7684\u6570\u5b57\u53ef\u586b\u3002',
+  'rm5': '<strong>\u53ef\u9009\u540c\u6b65\uff1aWebDAV \u6216\u4e91\u5b58\u50a8\uff0c\u7528\u4e8e\u591a\u8bbe\u5907</strong>',
+  'rm5-note': '\u7eaf\u4e3b\u52a8\u5f00\u542f\uff0c\u672c\u5730\u4f18\u5148\u4ecd\u662f\u9ed8\u8ba4\u3002',
+  'rm6': '<strong>Windows \u684c\u9762\u7248</strong>',
+  'rm6-note': 'Flutter \u5b98\u65b9\u652f\u6301\uff0c\u4e14\u672c\u6765\u5c31\u662f\u4e00\u4efd\u5355\u4e00\u4ee3\u7801\u3002',
+  'st-done': '\u5df2\u5b8c\u6210',
+  'st-next': '\u4e0b\u4e00\u6b65',
+  'st-todo': '\u5f85\u529e',
+  'st-part': '\u8fdb\u884c\u4e2d',
 
-  'footer-brand': '开源 · 阅读',
-  'footer-text': 'Readnest · 阅读管理 · Flutter · SQLite · 本地优先 · MIT 授权。',
-  'footer-year': '© 2026 kjlintong'
+  'footer-brand': '\u5f00\u6e90 \u00b7 \u9605\u8bfb',
+  'footer-text': 'Readnest \u00b7 \u9605\u8bfb\u8bb0\u5f55 \u00b7 Flutter \u00b7 SQLite \u00b7 \u672c\u5730\u4f18\u5148 \u00b7 MIT \u534f\u8bae\u3002',
+  'footer-year': '\u00a9 2026 kjlintong'
 });
 </script>
 
