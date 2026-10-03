@@ -304,6 +304,20 @@ section { padding: 92px 0; position: relative; z-index: 1; }
   display: block; font-family: var(--font-body); font-size: 10.5px; font-weight: 500;
   color: var(--muted); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 8px;
 }
+.project-link {
+  margin-top: 14px;
+  font-size: 13px; font-weight: 600;
+  color: var(--accent-strong); letter-spacing: 0.02em;
+}
+.project-link a {
+  color: var(--accent-strong); text-decoration: none;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 2px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.project-link a:hover {
+  color: var(--accent); border-color: var(--accent-strong);
+}
 
 /* Blog */
 .blog-list { border-top: 1px solid var(--line); }
@@ -505,6 +519,20 @@ section { padding: 92px 0; position: relative; z-index: 1; }
       </div>
       <div class="project-stat" data-i18n="proj-stat-own">Personal<small>Project</small></div>
     </div>
+    <div class="project-row" data-od-id="project-readnest">
+      <div>
+        <p class="project-name"><a href="{{ site.baseurl }}/readnest.html">Readnest</a></p>
+        <p class="project-desc" data-i18n="proj-readnest">A local-first reading companion built in Flutter. Every book, note, and reading plan lives in your phone's SQLite — no account, no server, no cloud sync. Import from WeRead, Notion, CSV, and shelf-photo OCR.</p>
+        <div class="project-tags">
+          <span class="project-tag">Flutter</span>
+          <span class="project-tag">SQLite</span>
+          <span class="project-tag">Local-first</span>
+          <span class="project-tag">MIT</span>
+        </div>
+        <p class="project-link"><a href="{{ site.baseurl }}/readnest.html" data-i18n="proj-readnest-link">View project →</a></p>
+      </div>
+      <div class="project-stat" data-i18n="proj-stat-readnest">v0.9.0<small>Android · MIT</small></div>
+    </div>
   </div>
 </section>
 
@@ -630,6 +658,9 @@ const i18n = {
     'proj-stat': '2k+<small>GitHub Stars</small>',
     'proj-graph': '将 Microsoft GraphRAG 与本地 Ollama 模型结合，对自己的文档做完全离线的智能分析。',
     'proj-stat-own': '个人<small>项目</small>',
+    'proj-readnest': '一个基于 Flutter 打造的本地优先阅读伴侣。所有书、笔记、阅读计划都留在手机本地 SQLite —— 无账号、无服务器、无云同步。可从微信读书、Notion、CSV 与书架照片 OCR 一并导入。',
+    'proj-readnest-link': '查看项目 →',
+    'proj-stat-readnest': 'v0.9.0<small>Android · MIT</small>',
     'blog-label': '最新文章', 'blog-heading': '写下的东西', 'blog-view-all': '查看全部文章 →',
     'contact-desc': '无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
@@ -660,6 +691,9 @@ const i18n = {
     'proj-stat': '2k+<small>GitHub Stars</small>',
     'proj-graph': 'Microsoft GraphRAG with local Ollama models — fully offline intelligence analysis over your own documents.',
     'proj-stat-own': 'Personal<small>Project</small>',
+    'proj-readnest': 'A local-first reading companion built in Flutter. Every book, note, and reading plan lives in your phone\'s SQLite — no account, no server, no cloud sync. Import from WeRead, Notion, CSV, and shelf-photo OCR.',
+    'proj-readnest-link': 'View project →',
+    'proj-stat-readnest': 'v0.9.0<small>Android · MIT</small>',
     'blog-label': 'Latest Posts', 'blog-heading': 'Things I write', 'blog-view-all': 'View all posts →',
     'contact-desc': 'Whether it\'s technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
