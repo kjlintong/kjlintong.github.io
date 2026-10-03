@@ -40,13 +40,13 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   "codeRepository": "https://github.com/kjlintong/reading-tracker",
   "screenshot": "https://kjlintong.github.io/assets/readnest/01-shelf.png",
   "author": {
-    "@type": "Person",
-    "name": "Tong Lin",
-    "url": "https://kjlintong.github.io/"
+    "@type": "Organization",
+    "name": "kjlintong",
+    "url": "https://github.com/kjlintong"
   }
 }
 </script>
-<meta property="og:site_name" content="Tong Lin — Personal Website">
+<meta property="og:site_name" content="kjlintong">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Readnest — a local-first reading companion">
 <meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Notion, CSV, and shelf-photo OCR. v0.9.0 · MIT.">
@@ -718,7 +718,7 @@ a:focus-visible, button:focus-visible {
 <!-- Nav -->
 <nav class="nav" data-od-id="nav">
   <div class="nav-inner">
-    <span class="nav-brand"><a href="/" style="color:inherit;text-decoration:none">Tong&nbsp;Lin</a></span>
+    <span class="nav-brand"><a href="/" style="color:inherit;text-decoration:none">Readnest</a></span>
     <ul class="nav-links">
       <li><a href="/#projects" data-i18n="nav-projects">Projects</a></li>
       <li><a href="/blog/" data-i18n="nav-blog">Blog</a></li>
@@ -744,7 +744,7 @@ a:focus-visible, button:focus-visible {
         <h1 class="hero-name">Readnest</h1>
         <p class="hero-subtitle" data-i18n="hero-subtitle">A bookshelf that lives on your phone.</p>
         <p class="hero-description" data-i18n="hero-desc">
-          Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Import your WeRead, Notion, CSV, and shelf-photo libraries in minutes.
+          Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Bring in a WeRead shelf, a Goodreads CSV, a Notion export, or a photo of your actual bookshelf — eight ways in, one bookshelf out.
         </p>
         <div class="hero-meta">
           <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v0.9.0 release candidate</span></span>
@@ -790,7 +790,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f1-title">Multi-source import</h3>
         </div>
-        <p class="feature-body" data-i18n="f1-body">WeRead official agent gateway, Notion database export, plain CSV, shelf-photo OCR, and manual entry. Five ways in — one bookshelf out.</p>
+        <p class="feature-body" data-i18n="f1-body">Eight ways in — manual entry, shelf-screenshot OCR, shelf-photo OCR, WeRead shelf sync, reading-progress sync, CSV / Notion import, Goodreads CSV, and Open Library / Google Books search. They all land on one bookshelf.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-model">
@@ -820,7 +820,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f4-title">Category unification</h3>
         </div>
-        <p class="feature-body" data-i18n="f4-body">A 60-alias mapping folds WeRead's own categories into a controlled 14-term vocabulary, so the same idea never splits into two labels in your stats.</p>
+        <p class="feature-body" data-i18n="f4-body">A 127-alias mapping folds WeRead's own categories into a controlled 20-term vocabulary, so the same idea never splits into two labels in your stats.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-plans">
@@ -840,7 +840,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f6-title">Reading statistics</h3>
         </div>
-        <p class="feature-body" data-i18n="f6-body">Category distribution, monthly reading trends, rating spread, in-progress list, and source platform share. Toggle any chart on or off in display settings.</p>
+        <p class="feature-body" data-i18n="f6-body">Status split, category distribution, monthly reading, rating spread, in-progress progress, and source platform share — seven charts, each one toggleable in display settings. Reading duration and active days are deliberately absent: the app has no way to measure them, and a fabricated number is worse than a missing one.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-profile">
@@ -850,7 +850,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f7-title">Reading profile</h3>
         </div>
-        <p class="feature-body" data-i18n="f7-body">A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. One tap to share or save as an image.</p>
+        <p class="feature-body" data-i18n="f7-body">A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. Both export as an image — share it, or save it to your photo album.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-ai">
@@ -860,7 +860,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f8-title">AI reading report</h3>
         </div>
-        <p class="feature-body" data-i18n="f8-body">Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly, in several voices.</p>
+        <p class="feature-body" data-i18n="f8-body">Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly reports, archived so you can reread them, in five voices — or your own.</p>
       </article>
 
     </div>
@@ -1166,7 +1166,7 @@ a:focus-visible, button:focus-visible {
         <span class="roadmap-tag">P1</span>
         <div class="roadmap-item">
           <span data-i18n="rm1"><strong>Flutter app: shelf, detail, import, stats</strong></span>
-          <span class="roadmap-note" data-i18n="rm1-note">Skeleton shipped, compiled and tested in v0.9.0.</span>
+          <span class="roadmap-note" data-i18n="rm1-note">Shipped and feature-complete in v0.9.0 — 426 automated tests green.</span>
         </div>
         <span class="roadmap-status is-done" data-i18n="st-done">Done</span>
       </div>
@@ -1180,15 +1180,16 @@ a:focus-visible, button:focus-visible {
       <div class="roadmap-row">
         <span class="roadmap-tag">P3</span>
         <div class="roadmap-item">
-          <span data-i18n="rm3"><strong>AI reports: scheduled runs, history, preference profile</strong></span>
-          <span class="roadmap-note" data-i18n="rm3-note">API ready; UI already shipped as v0.9.0's "AI reading report" tab.</span>
+          <span data-i18n="rm3"><strong>AI reports: preference profile, richer prompts</strong></span>
+          <span class="roadmap-note" data-i18n="rm3-note">Report archive, annual/monthly periods, and scheduled generation already shipped in v0.9.0.</span>
         </div>
         <span class="roadmap-status" data-i18n="st-part">In progress</span>
       </div>
       <div class="roadmap-row">
         <span class="roadmap-tag">P4</span>
         <div class="roadmap-item">
-          <span data-i18n="rm4"><strong>Reading log: session duration, streaks, calendar heatmap</strong></span>
+          <span data-i18n="rm4"><strong>Optional timing capture, for whoever wants duration metrics</strong></span>
+          <span class="roadmap-note" data-i18n="rm4-note">Off by default — duration and active-day stats stay hidden until there is a real data source.</span>
         </div>
         <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
       </div>
@@ -1217,11 +1218,11 @@ a:focus-visible, button:focus-visible {
   <div class="wrap">
     <div class="footer-inner">
       <div>
-        <p class="footer-brand">Tong&nbsp;Lin<span class="sep">·</span><span data-i18n="footer-brand">Open source &amp; writing</span></p>
+        <p class="footer-brand">Readnest<span class="sep">·</span><span data-i18n="footer-brand">Open source &amp; reading</span></p>
         <p class="footer-text" data-i18n="footer-text">Readnest · reading tracker · Flutter · SQLite · local-first · MIT licensed.</p>
       </div>
       <div class="footer-coords">
-        <div data-i18n="footer-year">© 2026 Tong Lin</div>
+        <div data-i18n="footer-year">© 2026 kjlintong</div>
         <div><span class="accent">kjlintong.github.io</span> · readnest.html</div>
       </div>
     </div>
@@ -1237,7 +1238,7 @@ Object.assign(window.I18N.en, {
 
   'hero-kicker': 'Local-first reading companion',
   'hero-subtitle': 'A bookshelf that lives on your phone.',
-  'hero-desc': 'Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Import your WeRead, Notion, CSV, and shelf-photo libraries in minutes.',
+  'hero-desc': 'Built with Flutter and SQLite. Every book, every note, and every reading plan stays inside your phone. No account, no server, no cloud sync. Bring in a WeRead shelf, a Goodreads CSV, a Notion export, or a photo of your actual bookshelf \u2014 eight ways in, one bookshelf out.',
   'meta-version': 'v0.9.0 release candidate',
   'meta-license': 'MIT · open source',
   'meta-platform': 'Android APK out · iOS soon',
@@ -1247,21 +1248,21 @@ Object.assign(window.I18N.en, {
   'features-label': 'Feature set',
   'features-heading': 'What you get',
   'f1-title': 'Multi-source import',
-  'f1-body': 'WeRead official agent gateway, Notion database export, plain CSV, shelf-photo OCR, and manual entry. Five ways in — one bookshelf out.',
+  'f1-body': 'Eight ways in — manual entry, shelf-screenshot OCR, shelf-photo OCR, WeRead shelf sync, reading-progress sync, CSV / Notion import, Goodreads CSV, and Open Library / Google Books search. They all land on one bookshelf.',
   'f2-title': 'One data model',
   'f2-body': 'Every source collapses into the same <strong>Book</strong> schema. A single <strong>extra{}</strong> map carries whatever a source system stores — zero-loss migration.',
   'f3-title': 'Deduplication',
   'f3-body': 'ISBN wins, then <strong>title + first author</strong> falls back. Fields only fill gaps — your hand-entered ratings and summaries are never overwritten.',
   'f4-title': 'Category unification',
-  'f4-body': 'A 60-alias mapping folds WeRead\'s own categories into a controlled 14-term vocabulary, so the same idea never splits into two labels in your stats.',
+  'f4-body': 'A 127-alias mapping folds WeRead\'s own categories into a controlled 20-term vocabulary, so the same idea never splits into two labels in your stats.',
   'f5-title': 'Reading plans',
   'f5-body': 'Daily plans are recurring tasks — mark done today, back on the list tomorrow. Only when the whole plan closes does it archive. Local notifications, no cloud.',
   'f6-title': 'Reading statistics',
-  'f6-body': 'Category distribution, monthly reading trends, rating spread, in-progress list, and source platform share. Toggle any chart on or off in display settings.',
+  'f6-body': 'Status split, category distribution, monthly reading, rating spread, in-progress progress, and source platform share \u2014 seven charts, each one toggleable in display settings. Reading duration and active days are deliberately absent: the app has no way to measure them, and a fabricated number is worse than a missing one.',
   'f7-title': 'Reading profile',
-  'f7-body': 'A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. One tap to share or save as an image.',
+  'f7-body': 'A bubble plot of what you actually read, plus personality tags you can add, edit, or delete. Both export as an image \u2014 share it, or save it to your photo album.',
   'f8-title': 'AI reading report',
-  'f8-body': 'Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly, in several voices.',
+  'f8-body': 'Aggregated, pre-computed stats go to a large model you choose; the model never sees your book titles or note text, and it never invents numbers. Annual and monthly reports, archived so you can reread them, in five voices \u2014 or your own.',
 
   'gallery-label': 'Screens',
   'gallery-heading': 'Inside the app',
@@ -1322,11 +1323,12 @@ Object.assign(window.I18N.en, {
   'roadmap-intro': 'The full plan lives in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. Here\'s the shape, with today\'s status.',
   'rm0': '<strong>Data model + local DB + Notion migration + OCR algorithm</strong>',
   'rm1': '<strong>Flutter app: shelf, detail, import, stats</strong>',
-  'rm1-note': 'Skeleton shipped, compiled and tested in v0.9.0.',
+  'rm1-note': 'Shipped and feature-complete in v0.9.0 \u2014 426 automated tests green.',
   'rm2': '<strong>OCR polish: multi-platform screenshots, recognition tuning</strong>',
-  'rm3': '<strong>AI reports: scheduled runs, history, preference profile</strong>',
-  'rm3-note': 'API ready; UI already shipped as v0.9.0\'s "AI reading report" tab.',
-  'rm4': '<strong>Reading log: session duration, streaks, calendar heatmap</strong>',
+  'rm3': '<strong>AI reports: preference profile, richer prompts</strong>',
+  'rm3-note': 'Report archive, annual/monthly periods, and scheduled generation already shipped in v0.9.0.',
+  'rm4': '<strong>Optional timing capture, for whoever wants duration metrics</strong>',
+  'rm4-note': 'Off by default — duration and active-day stats stay hidden until there is a real data source.',
   'rm5': '<strong>Optional sync: WebDAV / cloud storage for multi-device</strong>',
   'rm5-note': 'Opt-in only; local-first stays the default.',
   'rm6': '<strong>Windows desktop build</strong>',
@@ -1336,9 +1338,9 @@ Object.assign(window.I18N.en, {
   'st-todo': 'Backlog',
   'st-part': 'In progress',
 
-  'footer-brand': 'Open source & writing',
+  'footer-brand': 'Open source & reading',
   'footer-text': 'Readnest · reading tracker · Flutter · SQLite · local-first · MIT licensed.',
-  'footer-year': '© 2026 Tong Lin'
+  'footer-year': '© 2026 kjlintong'
 });
 
 Object.assign(window.I18N.zh, {
@@ -1347,7 +1349,7 @@ Object.assign(window.I18N.zh, {
 
   'hero-kicker': '本地优先 · 阅读伴侣',
   'hero-subtitle': '你的手机，就是那座书架。',
-  'hero-desc': '基于 Flutter 与 SQLite 打造。每一本书、每一条笔记、每一份阅读计划都留在你的手机里。没有账号，没有服务器，没有云同步。把微信读书、Notion、CSV 与书架照片一分钟内并入。',
+  'hero-desc': '基于 Flutter 与 SQLite 打造。每一本书、每一条笔记、每一份阅读计划都留在你的手机里。没有账号，没有服务器，没有云同步。微信读书书架、Goodreads CSV、Notion 导出，或一张真实书架的照片——八条入口，一座书架。',
   'meta-version': 'v0.9.0 发布候选',
   'meta-license': 'MIT · 开源',
   'meta-platform': 'Android APK · iOS 后续',
@@ -1357,21 +1359,21 @@ Object.assign(window.I18N.zh, {
   'features-label': '功能一览',
   'features-heading': '这套 App 交付什么',
   'f1-title': '多源导入',
-  'f1-body': '微信读书官方 Agent 网关、Notion 数据库导出、通用 CSV、书架照片 OCR、手动录入——五条入口，一座书架。',
+  'f1-body': '手动填写、书架截图 OCR、书架照片 OCR、微信读书书架同步、同步阅读进度、CSV / Notion 导入、Goodreads CSV、Open Library / Google Books 搜索——八条入口，一座书架。',
   'f2-title': '统一数据模型',
   'f2-body': '所有来源折叠进同一个 <strong>Book</strong> 结构。<strong>extra{}</strong> 兜底保存源系统自定义字段，迁移零丢失。',
   'f3-title': '多源合并去重',
   'f3-body': '优先 ISBN，其次 <strong>书名 + 首位作者</strong> 兜底。字段只补空缺——你手填的评分与摘要从不被覆盖。',
   'f4-title': '分类归一化',
-  'f4-body': '60 条别名把微信读书自有分类收敛到 14 类受控词表，同一语义不会再在统计里分裂成两个标签。',
+  'f4-body': '127 条别名把微信读书自有分类收敛到 20 类受控词表，同一语义不会再在统计里分裂成两个标签。',
   'f5-title': '阅读计划',
   'f5-body': '每日型计划是周期任务——今天打卡，明天回到待完成。整体完成才归档。本地通知，不接服务器。',
   'f6-title': '阅读统计',
-  'f6-body': '分类分布、月度趋势、评分分布、在读进度、来源占比。图表显示设置里可自选显隐。',
+  'f6-body': '阅读状态、分类分布、月度在读、评分分布、在读进度、来源平台——七张图，都能在图表显示设置里自选显隐。阅读时长与阅读天数是刻意不画的：App 没有手段监控它们，编一个数字比留空更糟。',
   'f7-title': '阅读档案',
-  'f7-body': '偏好分布气泡图 + 可增删改的性格标签。一键分享出图或保存到相册。',
+  'f7-body': '偏好分布气泡图 + 可增删改的性格标签。两者都能导出成图——分享出去，或存进手机相册。',
   'f8-title': 'AI 阅读报告',
-  'f8-body': '把本地算好的聚合统计交给自选大模型，模型不碰书名与笔记原文，也不会编造数字。年度、月度、多种语气。',
+  'f8-body': '把本地算好的聚合统计交给自选大模型，模型不碰书名与笔记原文，也不会编造数字。年报月报存进档案可回看，五种语气，也能自定义。',
 
   'gallery-label': '界面预览',
   'gallery-heading': '走进这套 App',
@@ -1432,11 +1434,12 @@ Object.assign(window.I18N.zh, {
   'roadmap-intro': '完整规划在 <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>。这里是骨架与当前进度。',
   'rm0': '<strong>数据模型 + 本地库 + Notion 迁移 + OCR 算法</strong>',
   'rm1': '<strong>Flutter App：书架、详情、导入、统计</strong>',
-  'rm1-note': '骨架已在 v0.9.0 编译通过并跑通全部测试。',
+  'rm1-note': 'v0.9.0 已功能完整交付，426 项自动化测试全绿。',
   'rm2': '<strong>OCR 打磨：多平台截图适配、识别率调优</strong>',
-  'rm3': '<strong>AI 报告：定时生成、历史留存、偏好画像</strong>',
-  'rm3-note': '接口就绪；v0.9.0 已先上 UI（"AI 阅读报告"标签）。',
-  'rm4': '<strong>阅读日志：时长记录、连续天数、日历热力图</strong>',
+  'rm3': '<strong>AI 报告：偏好画像、更丰富的提示词</strong>',
+  'rm3-note': '报告归档、年报月报周期、定时生成均已在 v0.9.0 交付。',
+  'rm4': '<strong>可选的时长采集，给想要时长统计的人</strong>',
+  'rm4-note': '默认关闭：在真有数据来源之前，时长与活跃天数一律不上图。',
   'rm5': '<strong>可选同步：WebDAV / 云存储多设备</strong>',
   'rm5-note': '纯 opt-in，本地优先仍是默认。',
   'rm6': '<strong>Windows 桌面端</strong>',
@@ -1446,9 +1449,9 @@ Object.assign(window.I18N.zh, {
   'st-todo': '待办',
   'st-part': '进行中',
 
-  'footer-brand': '开源 · 写作',
+  'footer-brand': '开源 · 阅读',
   'footer-text': 'Readnest · 阅读管理 · Flutter · SQLite · 本地优先 · MIT 授权。',
-  'footer-year': '© 2026 林通'
+  'footer-year': '© 2026 kjlintong'
 });
 </script>
 
