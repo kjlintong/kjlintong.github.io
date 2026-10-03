@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Readnest 隐私政策</title>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site">
+<a class="brand" href="readnest/index.html">Readnest</a>
+<nav><a href="readnest/index.html">首页</a><a href="privacy.html" class="on">隐私政策</a><a href="privacy-en.html">Privacy (EN)</a></nav>
+</header>
+<main>
+<h1>隐私政策（中文）</h1>
+<p><strong>生效日期</strong>：2026-10-01</p>
+<p><strong>适用范围</strong>：本隐私政策适用于 <strong>Tong Lin（个人开发者）</strong>（以下简称"我们"）开发并发布的阅读管理应用（应用名称：<strong>Readnest</strong>，以下简称"本应用"）。</p>
+<blockquote><p>说明：本政策已托管于开发者主页，供商店与用户公开访问：</p> <p>中文版 <code>https://kjlintong.github.io/privacy.html</code> ｜ 英文版 <code>https://kjlintong.github.io/privacy-en.html</code></p> <p>网页版由 <code>store/web/</code> 下的静态站点生成，源文件即本文件（见 <code>store/tools/build_site.py</code>）。</p> <p>开发者身份：<strong>Tong Lin · ltong9463@gmail.com（个人开发者，无注册公司）</strong>。</p></blockquote>
+<hr>
+<h2>一、我们的数据定位</h2>
+<p>本应用采用 <strong>本地优先（local-first）</strong> 架构：</p>
+<ul><li>您的书架、阅读进度、笔记、统计与设置 <strong>全部存储于您设备本地的数据库（SQLite）</strong>；</li><li>我们 <strong>不提供任何账号体系，也没有后端服务器收集或存储您的数据</strong>；</li><li>我们 <strong>不会出售、出租或共享您的个人数据给任何第三方用于广告或营销</strong>。</li></ul>
+<hr>
+<h2>二、我们处理哪些数据</h2>
+<ul><li><strong>本地存储的数据</strong>：您主动添加或导入的书籍信息（书名、作者、分类、进度、评分、笔记、封面等）、阅读统计与应用设置。这些数据仅存在于您的设备。</li><li><strong>您主动填写的密钥</strong>：若您使用「微信读书同步」或「大模型」功能，需在设置中填写相应的 API Key / Base URL / 模型名。这些凭据 <strong>仅保存在您设备的系统密钥库（Android Keystore / iOS Keychain，通过 flutter_secure_storage 实现）中</strong>，<strong>不会以明文形式落在应用的 SQLite 数据库里</strong>；它们不会上传给我们，也只会随您的请求发往您自己指定的服务端点。</li><li><strong>我们不收集</strong>：本应用未集成任何第三方统计分析、广告或崩溃上报 SDK，不会采集设备标识符、精确位置或您的使用行为。仅有一处例外：拍照导入所用的<strong>端侧文字识别 SDK（Google ML Kit）</strong>会向 Google 发送<strong>与图片内容无关的匿名运行指标</strong>，详见第三节第 4 条。</li></ul>
+<hr>
+<h2>三、数据会在什么情况下离开您的设备</h2>
+<p>本应用仅在您 <strong>主动启用并配置相应功能</strong> 时，才会与第三方服务通信。所有通信均经由您自行提供的凭证，指向您自己选择的服务端点。</p>
+<h3>1. 微信读书同步（可选）</h3>
+<ul><li><strong>触发条件</strong>：您在设置中填写了微信读书 API Key。</li><li><strong>发送对象</strong>：腾讯微信读书官方网关 <code>https://i.weread.qq.com</code>。</li><li><strong>发送内容</strong>：用于拉取您书架、阅读进度、阅读统计与书城搜索的 API 请求。</li><li><strong>说明</strong>：该服务由腾讯运营，服务器位于中国境内。若您不填写该 Key，本应用不会与该服务通信。</li></ul>
+<h3>2. 大模型 / AI 功能（可选）</h3>
+<p>您可在设置中填写任意兼容 OpenAI 或 Anthropic 协议的 LLM 端点（含 Base URL、API Key、模型名）。以下数据会在您触发对应功能时发送到您填写的端点：</p>
+<ul><li><strong>元数据补全</strong>：为缺信息的书籍补全分类 / 简介 / 标签时，发送书名、作者等少量信息。</li><li><strong>阅读报告生成</strong>：生成定期阅读报告时，发送 <strong>聚合后的阅读统计</strong>，以及报告周期内 <strong>变化过的书籍的书名、作者、分类、阅读状态与评分</strong>（<strong>不含笔记正文</strong>）。</li><li><strong>截图识别（多模态）</strong>：当您开启"用大模型整理识别结果"或"多模态直接读图"导入书架截图 / 照片时，<strong>您所选的那张图片（JPEG）会被上传到您配置的多模态模型端点</strong>，用于识别书名。该功能为可选项，且每次导入都需要您主动选择图片并确认。</li></ul>
+<blockquote><p><strong>重要同意</strong>：截图可能包含您书架上的书名、封面等个人信息。上传图片到多模态模型属于敏感数据处理，本应用在使用该功能前会 <strong>请求您的单独明示同意</strong>，您可随时在设置中关闭。</p></blockquote>
+<h3>3. 公开元数据服务（可选）</h3>
+<p>为补全书籍封面、简介、ISBN 等信息，本应用会向以下公开 API 发起按"书名 / 作者"的查询：</p>
+<ul><li>Google Books API（<code>https://www.googleapis.com/books/v1/volumes</code>）</li><li>Open Library（<code>https://openlibrary.org</code>）</li></ul>
+<p>这些查询仅包含您正在导入书籍的标题 / 作者，用于匹配公开书目数据；在无法直连的网络环境下会自动跳过，不会中断导入。</p>
+<p>此外，当书籍带有封面时，应用会从封面图片的存放地址（通常是 <code>books.google.com</code> 或 <code>covers.openlibrary.org</code>）<strong>直接下载图片用于界面显示</strong>。该请求只包含图片地址本身，不含您的任何信息。</p>
+<h3>4. 端侧文字识别 SDK 的运行指标（自动）</h3>
+<p>拍照 / 相册导入中的文字识别由 <strong>Google ML Kit</strong> 在您的设备本地完成，<strong>被识别的图片及其识别结果不会离开您的设备</strong>。但根据 Google 官方的 ML Kit 服务条款，该 SDK 会：</p>
+<ul><li>不定时连接 Google 服务器，用于获取缺陷修复、更新的识别模型与硬件加速兼容性信息；</li><li>向 Google 发送<strong>该 SDK 在本应用中的性能与使用指标</strong>（例如接口调用次数、处理耗时、设备机型与系统版本）。</li></ul>
+<p>这些指标描述的是 SDK 自身的运行状况，<strong>不包含被识别的图片、您的书名或笔记内容</strong>；我们（开发者）也接收不到这些指标。该行为由 SDK 决定，应用无法关闭。若您完全不使用拍照 / 相册导入，也就不会产生这些请求。</p>
+<p>条款来源：<a href="https://developers.google.com/ml-kit/terms" rel="noopener">https://developers.google.com/ml-kit/terms</a></p>
+<hr>
+<h2>四、权限说明</h2>
+<ul><li><strong>相机</strong>：用于拍摄您的书架照片以识别书目（拍照导入）。</li><li><strong>照片 / 媒体库</strong>：用于从相册选择书架截图进行识别（相册导入）。</li><li><strong>网络（Internet）</strong>：用于上述同步、AI 与元数据功能。</li></ul>
+<p>我们仅在您实际使用相关功能时调用对应权限，并遵循系统的最小权限与用途说明原则。</p>
+<hr>
+<h2>五、数据安全</h2>
+<ul><li>您的数据存储于设备私有目录；应用沙箱与系统密钥库均受操作系统保护。</li><li>您的 API 密钥已存储于系统级安全存储（Android Keystore / iOS Keychain，通过 <code>flutter_secure_storage</code> 实现），不会以明文形式落在应用的 SQLite 数据库中。</li><li>您可通过应用的"一键导出 / 恢复"功能将数据导出为 JSON 文件自行备份；该文件保存在您指定的位置，由您自行管理，应用不会自动上传。</li></ul>
+<hr>
+<h2>六、儿童隐私</h2>
+<p>本应用不专门针对 13 岁以下儿童设计，也不主动收集儿童个人信息。由于本应用无账号体系，我们不会主动验证用户年龄。</p>
+<hr>
+<h2>七、您的权利与数据删除</h2>
+<p>由于本应用不依赖账号、数据全部本地存储：</p>
+<ul><li><strong>访问与导出</strong>：您可随时在应用内查看全部数据，并通过导出功能获取 JSON 副本。</li><li><strong>删除</strong>：您可在系统设置中"清除应用数据"或直接卸载应用，即可彻底删除本地全部数据；您导出的备份文件由您自行删除。</li><li>若您所在地区法律赋予您数据访问、更正、删除、携带或反对处理的权利（如欧盟 GDPR、美国加州 CCPA），您可通过下方联系方式向我们提出请求。</li></ul>
+<hr>
+<h2>八、本政策的变更</h2>
+<p>我们可能不时更新本政策。重大变更将通过应用内公告或更新说明告知。</p>
+<hr>
+<h2>九、联系我们</h2>
+<p>如对本政策或您的数据有任何疑问，请联系：<strong>ltong9463@gmail.com</strong> 开发者主页：<strong><a href="https://kjlintong.github.io/" rel="noopener">https://kjlintong.github.io/</a></strong> 数据控制者：<strong>Tong Lin（个人开发者，无注册公司）</strong>，住所地 / 注册地：中国</p>
+<hr>
+<h2>十、关于收费与打赏</h2>
+<p>本应用的全部功能均可免费使用，<strong>不含广告，也不含应用内购买或订阅</strong>。</p>
+<p>若您愿意支持开发者持续维护，可在应用的「设置 → 支持开发者」中打开外部打赏页面（Ko-fi）。打赏<strong>完全自愿，与任何功能解锁无关</strong>——打赏与否，功能完全一致。该页面由系统浏览器打开，支付过程在第三方平台完成，本应用<strong>不参与交易、也不接触任何支付信息</strong>。</p>
+<hr>
+<p><em>本政策由开发者自行起草。正式发布前建议由具备资质的人员结合最新法规（GDPR、CCPA、PIPL 等）审阅定稿。</em></p>
+</main>
+<footer class="site">
+<p>Readnest — 本地优先的私人阅读管理工具</p><p>联系：<a href="mailto:ltong9463@gmail.com">ltong9463@gmail.com</a> ｜ 开发者主页：<a href="https://kjlintong.github.io/" rel="noopener">kjlintong.github.io</a> ｜ 支持开发者：<a href="https://ko-fi.com/ryanlin65969" rel="noopener">Ko-fi</a></p>
+</footer>
+</body>
+</html>
