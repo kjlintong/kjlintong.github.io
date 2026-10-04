@@ -16,7 +16,7 @@ window.__i18nExtra = window.__i18nExtra || [];
 window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 </script>
 <title data-i18n="page-title">Readnest — A local-first reading companion</title>
-<meta name="description" content="Readnest is a reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync. Import from WeRead, Goodreads, CSV, or a photo of your bookshelf. v0.9.0, MIT, Android APK available.">
+<meta name="description" content="Readnest is a reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync. Import from WeRead, Goodreads, CSV, or a photo of your bookshelf. v1.0.0, MIT, Android APK available, five interface languages.">
 <meta name="keywords" content="Readnest, reading tracker, reading log, local-first, Flutter, SQLite, WeRead, OCR, privacy, MIT, Android app, reading plan, bookshelf">
 <link rel="shortcut icon" href="/img/favicon.ico">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
@@ -33,7 +33,7 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   "operatingSystem": "ANDROID",
   "applicationCategory": "ProductivityApplication",
   "url": "https://kjlintong.github.io/readnest.html",
-  "softwareVersion": "0.9.0",
+  "softwareVersion": "1.0.0",
   "description": "A reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "license": "https://github.com/kjlintong/reading-tracker#readme",
@@ -49,12 +49,12 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 <meta property="og:site_name" content="Readnest">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Readnest — a reading log that lives on your phone">
-<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Goodreads, CSV, or a bookshelf photo. v0.9.0 · MIT.">
+<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Goodreads, CSV, or a bookshelf photo. v1.0.0 · MIT.">
 <meta property="og:url" content="https://kjlintong.github.io/readnest.html">
 <meta property="og:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Readnest — a reading log that lives on your phone">
-<meta name="twitter:description" content="Flutter + SQLite, no account, no server, no cloud sync. v0.9.0 · MIT.">
+<meta name="twitter:description" content="Flutter + SQLite, no account, no server, no cloud sync. v1.0.0 · MIT.">
 <meta name="twitter:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <style>
 /* ============================================================
@@ -766,12 +766,13 @@ a:focus-visible, button:focus-visible {
           Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone — no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.
         </p>
         <div class="hero-meta">
-          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v0.9.0 released</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v1.0.0 released</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-langs">Five interface languages</span></span>
           <span class="pill"><span class="pill-dot brick" aria-hidden="true"></span><span data-i18n="meta-license">MIT licensed, open source</span></span>
           <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK available · iOS not yet</span></span>
         </div>
         <div class="hero-actions">
-          <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download">
+          <a href="https://github.com/kjlintong/reading-tracker/releases/latest" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download">
             <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
             <span data-i18n="btn-download">Download APK</span>
           </a>
@@ -879,7 +880,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f8-title">AI reading report</h3>
         </div>
-        <p class="feature-body" data-i18n="f8-body">You pick the model. It receives statistics Readnest has already worked out locally — counts and percentages, never a book title or a line of your notes — and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in five voices or one of your own.</p>
+        <p class="feature-body" data-i18n="f8-body">You pick the model. It receives statistics Readnest has already worked out locally — counts and percentages, never a book title or a line of your notes — and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in four voices or one of your own.</p>
       </article>
 
     </div>
@@ -988,140 +989,57 @@ a:focus-visible, button:focus-visible {
 
 <hr class="hairline">
 
-<!-- Section 04 — GitHub, build & download -->
+<!-- Section 04 — Download & support -->
 <section class="section" data-od-id="build" id="build">
   <div class="wrap">
-    <p class="section-label"><span class="num">04</span><span data-i18n="build-label">GitHub · Build · Download</span></p>
-    <h2 class="section-heading" data-i18n="build-heading">Where the code is, and how to build it</h2>
+    <p class="section-label"><span class="num">04</span><span data-i18n="build-label">Download &amp; support</span></p>
+    <h2 class="section-heading" data-i18n="build-heading">Get Readnest</h2>
 
-    <!-- GitHub card -->
-    <div class="gh-card" data-od-id="gh-card">
-      <div class="gh-head">
-        <p class="gh-title" data-i18n="gh-title">The repository <span class="repo-name">kjlintong/reading-tracker</span></p>
-        <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener" class="gh-tag">MIT · Dart</a>
+    <aside class="download-card" data-od-id="download-card" style="max-width:640px">
+      <div class="download-head">
+        <p class="download-title" data-i18n="d-title">Readnest v1.0.0</p>
+        <span class="download-tag" data-i18n="d-tag">Released</span>
       </div>
-      <div class="gh-grid">
-        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/stargazers" target="_blank" rel="noopener" data-od-id="gh-stars">
-          <div class="gh-value" data-gh="stars">
-            <span class="gh-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l2.9 6.9 7.1.6-5.4 4.7 1.7 7L12 17.8 5.7 21.2l1.7-7L2 9.5l7.1-.6L12 2z"/></svg>
-            </span>
-            <span data-gh-val="stars">0</span>
-          </div>
-          <div class="gh-cell-label" data-i18n="gh-stars-label">Stars</div>
+      <div class="download-actions">
+        <a href="https://github.com/kjlintong/reading-tracker/releases/latest" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download-release">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
+          <span data-i18n="btn-download-release">Download APK</span>
         </a>
-        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/network/members" target="_blank" rel="noopener" data-od-id="gh-forks">
-          <div class="gh-value" data-gh="forks">
-            <span class="gh-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2.2"/><circle cx="18" cy="5" r="2.2"/><circle cx="12" cy="19" r="2.2"/><path d="M6 7.2v3a3 3 0 0 0 3 3h6a3 3 0 0 0 3-3v-3"/><path d="M12 13.2v3.6"/></svg>
-            </span>
-            <span data-gh-val="forks">0</span>
-          </div>
-          <div class="gh-cell-label" data-i18n="gh-forks-label">Forks</div>
-        </a>
-        <a class="gh-cell gh-cell-link" href="https://github.com/kjlintong/reading-tracker/commits/main" target="_blank" rel="noopener" data-od-id="gh-commits">
-          <div class="gh-value" data-gh="commits">
-            <span class="gh-ico" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.5"/><path d="M12 2v6.5M12 15.5V22"/></svg>
-            </span>
-            <span data-gh-val="commits">0</span>
-          </div>
-          <div class="gh-cell-label"><span data-i18n="gh-commits-label">Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code></span></div>
+        <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener" class="btn btn-ghost" data-od-id="btn-source-alt">
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.36 9.36 0 0 1 12 6.85c.85 0 1.71.11 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.58.69.48C19.13 20.58 22 16.76 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
+          <span data-i18n="btn-source-alt">Source on GitHub</span>
         </a>
       </div>
-      <p class="gh-note">
-        <span data-i18n="gh-note-before">Readnest is maintained by one person so far — </span><strong id="gh-contributors" data-gh-val="contributors">1</strong> <span data-i18n="gh-note-mid">contributor, </span><span data-i18n="gh-note-after">and the MIT license means you can take it from here. <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">Download v0.9.0</a>, or read the source and open an issue.</span>
-      </p>
-    </div>
-
-    <!-- Product stats + download -->
-    <div class="stats-download">
-
-      <div>
-        <div class="stats-grid">
-          <div class="stat-cell" data-od-id="stat-seed">
-            <div class="stat-value">38</div>
-            <div class="stat-label" data-i18n="s1-label">Seed books</div>
-          </div>
-          <div class="stat-cell" data-od-id="stat-i18n">
-            <div class="stat-value">763</div>
-            <div class="stat-label" data-i18n="s2-label">Chinese and English strings, in sync</div>
-          </div>
-          <div class="stat-cell" data-od-id="stat-tests">
-            <div class="stat-value">426</div>
-            <div class="stat-label" data-i18n="s3-label">Automated tests passing</div>
-          </div>
-          <div class="stat-cell" data-od-id="stat-platform">
-            <div class="stat-value" data-i18n="s4-value">Android<span class="unit">· iOS later</span></div>
-            <div class="stat-label" data-i18n="s4-label">APK released · iOS not yet</div>
-          </div>
+      <dl class="download-meta">
+        <div class="meta-row">
+          <dt class="k" data-i18n="d-ver">Version</dt>
+          <dd class="v">v1.0.0</dd>
         </div>
-        <p class="stat-note" data-i18n="build-note">v0.9.0 is out, built with Flutter 3.24.x / Dart 3.5.x against Android SDK 34. The source is <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT licensed</a>.</p>
-
-        <!-- Build commands -->
-        <div class="build-wrap">
-          <p class="build-intro" data-i18n="build-intro">To build it yourself you need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands, run from the <code>app/</code> directory:</p>
-          <div class="build-list">
-            <div class="cmd">
-              <span class="cmd-n">01</span>
-              <span class="cmd-code" data-od-id="cmd-pubget">flutter pub get</span>
-              <button type="button" class="cmd-copy" data-copy="flutter pub get" aria-label="Copy flutter pub get">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
-              </button>
-            </div>
-            <div class="cmd">
-              <span class="cmd-n">02</span>
-              <span class="cmd-code" data-od-id="cmd-run">flutter run</span>
-              <button type="button" class="cmd-copy" data-copy="flutter run" aria-label="Copy flutter run">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
-              </button>
-            </div>
-            <div class="cmd">
-              <span class="cmd-n">03</span>
-              <span class="cmd-code" data-od-id="cmd-build">flutter build apk --release</span>
-              <button type="button" class="cmd-copy" data-copy="flutter build apk --release" aria-label="Copy flutter build apk">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M4 16V6a2 2 0 0 1 2-2h10"/></svg>
-              </button>
-            </div>
-          </div>
+        <div class="meta-row">
+          <dt class="k" data-i18n="d-plat">Platform</dt>
+          <dd class="v" data-i18n="d-plat-v">Android 7.0+ APK · iOS not yet on the App Store</dd>
         </div>
-      </div>
-
-      <aside class="download-card" data-od-id="download-card">
-        <div class="download-head">
-          <p class="download-title" data-i18n="d-title">Readnest v0.9.0</p>
-          <span class="download-tag" data-i18n="d-tag">Released</span>
+        <div class="meta-row">
+          <dt class="k" data-i18n="d-lang">Languages</dt>
+          <dd class="v">中文 · English · Deutsch · Français · Español</dd>
         </div>
-        <div class="download-actions">
-          <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" class="btn btn-primary" data-od-id="btn-download-release">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
-            <span data-i18n="btn-download-release">Get the APK</span>
-          </a>
-          <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener" class="btn btn-ghost" data-od-id="btn-source-alt">
-            <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.26c0 4.5 2.87 8.32 6.84 9.67.5.09.68-.22.68-.48 0-.24-.01-.87-.01-1.7-2.78.62-3.37-1.36-3.37-1.36-.45-1.18-1.11-1.49-1.11-1.49-.91-.64.07-.62.07-.62 1 .07 1.53 1.05 1.53 1.05.89 1.56 2.34 1.11 2.91.85.09-.66.35-1.11.63-1.37-2.22-.26-4.55-1.14-4.55-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.71 0 0 .84-.27 2.75 1.05A9.36 9.36 0 0 1 12 6.85c.85 0 1.71.11 2.51.34 1.91-1.32 2.75-1.05 2.75-1.05.55 1.41.2 2.45.1 2.71.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.81-4.57 5.06.36.32.68.94.68 1.9 0 1.37-.01 2.48-.01 2.82 0 .27.18.58.69.48C19.13 20.58 22 16.76 22 12.26 22 6.58 17.52 2 12 2z"/></svg>
-            <span data-i18n="btn-source-alt">Source &amp; docs</span>
-          </a>
+        <div class="meta-row">
+          <dt class="k" data-i18n="d-lic">License</dt>
+          <dd class="v" data-i18n="d-lic-v">MIT — read it, fork it, ship it.</dd>
         </div>
-        <dl class="download-meta">
-          <div class="meta-row">
-            <dt class="k" data-i18n="d-ver">Version</dt>
-            <dd class="v">v0.9.0 · <a href="https://github.com/kjlintong/reading-tracker/releases/tag/v0.9.0" target="_blank" rel="noopener" data-i18n="d-notes">release notes</a></dd>
-          </div>
-          <div class="meta-row">
-            <dt class="k" data-i18n="d-plat">Platform</dt>
-            <dd class="v" data-i18n="d-plat-v">Android 7.0+ APK · iOS not yet on the App Store</dd>
-          </div>
-          <div class="meta-row">
-            <dt class="k" data-i18n="d-size">Build</dt>
-            <dd class="v">Flutter <code>3.24.x</code> · Dart <code>3.5.x</code> · Android SDK <code>34</code></dd>
-          </div>
-          <div class="meta-row">
-            <dt class="k" data-i18n="d-lic">License</dt>
-            <dd class="v" data-i18n="d-lic-v">MIT — read it, fork it, ship it.</dd>
-          </div>
-        </dl>
-      </aside>
+      </dl>
+    </aside>
 
+    <p class="stat-note" data-i18n="support-note">Readnest is free, with no ads and no tracking. If it earned a place on your phone, you can buy the developer a coffee.</p>
+    <div class="download-actions" data-od-id="support-actions">
+      <a href="https://afdian.com/a/ryanlintong" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.4 4.5 6 4.5c2.1 0 3.6 1.1 4.5 2.7l1.5 2.6 1.5-2.6c.9-1.6 2.4-2.7 4.5-2.7 3.6 0 5.5 3.5 4 7.2-2.5 4.7-10 9.3-10 9.3z"/></svg>
+        <span data-i18n="support-cn">Afdian (China)</span>
+      </a>
+      <a href="https://ko-fi.com/ryanlin65969" target="_blank" rel="noopener" class="btn btn-ghost">
+        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7.5-4.6-10-9.3C.5 8 2.4 4.5 6 4.5c2.1 0 3.6 1.1 4.5 2.7l1.5 2.6 1.5-2.6c.9-1.6 2.4-2.7 4.5-2.7 3.6 0 5.5 3.5 4 7.2-2.5 4.7-10 9.3-10 9.3z"/></svg>
+        <span data-i18n="support-intl">Ko-fi (International)</span>
+      </a>
     </div>
   </div>
 </section>
@@ -1165,73 +1083,6 @@ a:focus-visible, button:focus-visible {
   </div>
 </section>
 
-<hr class="hairline">
-
-<!-- Section 06 — Roadmap -->
-<section class="section" data-od-id="roadmap" id="roadmap">
-  <div class="wrap">
-    <p class="section-label"><span class="num">06</span><span data-i18n="roadmap-label">Roadmap</span></p>
-    <h2 class="section-heading" data-i18n="roadmap-heading">What's next</h2>
-    <p class="roadmap-intro" data-i18n="roadmap-intro">The full plan is in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. This is the short version, with where each item stands today.</p>
-    <div class="roadmap">
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P0</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm0"><strong>Data model + local DB + Notion migration + OCR algorithm</strong></span>
-        </div>
-        <span class="roadmap-status is-done" data-i18n="st-done">Done</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P1</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm1"><strong>Flutter app: shelf, detail, import, stats</strong></span>
-          <span class="roadmap-note" data-i18n="rm1-note">Shipped and feature-complete in v0.9.0 — 426 automated tests green.</span>
-        </div>
-        <span class="roadmap-status is-done" data-i18n="st-done">Done</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P2</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm2"><strong>OCR polish: multi-platform screenshots, recognition tuning</strong></span>
-        </div>
-        <span class="roadmap-status" data-i18n="st-next">Next</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P3</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm3"><strong>AI reports: preference profile, richer prompts</strong></span>
-          <span class="roadmap-note" data-i18n="rm3-note">Report archive, annual/monthly periods, and scheduled generation already shipped in v0.9.0.</span>
-        </div>
-        <span class="roadmap-status" data-i18n="st-part">In progress</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P4</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm4"><strong>Optional timing capture, for whoever wants duration metrics</strong></span>
-          <span class="roadmap-note" data-i18n="rm4-note">Off by default — duration and active-day stats stay hidden until there is a real data source.</span>
-        </div>
-        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P5</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm5"><strong>Optional sync: WebDAV / cloud storage for multi-device</strong></span>
-          <span class="roadmap-note" data-i18n="rm5-note">Opt-in only; local-first stays the default.</span>
-        </div>
-        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
-      </div>
-      <div class="roadmap-row">
-        <span class="roadmap-tag">P6</span>
-        <div class="roadmap-item">
-          <span data-i18n="rm6"><strong>Windows desktop build</strong></span>
-          <span class="roadmap-note" data-i18n="rm6-note">Flutter officially supports it; small change surface.</span>
-        </div>
-        <span class="roadmap-status" data-i18n="st-todo">Backlog</span>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- Footer -->
 <footer class="footer" data-od-id="footer">
   <div class="wrap">
@@ -1265,7 +1116,7 @@ Object.assign(window.I18N.en, {
   'hero-kicker': 'A reading log that stays on your phone',
   'hero-subtitle': 'Your shelf, your notes, and your reading plans \u2014 stored on your phone.',
   'hero-desc': 'Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone \u2014 no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.',
-  'meta-version': 'v0.9.0 released',
+  'meta-version': 'v1.0.0 released',
   'meta-license': 'MIT licensed, open source',
   'meta-platform': 'Android APK available \u00b7 iOS not yet',
   'btn-download': 'Download APK',
@@ -1294,7 +1145,7 @@ Object.assign(window.I18N.en, {
   'f7-title': 'Reading profile',
   'f7-body': 'A bubble chart of the categories you actually read, plus personality tags you can add, edit, or delete yourself. Both can be exported as an image \u2014 send it to someone, or keep it in your photo album.',
   'f8-title': 'AI reading report',
-  'f8-body': 'You pick the model. It receives statistics Readnest has already worked out locally \u2014 counts and percentages, never a book title or a line of your notes \u2014 and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in five voices or one of your own.',
+  'f8-body': '\u4f60\u81ea\u5df1\u9009\u5927\u6a21\u578b\u3002\u53d1\u7ed9\u5b83\u7684\u662f Readnest \u5728\u672c\u5730\u5df2\u7ecf\u7b97\u597d\u7684\u7edf\u8ba1\u6570\u5b57\uff0c\u6700\u591a\u5c31\u662f\u4e2a\u6bd4\u4f8b\uff0c\u4e0d\u542b\u4efb\u4f55\u4e66\u540d\u548c\u7b14\u8bb0\u539f\u6587\uff0c\u5e76\u4e14\u4f1a\u63d0\u9192\u5b83\u4e0d\u8981\u7f16\u9020\u6570\u5b57\u3002\u5e74\u62a5\u3001\u6708\u62a5\u4f1a\u5b58\u4e0b\u6765\u65e5\u540e\u53ef\u4ee5\u91cd\u65b0\u7ffb\u770b\uff0c\u8bed\u6c14\u6709\u56db\u79cd\uff0c\u4e5f\u80fd\u81ea\u5df1\u5199\u3002',
 
   'gallery-label': 'Screens',
   'gallery-heading': 'The app itself',
@@ -1318,21 +1169,7 @@ Object.assign(window.I18N.en, {
 
   'build-label': 'GitHub \u00b7 Build \u00b7 Download',
   'build-heading': 'Where the code is, and how to build it',
-  's1-label': 'Sample books bundled in',
-  's2-label': 'Chinese and English strings, in sync',
-  's3-label': 'Automated tests passing',
-  's4-label': 'APK released \u00b7 iOS not yet',
-  's4-value': 'Android<span class="unit">\u00b7 iOS later</span>',
-  'build-note': 'v0.9.0 is out, built with Flutter 3.24.x / Dart 3.5.x against Android SDK 34. The source is <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT licensed</a>.',
-  'build-intro': 'To build it yourself you need Flutter <code>3.24.x</code>, Dart <code>3.5.x</code>, and Android SDK <code>34</code>. Three commands, run from the <code>app/</code> directory:',
-  'gh-title': 'The repository <span class="repo-name">kjlintong/reading-tracker</span>',
-  'gh-stars-label': 'Stars',
-  'gh-forks-label': 'Forks',
-  'gh-commits-label': 'Commits on <code style="font-family:var(--font-mono);font-size:11px">main</code>',
-  'gh-note-before': 'Readnest is maintained by one person so far \u2014 ',
-  'gh-note-mid': 'contributor, ',
-  'gh-note-after': 'and the MIT license means you can take it from here. <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">Download v0.9.0</a>, or read the source and open an issue.',
-  'd-title': 'Readnest v0.9.0',
+  'd-title': 'Readnest v1.0.0',
   'd-tag': 'Released',
   'btn-download-release': 'Get the APK',
   'btn-source-alt': 'Source & docs',
@@ -1344,6 +1181,18 @@ Object.assign(window.I18N.en, {
   'd-lic': 'License',
   'd-lic-v': 'MIT \u2014 read it, fork it, ship it.',
 
+  'meta-langs': 'Five interface languages',
+  'd-lang': 'Languages',
+  'd-lang-v': 'Chinese · English · German · French · Spanish',
+  'support-note': 'Readnest is free, with no ads and no tracking. If it earned a place on your phone, you can buy the developer a coffee.',
+  'support-cn': 'Afdian (China)',
+  'support-intl': 'Ko-fi (International)',
+  'meta-langs': '\u4e94\u79cd\u754c\u9762\u8bed\u8a00',
+  'd-lang': '\u754c\u9762\u8bed\u8a00',
+  'd-lang-v': '\u4e2d\u6587 \u00b7 English \u00b7 Deutsch \u00b7 Fran\u00e7ais \u00b7 Espa\u00f1ol',
+  'support-note': 'Readnest \u514d\u8d39\u3001\u65e0\u5e7f\u544a\u3001\u4e0d\u8ffd\u8e2a\u3002\u5982\u679c\u89c9\u5f97\u597d\u7528\uff0c\u53ef\u4ee5\u8bf7\u4f5c\u8005\u559d\u676f\u5496\u5561\u3002',
+  'support-cn': '\u7231\u53d1\u7535\uff08\u4e2d\u56fd\uff09',
+  'support-intl': 'Ko-fi\uff08\u56fd\u9645\uff09',
   'faq-label': 'Questions',
   'faq-heading': 'Things worth asking',
   'faq1-q': 'Is my data uploaded anywhere?',
@@ -1351,31 +1200,12 @@ Object.assign(window.I18N.en, {
   'faq2-q': 'Do I need to register an account?',
   'faq2-a': '<strong>No.</strong> There is no sign-up screen and nothing to configure before you can start using it. Install the APK, open it, add a book.',
   'faq3-q': 'When is the iOS version coming?',
-  'faq3-a': '<strong>There isn\'t one yet.</strong> It is a single Flutter codebase that compiles for both platforms, but building for iOS needs a Mac, which I do not have. The repo does include a <code>codemagic.yaml</code>, which is the usual way to sign and ship an iOS build from a cloud Mac \u2014 so if you have access to one, the source is ready to go.',
+  'faq3-a': '<strong>\u76ee\u524d\u8fd8\u6ca1\u6709\u3002</strong>\u4e24\u4e2a\u5e73\u53f0\u7528\u7684\u662f\u540c\u4e00\u4efd Flutter \u5de5\u7a0b\uff0c\u4f46 iOS \u51fa\u5305\u9700\u8981 Mac \u548c\u4ed8\u8d39\u7684 Apple \u5f00\u53d1\u8005\u8d26\u53f7\u3002\u4e0a\u67b6\u540e\u4f1a\u5728\u8fd9\u4e00\u9875\u66f4\u65b0\u3002',
   'faq4-q': 'How is this different from WeRead?',
   'faq4-a': 'WeRead is where you read; Readnest is where you keep the record. You can bring your WeRead shelf across, and once it is here the books live in your phone\'s own database \u2014 your ratings and notes included. Readnest does not talk to WeRead on your behalf after the import.',
   'faq5-q': 'Does the AI report see my books?',
   'faq5-a': '<strong>Only the numbers, never the text.</strong> Before a prompt is sent, Readnest turns your reading data into a summary of counts and percentages \u2014 no titles, no note text. You supply the API key for whichever model you want to use, and it never passes through Readnest because there is no Readnest server.',
 
-  'roadmap-label': 'Roadmap',
-  'roadmap-heading': 'What is still on the list',
-  'roadmap-intro': 'The full plan is in <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-技术方案.md" target="_blank" rel="noopener"><code>docs/01-技术方案.md</code></a>. This is the short version, with where each item stands today.',
-  'rm0': '<strong>Data model, local database, Notion migration, OCR</strong>',
-  'rm1': '<strong>The Flutter app: shelf, book detail, import, statistics</strong>',
-  'rm1-note': 'Shipped in v0.9.0, with 426 automated tests passing.',
-  'rm2': '<strong>OCR improvements: more screenshot formats, better recognition</strong>',
-  'rm3': '<strong>AI reports: preference profile, richer prompts</strong>',
-  'rm3-note': 'Report archive, yearly and monthly periods, and scheduled generation already ship in v0.9.0.',
-  'rm4': '<strong>Optional reading-time capture, for anyone who wants duration stats</strong>',
-  'rm4-note': 'Off by default \u2014 until there is a real data source, there is nothing honest to put in those two charts.',
-  'rm5': '<strong>Optional sync: WebDAV or cloud storage, for more than one device</strong>',
-  'rm5-note': 'Opt-in only; staying local-first is the default.',
-  'rm6': '<strong>A Windows desktop build</strong>',
-  'rm6-note': 'Flutter supports it officially, and the app is already one codebase.',
-  'st-done': 'Done',
-  'st-next': 'Next',
-  'st-todo': 'Backlog',
-  'st-part': 'In progress',
 
   'footer-brand': 'Open source & reading',
   'footer-text': 'Readnest \u00b7 reading tracker \u00b7 Flutter \u00b7 SQLite \u00b7 local-first \u00b7 MIT licensed.',
@@ -1392,7 +1222,7 @@ Object.assign(window.I18N.zh, {
   'hero-kicker': '\u4e00\u4e2a\u5b58\u5728\u624b\u673a\u91cc\u7684\u9605\u8bfb\u8bb0\u5f55',
   'hero-subtitle': '\u4e66\u67b6\u3001\u7b14\u8bb0\u3001\u9605\u8bfb\u8ba1\u5212\uff0c\u90fd\u5b58\u5728\u4f60\u7684\u624b\u673a\u91cc\u3002',
   'hero-desc': 'Readnest \u662f\u4e00\u4e2a\u7528 Flutter \u5199\u7684\u9605\u8bfb\u8bb0\u5f55 App\u3002\u6570\u636e\u5168\u90e8\u5b58\u5728\u4f60\u81ea\u5df1\u624b\u673a\u4e0a\u7684 SQLite \u6570\u636e\u5e93\u91cc\uff0c\u4e0d\u8981\u6ce8\u518c\u3001\u4e0d\u8fde\u670d\u52a1\u5668\u3001\u4e0d\u4e0a\u4f20\u3002\u4e5f\u53ef\u4ee5\u4ece\u5fae\u4fe1\u8bfb\u4e66\u3001Goodreads\u3001CSV \u6587\u4ef6\u6216\u4e66\u67b6\u7167\u7247\u5bfc\u5165\u3002',
-  'meta-version': 'v0.9.0 \u5df2\u53d1\u5e03',
+  'meta-version': 'v1.0.0 \u5df2\u53d1\u5e03',
   'meta-license': 'MIT \u534f\u8bae\uff0c\u5f00\u6e90',
   'meta-platform': 'Android APK \u5df2\u4e0a\u7ebf \u00b7 iOS \u672a\u4e0a\u7ebf',
   'btn-download': '\u4e0b\u8f7d APK',
@@ -1445,21 +1275,7 @@ Object.assign(window.I18N.zh, {
 
   'build-label': 'GitHub \u00b7 \u6784\u5efa \u00b7 \u4e0b\u8f7d',
   'build-heading': '\u4ee3\u7801\u5728\u54ea\u91cc\uff0c\u600e\u4e48\u81ea\u5df1\u7f16\u8bd1',
-  's1-label': '\u5185\u7f6e\u793a\u4f8b\u4e66',
-  's2-label': '\u4e2d\u82f1\u6587\u6848\u5df2\u5bf9\u9f50',
-  's3-label': '\u81ea\u52a8\u5316\u6d4b\u8bd5\u901a\u8fc7\u6570',
-  's4-label': 'APK \u5df2\u53d1\u5e03 \u00b7 iOS \u672a\u4e0a\u7ebf',
-  's4-value': 'Android<span class="unit">\u00b7 iOS \u540e\u7eed</span>',
-  'build-note': 'v0.9.0 \u5df2\u53d1\u5e03\uff0c\u57fa\u4e8e Flutter 3.24.x / Dart 3.5.x \u4e0e Android SDK 34 \u6784\u5efa\u3002\u6e90\u7801\u9075\u5faa <a href="https://github.com/kjlintong/reading-tracker" target="_blank" rel="noopener">MIT \u534f\u8bae</a>\u3002',
-  'build-intro': '\u60f3\u81ea\u5df1\u7f16\u8bd1\uff0c\u9700\u8981 Flutter <code>3.24.x</code>\u3001Dart <code>3.5.x</code> \u548c Android SDK <code>34</code>\u3002\u5728 <code>app/</code> \u76ee\u5f55\u4e0b\u6267\u884c\u4e09\u6761\u547d\u4ee4\uff1a',
-  'gh-title': '\u6e90\u7801\u4ed3\u5e93 <span class="repo-name">kjlintong/reading-tracker</span>',
-  'gh-stars-label': '\u6536\u85cf',
-  'gh-forks-label': 'Fork \u6570',
-  'gh-commits-label': '\u63d0\u4ea4\u6570\uff08main \u5206\u652f\uff09',
-  'gh-note-before': 'Readnest \u76ee\u524d\u4e5f\u662f\u4e00\u4e2a\u4eba\u5728\u7ef4\u62a4 \u2014\u2014 ',
-  'gh-note-mid': '\u4f4d\u8d21\u732e\u8005\uff0c',
-  'gh-note-after': '\u4f46\u662f MIT \u534f\u8bae\u4fdd\u7559\u4e86\u4f60\u63a5\u624b\u7684\u53ef\u80fd\u3002\u53ef\u4ee5\u5148\u4e0b\u8f7d <a href="https://github.com/kjlintong/reading-tracker/releases" target="_blank" rel="noopener">v0.9.0</a>\uff0c\u4e5f\u53ef\u4ee5\u76f4\u63a5\u8bfb\u6e90\u7801\u63d0 issue\u3002',
-  'd-title': 'Readnest v0.9.0',
+  'd-title': 'Readnest v1.0.0',
   'd-tag': '\u5df2\u53d1\u5e03',
   'btn-download-release': '\u4e0b\u8f7d APK',
   'btn-source-alt': '\u6e90\u7801\u4e0e\u6587\u6863',
@@ -1484,25 +1300,6 @@ Object.assign(window.I18N.zh, {
   'faq5-q': 'AI \u62a5\u544a\u4f1a\u770b\u5230\u6211\u7684\u4e66\u5417\uff1f',
   'faq5-a': '<strong>\u53ea\u770b\u6570\u5b57\uff0c\u4e0d\u770b\u539f\u6587\u3002</strong>\u53d1 prompt \u4e4b\u524d\uff0cReadnest \u5148\u628a\u9605\u8bfb\u6570\u636e\u538b\u6210\u4e00\u4efd\u53ea\u6709\u8ba1\u6570\u548c\u6bd4\u4f8b\u7684\u6458\u8981\uff0c\u4e0d\u542b\u4e66\u540d\uff0c\u4e5f\u4e0d\u542b\u7b14\u8bb0\u539f\u6587\u3002\u7528\u54ea\u4e2a\u6a21\u578b\u3001\u7528\u4ec0\u4e48 Key\uff0c\u90fd\u7531\u4f60\u81ea\u5df1\u63d0\u4f9b\uff0c\u4e0d\u4f1a\u7ecf\u8fc7 Readnest\u2014\u2014\u56e0\u4e3a\u6839\u672c\u6ca1\u6709\u670d\u52a1\u7aef\u3002',
 
-  'roadmap-label': '\u8def\u7ebf\u56fe',
-  'roadmap-heading': '\u8fd8\u5269\u4e0b\u8fd9\u4e9b',
-  'roadmap-intro': '\u5b8c\u6574\u89c4\u5212\u5728 <a href="https://github.com/kjlintong/reading-tracker/blob/main/docs/01-\u6280\u672f\u65b9\u6848.md" target="_blank" rel="noopener"><code>docs/01-\u6280\u672f\u65b9\u6848.md</code></a>\u3002\u4e0b\u9762\u662f\u6458\u8981\u7248\uff0c\u5e76\u6807\u4e86\u5f53\u524d\u8fdb\u5ea6\u3002',
-  'rm0': '<strong>\u6570\u636e\u6a21\u578b\u3001\u672c\u5730\u5e93\u3001Notion \u8fc1\u79fb\u3001OCR \u7b97\u6cd5</strong>',
-  'rm1': '<strong>Flutter App\uff1a\u4e66\u67b6\u3001\u8be6\u60c5\u3001\u5bfc\u5165\u3001\u7edf\u8ba1</strong>',
-  'rm1-note': 'v0.9.0 \u5df2\u4ea4\u4ed8\uff0c426 \u9879\u81ea\u52a8\u5316\u6d4b\u8bd5\u5168\u90e8\u901a\u8fc7\u3002',
-  'rm2': '<strong>OCR \u6253\u78e8\uff1a\u66f4\u591a\u622a\u56fe\u683c\u5f0f\u3001\u8bc6\u522b\u7387\u4f18\u5316</strong>',
-  'rm3': '<strong>AI \u62a5\u544a\uff1a\u504f\u597d\u753b\u50cf\u3001\u66f4\u4e30\u5bcc\u7684\u63d0\u793a\u8bcd</strong>',
-  'rm3-note': '\u62a5\u544a\u5f52\u6863\u3001\u5e74\u62a5\u6708\u62a5\u5468\u671f\u3001\u5b9a\u65f6\u751f\u6210\u5747\u5df2\u5728 v0.9.0 \u4ea4\u4ed8\u3002',
-  'rm4': '<strong>\u53ef\u9009\u7684\u9605\u8bfb\u65f6\u957f\u91c7\u96c6\uff0c\u7ed9\u9700\u8981\u65f6\u957f\u7edf\u8ba1\u7684\u4eba</strong>',
-  'rm4-note': '\u9ed8\u8ba4\u5173\u95ed\u3002\u5728\u771f\u6709\u53ef\u7528\u7684\u6570\u636e\u6765\u6e90\u4e4b\u524d\uff0c\u8fd9\u4e24\u5f20\u56fe\u6ca1\u6709\u8db3\u591f\u8bda\u5b9e\u7684\u6570\u5b57\u53ef\u586b\u3002',
-  'rm5': '<strong>\u53ef\u9009\u540c\u6b65\uff1aWebDAV \u6216\u4e91\u5b58\u50a8\uff0c\u7528\u4e8e\u591a\u8bbe\u5907</strong>',
-  'rm5-note': '\u7eaf\u4e3b\u52a8\u5f00\u542f\uff0c\u672c\u5730\u4f18\u5148\u4ecd\u662f\u9ed8\u8ba4\u3002',
-  'rm6': '<strong>Windows \u684c\u9762\u7248</strong>',
-  'rm6-note': 'Flutter \u5b98\u65b9\u652f\u6301\uff0c\u4e14\u672c\u6765\u5c31\u662f\u4e00\u4efd\u5355\u4e00\u4ee3\u7801\u3002',
-  'st-done': '\u5df2\u5b8c\u6210',
-  'st-next': '\u4e0b\u4e00\u6b65',
-  'st-todo': '\u5f85\u529e',
-  'st-part': '\u8fdb\u884c\u4e2d',
 
   'footer-brand': '\u5f00\u6e90 \u00b7 \u9605\u8bfb',
   'footer-text': 'Readnest \u00b7 \u9605\u8bfb\u8bb0\u5f55 \u00b7 Flutter \u00b7 SQLite \u00b7 \u672c\u5730\u4f18\u5148 \u00b7 MIT \u534f\u8bae\u3002',
