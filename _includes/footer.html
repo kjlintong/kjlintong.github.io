@@ -95,9 +95,14 @@
                     <br>
                     Theme on <a href="{{ site.github_repo }}">GitHub</a> · <a href="{{ site.github_repo }}/stargazers">Star</a>
                 </p>
-                {% if site.ko_fi %}
-                <p class="sponsor text-center">
-                    <a href="{{ site.ko_fi }}" target="_blank" rel="noopener" data-i18n="footer-sponsor"><i class="fa fa-heart" aria-hidden="true"></i> Buy me a coffee</a>
+                {% if site.ko_fi or site.afdian %}
+                <p class="sponsor sponsor-group text-center">
+                    {% if site.afdian %}
+                    <a href="{{ site.afdian }}" target="_blank" rel="noopener" data-i18n="footer-sponsor-zh"><i class="fa fa-heart" aria-hidden="true"></i> Afdian · China</a>
+                    {% endif %}
+                    {% if site.ko_fi %}
+                    <a href="{{ site.ko_fi }}" target="_blank" rel="noopener" data-i18n="footer-sponsor-intl"><i class="fa fa-heart" aria-hidden="true"></i> Ko-fi · International</a>
+                    {% endif %}
                 </p>
                 {% endif %}
             </div>

@@ -37,8 +37,11 @@ github_username:    kjlintong
 #jianshu_username:   e71990ada2fd
 #twitter_username:   qiubaiying
 
-# Ko-fi（打赏入口）
+# Ko-fi（打赏入口 · 国际）
 ko_fi: "https://ko-fi.com/ryanlin65969"
+
+# 爱发电（打赏入口 · 中国，走支付宝/微信，适合中国大陆用户）
+afdian: "https://afdian.com/a/ryanlintong"
 
 
 

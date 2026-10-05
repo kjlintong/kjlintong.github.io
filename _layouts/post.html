@@ -85,10 +85,17 @@ layout: default
 
 
                 <!-- Sponsor 打赏 -->
-                {% if site.ko_fi %}
+                {% if site.ko_fi or site.afdian %}
                 <div class="sponsor-box text-center" style="margin:40px auto; text-align:center;">
                     <p style="margin-bottom:12px;" data-i18n="sponsor-tip">If this post helped you, a coffee is always welcome ☕</p>
-                    <a class="btn-sponsor" href="{{ site.ko_fi }}" target="_blank" rel="noopener" data-i18n="sponsor-btn"><i class="fa fa-heart" aria-hidden="true"></i> Buy me a coffee</a>
+                    <div class="btn-sponsor-group">
+                        {% if site.afdian %}
+                        <a class="btn-sponsor" href="{{ site.afdian }}" target="_blank" rel="noopener" data-i18n="sponsor-btn-zh"><i class="fa fa-heart" aria-hidden="true"></i> Afdian · China</a>
+                        {% endif %}
+                        {% if site.ko_fi %}
+                        <a class="btn-sponsor" href="{{ site.ko_fi }}" target="_blank" rel="noopener" data-i18n="sponsor-btn-intl"><i class="fa fa-heart" aria-hidden="true"></i> Ko-fi · International</a>
+                        {% endif %}
+                    </div>
                 </div>
                 {% endif %}
 

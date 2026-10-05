@@ -475,6 +475,10 @@ img { max-width: 100%; }
   transition: background 0.2s, transform 0.15s;
 }
 .btn-sponsor:hover { background: var(--accent-strong-hover); color: #fff; transform: translateY(-1px); }
+/* 双入口（国内 / 国际）并排容器：页脚、文章页、首页共用 */
+.sponsor-group, .btn-sponsor-group {
+  display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; align-items: center;
+}
 
 /* ---------- 搜索框 (blog/index.html) ---------- */
 .search-box { margin-bottom: 30px; }

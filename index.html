@@ -366,7 +366,7 @@ section { padding: 92px 0; position: relative; z-index: 1; }
 [data-theme="dark"] .footer-coords { color: var(--night-muted); }
 .footer-coords .rose { color: var(--accent-strong); }
 [data-theme="dark"] .footer-coords .rose { color: var(--rose); }
-.footer-sponsor { margin-top: 22px; }
+.footer-sponsor { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 10px; }
 .sponsor-link {
   display: inline-flex; align-items: center; gap: 8px;
   border: 1px solid var(--line); border-radius: 999px;
@@ -604,9 +604,13 @@ section { padding: 92px 0; position: relative; z-index: 1; }
         <p class="footer-brand">Tong Lin</p>
         <p class="footer-text" data-i18n="footer">© 2025 Tong Lin. Built with care, grown with love.</p>
         <p class="footer-sponsor">
-          <a href="https://ko-fi.com/ryanlin65969" class="sponsor-link" target="_blank" rel="noopener" data-i18n="sponsor">
+          <a href="https://afdian.com/a/ryanlintong" class="sponsor-link" target="_blank" rel="noopener" data-i18n="sponsor-zh">
             <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.5S1.5 10.2 1.5 5.9C1.5 3.7 3.2 2 5.4 2c1.1 0 2.1.5 2.6 1.3C8.5 2.5 9.5 2 10.6 2c2.2 0 3.9 1.7 3.9 3.9 0 4.3-6.5 8.6-6.5 8.6z"/></svg>
-            Buy me a coffee
+            Afdian · China
+          </a>
+          <a href="https://ko-fi.com/ryanlin65969" class="sponsor-link" target="_blank" rel="noopener" data-i18n="sponsor-intl">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 14.5S1.5 10.2 1.5 5.9C1.5 3.7 3.2 2 5.4 2c1.1 0 2.1.5 2.6 1.3C8.5 2.5 9.5 2 10.6 2c2.2 0 3.9 1.7 3.9 3.9 0 4.3-6.5 8.6-6.5 8.6z"/></svg>
+            Ko-fi · International
           </a>
         </p>
       </div>
@@ -664,7 +668,8 @@ const i18n = {
     'blog-label': '最新文章', 'blog-heading': '写下的东西', 'blog-view-all': '查看全部文章 →',
     'contact-desc': '无论是技术交流、开源合作，还是单纯想聊聊书和电影，都欢迎来找我。',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
-    'sponsor': '请我喝杯咖啡 ☕'
+    'sponsor-zh': '爱发电 · 中国',
+    'sponsor-intl': 'Ko-fi · 国际'
   },
   en: {
     'page-title': 'Tong Lin — Personal Website',
@@ -697,7 +702,8 @@ const i18n = {
     'blog-label': 'Latest Posts', 'blog-heading': 'Things I write', 'blog-view-all': 'View all posts →',
     'contact-desc': 'Whether it\'s technical discussion, open-source collaboration, or just chatting about books and movies — feel free to reach out.',
     'footer': '© 2025 Tong Lin. Built with care, grown with love.',
-    'sponsor': 'Buy me a coffee ☕'
+    'sponsor-zh': 'Afdian · China',
+    'sponsor-intl': 'Ko-fi · International'
   }
 };
 (function () {

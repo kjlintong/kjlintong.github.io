@@ -28,10 +28,11 @@ Giscus 留言板、SEO 全套优化、GA4 统计、GitHub Sponsors 打赏。
 - 替换后文章页 / 关于页 / keynote 页的评论区即可正常工作（当前显示"giscus is not installed"属预期，说明集成是活的，配置后即消失）。
 - ⚠️ **安全提醒**：原 `_config.yml` 里 Gitalk 的 `clientSecret` 明文泄露在公开仓库，本次已全部移除并更换为 Giscus（Giscus 无需暴露任何密钥，更安全）。
 
-### 3. Ko-fi 打赏链接
-- 文件：`_config.yml` 的 `ko_fi: "https://ko-fi.com/ryanlin65969"`
-- 前提：Ko-fi 账号（[ko-fi.com/ryanlin65969](https://ko-fi.com/ryanlin65969)）。
+### 3. 打赏链接（双通道）
+- 文件：`_config.yml` 的 `ko_fi: "https://ko-fi.com/ryanlin65969"`（国际）与 `afdian: "https://afdian.com/a/ryanlintong"`（中国）。
+- 前提：Ko-fi 账号（[ko-fi.com/ryanlin65969](https://ko-fi.com/ryanlin65969)）、爱发电账号（[afdian.com/a/ryanlintong](https://afdian.com/a/ryanlintong)）。
 - 2026-09-14 由 GitHub Sponsors 切换为 Ko-fi，配置键 `github_sponsors` 已更名为 `ko_fi`。
+- 2026-10-05 增加爱发电作为中国大陆用户入口（Ko-fi 不便支付），Ko-fi 保留为国际通道，两入口并排。
 
 ---
 
