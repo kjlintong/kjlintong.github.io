@@ -184,7 +184,13 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 [data-theme="dark"] .btn-ghost { background: var(--surface); }
 [data-theme="dark"] .btn-ghost:hover { background: var(--surface-hover); }
 
-/* ---------- Phone hero visual ---------- */
+/* ---------- Download counter ----------
+  .dl-count { display: none; align-items: center; gap: 6px; margin: 16px 0 0; font-size: 13px; color: var(--muted); }
+  .dl-count.show { display: flex; }
+  .dl-count svg { width: 14px; height: 14px; opacity: .85; flex: none; }
+  .dl-count .dl-num { font-weight: 700; color: var(--accent-strong); font-variant-numeric: tabular-nums; }
+
+  /* ---------- Phone hero visual ---------- */
 .hero-visual {
   position: relative; display: flex; justify-content: center;
   align-items: center; min-height: 380px;
@@ -782,6 +788,11 @@ a:focus-visible, button:focus-visible {
           </a>
         </div>
       </div>
+      <p class="dl-count" aria-live="polite">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
+        <span class="dl-num" data-dl-num>—</span>
+        <span data-i18n="dl-count-suffix">downloads</span>
+      </p>
       <div class="hero-visual" data-od-id="hero-visual">
         <span class="glow" aria-hidden="true"></span>
         <div class="phone-frame hero-phone">
@@ -1020,6 +1031,11 @@ a:focus-visible, button:focus-visible {
           <span data-i18n="btn-source-alt">Source on GitHub</span>
         </a>
       </div>
+      <p class="dl-count" aria-live="polite">
+        <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M4 21h16"/></svg>
+        <span class="dl-num" data-dl-num>—</span>
+        <span data-i18n="dl-count-suffix">downloads</span>
+      </p>
       <dl class="download-meta">
         <div class="meta-row">
           <dt class="k" data-i18n="d-ver">Version</dt>
@@ -1131,6 +1147,7 @@ Object.assign(window.I18N.en, {
   'meta-platform': 'Android APK available \u00b7 iOS not yet',
   'btn-download': 'Download APK',
   'btn-source': 'GitHub repo',
+  'dl-count-suffix': 'downloads',
 
   'shot1-img': '/assets/readnest/01-shelf.en.png',
   'shot2-img': '/assets/readnest/02-stats.en.png',
@@ -1239,6 +1256,7 @@ Object.assign(window.I18N.zh, {
   'meta-platform': 'Android APK \u5df2\u4e0a\u7ebf \u00b7 iOS \u672a\u4e0a\u7ebf',
   'btn-download': '\u4e0b\u8f7d APK',
   'btn-source': 'GitHub \u4ed3\u5e93',
+  'dl-count-suffix': '\u6b21\u4e0b\u8f7d',
 
   'shot1-img': '/assets/readnest/01-shelf.zh.png',
   'shot2-img': '/assets/readnest/02-stats.zh.png',
@@ -1391,8 +1409,33 @@ Object.assign(window.I18N.zh, {
   }
 
   // Kick off after DOM ready; wrap in a try so any failure is truly silent.
+  function setDownloadNum(n) {
+    var txt = (typeof n === 'number' && !isNaN(n)) ? n.toLocaleString('en-US') : '\u2014';
+    var nums = document.querySelectorAll('[data-dl-num]');
+    for (var i = 0; i < nums.length; i++) nums[i].textContent = txt;
+    var wraps = document.querySelectorAll('.dl-count');
+    for (var j = 0; j < wraps.length; j++) wraps[j].classList.add('show');
+  }
+
+  function fetchDownloads() {
+    return fetch(GH_API + '/releases?per_page=100', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (list) {
+        if (!Array.isArray(list)) return;
+        var apk = 0;
+        for (var i = 0; i < list.length; i++) {
+          var assets = list[i].assets || [];
+          for (var k = 0; k < assets.length; k++) {
+            if ((assets[k].name || '').indexOf('.apk') !== -1) apk += (assets[k].download_count || 0);
+          }
+        }
+        setDownloadNum(apk);
+      }).catch(function () {});
+  }
+
   function kick() {
     try { fetchRepo(); } catch (e) {}
+    try { fetchDownloads(); } catch (e) {}
   }
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', kick);
