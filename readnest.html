@@ -16,7 +16,7 @@ window.__i18nExtra = window.__i18nExtra || [];
 window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 </script>
 <title data-i18n="page-title">Readnest — A local-first reading companion</title>
-<meta name="description" content="Readnest is a reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync. Import from WeRead, Goodreads, CSV, or a photo of your bookshelf. v1.0.0, MIT, Android APK available, five interface languages.">
+<meta name="description" content="Readnest is a reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync. Import from WeRead, Goodreads, CSV, or a photo of your bookshelf. v1.1.0, MIT, Android APK available, five interface languages.">
 <meta name="keywords" content="Readnest, reading tracker, reading log, local-first, Flutter, SQLite, WeRead, OCR, privacy, MIT, Android app, reading plan, bookshelf">
 <link rel="shortcut icon" href="/img/favicon.ico">
 <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
@@ -33,7 +33,7 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
   "operatingSystem": "ANDROID",
   "applicationCategory": "ProductivityApplication",
   "url": "https://kjlintong.github.io/readnest.html",
-  "softwareVersion": "1.0.0",
+  "softwareVersion": "1.1.0",
   "description": "A reading log built with Flutter. Books, notes, and reading plans live in a SQLite database on your own phone — no account, no server, no cloud sync.",
   "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
   "license": "https://github.com/kjlintong/reading-tracker#readme",
@@ -49,12 +49,12 @@ window.__i18nPush = function (o) { window.__i18nExtra.push(o); };
 <meta property="og:site_name" content="Readnest">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Readnest — a reading log that lives on your phone">
-<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Goodreads, CSV, or a bookshelf photo. v1.0.0 · MIT.">
+<meta property="og:description" content="Flutter + SQLite, no account, no server. Import from WeRead, Goodreads, CSV, or a bookshelf photo. v1.1.0 · MIT.">
 <meta property="og:url" content="https://kjlintong.github.io/readnest.html">
 <meta property="og:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Readnest — a reading log that lives on your phone">
-<meta name="twitter:description" content="Flutter + SQLite, no account, no server, no cloud sync. v1.0.0 · MIT.">
+<meta name="twitter:description" content="Flutter + SQLite, no account, no server, no cloud sync. v1.1.0 · MIT.">
 <meta name="twitter:image" content="https://kjlintong.github.io/assets/readnest/01-shelf.zh.png">
 <style>
 /* ============================================================
@@ -766,7 +766,7 @@ a:focus-visible, button:focus-visible {
           Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone — no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.
         </p>
         <div class="hero-meta">
-          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v1.0.0 released</span></span>
+          <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-version">v1.1.0 released</span></span>
           <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-langs">Five interface languages</span></span>
           <span class="pill"><span class="pill-dot brick" aria-hidden="true"></span><span data-i18n="meta-license">MIT licensed, open source</span></span>
           <span class="pill"><span class="pill-dot" aria-hidden="true"></span><span data-i18n="meta-platform">Android APK available · iOS not yet</span></span>
@@ -840,7 +840,7 @@ a:focus-visible, button:focus-visible {
           </span>
           <h3 class="feature-title" data-i18n="f4-title">Category unification</h3>
         </div>
-        <p class="feature-body" data-i18n="f4-body">WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories, so a single subject does not show up as two separate slices in your statistics.</p>
+        <p class="feature-body" data-i18n="f4-body">WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories — which you can rename, remove, or add to — so a single subject does not show up as two separate slices in your statistics.</p>
       </article>
 
       <article class="feature-cell" data-od-id="feature-plans">
@@ -881,6 +881,16 @@ a:focus-visible, button:focus-visible {
           <h3 class="feature-title" data-i18n="f8-title">AI reading report</h3>
         </div>
         <p class="feature-body" data-i18n="f8-body">You pick the model. It receives statistics Readnest has already worked out locally — counts and percentages, never a book title or a line of your notes — and it is told not to invent numbers it was not given. Yearly and monthly reports are kept so you can read them again, in four voices or one of your own.</p>
+      </article>
+
+      <article class="feature-cell" data-od-id="feature-upkeep">
+        <div class="feature-head">
+          <span class="feature-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M4 6h10"/><path d="M4 12h10"/><path d="M4 18h6"/><path d="M17 4l3 3-7 7-3 1 1-3z"/></svg>
+          </span>
+          <h3 class="feature-title" data-i18n="f9-title">Keeping the shelf tidy</h3>
+        </div>
+        <p class="feature-body" data-i18n="f9-body">Delete a book that was a mistake — anything you wrote under it is kept, not swept away with it. Filter the shelf by the tags on your books, and edit the category list itself: rename one, remove one, or add one of your own. Books in a category you remove move to Uncategorized rather than vanishing.</p>
       </article>
 
     </div>
@@ -997,7 +1007,7 @@ a:focus-visible, button:focus-visible {
 
     <aside class="download-card" data-od-id="download-card" style="max-width:640px">
       <div class="download-head">
-        <p class="download-title" data-i18n="d-title">Readnest v1.0.0</p>
+        <p class="download-title" data-i18n="d-title">Readnest v1.1.0</p>
         <span class="download-tag" data-i18n="d-tag">Released</span>
       </div>
       <div class="download-actions">
@@ -1013,7 +1023,7 @@ a:focus-visible, button:focus-visible {
       <dl class="download-meta">
         <div class="meta-row">
           <dt class="k" data-i18n="d-ver">Version</dt>
-          <dd class="v">v1.0.0</dd>
+          <dd class="v">v1.1.0</dd>
         </div>
         <div class="meta-row">
           <dt class="k" data-i18n="d-plat">Platform</dt>
@@ -1116,7 +1126,7 @@ Object.assign(window.I18N.en, {
   'hero-kicker': 'A reading log that stays on your phone',
   'hero-subtitle': 'Your shelf, your notes, and your reading plans \u2014 stored on your phone.',
   'hero-desc': 'Readnest is a reading log built with Flutter. Everything lives in a SQLite database on your own phone \u2014 no sign-up, no network calls, no server. Import an existing shelf from WeRead, Goodreads, a CSV file, or a photo of your bookshelf.',
-  'meta-version': 'v1.0.0 released',
+  'meta-version': 'v1.1.0 released',
   'meta-license': 'MIT licensed, open source',
   'meta-platform': 'Android APK available \u00b7 iOS not yet',
   'btn-download': 'Download APK',
@@ -1137,7 +1147,7 @@ Object.assign(window.I18N.en, {
   'f3-title': 'Merging duplicates',
   'f3-body': 'Two imports of the same book become one record. ISBN decides when it is there; otherwise Readnest falls back to <strong>title plus first author</strong>. Only blank fields are filled in, so a rating or summary you typed yourself is never overwritten.',
   'f4-title': 'Categories that line up',
-  'f4-body': 'WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories, so a single subject does not show up as two separate slices in your statistics.',
+  'f4-body': 'WeRead calls a shelf <em>Bestsellers</em> or <em>Growth</em>; Goodreads calls the same shelf <em>Self Help</em>. A table of 127 aliases maps names like those onto one list of 20 categories — which you can rename, remove, or add to — so a single subject does not show up as two separate slices in your statistics.',
   'f5-title': 'Reading plans',
   'f5-body': 'A daily plan is a repeating task, not a one-off. Tick today and it comes back tomorrow; the plan is only archived when you decide the whole thing is finished. Reminders are scheduled on the device, so they arrive without a network connection.',
   'f6-title': 'Reading statistics',
@@ -1145,6 +1155,8 @@ Object.assign(window.I18N.en, {
   'f7-title': 'Reading profile',
   'f7-body': 'A bubble chart of the categories you actually read, plus personality tags you can add, edit, or delete yourself. Both can be exported as an image \u2014 send it to someone, or keep it in your photo album.',
   'f8-title': 'AI reading report',
+  'f9-title': 'Keeping the shelf tidy',
+  'f9-body': 'Delete a book that was a mistake \u2014 anything you wrote under it is kept, not swept away with it. Filter the shelf by the tags on your books, and edit the category list itself: rename one, remove one, or add one of your own. Books in a category you remove move to Uncategorized rather than vanishing.',
   'f8-body': '\u4f60\u81ea\u5df1\u9009\u5927\u6a21\u578b\u3002\u53d1\u7ed9\u5b83\u7684\u662f Readnest \u5728\u672c\u5730\u5df2\u7ecf\u7b97\u597d\u7684\u7edf\u8ba1\u6570\u5b57\uff0c\u6700\u591a\u5c31\u662f\u4e2a\u6bd4\u4f8b\uff0c\u4e0d\u542b\u4efb\u4f55\u4e66\u540d\u548c\u7b14\u8bb0\u539f\u6587\uff0c\u5e76\u4e14\u4f1a\u63d0\u9192\u5b83\u4e0d\u8981\u7f16\u9020\u6570\u5b57\u3002\u5e74\u62a5\u3001\u6708\u62a5\u4f1a\u5b58\u4e0b\u6765\u65e5\u540e\u53ef\u4ee5\u91cd\u65b0\u7ffb\u770b\uff0c\u8bed\u6c14\u6709\u56db\u79cd\uff0c\u4e5f\u80fd\u81ea\u5df1\u5199\u3002',
 
   'gallery-label': 'Screens',
@@ -1169,7 +1181,7 @@ Object.assign(window.I18N.en, {
 
   'build-label': 'GitHub \u00b7 Build \u00b7 Download',
   'build-heading': 'Where the code is, and how to build it',
-  'd-title': 'Readnest v1.0.0',
+  'd-title': 'Readnest v1.1.0',
   'd-tag': 'Released',
   'btn-download-release': 'Get the APK',
   'btn-source-alt': 'Source & docs',
@@ -1222,7 +1234,7 @@ Object.assign(window.I18N.zh, {
   'hero-kicker': '\u4e00\u4e2a\u5b58\u5728\u624b\u673a\u91cc\u7684\u9605\u8bfb\u8bb0\u5f55',
   'hero-subtitle': '\u4e66\u67b6\u3001\u7b14\u8bb0\u3001\u9605\u8bfb\u8ba1\u5212\uff0c\u90fd\u5b58\u5728\u4f60\u7684\u624b\u673a\u91cc\u3002',
   'hero-desc': 'Readnest \u662f\u4e00\u4e2a\u7528 Flutter \u5199\u7684\u9605\u8bfb\u8bb0\u5f55 App\u3002\u6570\u636e\u5168\u90e8\u5b58\u5728\u4f60\u81ea\u5df1\u624b\u673a\u4e0a\u7684 SQLite \u6570\u636e\u5e93\u91cc\uff0c\u4e0d\u8981\u6ce8\u518c\u3001\u4e0d\u8fde\u670d\u52a1\u5668\u3001\u4e0d\u4e0a\u4f20\u3002\u4e5f\u53ef\u4ee5\u4ece\u5fae\u4fe1\u8bfb\u4e66\u3001Goodreads\u3001CSV \u6587\u4ef6\u6216\u4e66\u67b6\u7167\u7247\u5bfc\u5165\u3002',
-  'meta-version': 'v1.0.0 \u5df2\u53d1\u5e03',
+  'meta-version': 'v1.1.0 \u5df2\u53d1\u5e03',
   'meta-license': 'MIT \u534f\u8bae\uff0c\u5f00\u6e90',
   'meta-platform': 'Android APK \u5df2\u4e0a\u7ebf \u00b7 iOS \u672a\u4e0a\u7ebf',
   'btn-download': '\u4e0b\u8f7d APK',
@@ -1243,7 +1255,7 @@ Object.assign(window.I18N.zh, {
   'f3-title': '\u91cd\u590d\u7684\u4e66\u81ea\u52a8\u5408\u5e76',
   'f3-body': '\u540c\u4e00\u672c\u4e66\u5bfc\u4e24\u6b21\u53ea\u4f1a\u7559\u4e00\u6761\u8bb0\u5f55\u3002\u6709 ISBN \u65f6\u6309 ISBN \u5224\u65ad\uff0c\u6ca1\u6709\u5c31\u6309<strong>\u4e66\u540d\u52a0\u7b2c\u4e00\u4f5c\u8005</strong>\u5339\u914d\u3002\u53ea\u8865\u7a7a\u767d\u7684\u5b57\u6bb5\uff0c\u4f60\u81ea\u5df1\u586b\u7684\u8bc4\u5206\u548c\u7b80\u4ecb\u4e0d\u4f1a\u88ab\u8986\u76d6\u3002',
   'f4-title': '\u5206\u7c7b\u7edf\u4e00\u53e3\u5f84',
-  'f4-body': '\u5fae\u4fe1\u8bfb\u4e66\u628a\u67d0\u4e2a\u4e66\u67b6\u53eb\u201c\u7ecf\u5178\u7b7e\u5356\u201d\u6216\u201c\u4e2a\u4eba\u6210\u957f\u201d\uff0cGoodreads \u53ef\u80fd\u53eb\u201c\u81ea\u52a9\u6210\u957f\u201d\u3002127 \u6761\u522b\u540d\u6620\u5c04\u4f1a\u628a\u8fd9\u7c7b\u540d\u5b57\u6536\u5230\u56fa\u5b9a\u7684 20 \u4e2a\u54c1\u724c\u8bcd\u8868\u91cc\uff0c\u8fd9\u6837\u540c\u4e00\u4e2a\u8bfb\u7269\u4e0d\u4f1a\u5728\u7edf\u8ba1\u91cc\u88ab\u5272\u6210\u4e24\u5757\u3002',
+  'f4-body': '\u5fae\u4fe1\u8bfb\u4e66\u628a\u67d0\u4e2a\u4e66\u67b6\u53eb\u201c\u7ecf\u5178\u7b7e\u5356\u201d\u6216\u201c\u4e2a\u4eba\u6210\u957f\u201d\uff0cGoodreads \u53ef\u80fd\u53eb\u201c\u81ea\u52a9\u6210\u957f\u201d\u3002127 \u6761\u522b\u540d\u6620\u5c04\u4f1a\u628a\u8fd9\u7c7b\u540d\u5b57\u6536\u5230\u4e00\u5f20 20 \u4e2a\u8bcd\u7684\u53d7\u63a7\u8bcd\u8868\u91cc\uff08\u53ef\u4ee5\u6539\u540d\u3001\u5220\u6389\u6216\u65b0\u589e\uff09\uff0c\u8fd9\u6837\u540c\u4e00\u4e2a\u8bfb\u7269\u4e0d\u4f1a\u5728\u7edf\u8ba1\u91cc\u88ab\u5272\u6210\u4e24\u5757\u3002',
   'f5-title': '\u9605\u8bfb\u8ba1\u5212',
   'f5-body': '\u6bcf\u65e5\u8ba1\u5212\u662f\u5468\u671f\u6027\u4efb\u52a1\uff0c\u4e0d\u662f\u4e00\u6b21\u6027\u7684\u4efb\u52a1\u3002\u4eca\u5929\u6253\u5361\uff0c\u660e\u5929\u8fd8\u4f1a\u518d\u51fa\u73b0\uff1b\u6574\u4e2a\u8ba1\u5212\u7ed3\u675f\u65f6\u624d\u5f52\u6863\u3002\u63d0\u9192\u7531\u624b\u673a\u672c\u5730\u6392\u7a0b\uff0c\u4e0d\u9700\u8981\u7f51\u7edc\u4e5f\u80fd\u5230\u65f6\u63d0\u9192\u3002',
   'f6-title': '\u9605\u8bfb\u7edf\u8ba1',
@@ -1251,6 +1263,8 @@ Object.assign(window.I18N.zh, {
   'f7-title': '\u9605\u8bfb\u6863\u6848',
   'f7-body': '\u4e00\u5f20\u6c14\u6ce1\u56fe\u5448\u73b0\u4f60\u5b9e\u9645\u8bfb\u8fc7\u7684\u54c1\u724c\uff0c\u52a0\u4e0a\u53ef\u4ee5\u81ea\u5df1\u589e\u5220\u6539\u7684\u6027\u683c\u6807\u7b7e\u3002\u4e24\u8005\u90fd\u80fd\u5bfc\u51fa\u6210\u56fe\u7247\uff0c\u53d1\u7ed9\u522b\u4eba\u6216\u5b58\u8fdb\u624b\u673a\u76f8\u518c\u3002',
   'f8-title': 'AI \u9605\u8bfb\u62a5\u544a',
+  'f9-title': '\u6574\u7406\u4e66\u67b6',
+  'f9-body': '\u5bfc\u9519\u4e86\u5c31\u5220\u6389\uff1a\u4e66\u4f1a\u6d88\u5931\uff0c\u4f46\u4f60\u5728\u5b83\u4e0b\u9762\u5199\u7684\u7b14\u8bb0\u4f1a\u7559\u4e0b\u6765\u3002\u4e66\u67b6\u53ef\u4ee5\u6309\u4e66\u4e0a\u7684\u6807\u7b7e\u7b5b\u9009\uff1b\u5206\u7c7b\u8bcd\u8868\u672c\u8eab\u4e5f\u80fd\u6539\u2014\u2014\u6539\u540d\u3001\u5220\u6389\u3001\u6216\u8005\u6dfb\u52a0\u4f60\u81ea\u5df1\u7684\u5206\u7c7b\u3002\u88ab\u5220\u6389\u7684\u5206\u7c7b\u91cc\u7684\u4e66\u4f1a\u79fb\u5230\u201c\u672a\u5206\u7c7b\u201d\uff0c\u4e0d\u4f1a\u51ed\u7a7a\u6d88\u5931\u3002',
   'f8-body': '\u4f60\u81ea\u5df1\u9009\u5927\u6a21\u578b\u3002\u53d1\u7ed9\u5b83\u7684\u662f Readnest \u5728\u672c\u5730\u5df2\u7ecf\u7b97\u597d\u7684\u7edf\u8ba1\u6570\u5b57\uff0c\u6700\u591a\u5c31\u662f\u4e2a\u6bd4\u4f8b\uff0c\u4e0d\u542b\u4efb\u4f55\u4e66\u540d\u548c\u7b14\u8bb0\u539f\u6587\uff0c\u5e76\u4e14\u4f1a\u63d0\u9192\u5b83\u4e0d\u8981\u7f16\u9020\u6570\u5b57\u3002\u5e74\u62a5\u3001\u6708\u62a5\u4f1a\u5b58\u4e0b\u6765\u65e5\u540e\u53ef\u4ee5\u91cd\u65b0\u7ffb\u770b\uff0c\u8bed\u6c14\u6709\u4e94\u79cd\uff0c\u4e5f\u80fd\u81ea\u5b9a\u4e49\u3002',
 
   'gallery-label': '\u754c\u9762',
@@ -1275,7 +1289,7 @@ Object.assign(window.I18N.zh, {
 
   'build-label': 'GitHub \u00b7 \u6784\u5efa \u00b7 \u4e0b\u8f7d',
   'build-heading': '\u4ee3\u7801\u5728\u54ea\u91cc\uff0c\u600e\u4e48\u81ea\u5df1\u7f16\u8bd1',
-  'd-title': 'Readnest v1.0.0',
+  'd-title': 'Readnest v1.1.0',
   'd-tag': '\u5df2\u53d1\u5e03',
   'btn-download-release': '\u4e0b\u8f7d APK',
   'btn-source-alt': '\u6e90\u7801\u4e0e\u6587\u6863',
