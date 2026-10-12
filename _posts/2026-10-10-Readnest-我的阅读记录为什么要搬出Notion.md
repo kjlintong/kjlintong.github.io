@@ -120,7 +120,7 @@ tags:
 
 | 项 | 情况 |
 |----|------|
-| 版本 | v1.0.0,Android 安装包在 [GitHub Releases](https://github.com/kjlintong/reading-tracker/releases) |
+| 版本 | v1.0.1,Android 安装包在 [GitHub Releases](https://github.com/kjlintong/reading-tracker/releases) |
 | 语言 | English、中文、Deutsch、Français、Español |
 | 皮肤 | 12 套,6 套纯色加 6 套贴图背景 |
 | 协议 | [MIT](https://github.com/kjlintong/reading-tracker) |
